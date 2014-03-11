@@ -1,9 +1,20 @@
 package com.iss.storeApplication;
 
+import javax.swing.SwingUtilities;
+
+import com.iss.storeApplication.view.MainView;
+
+
 public class StoreApps {
 
 	public static void main(String[] args) {
-		System.out.println("Hello Luke");
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				MainView inst = new MainView();
+				inst.setLocationRelativeTo(null);
+				inst.setVisible(true);
+			}
+		});
 
 	}
 
