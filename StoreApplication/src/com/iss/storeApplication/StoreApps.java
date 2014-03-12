@@ -15,6 +15,7 @@ public class StoreApps {
 				inst.setLocationRelativeTo(null);
 				inst.setVisible(true);
 				inst.setExtendedState(inst.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+				inst.display();
 			}
 		});
 
