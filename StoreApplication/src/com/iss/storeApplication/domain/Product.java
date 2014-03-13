@@ -1,6 +1,6 @@
 package com.iss.storeApplication.domain;
 
-public class Product {
+public class Product implements java.io.Serializable{
 
 	private String productId;
 	private String productName;
