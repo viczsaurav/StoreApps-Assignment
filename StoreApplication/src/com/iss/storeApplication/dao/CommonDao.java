@@ -21,8 +21,8 @@ import sun.reflect.FieldInfo;
 
 public class CommonDao {
 
-	public static <T, Z> boolean save(T Dao, Z z) {
-		String fpath = z.toString();
+	public static <T, Z> boolean save(T Dao, Z filePath) {
+		String fpath = filePath.toString();
 			try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fpath, true)))) {
 			    out.println(CommonDao.toCsv(Dao));
 			    out.close();
