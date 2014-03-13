@@ -18,8 +18,6 @@ public abstract class Customer {
 	public void setLoyality(Integer loyality) {
 		this.loyality = loyality;
 	}
-
-
 	
 	private String memberName;
 	
