@@ -14,12 +14,12 @@ public  class CommonDao {
 	public static <T> boolean save(T Dao, String fileName) {
 		
 			try {
-				File file=new File(Constansts.FILE_DIR,fileName);
+				File file=new File(Constansts.DATA_FILE_DIR,fileName);
 				if(!file.exists())
 				{
 					file.createNewFile();
 				}
-				PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(Constansts.FILE_DIR+Constansts.SEPERATOR+fileName, true)));
+				PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
 			    out.println(CommonDao.objectToCsv(Dao));
 			    out.close();
 			}
@@ -38,7 +38,7 @@ public  class CommonDao {
 			try {
 				fields[i].setAccessible(true);
 				Object fieldValue = fields[i].get(o);
-				sb.append(fieldValue).append(Constansts.DELIMITER);
+				sb.append(fieldValue).append(Constansts.COMMA_DELIMITER);
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 			} catch (SecurityException e) {

@@ -1,5 +1,7 @@
 package com.iss.storeApplication.view;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.GridLayout;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
