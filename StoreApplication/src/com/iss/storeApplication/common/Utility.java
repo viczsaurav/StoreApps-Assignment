@@ -7,6 +7,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * 
+ * @author milan
+ *
+ */
 public class Utility {
 
 	private static Properties prop = new Properties();
@@ -36,7 +41,4 @@ public class Utility {
 		return prop.get(key).toString();
 	}
 	
-	public static void main(String[] args) {
-		System.out.println(Utility.getPropertyValue(Constansts.CATEGORY_NAME));
-	}
 }
