@@ -14,9 +14,7 @@ public class Utility {
 	static{
 		InputStream input;
 		try {
-			//URL url = Utility.class.getResource(Constansts.PROPERTY_FILE_NAME);
 			File file=new File(Constansts.PROPERTY_FILE_DIR,Constansts.PROPERTY_FILE_NAME);
-			file.getAbsoluteFile();
 			if(!file.exists())
 			{
 				file.createNewFile();
@@ -39,6 +37,6 @@ public class Utility {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(Utility.getPropertyValue(Constansts.PRODUCT_NAME));
+		System.out.println(Utility.getPropertyValue(Constansts.CATEGORY_NAME));
 	}
 }

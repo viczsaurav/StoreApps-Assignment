@@ -13,4 +13,5 @@ public interface Constansts {
 	public static final String PRODUCT_FILE_NAME="Products";
 	public static final String EXTENSION="dat";
 	public static final String FILE_EXT_SEPERATOR=".";
+	public static final String CATEGORY_NAME="CategoryName";
 }
