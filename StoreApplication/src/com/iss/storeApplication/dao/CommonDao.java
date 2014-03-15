@@ -2,13 +2,13 @@ package com.iss.storeApplication.dao;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,25 +61,24 @@ public  class CommonDao {
 	public static <T> List<T> retrieveAllRecordArray(String fileName,Class t) throws InstantiationException, IllegalAccessException
 	{
 		//Create Instances of all objects		
-		List<String []> objStrList = new ArrayList<String[]>();
 		String[] elements = null;		
 		File file=new File(Constansts.DATA_FILE_DIR,fileName);	
 		if(file.exists())
 		{		
-		Class c1= t;
-		Object classobj = t;
+		Object classobj;
 		Field[] fields = t.getDeclaredFields();	
 		List<T> objList = new ArrayList<T>();	
 		try{
 			BufferedReader br = new BufferedReader(new FileReader(file));
 		    for(String line; (line = br.readLine()) != null; ) {
-		    	classobj = c1.newInstance();
+		    	classobj = t.newInstance();
 		        elements = line.split(",");
 		        for(int i=0;i<elements.length;i++)
 				{
+		        	//Typecasting fields appropriately
 				fields[i].setAccessible(true);
-				fields[i].set(classobj,elements[i]);
-				System.out.println(fields[i].get(classobj));
+				fields[i].set(classobj,fields[i].getType().cast(elements[i]));
+				//System.out.println(fields[i].get(classobj));
 				}
 		        objList.add((T)classobj);
 		    }		
