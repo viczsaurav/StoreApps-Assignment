@@ -1,9 +1,22 @@
 package com.iss.storeApplication;
 
-public class StoreApps {
+import java.awt.Color;
+import java.awt.Graphics;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
+import com.iss.storeApplication.view.MainView;
+
+public class StoreApps {
+	
 	public static void main(String[] args) {
-		System.out.println("Hello Luke");
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				MainView mainView = new MainView();			
+				mainView.showLoginView();
+				mainView.addDefaultToolbar();
+				}
+		});
 
 	}
 
