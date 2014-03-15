@@ -19,12 +19,17 @@ public MainView() {
 		setTitle("University Souvenir Store Application - SE224FT");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		
 	}
 
 	public void showLoginView() {
 		
 		LoginPopupView.showLoginDialog(this);
 		
+	}
+	
+	public void addDefaultToolbar(){
+		ToolBarView.addToolBar(this);
 	}
 
 }
