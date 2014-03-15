@@ -66,7 +66,7 @@ public class CategoryView extends JPanel {
 						    String categoryCode = field1.getText();  
 						    String categoryName = field2.getText();  
 						    System.out.println("categoryCode:"+categoryCode);
-						    System.out.println("categoryCode:"+categoryName);
+						    System.out.println("categoryName:"+categoryName);
 						} 
 
 			}
