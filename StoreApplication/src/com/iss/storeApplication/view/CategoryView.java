@@ -27,15 +27,15 @@ public class CategoryView extends JPanel {
 	/**
 	 * Create the frame.
 	 */
-	
-	
+	 public JTable table;
+	 DefaultTableModel model;
 	public CategoryView() {
 		setBounds(100, 100, 580, 242);
-		
+
 		setLayout(new BorderLayout());
 
 		jPanelExtract();
-		
+
 
 
 	}
@@ -51,7 +51,7 @@ public class CategoryView extends JPanel {
 		btnGetRowSelected.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 //						JOptionPane. showInputDialog(null, "hello");
-						
+
 						JTextField field1 = new JTextField();  
 						JTextField field2 = new JTextField();  
  
@@ -66,7 +66,8 @@ public class CategoryView extends JPanel {
 						    String categoryCode = field1.getText();  
 						    String categoryName = field2.getText();  
 						    System.out.println("categoryCode:"+categoryCode);
-						    System.out.println("categoryCode:"+categoryName);
+						    System.out.println("categoryName:"+categoryName);
+						    freshCategory(model);
 						} 
 
 			}
@@ -76,11 +77,11 @@ public class CategoryView extends JPanel {
 		add(north,BorderLayout.NORTH);
 		add(scrollPane);
 		// Table
-		final JTable table = new JTable();
+		 table = new JTable();
 		scrollPane.setViewportView(table);
 
 		// Model for Table
-		DefaultTableModel model = new DefaultTableModel() {
+		 model = new DefaultTableModel() {
 
 			public Class<?> getColumnClass(int column) {
 				switch (column) {
@@ -93,24 +94,27 @@ public class CategoryView extends JPanel {
 					return String.class;
 				}
 			}
-			
+
 			  @Override
 			    public boolean isCellEditable(int row, int column) {
 			        return false;
 			    }
 		};
+
+
+
+		table.setModel(model);
+
+		model.addColumn("CategoryID");
+		model.addColumn("Name");
 		
-		
-		CommonDao d1=new CommonDao();
-		String[] strc1= null;
+		freshCategory(model);
+	}
+
+	private void freshCategory(DefaultTableModel model) {
 		List<Category> cat1=new ArrayList<Category>();
 		try {
-			cat1 = d1.retrieveAllRecordArray("Category.dat",Category.class);
-			table.setModel(model);
-
-			model.addColumn("CategoryID");
-			model.addColumn("Name");
-
+			cat1 = CommonDao.retrieveAllRecordArray("Category.dat",Category.class);
 			// Data Row
 			int i = 0 ;
 			for (Category entry:cat1) {
@@ -119,7 +123,7 @@ public class CategoryView extends JPanel {
 				model.setValueAt(entry.getCategoryName(), i, 1);
 				i++;
 			}
-			
+
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -128,7 +132,7 @@ public class CategoryView extends JPanel {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
+
+
+
 }

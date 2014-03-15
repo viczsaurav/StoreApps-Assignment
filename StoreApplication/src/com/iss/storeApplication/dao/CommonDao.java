@@ -17,7 +17,7 @@ import com.iss.storeApplication.domain.*;
 
 public  class CommonDao {
 
-	public static <T> boolean save(T Dao, String fileName) {
+	public static <T> boolean WriteToFile(T Dao, String fileName) {
 		
 			try {
 				File file=new File(Constansts.DATA_FILE_DIR,fileName);
