@@ -17,10 +17,6 @@ import javax.swing.table.DefaultTableModel;
 import com.iss.storeApplication.dao.CommonDao;
 import com.iss.storeApplication.domain.Category;
 
-	/*
-	 * author Luke
-	 */
-
 public class CategoryView extends JPanel {
 
 	/**
@@ -31,15 +27,15 @@ public class CategoryView extends JPanel {
 	/**
 	 * Create the frame.
 	 */
-	
-	
+
+
 	public CategoryView() {
 		setBounds(100, 100, 580, 242);
-		
+
 		setLayout(new BorderLayout());
 
 		jPanelExtract();
-		
+
 
 
 	}
@@ -55,7 +51,7 @@ public class CategoryView extends JPanel {
 		btnGetRowSelected.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 //						JOptionPane. showInputDialog(null, "hello");
-						
+
 						JTextField field1 = new JTextField();  
 						JTextField field2 = new JTextField();  
  
@@ -97,14 +93,14 @@ public class CategoryView extends JPanel {
 					return String.class;
 				}
 			}
-			
+
 			  @Override
 			    public boolean isCellEditable(int row, int column) {
 			        return false;
 			    }
 		};
-		
-		
+
+
 		CommonDao d1=new CommonDao();
 		String[] strc1= null;
 		List<Category> cat1=new ArrayList<Category>();
@@ -123,7 +119,7 @@ public class CategoryView extends JPanel {
 				model.setValueAt(entry.getCategoryName(), i, 1);
 				i++;
 			}
-			
+
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -132,7 +128,7 @@ public class CategoryView extends JPanel {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
+
+
+
 }
