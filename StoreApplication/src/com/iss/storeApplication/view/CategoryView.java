@@ -27,8 +27,8 @@ public class CategoryView extends JPanel {
 	/**
 	 * Create the frame.
 	 */
-
-
+	 public JTable table;
+	 DefaultTableModel model;
 	public CategoryView() {
 		setBounds(100, 100, 580, 242);
 
@@ -67,6 +67,7 @@ public class CategoryView extends JPanel {
 						    String categoryName = field2.getText();  
 						    System.out.println("categoryCode:"+categoryCode);
 						    System.out.println("categoryName:"+categoryName);
+						    freshCategory(model);
 						} 
 
 			}
@@ -76,11 +77,11 @@ public class CategoryView extends JPanel {
 		add(north,BorderLayout.NORTH);
 		add(scrollPane);
 		// Table
-		final JTable table = new JTable();
+		 table = new JTable();
 		scrollPane.setViewportView(table);
 
 		// Model for Table
-		DefaultTableModel model = new DefaultTableModel() {
+		 model = new DefaultTableModel() {
 
 			public Class<?> getColumnClass(int column) {
 				switch (column) {
@@ -101,16 +102,19 @@ public class CategoryView extends JPanel {
 		};
 
 
-		CommonDao d1=new CommonDao();
-		String[] strc1= null;
+
+		table.setModel(model);
+
+		model.addColumn("CategoryID");
+		model.addColumn("Name");
+		
+		freshCategory(model);
+	}
+
+	private void freshCategory(DefaultTableModel model) {
 		List<Category> cat1=new ArrayList<Category>();
 		try {
-			cat1 = d1.retrieveAllRecordArray("Category.dat",Category.class);
-			table.setModel(model);
-
-			model.addColumn("CategoryID");
-			model.addColumn("Name");
-
+			cat1 = CommonDao.retrieveAllRecordArray("Category.dat",Category.class);
 			// Data Row
 			int i = 0 ;
 			for (Category entry:cat1) {
