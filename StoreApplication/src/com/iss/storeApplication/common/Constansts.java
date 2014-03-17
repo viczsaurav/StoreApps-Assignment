@@ -15,4 +15,13 @@ public interface Constansts {
 	public static final String FILE_EXT_SEPERATOR=".";
 	public static final String CATEGORY_NAME="CategoryName";
 	public static final String LOGIN_DIALOG_TITLE = "";
+	
+	// Toolbar Button Lables
+	public static final String CATEGORYBUTTONLBL = "Category";
+	public static final String MEMBERBUTTONLBL = "Members";
+	public static final String DISCOUNTBUTTONLBL = "Discount";
+	public static final String PURCHASEORDERBUTTONLBL = "Purchase Order";
+	public static final String PRODUCTBUTTONLBL = "Products";
+	public static final String REPORTBUTTONLBL = "Reports";
+	public static final String LOGOUTBUTTONLBL = "Logout";
 }

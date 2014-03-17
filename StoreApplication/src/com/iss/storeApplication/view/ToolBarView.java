@@ -5,20 +5,14 @@ import java.awt.event.*;
 import java.net.URL;
 
 import javax.swing.*;
+
+import com.iss.storeApplication.common.Constansts;
+import com.iss.storeApplication.common.Utility;
 	/*
 	 * @author Saurav
 	 */
 public class ToolBarView extends JToolBar
 				implements	ActionListener	{
-	
-	// button names
-	private static String category_button = "Category";
-	private static String member_button = "Members";
-	private static String discount_button = "Discount";
-	private static String purchaseOrder_button = "Purchase Order";
-	private static String product_button = "Products";
-	private static String report_button = "Reports";
-	private static String logout_button = "Logout";
 	
 	public ToolBarView(){
 		addToolBar();
@@ -27,17 +21,14 @@ public class ToolBarView extends JToolBar
 	public void addToolBar() {
 		
 		try {
-			//	Set Preferred Size
-				setPreferredSize(new java.awt.Dimension(400, 40));
-				
 			// Adding Buttons
-				add(addButton(category_button));
-				add(addButton(member_button));
-				add(addButton(discount_button));
-				add(addButton(purchaseOrder_button));
-				add(addButton(product_button));
-				add(addButton(report_button));
-				add(addButton(logout_button));
+				add(addButton(Utility.getPropertyValue(Constansts.CATEGORYBUTTONLBL)));
+				add(addButton(Utility.getPropertyValue(Constansts.MEMBERBUTTONLBL)));
+				add(addButton(Utility.getPropertyValue(Constansts.DISCOUNTBUTTONLBL)));
+				add(addButton(Utility.getPropertyValue(Constansts.PURCHASEORDERBUTTONLBL)));
+				add(addButton(Utility.getPropertyValue(Constansts.PRODUCTBUTTONLBL)));
+				add(addButton(Utility.getPropertyValue(Constansts.REPORTBUTTONLBL)));
+				add(addButton(Utility.getPropertyValue(Constansts.LOGOUTBUTTONLBL)));
 				
 		}
 		catch (Exception e) {

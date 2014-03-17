@@ -6,12 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import com.iss.storeApplication.dao.CommonDao;
@@ -31,9 +26,7 @@ public class CategoryView extends JPanel {
 	 DefaultTableModel model;
 	public CategoryView() {
 		setBounds(100, 100, 580, 242);
-
 		setLayout(new BorderLayout());
-
 		jPanelExtract();
 
 
