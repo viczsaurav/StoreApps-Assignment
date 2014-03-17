@@ -12,9 +12,10 @@ public class StoreApps {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				MainView mainView = new MainView();			
-				mainView.showLoginView();
+				MainView mainView = new MainView();
 				mainView.addDefaultToolbar();
+				mainView.showLoginView();
+				
 				}
 		});
 
