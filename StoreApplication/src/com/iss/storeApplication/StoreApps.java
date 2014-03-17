@@ -13,7 +13,6 @@ public class StoreApps {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				MainView mainView = new MainView();
-				mainView.addDefaultToolbar();
 				mainView.showLoginView();
 				
 				}

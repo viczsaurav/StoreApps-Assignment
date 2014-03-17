@@ -6,13 +6,11 @@ import java.net.URL;
 
 import javax.swing.*;
 	/*
-	 * author Saurav
+	 * @author Saurav
 	 */
-public class ToolBarView extends JFrame
+public class ToolBarView extends JToolBar
 				implements	ActionListener	{
 	
-	private static JToolBar toolBar;
-		
 	// button names
 	private static String category_button = "Category";
 	private static String member_button = "Members";
@@ -23,30 +21,24 @@ public class ToolBarView extends JFrame
 	private static String logout_button = "Logout";
 	
 	public ToolBarView(){
-		
+		addToolBar();
 	}
 	
-	public static void addToolBar(MainView mainView) {
+	public void addToolBar() {
 		
 		try {
-			mainView.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			{
-				toolBar = new JToolBar();
-				mainView.getContentPane().add(toolBar, BorderLayout.NORTH);
-				toolBar.setPreferredSize(new java.awt.Dimension(390, 35));
+			//	Set Preferred Size
+				setPreferredSize(new java.awt.Dimension(400, 40));
 				
-				// Adding Buttons
-				toolBar.add(addButton(category_button));
-				toolBar.add(addButton(member_button));
-				toolBar.add(addButton(discount_button));
-				toolBar.add(addButton(purchaseOrder_button));
-				toolBar.add(addButton(product_button));
-				toolBar.add(addButton(report_button));
-				toolBar.add(addButton(logout_button));
+			// Adding Buttons
+				add(addButton(category_button));
+				add(addButton(member_button));
+				add(addButton(discount_button));
+				add(addButton(purchaseOrder_button));
+				add(addButton(product_button));
+				add(addButton(report_button));
+				add(addButton(logout_button));
 				
-				// Packing buttons/toolbar in  the JFRame
-				mainView.pack();
-			} 
 		}
 		catch (Exception e) {
 			    //add your error handling code here

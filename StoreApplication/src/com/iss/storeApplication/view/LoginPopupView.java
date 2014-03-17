@@ -1,7 +1,7 @@
 package com.iss.storeApplication.view;
-import com.iss.storeApplication.common.Constansts;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import com.iss.storeApplication.common.Constansts;
 
 
 public class LoginPopupView {
@@ -45,7 +47,7 @@ public class LoginPopupView {
 			
               
         } else {
-        	mainView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        	mainView.dispatchEvent(new WindowEvent(mainView, WindowEvent.WINDOW_CLOSING));
             return false;        
 	}
 
