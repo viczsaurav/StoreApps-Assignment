@@ -14,7 +14,9 @@ public interface Constansts {
 	public static final String EXTENSION="dat";
 	public static final String FILE_EXT_SEPERATOR=".";
 	public static final String CATEGORY_NAME="CategoryName";
-	public static final String LOGIN_DIALOG_TITLE = "";
+	public static final String LOGIN_DIALOG_TITLE = "Store Aplication Login Screen";
+	public static final String[] LOGINPOPUP_BUTTONTEXT = { "Login", "Cancel" };
+	
 	
 	// Toolbar Button Lables
 	public static final String CATEGORYBUTTONLBL = "Category";
