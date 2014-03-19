@@ -16,6 +16,13 @@ public interface Constansts {
 	public static final String CATEGORY_NAME="CategoryName";
 	public static final String LOGIN_DIALOG_TITLE = "Store Aplication Login Screen";
 	public static final String[] LOGINPOPUP_BUTTONTEXT = { "Login", "Cancel" };
+	public static final String LOGIN_SUCCESS_MESSAGE = "Login successful!";
+	public static final String LOGIN_FAILURE_MESSAGE = "Invalid Username and Password";
+	public static final String LOGIN_WITHOUT_PASSWORD = "Please enter Password";
+	public static final String LOGIN_WITHOUT_USERNAME = "Please enter Username";
+	public static final String LOGIN_WITHOUT_USERNAME_AND_PASSWORD = "Please enter Username and Password";
+	
+	
 	
 	
 	// Toolbar Button Lables
