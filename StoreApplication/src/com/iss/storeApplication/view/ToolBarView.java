@@ -22,13 +22,14 @@ public class ToolBarView extends JToolBar
 		
 		try {
 			// Adding Buttons
-				add(addButton(Utility.getPropertyValue(Constansts.CATEGORYBUTTONLBL)));
-				add(addButton(Utility.getPropertyValue(Constansts.MEMBERBUTTONLBL)));
-				add(addButton(Utility.getPropertyValue(Constansts.DISCOUNTBUTTONLBL)));
-				add(addButton(Utility.getPropertyValue(Constansts.PURCHASEORDERBUTTONLBL)));
-				add(addButton(Utility.getPropertyValue(Constansts.PRODUCTBUTTONLBL)));
-				add(addButton(Utility.getPropertyValue(Constansts.REPORTBUTTONLBL)));
-				add(addButton(Utility.getPropertyValue(Constansts.LOGOUTBUTTONLBL)));
+				//add(addButton(Utility.getPropertyValue(Constansts.CATEGORYBUTTONLBL)));
+				add(addButton(Constansts.CATEGORYBUTTONLBL));
+				add(addButton(Constansts.MEMBERBUTTONLBL));
+				add(addButton(Constansts.DISCOUNTBUTTONLBL));
+				add(addButton(Constansts.PURCHASEORDERBUTTONLBL));
+				add(addButton(Constansts.PRODUCTBUTTONLBL));
+				add(addButton(Constansts.REPORTBUTTONLBL));
+				add(addButton(Constansts.LOGOUTBUTTONLBL));
 				
 		}
 		catch (Exception e) {
