@@ -14,6 +14,14 @@ public interface Constansts {
 	public static final String EXTENSION="dat";
 	public static final String FILE_EXT_SEPERATOR=".";
 	public static final String CATEGORY_NAME="CategoryName";
+	
+	
+	/**
+	 * 
+	 * @author sakthi
+	 * 
+	 */
+	//Login Pop-up Labels and Messages
 	public static final String LOGIN_DIALOG_TITLE = "Store Aplication Login Screen";
 	public static final String[] LOGINPOPUP_BUTTONTEXT = { "Login", "Cancel" };
 	public static final String LOGIN_SUCCESS_MESSAGE = "Login successful!";
@@ -21,6 +29,9 @@ public interface Constansts {
 	public static final String LOGIN_WITHOUT_PASSWORD = "Please enter Password";
 	public static final String LOGIN_WITHOUT_USERNAME = "Please enter Username";
 	public static final String LOGIN_WITHOUT_USERNAME_AND_PASSWORD = "Please enter Username and Password";
+	public static final String LOGIN_LABEL_TEXT_USERNAME = "User Name:";
+	public static final String LOGIN_LABEL_TEXT_PASSWORD = "Password:";
+	
 	
 	
 	
@@ -33,4 +44,15 @@ public interface Constansts {
 	public static final String PRODUCTBUTTONLBL = "Products";
 	public static final String REPORTBUTTONLBL = "Reports";
 	public static final String LOGOUTBUTTONLBL = "Logout";
+	public static final String LOGIN_BTN = "login";
+	public static final String CANCEL = "cancel";
+	
+	
+	public static final String CATEGORY_CLASSNAME = "Category";
+	public static final String PRODUCT_CLASSNAME = "Product";
+	public static final String STOREKEEPER_CLASSNAME = "StoreKeeper";
+	public static final String CUSTOMER_CLASSNAME = "Customer";
+	public static final String DISCOUNT_CLASSNAME = "Discount";
+	public static final String TRANSACTION_CLASSNAME = "Transaction";
+
 }

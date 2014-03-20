@@ -22,6 +22,11 @@ public MainView() {
 		addDefaultToolbar();
 		
 	}
+	/**
+	 * 
+	 * @author sakthi
+	 * 
+	 */
 
 	public void showLoginView() {
 		

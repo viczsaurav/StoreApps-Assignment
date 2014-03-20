@@ -1,9 +1,23 @@
 package com.iss.storeApplication.domain;
 
+/**
+ * 
+ * @author sakthi
+ *
+ */
+
 public class StoreKeeper {
 
 	private String userName;
 	private String password;
+	
+	
+	
+	public StoreKeeper(String userName, String password) {
+		
+		this.userName = userName;
+		this.password = password;
+	}
 	
 	public String getUserName() {
 		return userName;

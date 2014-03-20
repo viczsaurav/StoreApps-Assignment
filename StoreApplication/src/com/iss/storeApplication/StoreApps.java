@@ -6,7 +6,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import com.iss.storeApplication.view.MainView;
-
+/**
+ * 
+ * @author sakthi
+ * 
+ */
 public class StoreApps {
 	
 	public static void main(String[] args) {
