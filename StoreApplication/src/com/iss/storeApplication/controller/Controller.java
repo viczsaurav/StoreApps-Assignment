@@ -13,7 +13,11 @@ public  class Controller {
 	{
 		return MemberRegistrationService.registerMember(memberCustomer);
 	}
-	
+	/**
+	 * 
+	 * @author sakthi
+	 *
+	 */
 	public static boolean validateUser(StoreKeeper storeKeeper)
 	{
 		return LoginService.validateUser(storeKeeper);

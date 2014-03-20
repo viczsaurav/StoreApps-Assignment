@@ -9,9 +9,7 @@ package com.iss.storeApplication.domain;
 public class StoreKeeper {
 
 	private String userName;
-	private String password;
-	
-	
+	private String password;	
 	
 	public StoreKeeper(String userName, String password) {
 		
