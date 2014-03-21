@@ -18,17 +18,16 @@ import com.iss.storeApplication.domain.StoreKeeper;
 /**
  * 
  * @author sakthi
- *
+ * 
  */
 public class LoginPopupView {
 
-	
 	private static JPanel loginPanel = new JPanel();
 	static JTextField userNameTxtField = new JTextField();
 	static JPasswordField passwordField = new JPasswordField();
 	static String[] loginBtns = { Constansts.LOGIN_BTN, Constansts.CANCEL };
-	
-	static{
+
+	static {
 		loginPanel.setLayout(new GridLayout(2, 3));
 		loginPanel.setBackground(new Color(255, 0, 0, 20));
 		loginPanel.setOpaque(false);
@@ -37,21 +36,35 @@ public class LoginPopupView {
 		loginPanel.add(new JLabel(Constansts.LOGIN_LABEL_TEXT_PASSWORD));
 		loginPanel.add(passwordField);
 	}
+
 	public static boolean showLoginDialog(MainView mainView) {
-	
-						
+
 		int result = JOptionPane.showOptionDialog(mainView, loginPanel,
 				Constansts.LOGIN_DIALOG_TITLE, JOptionPane.OK_CANCEL_OPTION,
-				JOptionPane.INFORMATION_MESSAGE, null, loginBtns,
-				loginBtns[0]);
+				JOptionPane.INFORMATION_MESSAGE, null, loginBtns, loginBtns[0]);
 		if (result == JOptionPane.OK_OPTION) {
-			
-			return Controller.validateUser(new StoreKeeper(userNameTxtField.getText().trim(), passwordField.getText().trim() ));
-	        
-		   	
-		} 
-		else {
-			mainView.dispatchEvent(new WindowEvent(mainView, WindowEvent.WINDOW_CLOSING));
+
+			String message = Controller.validateUser(new StoreKeeper(
+					userNameTxtField.getText().trim(), passwordField.getText()
+							.trim()));
+			if (message.equals(Constansts.LOGIN_SUCCESS_MESSAGE)) {
+				JOptionPane.showMessageDialog(null,
+						message, "Message",
+						JOptionPane.ERROR_MESSAGE);
+				return true;
+
+			} else {
+				// show message to user
+				JOptionPane.showMessageDialog(null,
+						message, "Message",
+						JOptionPane.ERROR_MESSAGE);				
+				showLoginDialog(mainView);
+				return false;
+			}
+
+		} else {
+			mainView.dispatchEvent(new WindowEvent(mainView,
+					WindowEvent.WINDOW_CLOSING));
 			return false;
 		}
 

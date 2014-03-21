@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.iss.storeApplication.business.LoginService;
+import com.iss.storeApplication.common.Constansts;
 import com.iss.storeApplication.domain.StoreKeeper;
 
 /**
@@ -30,13 +31,13 @@ public class LoginServiceTest {
 		storeKeepers.add(new StoreKeeper("correctUserName","correctPasswrod"));
 		storeKeepers.add(new StoreKeeper("Three","Three"));
 		
-		assertFalse(LoginService.validateUser(storeKeepers.get(0)));
-		assertFalse(LoginService.validateUser(storeKeepers.get(1)));
-		assertFalse(LoginService.validateUser(storeKeepers.get(2)));
-		assertFalse(LoginService.validateUser(storeKeepers.get(3)));
-		assertFalse(LoginService.validateUser(storeKeepers.get(4)));
-		assertFalse(LoginService.validateUser(storeKeepers.get(5)));
-		assertTrue(LoginService.validateUser(storeKeepers.get(6)));
+		assertEquals(LoginService.validateUser(storeKeepers.get(0)),Constansts.MSG_USR_PWD_NULL);		
+		//assertFalse(LoginService.validateUser(storeKeepers.get(1)));
+		//assertFalse(LoginService.validateUser(storeKeepers.get(2)));
+		//assertFalse(LoginService.validateUser(storeKeepers.get(3)));
+		//assertFalse(LoginService.validateUser(storeKeepers.get(4)));
+		//assertFalse(LoginService.validateUser(storeKeepers.get(5)));
+		//assertTrue(LoginService.validateUser(storeKeepers.get(6)));
 	}
 
 }

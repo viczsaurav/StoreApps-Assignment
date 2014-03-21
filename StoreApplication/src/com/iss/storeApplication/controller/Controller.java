@@ -18,7 +18,7 @@ public  class Controller {
 	 * @author sakthi
 	 *
 	 */
-	public static boolean validateUser(StoreKeeper storeKeeper)
+	public static String validateUser(StoreKeeper storeKeeper)
 	{
 		return LoginService.validateUser(storeKeeper);
 	}

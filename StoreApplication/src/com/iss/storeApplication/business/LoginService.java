@@ -16,44 +16,33 @@ import com.iss.storeApplication.view.MainView;
  */
 public class LoginService {
 
-	public static boolean validateUser(StoreKeeper storekeeper) {
-		MainView main = new MainView();
+	/**
+	 * 
+	 * @param storekeeper
+	 * @return
+	 * 
+	 *         It validates store keeper name and store keeper password
+	 */
+	public static String validateUser(StoreKeeper storekeeper) {
 
-		if (storekeeper.getUserName().equals("") && storekeeper.getPassword().equals("")) {
-			JOptionPane.showMessageDialog(null,
-					Constansts.LOGIN_WITHOUT_USERNAME_AND_PASSWORD, "Message",
-					JOptionPane.ERROR_MESSAGE);
-			main.showLoginView();
-			return false;
-		}
-
-		else if (storekeeper.getUserName().equals("")) {
-			JOptionPane.showMessageDialog(null,
-					Constansts.LOGIN_WITHOUT_USERNAME, "Message",
-					JOptionPane.ERROR_MESSAGE);
-			main.showLoginView();
-			return false;
+		if (storekeeper.getUserName().equals("")
+				&& storekeeper.getPassword().equals("")) {
+			return Constansts.MSG_USR_PWD_NULL;
+		} else if (storekeeper.getUserName().equals("")) {
+			return Constansts.MSG_USR_NULL;
 		} else if (storekeeper.getPassword().equals("")) {
-			JOptionPane.showMessageDialog(null,
-					Constansts.LOGIN_WITHOUT_PASSWORD, "Message",
-					JOptionPane.ERROR_MESSAGE);
-			main.showLoginView();
-			return false;
+			return Constansts.MSG_PWD_NULL;
 		} else {
-			// Map<String, StoreKeeper> storeKeeperMap=StoreKeeperDao.getStoreKeeperMap();
+			// Map<String, StoreKeeper>
+			// storeKeeperMap=StoreKeeperDao.getStoreKeeperMap();
 			Map<String, String> storeKeeperMap = StoreKeeperDao
 					.getStoreKeeperMap();
-			if (storeKeeperMap.containsValue(storekeeper.getUserName()) && storeKeeperMap.containsValue(storekeeper.getPassword())) {
-				JOptionPane.showMessageDialog(null,
-						Constansts.LOGIN_SUCCESS_MESSAGE, "Message",
-						JOptionPane.ERROR_MESSAGE);
-				return true;
+			if (storeKeeperMap.containsValue(storekeeper.getUserName())
+					&& storeKeeperMap.containsValue(storekeeper.getPassword())) {
+
+				return Constansts.LOGIN_SUCCESS_MESSAGE;
 			} else {
-				JOptionPane.showMessageDialog(null,
-						Constansts.LOGIN_FAILURE_MESSAGE, "Message",
-						JOptionPane.ERROR_MESSAGE);
-				main.showLoginView();
-				return false;
+				return Constansts.MSG_INVALID_USR_PWD;
 			}
 
 		}

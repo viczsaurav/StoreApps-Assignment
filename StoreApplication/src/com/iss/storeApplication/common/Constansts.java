@@ -1,4 +1,4 @@
-package com.iss.storeApplication.common;
+ package com.iss.storeApplication.common;
 
 public interface Constansts {
 
@@ -24,15 +24,13 @@ public interface Constansts {
 	//Login Pop-up Labels and Messages
 	public static final String LOGIN_DIALOG_TITLE = "Store Aplication Login Screen";
 	public static final String[] LOGINPOPUP_BUTTONTEXT = { "Login", "Cancel" };
-	public static final String LOGIN_SUCCESS_MESSAGE = "Login successful!";
-	public static final String LOGIN_FAILURE_MESSAGE = "Invalid Username and Password";
-	public static final String LOGIN_WITHOUT_PASSWORD = "Please enter Password";
-	public static final String LOGIN_WITHOUT_USERNAME = "Please enter Username";
-	public static final String LOGIN_WITHOUT_USERNAME_AND_PASSWORD = "Please enter Username and Password";
+	public static final String LOGIN_SUCCESS_MESSAGE = "Login successful!";		
 	public static final String LOGIN_LABEL_TEXT_USERNAME = "User Name:";
 	public static final String LOGIN_LABEL_TEXT_PASSWORD = "Password:";
-	
-	
+	public static final String MSG_USR_PWD_NULL = "Please enter Username and Password";
+	public static final String MSG_USR_NULL = "Please enter Username";
+	public static final String MSG_PWD_NULL = "Please enter Password";
+	public static final String MSG_INVALID_USR_PWD = "Invalid Username and Password";
 	
 	
 	
@@ -54,5 +52,9 @@ public interface Constansts {
 	public static final String CUSTOMER_CLASSNAME = "Customer";
 	public static final String DISCOUNT_CLASSNAME = "Discount";
 	public static final String TRANSACTION_CLASSNAME = "Transaction";
+	
+	
+	
+	
 
 }
