@@ -30,7 +30,9 @@ public interface Constansts {
 	public static final String MSG_USR_PWD_NULL = "Please enter Username and Password";
 	public static final String MSG_USR_NULL = "Please enter Username";
 	public static final String MSG_PWD_NULL = "Please enter Password";
-	public static final String MSG_INVALID_USR_PWD = "Invalid Username and Password";
+	public static final String MSG_INVALID_USR_PWD = "Invalid Username and Password! Try again";
+	public static final String LOGIN_CORRECT_USERNAME = "Please enter correct Username";
+	public static final String LOGIN_CORRECT_PASSWORD = "Please enter correct Password";
 	
 	
 	
@@ -52,6 +54,7 @@ public interface Constansts {
 	public static final String CUSTOMER_CLASSNAME = "Customer";
 	public static final String DISCOUNT_CLASSNAME = "Discount";
 	public static final String TRANSACTION_CLASSNAME = "Transaction";
+	
 	
 	
 	

@@ -41,7 +41,16 @@ public class LoginService {
 					&& storeKeeperMap.containsValue(storekeeper.getPassword())) {
 
 				return Constansts.LOGIN_SUCCESS_MESSAGE;
-			} else {
+			}
+			else if(storeKeeperMap.containsValue(storekeeper.getUserName()))
+			{
+				return Constansts.LOGIN_CORRECT_PASSWORD;
+			}
+			else if(storeKeeperMap.containsValue(storekeeper.getPassword()))
+			{				
+				return Constansts.LOGIN_CORRECT_USERNAME;
+			}
+			else {
 				return Constansts.MSG_INVALID_USR_PWD;
 			}
 

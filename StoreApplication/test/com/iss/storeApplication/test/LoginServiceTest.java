@@ -26,18 +26,21 @@ public class LoginServiceTest {
 		storeKeepers.add(new StoreKeeper("wrongUserName",""));
 		storeKeepers.add(new StoreKeeper("","wrongPasswrod"));
 		storeKeepers.add(new StoreKeeper("wrongUserName","wrongPasswrod"));
-		storeKeepers.add(new StoreKeeper("correctUserName","wrongPasswrod"));
-		storeKeepers.add(new StoreKeeper("wrongUserName","correctPasswrod"));
-		storeKeepers.add(new StoreKeeper("correctUserName","correctPasswrod"));
-		storeKeepers.add(new StoreKeeper("Three","Three"));
+		storeKeepers.add(new StoreKeeper("Three","wrongPasswrod"));
+		storeKeepers.add(new StoreKeeper("wrongUserName","Three"));
+		//storeKeepers.add(new StoreKeeper("correctUserName","correctPasswrod"));
+		storeKeepers.add(new StoreKeeper("Three","Three"));	
+		
 		
 		assertEquals(LoginService.validateUser(storeKeepers.get(0)),Constansts.MSG_USR_PWD_NULL);		
-		//assertFalse(LoginService.validateUser(storeKeepers.get(1)));
-		//assertFalse(LoginService.validateUser(storeKeepers.get(2)));
-		//assertFalse(LoginService.validateUser(storeKeepers.get(3)));
-		//assertFalse(LoginService.validateUser(storeKeepers.get(4)));
-		//assertFalse(LoginService.validateUser(storeKeepers.get(5)));
-		//assertTrue(LoginService.validateUser(storeKeepers.get(6)));
+		assertEquals(LoginService.validateUser(storeKeepers.get(1)),Constansts.MSG_PWD_NULL);
+		assertEquals(LoginService.validateUser(storeKeepers.get(2)),Constansts.MSG_USR_NULL);
+		assertEquals(LoginService.validateUser(storeKeepers.get(3)),Constansts.MSG_INVALID_USR_PWD);
+		assertEquals(LoginService.validateUser(storeKeepers.get(4)),Constansts.LOGIN_CORRECT_PASSWORD);
+		assertEquals(LoginService.validateUser(storeKeepers.get(5)),Constansts.LOGIN_CORRECT_USERNAME);
+		assertEquals(LoginService.validateUser(storeKeepers.get(6)),Constansts.LOGIN_SUCCESS_MESSAGE);
+		
+		
 	}
 
 }
