@@ -1,10 +1,13 @@
 package com.iss.storeApplication;
 
+
 import java.awt.Color;
 import java.awt.Graphics;
+
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import com.iss.storeApplication.view.LoginPopupView;
 import com.iss.storeApplication.view.MainView;
 /**
  * 
@@ -17,8 +20,8 @@ public class StoreApps {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				MainView mainView = new MainView();
+				mainView.getContentPane().add(new LoginPopupView().getComponent());  
 				mainView.showLoginView();
-				
 				}
 		});
 
