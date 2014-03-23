@@ -1,6 +1,7 @@
 package com.iss.storeApplication.view;
 
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.JFrame;
 
@@ -18,9 +19,14 @@ public MainView() {
 		setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);		
 		setTitle("University Souvenir Store Application - SE224FT");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		addDefaultToolbar();
 		
 	}
+	/**
+	 * 
+	 * @author sakthi
+	 * 
+	 */
 
 	public void showLoginView() {
 		
@@ -29,7 +35,7 @@ public MainView() {
 	}
 	
 	public void addDefaultToolbar(){
-		ToolBarView.addToolBar(this);
+		ToolBarView toolBarView = new ToolBarView();
+		add(toolBarView, BorderLayout.NORTH);
 	}
-
 }

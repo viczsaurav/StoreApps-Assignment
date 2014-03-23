@@ -5,48 +5,32 @@ import java.awt.event.*;
 import java.net.URL;
 
 import javax.swing.*;
+
+import com.iss.storeApplication.common.Constansts;
+import com.iss.storeApplication.common.Utility;
 	/*
-	 * author Saurav
+	 * @author Saurav
 	 */
-public class ToolBarView extends JFrame
+public class ToolBarView extends JToolBar
 				implements	ActionListener	{
 	
-	private static JToolBar toolBar;
-		
-	// button names
-	private static String category_button = "Category";
-	private static String member_button = "Members";
-	private static String discount_button = "Discount";
-	private static String purchaseOrder_button = "Purchase Order";
-	private static String product_button = "Products";
-	private static String report_button = "Reports";
-	private static String logout_button = "Logout";
-	
 	public ToolBarView(){
-		
+		addToolBar();
 	}
 	
-	public static void addToolBar(MainView mainView) {
+	public void addToolBar() {
 		
 		try {
-			mainView.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			{
-				toolBar = new JToolBar();
-				mainView.getContentPane().add(toolBar, BorderLayout.NORTH);
-				toolBar.setPreferredSize(new java.awt.Dimension(390, 35));
+			// Adding Buttons
+				//add(addButton(Utility.getPropertyValue(Constansts.CATEGORYBUTTONLBL)));
+				add(addButton(Constansts.CATEGORYBUTTONLBL));
+				add(addButton(Constansts.MEMBERBUTTONLBL));
+				add(addButton(Constansts.DISCOUNTBUTTONLBL));
+				add(addButton(Constansts.PURCHASEORDERBUTTONLBL));
+				add(addButton(Constansts.PRODUCTBUTTONLBL));
+				add(addButton(Constansts.REPORTBUTTONLBL));
+				add(addButton(Constansts.LOGOUTBUTTONLBL));
 				
-				// Adding Buttons
-				toolBar.add(addButton(category_button));
-				toolBar.add(addButton(member_button));
-				toolBar.add(addButton(discount_button));
-				toolBar.add(addButton(purchaseOrder_button));
-				toolBar.add(addButton(product_button));
-				toolBar.add(addButton(report_button));
-				toolBar.add(addButton(logout_button));
-				
-				// Packing buttons/toolbar in  the JFRame
-				mainView.pack();
-			} 
 		}
 		catch (Exception e) {
 			    //add your error handling code here

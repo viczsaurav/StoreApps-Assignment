@@ -11,10 +11,12 @@ public class Product implements java.io.Serializable{
 	private Integer reorderQty;
 	private Integer orderQty;
 	private Category category;
+	
+	
 	public String getProductId() {
 		return productId;
 	}
-	public void setProductId(String productId) {
+	public void setProductId(String productId) {		// Set Product ID
 		this.productId = productId;
 	}
 	public String getProductName() {
