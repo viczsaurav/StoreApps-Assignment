@@ -16,9 +16,11 @@ public  class Controller {
 	/**
 	 * 
 	 * @author sakthi
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 *
 	 */
-	public static String validateUser(StoreKeeper storeKeeper)
+	public static String validateUser(StoreKeeper storeKeeper) throws InstantiationException, IllegalAccessException
 	{
 		return LoginService.validateUser(storeKeeper);
 	}

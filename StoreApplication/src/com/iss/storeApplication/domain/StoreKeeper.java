@@ -11,6 +11,10 @@ public class StoreKeeper {
 	private String userName;
 	private String password;
 
+	public StoreKeeper() {
+		
+	}
+	
 	public StoreKeeper(String userName, String password) {
 
 		this.userName = userName;

@@ -11,7 +11,7 @@ public interface Constansts {
 	public static final String DATA_FILE_DIR="data";
 	public static final String PROPERTY_FILE_DIR="resources";
 	public static final String PRODUCT_FILE_NAME="Products";
-	public static final String EXTENSION="dat";
+	public static final String FILE_EXTENSION="dat";
 	public static final String FILE_EXT_SEPERATOR=".";
 	public static final String CATEGORY_NAME="CategoryName";
 	
@@ -30,9 +30,9 @@ public interface Constansts {
 	public static final String MSG_USR_PWD_NULL = "Please enter Username and Password";
 	public static final String MSG_USR_NULL = "Please enter Username";
 	public static final String MSG_PWD_NULL = "Please enter Password";
-	public static final String MSG_INVALID_USR_PWD = "Invalid Username and Password! Try again";
+	public static final String MSG_INVALID_USR = "Invalid Username ! Try again";
 	public static final String LOGIN_CORRECT_USERNAME = "Please enter correct Username";
-	public static final String LOGIN_CORRECT_PASSWORD = "Please enter correct Password";
+	public static final String LOGIN_INVALID_PASSWORD = "Invalid Password";
 	
 	
 	
@@ -54,6 +54,9 @@ public interface Constansts {
 	public static final String CUSTOMER_CLASSNAME = "Customer";
 	public static final String DISCOUNT_CLASSNAME = "Discount";
 	public static final String TRANSACTION_CLASSNAME = "Transaction";
+	
+	//File Names
+	public static final String FILENAME_STOREKEEPER="StoreKeepers";
 	
 	
 	

@@ -17,7 +17,12 @@ public class StoreApps {
 			public void run() {
 				MainView mainView = new MainView();
 				mainView.getContentPane().add(new LoginPopupView().getComponent());  
-				mainView.showLoginView();
+				try {
+					mainView.showLoginView();
+				} catch (InstantiationException | IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				}
 		});
 

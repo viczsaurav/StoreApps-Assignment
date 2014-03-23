@@ -37,10 +37,12 @@ public class MainView extends JFrame {
 	/**
 	 * 
 	 * @author sakthi
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 * 
 	 */
 
-	public void showLoginView() {
+	public void showLoginView() throws InstantiationException, IllegalAccessException {
 
 		LoginPopupView.showLoginDialog(this);
 

@@ -21,7 +21,7 @@ public class LoginServiceTest {
 	private List<StoreKeeper> storeKeepers=new ArrayList<StoreKeeper>();
 
 	@Test
-	public void test() {
+	public void test() throws InstantiationException, IllegalAccessException {
 		storeKeepers.add(new StoreKeeper("",""));
 		storeKeepers.add(new StoreKeeper("wrongUserName",""));
 		storeKeepers.add(new StoreKeeper("","wrongPasswrod"));
@@ -35,8 +35,8 @@ public class LoginServiceTest {
 		assertEquals(LoginService.validateUser(storeKeepers.get(0)),Constansts.MSG_USR_PWD_NULL);		
 		assertEquals(LoginService.validateUser(storeKeepers.get(1)),Constansts.MSG_PWD_NULL);
 		assertEquals(LoginService.validateUser(storeKeepers.get(2)),Constansts.MSG_USR_NULL);
-		assertEquals(LoginService.validateUser(storeKeepers.get(3)),Constansts.MSG_INVALID_USR_PWD);
-		assertEquals(LoginService.validateUser(storeKeepers.get(4)),Constansts.LOGIN_CORRECT_PASSWORD);
+		assertEquals(LoginService.validateUser(storeKeepers.get(3)),Constansts.MSG_INVALID_USR);
+		assertEquals(LoginService.validateUser(storeKeepers.get(4)),Constansts.LOGIN_INVALID_PASSWORD);
 		assertEquals(LoginService.validateUser(storeKeepers.get(5)),Constansts.LOGIN_CORRECT_USERNAME);
 		assertEquals(LoginService.validateUser(storeKeepers.get(6)),Constansts.LOGIN_SUCCESS_MESSAGE);
 		

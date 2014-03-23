@@ -64,7 +64,7 @@ public class LoginPopupView {
 		}
 	};
 
-	public static boolean showLoginDialog(MainView mainView) {
+	public static boolean showLoginDialog(MainView mainView) throws InstantiationException, IllegalAccessException {
 
 		int result = JOptionPane.showOptionDialog(mainView, loginPanel,
 				Constansts.LOGIN_DIALOG_TITLE, JOptionPane.OK_CANCEL_OPTION,
