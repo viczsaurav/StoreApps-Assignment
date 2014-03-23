@@ -2,12 +2,9 @@ package com.iss.storeApplication.business;
 
 import java.util.Map;
 
-import javax.swing.JOptionPane;
-
 import com.iss.storeApplication.common.Constansts;
 import com.iss.storeApplication.dao.StoreKeeperDao;
 import com.iss.storeApplication.domain.StoreKeeper;
-import com.iss.storeApplication.view.MainView;
 
 /**
  * 
@@ -35,21 +32,24 @@ public class LoginService {
 		} else {
 			// Map<String, StoreKeeper>
 			// storeKeeperMap=StoreKeeperDao.getStoreKeeperMap();
-			Map<String, String> storeKeeperMap = StoreKeeperDao
+			Map<String, StoreKeeper> storeKeeperMap = StoreKeeperDao
 					.getStoreKeeperMap();
 			if (storeKeeperMap.containsValue(storekeeper.getUserName())
-					&& storeKeeperMap.containsValue(storekeeper.getPassword())) {
-
+					) {
+				StoreKeeper sk=storeKeeperMap.get(storekeeper.getUserName());
+				if(sk.equals(storekeeper))
 				return Constansts.LOGIN_SUCCESS_MESSAGE;
+				else
+					return Constansts.LOGIN_CORRECT_PASSWORD;
 			}
-			else if(storeKeeperMap.containsValue(storekeeper.getUserName()))
+			/*else if(storeKeeperMap.containsValue(storekeeper.getUserName()))
 			{
 				return Constansts.LOGIN_CORRECT_PASSWORD;
-			}
-			else if(storeKeeperMap.containsValue(storekeeper.getPassword()))
+			}*/
+			/*else if(storeKeeperMap.containsValue(storekeeper.getPassword()))
 			{				
 				return Constansts.LOGIN_CORRECT_USERNAME;
-			}
+			}*/
 			else {
 				return Constansts.MSG_INVALID_USR_PWD;
 			}

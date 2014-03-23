@@ -1,17 +1,13 @@
 package com.iss.storeApplication;
 
 
-import java.awt.Color;
-import java.awt.Graphics;
-
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import com.iss.storeApplication.view.LoginPopupView;
 import com.iss.storeApplication.view.MainView;
 /**
  * 
- * @author sakthi
+ * @author Milan
  * 
  */
 public class StoreApps {

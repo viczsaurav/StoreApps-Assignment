@@ -15,7 +15,7 @@ import com.iss.storeApplication.domain.StoreKeeper;
 public class StoreKeeperDao {
 
 	//public static  Map<String,StoreKeeper> getStoreKeeperMap()
-	public static  Map<String,String> getStoreKeeperMap()
+	public static  Map<String,StoreKeeper> getStoreKeeperMap()
 	{
 		/*HashMap<String, StoreKeeper> userNamestoreKeeperMap= null;
 		CommonDao commonRetrieve = new CommonDao();			 
@@ -34,13 +34,13 @@ public class StoreKeeperDao {
 			
 		}*/
 		
-		HashMap<String, String> userNamestoreKeeperMap = new HashMap<String, String>();
+		HashMap<String, StoreKeeper> userNamestoreKeeperMap = new HashMap<String, StoreKeeper>();
 
-		userNamestoreKeeperMap.put("1", "One");
+		/*userNamestoreKeeperMap.put("1", "One");
 		userNamestoreKeeperMap.put("2", "Two");
 		userNamestoreKeeperMap.put("3", "Three");
 
-	    String key = "3";
+	    String key = "3";*/
 			
 		return userNamestoreKeeperMap;
 	}
