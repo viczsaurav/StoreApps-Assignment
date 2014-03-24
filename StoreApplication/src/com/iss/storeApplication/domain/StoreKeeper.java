@@ -52,4 +52,9 @@ public class StoreKeeper {
 		
 	
 	}
+
+
+	public String getCommaSeperatedValue() {
+		return userName + "," + password;
+	}
 }
