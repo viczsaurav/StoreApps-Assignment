@@ -55,7 +55,13 @@ public interface Constants {
 	public static final String CATEGORYID_LABEL = "Category ID";
 	public static final String CATEGORYNAME_LABEL = "Category Name";
 	public static final String ADDCATEGORY_BTN = "Add Category";
+	public static final String CATEGORY_CODE_NAME_EMPTY = "category name and code are empty";
+	public static final String CATEGORY_NAME_EMPTY = "category name is empty";
+	public static final String CATEGORY_CODE_EMPTY = "category code is empty";
+	public static final String CATEGORY_EXIST = "category is exist";
+	public static final String CATEGORY_CORRECT = "correct category";
 
+	
 	// File Names
 	public static final String FILENAME_STOREKEEPER = "StoreKeepers";
 	public static final String FILENAME_PRODUCT = "Products";
