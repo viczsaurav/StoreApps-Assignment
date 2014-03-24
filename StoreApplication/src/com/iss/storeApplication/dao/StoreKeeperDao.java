@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.iss.storeApplication.common.Constansts;
+import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.domain.StoreKeeper;
 
 /**
@@ -23,8 +23,8 @@ import com.iss.storeApplication.domain.StoreKeeper;
  */
 public class StoreKeeperDao implements CommonDao<StoreKeeper> {
 
-	private String fileName = Constansts.FILENAME_STOREKEEPER
-			+ Constansts.FILE_EXT_SEPERATOR + Constansts.FILE_EXTENSION;
+	private String fileName = Constants.FILENAME_STOREKEEPER
+			+ Constants.FILE_EXT_SEPERATOR + Constants.FILE_EXTENSION;
 
 	/**
 	 * get Storekeeper Map used to search storekeeper from list of record.
@@ -50,7 +50,7 @@ public class StoreKeeperDao implements CommonDao<StoreKeeper> {
 	public void save(StoreKeeper s) {
 
 		try {
-			File file = new File(Constansts.DATA_FILE_DIR, fileName);
+			File file = new File(Constants.DATA_FILE_DIR, fileName);
 			if (!file.exists()) {
 				file.createNewFile();
 			}
@@ -72,7 +72,7 @@ public class StoreKeeperDao implements CommonDao<StoreKeeper> {
 		List<StoreKeeper> storeKeepers = new ArrayList<StoreKeeper>();
 
 		try {
-			File file = new File(Constansts.DATA_FILE_DIR, fileName);
+			File file = new File(Constants.DATA_FILE_DIR, fileName);
 			if (!file.exists()) {
 				file.createNewFile();
 			}

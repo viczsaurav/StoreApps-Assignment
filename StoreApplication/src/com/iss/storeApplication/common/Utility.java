@@ -19,8 +19,8 @@ public class Utility {
 	static {
 		InputStream input;
 		try {
-			File file = new File(Constansts.PROPERTY_FILE_DIR,
-					Constansts.PROPERTY_FILE_NAME);
+			File file = new File(Constants.PROPERTY_FILE_DIR,
+					Constants.PROPERTY_FILE_NAME);
 			if (!file.exists()) {
 				file.createNewFile();
 			}

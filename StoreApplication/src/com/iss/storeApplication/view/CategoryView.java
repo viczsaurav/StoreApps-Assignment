@@ -14,7 +14,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.iss.storeApplication.common.Constansts;
+import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.domain.Category;
 
 
@@ -41,7 +41,7 @@ public class CategoryView extends JPanel {
 		scrollPane.setBounds(33, 41, 494, 90);
 		// some setting on panel
 		JPanel north = new JPanel(new BorderLayout());
-		JButton btnGetRowSelected = new JButton(Constansts.ADDCATEGORY_BTN);
+		JButton btnGetRowSelected = new JButton(Constants.ADDCATEGORY_BTN);
 
 		// Table
 		table = new JTable();
@@ -55,12 +55,12 @@ public class CategoryView extends JPanel {
 				JTextField codeField = new JTextField();
 				JTextField namefield = new JTextField();
 
-				Object[] message = {Constansts.CATEGORYID_LABEL, codeField, 
-									Constansts.CATEGORYNAME_LABEL,namefield};
+				Object[] message = {Constants.CATEGORYID_LABEL, codeField, 
+									Constants.CATEGORYNAME_LABEL,namefield};
 
 
 				int option = JOptionPane.showConfirmDialog(null, message,
-						Constansts.ADDCATEGORY_BTN, JOptionPane.OK_CANCEL_OPTION);
+						Constants.ADDCATEGORY_BTN, JOptionPane.OK_CANCEL_OPTION);
 				if (option == JOptionPane.OK_OPTION) {
 					String categoryCode = codeField.getText();
 					String categoryName = namefield.getText();
@@ -98,8 +98,8 @@ public class CategoryView extends JPanel {
 
 		table.setModel(model);
 
-		model.addColumn(Constansts.CATEGORYID_LABEL);
-		model.addColumn(Constansts.CATEGORYNAME_LABEL);
+		model.addColumn(Constants.CATEGORYID_LABEL);
+		model.addColumn(Constants.CATEGORYNAME_LABEL);
 
 //get and display category list 
 		freshCategory(model);

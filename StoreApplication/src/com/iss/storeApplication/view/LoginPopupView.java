@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 
 import com.iss.storeApplication.business.LoginService;
-import com.iss.storeApplication.common.Constansts;
+import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.controller.Controller;
 import com.iss.storeApplication.domain.StoreKeeper;
 
@@ -35,7 +35,7 @@ public class LoginPopupView {
 	private static JPanel loginPanel = new JPanel();
 	static JTextField userNameTxtField = new JTextField();
 	static JPasswordField passwordField = new JPasswordField();
-	static String[] loginBtns = { Constansts.LOGIN_BTN, Constansts.CANCEL };
+	static String[] loginBtns = { Constants.LOGIN_BTN, Constants.CANCEL };
 
 	private static final Color gradientColor = new Color(107, 106, 104);
 	private static final float gradientX = 1000;
@@ -45,9 +45,9 @@ public class LoginPopupView {
 		loginPanel.setLayout(new GridLayout(2, 10));
 		loginPanel.setBackground(new Color(255, 0, 0, 20));
 		loginPanel.setOpaque(false);
-		loginPanel.add(new JLabel(Constansts.LOGIN_LABEL_TEXT_USERNAME));
+		loginPanel.add(new JLabel(Constants.LOGIN_LABEL_TEXT_USERNAME));
 		loginPanel.add(userNameTxtField);
-		loginPanel.add(new JLabel(Constansts.LOGIN_LABEL_TEXT_PASSWORD));
+		loginPanel.add(new JLabel(Constants.LOGIN_LABEL_TEXT_PASSWORD));
 		loginPanel.add(passwordField);
 	}
 
@@ -67,14 +67,14 @@ public class LoginPopupView {
 	public static boolean showLoginDialog(MainView mainView) {
 
 		int result = JOptionPane.showOptionDialog(mainView, loginPanel,
-				Constansts.LOGIN_DIALOG_TITLE, JOptionPane.OK_CANCEL_OPTION,
+				Constants.LOGIN_DIALOG_TITLE, JOptionPane.OK_CANCEL_OPTION,
 				JOptionPane.INFORMATION_MESSAGE, null, loginBtns, loginBtns[0]);
 		if (result == JOptionPane.OK_OPTION) {
 
 			String message = Controller.validateUser(new StoreKeeper(
 					userNameTxtField.getText().trim(), passwordField.getText()
 							.trim()));
-			if (message.equals(Constansts.LOGIN_SUCCESS_MESSAGE)) {
+			if (message.equals(Constants.LOGIN_SUCCESS_MESSAGE)) {
 				JOptionPane.showMessageDialog(null, message, "Message",
 						JOptionPane.ERROR_MESSAGE);
 				return true;

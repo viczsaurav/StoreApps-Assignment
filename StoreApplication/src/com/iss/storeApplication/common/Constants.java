@@ -1,6 +1,6 @@
 package com.iss.storeApplication.common;
 
-public interface Constansts {
+public interface Constants {
 
 	public static final String PRODUCT_NAME = "ProductName";
 	public static final String SUCCESS = "SUCCESS";

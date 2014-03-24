@@ -1,6 +1,6 @@
 package com.iss.storeApplication.business;
 
-import com.iss.storeApplication.common.Constansts;
+import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.domain.MemberCustomer;
 
 public class MemberRegistrationService {
@@ -10,7 +10,7 @@ public class MemberRegistrationService {
 		// validation Test driven
 		// call dataAccess for storing
 		// return message to display on screen
-		return Constansts.SUCCESS;
+		return Constants.SUCCESS;
 	}
 
 }

@@ -2,7 +2,7 @@ package com.iss.storeApplication.business;
 
 import java.util.Map;
 
-import com.iss.storeApplication.common.Constansts;
+import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.dao.StoreKeeperDao;
 import com.iss.storeApplication.domain.StoreKeeper;
 
@@ -26,11 +26,11 @@ public class LoginService {
 
 		if (storekeeper.getUserName().equals("")
 				&& storekeeper.getPassword().equals("")) {
-			return Constansts.MSG_USR_PWD_NULL;
+			return Constants.MSG_USR_PWD_NULL;
 		} else if (storekeeper.getUserName().equals("")) {
-			return Constansts.MSG_USR_NULL;
+			return Constants.MSG_USR_NULL;
 		} else if (storekeeper.getPassword().equals("")) {
-			return Constansts.MSG_PWD_NULL;
+			return Constants.MSG_PWD_NULL;
 		} else {
 
 			Map<String, StoreKeeper> storeKeeperMap = storekeeperDao
@@ -38,11 +38,11 @@ public class LoginService {
 			if (storeKeeperMap.containsKey(storekeeper.getUserName().trim())) {
 				StoreKeeper sk = storeKeeperMap.get(storekeeper.getUserName());
 				if (sk.equals(storekeeper))
-					return Constansts.LOGIN_SUCCESS_MESSAGE;
+					return Constants.LOGIN_SUCCESS_MESSAGE;
 				else
-					return Constansts.LOGIN_INVALID_PASSWORD;
+					return Constants.LOGIN_INVALID_PASSWORD;
 			} else {
-				return Constansts.MSG_INVALID_USR;
+				return Constants.MSG_INVALID_USR;
 			}
 
 		}

@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
-import com.iss.storeApplication.common.Constansts;
+import com.iss.storeApplication.common.Constants;
 
 /*
  * @author Saurav
@@ -25,14 +25,14 @@ public class ToolBarView extends JToolBar implements ActionListener {
 
 		try {
 			// Adding Buttons
-			// add(addButton(Utility.getPropertyValue(Constansts.CATEGORYBUTTONLBL)));
-			add(addButton(Constansts.CATEGORYBUTTONLBL));
-			add(addButton(Constansts.MEMBERBUTTONLBL));
-			add(addButton(Constansts.DISCOUNTBUTTONLBL));
-			add(addButton(Constansts.PURCHASEORDERBUTTONLBL));
-			add(addButton(Constansts.PRODUCTBUTTONLBL));
-			add(addButton(Constansts.REPORTBUTTONLBL));
-			add(addButton(Constansts.LOGOUTBUTTONLBL));
+			// add(addButton(Utility.getPropertyValue(Constants.CATEGORYBUTTONLBL)));
+			add(addButton(Constants.CATEGORYBUTTONLBL));
+			add(addButton(Constants.MEMBERBUTTONLBL));
+			add(addButton(Constants.DISCOUNTBUTTONLBL));
+			add(addButton(Constants.PURCHASEORDERBUTTONLBL));
+			add(addButton(Constants.PRODUCTBUTTONLBL));
+			add(addButton(Constants.REPORTBUTTONLBL));
+			add(addButton(Constants.LOGOUTBUTTONLBL));
 
 		} catch (Exception e) {
 			// add your error handling code here

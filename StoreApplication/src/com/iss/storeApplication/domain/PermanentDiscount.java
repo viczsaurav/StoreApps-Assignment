@@ -1,11 +1,11 @@
 package com.iss.storeApplication.domain;
 
-import com.iss.storeApplication.common.Constansts;
+import com.iss.storeApplication.common.Constants;
 
 public class PermanentDiscount extends Discount {
 
-	String startDate = Constansts.ALWAYS;
-	String duration = Constansts.ALWAYS;
+	String startDate = Constants.ALWAYS;
+	String duration = Constants.ALWAYS;
 
 	public String getStartDate() {
 		return startDate;

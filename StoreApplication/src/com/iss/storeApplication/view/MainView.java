@@ -7,7 +7,7 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.iss.storeApplication.common.Constansts;
+import com.iss.storeApplication.common.Constants;
 
 /**
  * 
@@ -78,13 +78,13 @@ public class MainView extends JFrame {
 		contentPanel.setLayout(cardLayout);
 
 		//add all content views in content panel
-		contentPanel.add(Constansts.CATEGORYBUTTONLBL, new CategoryView());
-		contentPanel.add(Constansts.DISCOUNTBUTTONLBL, new DiscountView());
-		contentPanel.add(Constansts.MEMBERBUTTONLBL, new MemberView());
-		contentPanel.add(Constansts.PRODUCTBUTTONLBL, new ProductView());
-		contentPanel.add(Constansts.PURCHASEORDERBUTTONLBL,
+		contentPanel.add(Constants.CATEGORYBUTTONLBL, new CategoryView());
+		contentPanel.add(Constants.DISCOUNTBUTTONLBL, new DiscountView());
+		contentPanel.add(Constants.MEMBERBUTTONLBL, new MemberView());
+		contentPanel.add(Constants.PRODUCTBUTTONLBL, new ProductView());
+		contentPanel.add(Constants.PURCHASEORDERBUTTONLBL,
 				new PurchaseOrderView());
-		contentPanel.add(Constansts.REPORTBUTTONLBL, new ReportView());
+		contentPanel.add(Constants.REPORTBUTTONLBL, new ReportView());
 		add(contentPanel);
 	}
 
