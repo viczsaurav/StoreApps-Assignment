@@ -75,8 +75,7 @@ public class LoginPopupView {
 					userNameTxtField.getText().trim(), passwordField.getText()
 							.trim()));
 			if (message.equals(Constants.LOGIN_SUCCESS_MESSAGE)) {
-				JOptionPane.showMessageDialog(null, message, "Message",
-						JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, message);
 				return true;
 
 			} else {
