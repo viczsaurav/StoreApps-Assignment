@@ -51,7 +51,7 @@ public class LoginPopupView {
 		loginPanel.add(passwordField);
 	}
 
-	private static JPanel mainPanel = new JPanel() {
+	/*private static JPanel mainPanel = new JPanel() {
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
@@ -62,7 +62,7 @@ public class LoginPopupView {
 			graphics.fillRect(0, 0, getWidth(), getHeight());
 
 		}
-	};
+	};*/
 
 	public static boolean showLoginDialog(MainView mainView) {
 
@@ -95,8 +95,8 @@ public class LoginPopupView {
 
 	}
 
-	public JComponent getComponent() {
+	/*public JComponent getComponent() {
 		return mainPanel;
-	}
+	}*/
 
 }

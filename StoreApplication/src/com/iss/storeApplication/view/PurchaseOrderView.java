@@ -9,9 +9,9 @@ import javax.swing.JPanel;
  * @author milan
  *
  */
-public class ProductView extends JPanel{
+public class PurchaseOrderView extends JPanel {
 
-	public ProductView() {
-		add(new Button("ProductView"));
+	public PurchaseOrderView() {
+		add(new Button("PurchaseOrderView"));
 	}
 }
