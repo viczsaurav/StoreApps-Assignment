@@ -17,65 +17,68 @@ import javax.swing.table.DefaultTableModel;
 import com.iss.storeApplication.common.Constansts;
 import com.iss.storeApplication.domain.Category;
 
+
+/**
+ * @author luke
+ */
+
 public class CategoryView extends JPanel {
 
-	/**
-	 * Launch the application.
-	 */
 
-	/**
-	 * Create the frame.
-	 */
 	public JTable table;
 	DefaultTableModel model;
 
 	public CategoryView() {
 		setBounds(100, 100, 580, 242);
 		setLayout(new BorderLayout());
-		jPanelExtract();
+		initialCategory();
 
 	}
 
-	private void jPanelExtract() {
+	private void initialCategory() {
 		// ScrollPane for Table
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(33, 41, 494, 90);
-		// Get Row Selected
+		// some setting on panel
 		JPanel north = new JPanel(new BorderLayout());
 		JButton btnGetRowSelected = new JButton(Constansts.ADDCATEGORY_BTN);
+
+		// Table
+		table = new JTable();
+		scrollPane.setViewportView(table);
+
 		north.add(btnGetRowSelected, BorderLayout.EAST);
+		//define add button function 
 		btnGetRowSelected.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// JOptionPane. showInputDialog(null, "hello");
 
-				JTextField field1 = new JTextField();
-				JTextField field2 = new JTextField();
+				JTextField codeField = new JTextField();
+				JTextField namefield = new JTextField();
 
-				Object[] message = {Constansts.CATEGORYID_LABEL, field1, 
-									Constansts.CATEGORYNAME_LABEL,field2};
+				Object[] message = {Constansts.CATEGORYID_LABEL, codeField, 
+									Constansts.CATEGORYNAME_LABEL,namefield};
+
+
 				int option = JOptionPane.showConfirmDialog(null, message,
 						Constansts.ADDCATEGORY_BTN, JOptionPane.OK_CANCEL_OPTION);
 				if (option == JOptionPane.OK_OPTION) {
-					String categoryCode = field1.getText();
-					String categoryName = field2.getText();
+					String categoryCode = codeField.getText();
+					String categoryName = namefield.getText();
 					System.out.println("categoryCode:" + categoryCode);
 					System.out.println("categoryName:" + categoryName);
 					freshCategory(model);
 				}
 
 			}
-
 		});
+		
+		
 		btnGetRowSelected.setBounds(224, 149, 131, 23);
 		add(north, BorderLayout.NORTH);
 		add(scrollPane);
-		// Table
-		table = new JTable();
-		scrollPane.setViewportView(table);
 
-		// Model for Table
+		//define Model for Table
 		model = new DefaultTableModel() {
-
 			public Class<?> getColumnClass(int column) {
 				switch (column) {
 				case 0:
@@ -87,7 +90,6 @@ public class CategoryView extends JPanel {
 					return String.class;
 				}
 			}
-
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -99,6 +101,7 @@ public class CategoryView extends JPanel {
 		model.addColumn(Constansts.CATEGORYID_LABEL);
 		model.addColumn(Constansts.CATEGORYNAME_LABEL);
 
+//get and display category list 
 		freshCategory(model);
 	}
 
