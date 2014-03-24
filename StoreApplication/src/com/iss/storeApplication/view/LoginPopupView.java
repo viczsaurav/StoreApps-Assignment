@@ -42,7 +42,7 @@ public class LoginPopupView {
 	private static final float gradientY = 1000;
 
 	static {
-		loginPanel.setLayout(new GridLayout(2, 3));
+		loginPanel.setLayout(new GridLayout(2, 10));
 		loginPanel.setBackground(new Color(255, 0, 0, 20));
 		loginPanel.setOpaque(false);
 		loginPanel.add(new JLabel(Constansts.LOGIN_LABEL_TEXT_USERNAME));

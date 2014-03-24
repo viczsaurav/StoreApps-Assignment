@@ -14,6 +14,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.iss.storeApplication.common.Constansts;
 import com.iss.storeApplication.domain.Category;
 
 public class CategoryView extends JPanel {
@@ -41,7 +42,7 @@ public class CategoryView extends JPanel {
 		scrollPane.setBounds(33, 41, 494, 90);
 		// Get Row Selected
 		JPanel north = new JPanel(new BorderLayout());
-		JButton btnGetRowSelected = new JButton("Add");
+		JButton btnGetRowSelected = new JButton(Constansts.ADDCATEGORY_BTN);
 		north.add(btnGetRowSelected, BorderLayout.EAST);
 		btnGetRowSelected.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -50,12 +51,10 @@ public class CategoryView extends JPanel {
 				JTextField field1 = new JTextField();
 				JTextField field2 = new JTextField();
 
-				Object[] message = { "CategoryId:", field1, "CategoryName:",
-						field2,
-
-				};
+				Object[] message = {Constansts.CATEGORYID_LABEL, field1, 
+									Constansts.CATEGORYNAME_LABEL,field2};
 				int option = JOptionPane.showConfirmDialog(null, message,
-						"Add category", JOptionPane.OK_CANCEL_OPTION);
+						Constansts.ADDCATEGORY_BTN, JOptionPane.OK_CANCEL_OPTION);
 				if (option == JOptionPane.OK_OPTION) {
 					String categoryCode = field1.getText();
 					String categoryName = field2.getText();
