@@ -96,8 +96,8 @@ public class CategoryView extends JPanel {
 
 		table.setModel(model);
 
-		model.addColumn("CategoryID");
-		model.addColumn("Name");
+		model.addColumn(Constansts.CATEGORYID_LABEL);
+		model.addColumn(Constansts.CATEGORYNAME_LABEL);
 
 		freshCategory(model);
 	}
