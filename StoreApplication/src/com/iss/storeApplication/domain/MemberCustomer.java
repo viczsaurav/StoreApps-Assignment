@@ -1,6 +1,6 @@
 package com.iss.storeApplication.domain;
 
-public class MemberCustomer  extends Customer{
+public class MemberCustomer extends Customer {
 	// not null and unique
 	private String memberId;
 

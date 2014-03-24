@@ -21,12 +21,8 @@ public class LoginService {
 	 * @return
 	 * 
 	 *         It validates store keeper name and store keeper password
-	 * 
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
 	 */
-	public static String validateUser(StoreKeeper storekeeper)
-			throws InstantiationException, IllegalAccessException {
+	public static String validateUser(StoreKeeper storekeeper) {
 
 		if (storekeeper.getUserName().equals("")
 				&& storekeeper.getPassword().equals("")) {
@@ -36,8 +32,7 @@ public class LoginService {
 		} else if (storekeeper.getPassword().equals("")) {
 			return Constansts.MSG_PWD_NULL;
 		} else {
-			// Map<String, StoreKeeper>
-			// storeKeeperMap=StoreKeeperDao.getStoreKeeperMap();
+
 			Map<String, StoreKeeper> storeKeeperMap = storekeeperDao
 					.getStoreKeeperMap();
 			if (storeKeeperMap.containsKey(storekeeper.getUserName().trim())) {
@@ -46,16 +41,7 @@ public class LoginService {
 					return Constansts.LOGIN_SUCCESS_MESSAGE;
 				else
 					return Constansts.LOGIN_INVALID_PASSWORD;
-			}
-			/*
-			 * else if(storeKeeperMap.containsValue(storekeeper.getUserName()))
-			 * { return Constansts.LOGIN_CORRECT_PASSWORD; }
-			 */
-			/*
-			 * else if(storeKeeperMap.containsValue(storekeeper.getPassword()))
-			 * { return Constansts.LOGIN_CORRECT_USERNAME; }
-			 */
-			else {
+			} else {
 				return Constansts.MSG_INVALID_USR;
 			}
 

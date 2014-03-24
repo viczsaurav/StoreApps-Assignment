@@ -3,7 +3,7 @@ package com.iss.storeApplication.domain;
 /**
  * 
  * @author Milan
- *
+ * 
  */
 
 public class StoreKeeper {
@@ -12,9 +12,9 @@ public class StoreKeeper {
 	private String password;
 
 	public StoreKeeper() {
-		
+
 	}
-	
+
 	public StoreKeeper(String userName, String password) {
 
 		this.userName = userName;
@@ -48,11 +48,10 @@ public class StoreKeeper {
 			return false;
 
 		StoreKeeper storekeeper = (StoreKeeper) obj;
-		return storekeeper.getUserName().equals(this.getUserName()) && storekeeper.getPassword().equals(this.getPassword());
-		
-	
-	}
+		return storekeeper.getUserName().equals(this.getUserName())
+				&& storekeeper.getPassword().equals(this.getPassword());
 
+	}
 
 	public String getCommaSeperatedValue() {
 		return userName + "," + password;

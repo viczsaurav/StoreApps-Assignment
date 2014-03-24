@@ -2,7 +2,6 @@ package com.iss.storeApplication.domain;
 
 public abstract class Customer {
 
-
 	public String getMemberName() {
 		return memberName;
 	}
@@ -18,8 +17,8 @@ public abstract class Customer {
 	public void setLoyality(Integer loyality) {
 		this.loyality = loyality;
 	}
-	
+
 	private String memberName;
-	
+
 	private Integer loyality;
 }

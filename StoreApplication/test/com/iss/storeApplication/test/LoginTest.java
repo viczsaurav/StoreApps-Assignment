@@ -23,26 +23,24 @@ public class LoginTest {
 
 	@Before
 	public void setUp() throws Exception {
-		storeKeepers.add(new StoreKeeper("",""));
-		storeKeepers.add(new StoreKeeper("wrongUserName",""));
-		storeKeepers.add(new StoreKeeper("","wrongPasswrod"));
-		storeKeepers.add(new StoreKeeper("wrongUserName","wrongPasswrod"));
-		storeKeepers.add(new StoreKeeper("correctUserName","wrongPasswrod"));
-		storeKeepers.add(new StoreKeeper("correctUserName","correctPasswrod"));
+		storeKeepers.add(new StoreKeeper("", ""));
+		storeKeepers.add(new StoreKeeper("wrongUserName", ""));
+		storeKeepers.add(new StoreKeeper("", "wrongPasswrod"));
+		storeKeepers.add(new StoreKeeper("wrongUserName", "wrongPasswrod"));
+		storeKeepers.add(new StoreKeeper("correctUserName", "wrongPasswrod"));
+		storeKeepers.add(new StoreKeeper("correctUserName", "correctPasswrod"));
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		storeKeepers.clear();
 	}
-	
-	private List<StoreKeeper> storeKeepers=new ArrayList<StoreKeeper>();
+
+	private List<StoreKeeper> storeKeepers = new ArrayList<StoreKeeper>();
 
 	@Test
 	public void test() {
-		
-		
-		
+
 	}
 
 }

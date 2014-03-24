@@ -11,22 +11,22 @@ import javax.swing.JFrame;
 /**
  * 
  * @author milan
- *
+ * 
  */
 public class MainView extends JFrame {
 
 	private static final Color gradientColor = new Color(107, 106, 104);
 	private static final float gradientX = 1000;
 	private static final float gradientY = 1000;
-	
+
 	public MainView() {
 
 		initMainView();
-		
+
 	}
 
 	private void initMainView() {
-		
+
 		setVisible(true);
 		setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
 		setTitle("University Souvenir Store Application - SE224FT");
@@ -37,12 +37,9 @@ public class MainView extends JFrame {
 	/**
 	 * 
 	 * @author sakthi
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * 
 	 */
 
-	public void showLoginView() throws InstantiationException, IllegalAccessException {
+	public void showLoginView() {
 
 		LoginPopupView.showLoginDialog(this);
 
@@ -53,7 +50,4 @@ public class MainView extends JFrame {
 		add(toolBarView, BorderLayout.NORTH);
 	}
 
-	
-	
-	
 }
