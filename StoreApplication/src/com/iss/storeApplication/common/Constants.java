@@ -34,6 +34,7 @@ public interface Constants {
 	public static final String LOGIN_INVALID_PASSWORD = "Invalid Password";
 
 	// Toolbar Button Labels
+	public static final String TRANSACTIONBUTTONLBL = "Transaction";
 	public static final String CATEGORYBUTTONLBL = "Category";
 	public static final String MEMBERBUTTONLBL = "Members";
 	public static final String DISCOUNTBUTTONLBL = "Discount";

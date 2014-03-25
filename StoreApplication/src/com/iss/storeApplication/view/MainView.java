@@ -71,17 +71,18 @@ public class MainView extends JFrame {
 	private void addContentPanel() {
 		contentPanel.setBackground(Color.CYAN);
 		contentPanel.setSize(600, 600);
-		cardLayout.setHgap(10);
-		cardLayout.setVgap(10);
+		//cardLayout.setHgap(10);
+		//cardLayout.setVgap(10);
 		
 		//set card layout panel
 		contentPanel.setLayout(cardLayout);
 
 		//add all content views in content panel
+		contentPanel.add(Constants.TRANSACTIONBUTTONLBL, new TransactionView());
 		contentPanel.add(Constants.CATEGORYBUTTONLBL, new CategoryView());
 		contentPanel.add(Constants.DISCOUNTBUTTONLBL, new DiscountView(this));
 		contentPanel.add(Constants.MEMBERBUTTONLBL, new MemberView());
-		contentPanel.add(Constants.PRODUCTBUTTONLBL, new ProductView());
+		contentPanel.add(Constants.PRODUCTBUTTONLBL, new ProductView(this));
 		contentPanel.add(Constants.PURCHASEORDERBUTTONLBL,
 				new PurchaseOrderView());
 		contentPanel.add(Constants.REPORTBUTTONLBL, new ReportView());

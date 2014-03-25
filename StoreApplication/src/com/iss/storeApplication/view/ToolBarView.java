@@ -26,6 +26,7 @@ public class ToolBarView extends JToolBar implements ActionListener {
 		try {
 			// Adding Buttons
 			// add(addButton(Utility.getPropertyValue(Constants.CATEGORYBUTTONLBL)));
+			add(addButton(Constants.TRANSACTIONBUTTONLBL));
 			add(addButton(Constants.CATEGORYBUTTONLBL));
 			add(addButton(Constants.MEMBERBUTTONLBL));
 			add(addButton(Constants.DISCOUNTBUTTONLBL));
