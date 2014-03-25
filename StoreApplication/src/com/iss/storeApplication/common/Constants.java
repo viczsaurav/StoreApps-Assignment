@@ -51,7 +51,7 @@ public interface Constants {
 	public static final String DISCOUNT_CLASSNAME = "Discount";
 	public static final String TRANSACTION_CLASSNAME = "Transaction";
 	
-	// Category View Labels
+	// Category Button Labels
 	public static final String CATEGORYID_LABEL = "Category ID";
 	public static final String CATEGORYNAME_LABEL = "Category Name";
 	public static final String ADDCATEGORY_BTN = "+ Add New Category";
