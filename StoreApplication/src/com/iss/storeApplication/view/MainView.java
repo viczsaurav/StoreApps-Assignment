@@ -79,7 +79,7 @@ public class MainView extends JFrame {
 
 		//add all content views in content panel
 		contentPanel.add(Constants.CATEGORYBUTTONLBL, new CategoryView());
-		contentPanel.add(Constants.DISCOUNTBUTTONLBL, new DiscountView());
+		contentPanel.add(Constants.DISCOUNTBUTTONLBL, new DiscountView(this));
 		contentPanel.add(Constants.MEMBERBUTTONLBL, new MemberView());
 		contentPanel.add(Constants.PRODUCTBUTTONLBL, new ProductView());
 		contentPanel.add(Constants.PURCHASEORDERBUTTONLBL,

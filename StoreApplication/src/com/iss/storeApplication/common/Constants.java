@@ -50,7 +50,7 @@ public interface Constants {
 	public static final String CUSTOMER_CLASSNAME = "Customer";
 	public static final String DISCOUNT_CLASSNAME = "Discount";
 	public static final String TRANSACTION_CLASSNAME = "Transaction";
-	
+
 	// Category Button Labels
 	public static final String CATEGORYID_LABEL = "Category ID";
 	public static final String CATEGORYNAME_LABEL = "Category Name";
@@ -61,10 +61,19 @@ public interface Constants {
 	public static final String CATEGORY_EXIST = "category is exist";
 	public static final String CATEGORY_CORRECT = "correct category";
 
-	
 	// File Names
 	public static final String FILENAME_STOREKEEPER = "StoreKeepers";
 	public static final String FILENAME_PRODUCT = "Products";
 	public static final String FILENAME_CATEGORY = "Category";
 
+	// Discount
+	public static final String ADDDISCOUNT_BTN = "AddDiscountBtn";
+	public static final String DISCOUNT_CODE = "DiscountCode";
+	public static final String Description = "Description";
+	public static final String Discount = "Discount";
+	public static final String memberApplicable = "memberApplicable";
+	public static final String startDate = "startDate";
+	public static final String endDate = "endDate";
+	public static final String discountType = "discountType";
+	public static final String discountApplicable = "discountApplicable";
 }
