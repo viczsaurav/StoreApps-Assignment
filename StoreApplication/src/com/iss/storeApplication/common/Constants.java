@@ -14,6 +14,7 @@ public interface Constants {
 	public static final String FILE_EXTENSION = "dat";
 	public static final String FILE_EXT_SEPERATOR = ".";
 	public static final String CATEGORY_NAME = "CategoryName";
+	public static final String ALL_FIELDS_REQUIRED = "All fields are mandatory !";
 
 	/**
 	 * 

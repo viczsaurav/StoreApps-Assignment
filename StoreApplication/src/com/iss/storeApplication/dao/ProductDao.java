@@ -1,4 +1,4 @@
-package com.iss.storeApplication.dao;
+ 	package com.iss.storeApplication.dao;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -99,7 +99,6 @@ public class ProductDao implements CommonDao<Product> {
 			for (Product p : Products) {
 				productsMap.put(p.getProductId(),p);
 			}
-
 			return productsMap;
 		}
 	}

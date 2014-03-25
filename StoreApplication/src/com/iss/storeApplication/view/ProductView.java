@@ -5,6 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -19,6 +23,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.SwingUtility;
+import com.iss.storeApplication.dao.CategoryDao;
+import com.iss.storeApplication.domain.Category;
 
 /**
  * 
@@ -32,6 +38,11 @@ public class ProductView extends JPanel {
 	private DefaultTableModel productTableModel;
 	private JComboBox<String> prodCategory;
 	private JButton addNewProduct;
+	private List<Category> category;
+	private String [] allCategoryName;
+	private String selectedCategory;
+	
+	CategoryDao fetchCategory = new CategoryDao();
 	
 	private MainView mainView;
 
@@ -88,9 +99,16 @@ public class ProductView extends JPanel {
 		productTableModel.addColumn(Constants.PRODUCT_REORDER_QUANT_LABEL);
 		productTableModel.addColumn(Constants.PRODUCT_ORDER_QUANT_LABEL);
 		
+		// Getting Category Name
+		category = fetchCategory.retrieveAll();
+		allCategoryName = new String[category.size()];
+		for (int i = 0; i < category.size(); i++) {
+			allCategoryName[i] = category.get(i).getCategoryCode() + " - " 
+		    + category.get(i).getCategoryName();
+		}
 		// Initializing ComboBox
-		final ComboBoxModel<String> jComboBoxModel = new DefaultComboBoxModel<>(
-				new String[] { "Item One", "Item Two" });
+		ComboBoxModel<String> jComboBoxModel = new DefaultComboBoxModel<>(
+				allCategoryName);
 		prodCategory = new JComboBox<>();
 		prodCategory.setModel(jComboBoxModel);
 
@@ -98,6 +116,8 @@ public class ProductView extends JPanel {
 		addNewProduct.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
+				
+				//CategoryDao
 
 				// Adding Item listener for ComboBox
 				prodCategory.addItemListener(new ItemListener() {
@@ -106,8 +126,9 @@ public class ProductView extends JPanel {
 					public void itemStateChanged(ItemEvent e) {
 						if ((e.getStateChange() == ItemEvent.SELECTED)) {
 		                    String result = (String) prodCategory.getSelectedItem();
-		                    // GET CATEGORY VALUE HERE
-						}
+		                    selectedCategory = result.split("-")[0].trim();
+		                    System.out.println(selectedCategory);		                    
+		                   }
 					}
 				});
 
@@ -141,7 +162,7 @@ public class ProductView extends JPanel {
 					// Refreshing the Panel
 					SwingUtility.refreshJpanel(productPanel);
 				}
-
+			
 			}
 		});
 		addNewProduct.setBounds(224, 149, 131, 23);
