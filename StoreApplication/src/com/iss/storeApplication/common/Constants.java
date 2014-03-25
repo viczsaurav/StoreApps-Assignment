@@ -58,5 +58,7 @@ public interface Constants {
 
 	// File Names
 	public static final String FILENAME_STOREKEEPER = "StoreKeepers";
+	public static final String FILENAME_PRODUCT = "Products";
+	public static final String FILENAME_CATEGORY = "Category";
 
 }

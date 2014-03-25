@@ -84,4 +84,10 @@ public class Product implements java.io.Serializable {
 		this.category = category;
 	}
 
+	public String getCommaSeperatedValue() {
+		// TODO Auto-generated method stub
+		return productId+","+productName+","+description+","+qtyAvailable+","+price+","+barCode+","+reorderQty+","+orderQty;
+		
+	}
+
 }

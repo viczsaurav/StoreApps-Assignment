@@ -12,27 +12,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.domain.StoreKeeper;
+import com.iss.storeApplication.domain.Vendor;
 
-/**
- * 
- * @author sakthi
- * 
- */
-public class StoreKeeperDao implements CommonDao<StoreKeeper> {
-
-	private String fileName = Constants.FILENAME_STOREKEEPER
-			+ Constants.FILE_EXT_SEPERATOR + Constants.FILE_EXTENSION;
+public class VendorDao implements CommonDao<Vendor>{
+	private String fileName = null;
 
 
 
 	/**
-	 * Save Storekeeper to file
+	 * Save Vendor to file
 	 */
-	@Override
-	public void save(StoreKeeper s) 
-	{
+	public void save(Vendor v) {
 
 		try {
 			File file = new File(Constants.DATA_FILE_DIR, fileName);
@@ -42,7 +35,7 @@ public class StoreKeeperDao implements CommonDao<StoreKeeper> {
 			PrintWriter out = new PrintWriter(new BufferedWriter(
 					new FileWriter(file, true)));
 
-			out.println(s.getCommaSeperatedValue());
+			out.println(v.getCommaSeperatedValue());
 			out.close();
 		} catch (IOException e) {
 			System.out.println("IOException :" + e.getMessage());
@@ -53,8 +46,8 @@ public class StoreKeeperDao implements CommonDao<StoreKeeper> {
 	 * Retrieve All Storekeepers
 	 */
 	@Override
-	public List<StoreKeeper> retrieveAll() {
-		List<StoreKeeper> storeKeepers = new ArrayList<StoreKeeper>();
+	public List<Vendor> retrieveAll() {
+		List<Vendor> Vendors = new ArrayList<Vendor>();
 
 		try {
 			File file = new File(Constants.DATA_FILE_DIR, fileName);
@@ -65,10 +58,11 @@ public class StoreKeeperDao implements CommonDao<StoreKeeper> {
 			String row;
 			while ((row = br.readLine()) != null) {
 				String[] rowValues = row.split(",");
-				StoreKeeper s = new StoreKeeper();
-				s.setUserName(rowValues[0]);
-				s.setPassword(rowValues[1]);
-				storeKeepers.add(s);
+				Vendor v = new Vendor();
+				v.setName(rowValues[0]);
+				v.setDescription(rowValues[1]);
+				
+				Vendors.add(v);
 			}
 			br.close();
 
@@ -81,7 +75,7 @@ public class StoreKeeperDao implements CommonDao<StoreKeeper> {
 
 		}
 
-		return storeKeepers;
+		return Vendors;
 	}
 
 	
@@ -91,17 +85,15 @@ public class StoreKeeperDao implements CommonDao<StoreKeeper> {
 	 * @return
 	 */
 	@Override
-	public Map<String, StoreKeeper> getMap() {
+	public Map<String, Vendor> getMap() {
 		// TODO Auto-generated method stub
-		List<StoreKeeper> storekeepers = retrieveAll();
-		HashMap<String, StoreKeeper> userNamestoreKeeperMap = new HashMap<String, StoreKeeper>();
+		List<Vendor> vendors = retrieveAll();
+		HashMap<String, Vendor> vendorsMap = new HashMap<String, Vendor>();
 
-		for (StoreKeeper s : storekeepers) {
-			userNamestoreKeeperMap.put(s.getUserName(), s);
+		for (Vendor v : vendors) {
+			vendorsMap.put(v.getName(), v);
 		}
 
-		return userNamestoreKeeperMap;
+		return vendorsMap;
 	}
-
-
 }

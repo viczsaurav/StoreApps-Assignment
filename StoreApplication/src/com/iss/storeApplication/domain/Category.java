@@ -32,4 +32,9 @@ public class Category {
 		this.vendors = vendors;
 	}
 
+	public String getCommaSeperatedValue() {
+		// TODO Auto-generated method stub
+		return categoryCode+","+categoryName;
+	}
+
 }

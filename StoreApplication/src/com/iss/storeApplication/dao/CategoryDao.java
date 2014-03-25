@@ -12,27 +12,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.iss.storeApplication.common.Constants;
-import com.iss.storeApplication.domain.StoreKeeper;
+import com.iss.storeApplication.domain.Category;
 
-/**
- * 
- * @author sakthi
- * 
- */
-public class StoreKeeperDao implements CommonDao<StoreKeeper> {
+public class CategoryDao implements CommonDao<Category> {
 
-	private String fileName = Constants.FILENAME_STOREKEEPER
+	private String fileName = Constants.FILENAME_CATEGORY
 			+ Constants.FILE_EXT_SEPERATOR + Constants.FILE_EXTENSION;
 
-
-
 	/**
-	 * Save Storekeeper to file
+	 * Save category to file
 	 */
 	@Override
-	public void save(StoreKeeper s) 
-	{
+	public void save(Category c) {
+		// TODO Auto-generated method stub
 
 		try {
 			File file = new File(Constants.DATA_FILE_DIR, fileName);
@@ -41,22 +35,25 @@ public class StoreKeeperDao implements CommonDao<StoreKeeper> {
 			}
 			PrintWriter out = new PrintWriter(new BufferedWriter(
 					new FileWriter(file, true)));
-
-			out.println(s.getCommaSeperatedValue());
+			out.println(c.getCommaSeperatedValue());
 			out.close();
 		} catch (IOException e) {
 			System.out.println("IOException :" + e.getMessage());
 		}
-	}
 
+	}
+	
 	/**
-	 * Retrieve All Storekeepers
+	 * List of all categories
 	 */
+
 	@Override
-	public List<StoreKeeper> retrieveAll() {
-		List<StoreKeeper> storeKeepers = new ArrayList<StoreKeeper>();
+	public List<Category> retrieveAll() {
+		// TODO Auto-generated method stub
+		List<Category> Categories = new ArrayList<Category>();
 
 		try {
+
 			File file = new File(Constants.DATA_FILE_DIR, fileName);
 			if (!file.exists()) {
 				file.createNewFile();
@@ -65,13 +62,12 @@ public class StoreKeeperDao implements CommonDao<StoreKeeper> {
 			String row;
 			while ((row = br.readLine()) != null) {
 				String[] rowValues = row.split(",");
-				StoreKeeper s = new StoreKeeper();
-				s.setUserName(rowValues[0]);
-				s.setPassword(rowValues[1]);
-				storeKeepers.add(s);
+				Category c = new Category();
+				c.setCategoryCode(rowValues[0]);
+				c.setCategoryName(rowValues[1]);
+				Categories.add(c);
 			}
 			br.close();
-
 		} catch (FileNotFoundException e) {
 			System.out.println("File Not Found : " + fileName);
 
@@ -80,28 +76,36 @@ public class StoreKeeperDao implements CommonDao<StoreKeeper> {
 					+ e.getMessage());
 
 		}
-
-		return storeKeepers;
+		return Categories;
 	}
+	
 
+	/**
+	 * Used to search for a category in map of categories
+	 */
+
+	public Category get(String searchKey) {
+		// TODO Auto-generated method stub
+		Map<String, Category> categoriesMap = getMap();
+		return categoriesMap.get(searchKey);
+
+	}
 	
 	/**
-	 * get Storekeeper Map used to search storekeeper from list of record.
-	 * 
-	 * @return
+	 * Used to return a Map of categories with category name as key and category object as value
 	 */
+
 	@Override
-	public Map<String, StoreKeeper> getMap() {
+	public Map<String, Category> getMap() {
 		// TODO Auto-generated method stub
-		List<StoreKeeper> storekeepers = retrieveAll();
-		HashMap<String, StoreKeeper> userNamestoreKeeperMap = new HashMap<String, StoreKeeper>();
 
-		for (StoreKeeper s : storekeepers) {
-			userNamestoreKeeperMap.put(s.getUserName(), s);
+			List<Category> categories = retrieveAll();
+			HashMap<String, Category> categoriesMap = new HashMap<String, Category>();
+
+			for (Category c : categories) {
+				categoriesMap.put(c.getCategoryCode(),c);
+			}
+
+			return categoriesMap;
 		}
-
-		return userNamestoreKeeperMap;
 	}
-
-
-}

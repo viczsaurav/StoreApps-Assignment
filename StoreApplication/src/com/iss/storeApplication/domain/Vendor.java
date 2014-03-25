@@ -31,4 +31,9 @@ public class Vendor {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public String getCommaSeperatedValue() {
+		// TODO Auto-generated method stub
+		return name+","+description;
+	}
 }

@@ -33,8 +33,8 @@ public class LoginService {
 			return Constants.MSG_PWD_NULL;
 		} else {
 
-			Map<String, StoreKeeper> storeKeeperMap = storekeeperDao
-					.getStoreKeeperMap();
+			Map<String, StoreKeeper> storeKeeperMap = storekeeperDao.getMap();
+			
 			if (storeKeeperMap.containsKey(storekeeper.getUserName().trim())) {
 				StoreKeeper sk = storeKeeperMap.get(storekeeper.getUserName());
 				if (sk.equals(storekeeper))
