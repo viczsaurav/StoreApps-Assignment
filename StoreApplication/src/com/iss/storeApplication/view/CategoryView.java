@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.iss.storeApplication.common.Constants;
+import com.iss.storeApplication.dao.CategoryDao;
 import com.iss.storeApplication.domain.Category;
 
 
@@ -107,11 +108,11 @@ public class CategoryView extends JPanel {
 
 	private void freshCategory(DefaultTableModel model) {
 
-		List<Category> cat1 = new ArrayList<Category>();
-
-		// cat1 =
-		// CommonDao.retrieveAllRecordArray("Category.dat",Category.class);
-		// Data Row
+		List<Category> cat1;
+		CategoryDao categoryDao = new CategoryDao();
+		cat1 = categoryDao.retrieveAll();
+		
+		// Putting Values in the Category Table
 		int i = 0;
 		for (Category entry : cat1) {
 			model.addRow(new Object[0]);
