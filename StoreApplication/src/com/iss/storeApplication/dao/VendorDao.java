@@ -18,6 +18,7 @@ import com.iss.storeApplication.domain.StoreKeeper;
 import com.iss.storeApplication.domain.Vendor;
 
 public class VendorDao implements CommonDao<Vendor>{
+
 	private String fileName = null;
 
 

@@ -51,15 +51,32 @@ public interface Constants {
 	public static final String DISCOUNT_CLASSNAME = "Discount";
 	public static final String TRANSACTION_CLASSNAME = "Transaction";
 	
-	// Category Button Labels
+	// Category View Labels
 	public static final String CATEGORYID_LABEL = "Category ID";
 	public static final String CATEGORYNAME_LABEL = "Category Name";
-	public static final String ADDCATEGORY_BTN = "Add Category";
-	public static final String CATEGORY_CODE_NAME_EMPTY = "category name and code are empty";
-	public static final String CATEGORY_NAME_EMPTY = "category name is empty";
-	public static final String CATEGORY_CODE_EMPTY = "category code is empty";
-	public static final String CATEGORY_EXIST = "category is exist";
-	public static final String CATEGORY_CORRECT = "correct category";
+	public static final String ADDCATEGORY_BTN = "+ Add New Category";
+	public static final String CATEGORY_CODE_NAME_EMPTY = "Category Name and Code are empty";
+	public static final String CATEGORY_NAME_EMPTY = "Category Name is empty";
+	public static final String CATEGORY_CODE_EMPTY = "Category code is empty";
+	public static final String CATEGORY_EXIST = "Category exists";
+	public static final String CATEGORY_CORRECT = "Correct Category";
+	
+	// Product View Labels
+	public static final String PRODUCT_CATEGORY_LABEL = "Product Category";
+	public static final String PRODUCTID_LABEL = "Product ID";
+	public static final String PRODUCTNAME_LABEL = "Product Name";
+	public static final String PRODUCT_DESC_LABEL = "Product Description";
+	public static final String PRODUCT_QUANTITY_LABEL = "Product Quantity";
+	public static final String PRODUCT_PRICE_LABEL = "Product Price";
+	public static final String PRODUCT_BARCODE_LABEL = "Product Barcode";
+	public static final String PRODUCT_REORDER_QUANT_LABEL = "Product Reorder Threshold";
+	public static final String PRODUCT_ORDER_QUANT_LABEL = "Product Order Quantity";
+	public static final String ADDPRODUCT_BTN = "+ Add New Product";
+	public static final String PRODUCT_CODE_NAME_EMPTY = "Product Name and Code are empty";
+	public static final String PRODUCT_NAME_EMPTY = "Product Name is empty";
+	public static final String PRODUCT_CODE_EMPTY = "Product code is empty";
+	public static final String PRODUCT_EXIST = "Product exists";
+	public static final String PRODUCT_CORRECT = "Correct Product";
 
 	
 	// File Names

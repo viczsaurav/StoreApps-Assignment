@@ -48,7 +48,7 @@ public class CategoryView extends JPanel {
 		scrollPane.setViewportView(table);
 
 		north.add(btnGetRowSelected, BorderLayout.EAST);
-		//define add button function 
+		//define add button function
 		btnGetRowSelected.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 

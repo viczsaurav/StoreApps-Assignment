@@ -5,9 +5,9 @@ import javax.swing.SwingUtilities;
 import com.iss.storeApplication.view.MainView;
 
 /**
- * 
+ *
  * @author Milan
- * 
+ *
  */
 public class StoreApps {
 
@@ -16,8 +16,7 @@ public class StoreApps {
 			public void run() {
 				MainView mainView = new MainView();
 				/*mainView.getContentPane().add(
-						new LoginPopupView().getComponent());*/
-
+				new LoginPopupView().getComponent());*/
 				mainView.showLoginView();
 
 			}
