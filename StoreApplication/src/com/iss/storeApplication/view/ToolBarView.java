@@ -69,10 +69,11 @@ public class ToolBarView extends JToolBar implements ActionListener {
 	
 	protected  void showContent(String name) {
 		mainView.getCardLayout().show(mainView.getContentPanel(), name);
-		if(name.equals("Logout"))
+		if(name.equals("Logout")){
 			LoginPopupView.userNameTxtField.setText("");
 		    LoginPopupView.passwordField.setText("");
 			LoginPopupView.showLoginDialog(mainView);
+		}
 	}
 
 	@Override
