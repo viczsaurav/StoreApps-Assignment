@@ -3,17 +3,19 @@ package com.iss.storeApplication.view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import com.iss.storeApplication.business.CategoryService;
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.dao.CategoryDao;
 import com.iss.storeApplication.domain.Category;
@@ -25,9 +27,11 @@ import com.iss.storeApplication.domain.Category;
 
 public class CategoryView extends JPanel {
 
-
+	CategoryView objectCat = this;
 	public JTable table;
 	DefaultTableModel model;
+	private JPanel categoryPanel;
+	JScrollPane scrollPane;
 
 	public CategoryView() {
 		setBounds(100, 100, 580, 242);
@@ -37,18 +41,18 @@ public class CategoryView extends JPanel {
 	}
 
 	private void initialCategory() {
+		scrollPane = new JScrollPane();
+		categoryPanel = new JPanel();
 		// ScrollPane for Table
-		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(33, 41, 494, 90);
 		// some setting on panel
-		JPanel north = new JPanel(new BorderLayout());
 		JButton btnGetRowSelected = new JButton(Constants.ADDCATEGORY_BTN);
 
 		// Table
 		table = new JTable();
 		scrollPane.setViewportView(table);
 
-		north.add(btnGetRowSelected, BorderLayout.EAST);
+		categoryPanel.add(btnGetRowSelected, BorderLayout.EAST);
 		//define add button function
 		btnGetRowSelected.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -67,6 +71,12 @@ public class CategoryView extends JPanel {
 					String categoryName = namefield.getText();
 					System.out.println("categoryCode:" + categoryCode);
 					System.out.println("categoryName:" + categoryName);
+					Category cat = new Category();
+					cat.setCategoryCode(categoryCode);
+					cat.setCategoryName(categoryName);
+					CategoryService.validateAndSaveCategory(cat);
+//					SwingUtility.refreshJpanel(categoryPanel);
+//					SwingUtility.refreshJpanel(objectCat);
 					freshCategory(model);
 				}
 
@@ -75,19 +85,23 @@ public class CategoryView extends JPanel {
 		
 		
 		btnGetRowSelected.setBounds(224, 149, 131, 23);
-		add(north, BorderLayout.NORTH);
+		add(categoryPanel, BorderLayout.NORTH);
 		add(scrollPane);
 
+
+
+
+
+//get and display category list 
+		freshCategory(model);
+	}
+
+	private void freshCategory(DefaultTableModel model) {
 		//define Model for Table
 		model = new DefaultTableModel() {
 			public Class<?> getColumnClass(int column) {
 				switch (column) {
-				case 0:
-					return String.class;
-				case 1:
-					return String.class;
-
-				default:
+					default:
 					return String.class;
 				}
 			}
@@ -96,18 +110,16 @@ public class CategoryView extends JPanel {
 				return false;
 			}
 		};
+		
+		//align category field in center 
+		 DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+         centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+         table.setDefaultRenderer(String.class, centerRenderer); 
 
 		table.setModel(model);
 
 		model.addColumn(Constants.CATEGORYID_LABEL);
 		model.addColumn(Constants.CATEGORYNAME_LABEL);
-
-//get and display category list 
-		freshCategory(model);
-	}
-
-	private void freshCategory(DefaultTableModel model) {
-
 		List<Category> cat1;
 		CategoryDao categoryDao = new CategoryDao();
 		cat1 = categoryDao.retrieveAll();
