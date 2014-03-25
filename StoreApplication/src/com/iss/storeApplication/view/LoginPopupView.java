@@ -1,27 +1,18 @@
 package com.iss.storeApplication.view;
 
 import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Paint;
 import java.awt.event.WindowEvent;
 
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.JComponent;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.border.BevelBorder;
 
-import com.iss.storeApplication.business.LoginService;
 import com.iss.storeApplication.common.Constants;
+import com.iss.storeApplication.common.RequestFocusListener;
 import com.iss.storeApplication.controller.Controller;
 import com.iss.storeApplication.domain.StoreKeeper;
 
@@ -37,9 +28,9 @@ public class LoginPopupView {
 	static JPasswordField passwordField = new JPasswordField();
 	static String[] loginBtns = { Constants.LOGIN_BTN, Constants.CANCEL };
 
-	private static final Color gradientColor = new Color(107, 106, 104);
-	private static final float gradientX = 1000;
-	private static final float gradientY = 1000;
+	//private static final Color gradientColor = new Color(107, 106, 104);
+	//private static final float gradientX = 1000;
+	//private static final float gradientY = 1000;
 
 	static {
 		loginPanel.setLayout(new GridLayout(2, 10));
@@ -65,6 +56,9 @@ public class LoginPopupView {
 	};*/
 
 	public static boolean showLoginDialog(MainView mainView) {
+		
+		userNameTxtField.addAncestorListener( new RequestFocusListener() );
+		(userNameTxtField).requestFocusInWindow();				
 
 		int result = JOptionPane.showOptionDialog(mainView, loginPanel,
 				Constants.LOGIN_DIALOG_TITLE, JOptionPane.OK_CANCEL_OPTION,
