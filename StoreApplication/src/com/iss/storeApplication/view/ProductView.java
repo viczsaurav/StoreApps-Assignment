@@ -122,12 +122,12 @@ public class ProductView extends JPanel {
 				Object[] productFields = { 
 						Constants.PRODUCT_CATEGORY_LABEL, prodCategory, 
 						Constants.PRODUCTNAME_LABEL, prodName,
-						Constants.PRODUCTNAME_LABEL, prodDesc,
-						Constants.PRODUCT_DESC_LABEL, prodQuant,
-						Constants.PRODUCT_DESC_LABEL, prodPrice,
-						Constants.PRODUCT_DESC_LABEL, prodBarCode,
-						Constants.PRODUCT_DESC_LABEL, prodReorderQuant,
-						Constants.PRODUCT_DESC_LABEL, prodOrderQuant };
+						Constants.PRODUCT_DESC_LABEL, prodDesc,
+						Constants.PRODUCT_QUANTITY_LABEL, prodQuant,
+						Constants.PRODUCT_PRICE_LABEL, prodPrice,
+						Constants.PRODUCT_BARCODE_LABEL, prodBarCode,
+						Constants.PRODUCT_REORDER_QUANT_LABEL, prodReorderQuant,
+						Constants.PRODUCT_ORDER_QUANT_LABEL, prodOrderQuant };
 
 				int option = JOptionPane.showConfirmDialog(null, productFields,
 						Constants.ADDPRODUCT_BTN, JOptionPane.OK_CANCEL_OPTION);
