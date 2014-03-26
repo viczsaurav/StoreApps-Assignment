@@ -1,7 +1,9 @@
 package com.iss.storeApplication.controller;
 
+import com.iss.storeApplication.business.DiscountService;
 import com.iss.storeApplication.business.LoginService;
 import com.iss.storeApplication.business.MemberRegistrationService;
+import com.iss.storeApplication.domain.Discount;
 import com.iss.storeApplication.domain.MemberCustomer;
 import com.iss.storeApplication.domain.StoreKeeper;
 
@@ -17,5 +19,10 @@ public class Controller {
 	 */
 	public static String validateUser(StoreKeeper storeKeeper) {
 		return LoginService.validateUser(storeKeeper);
+	}
+
+	public static String validateAndSaveDiscount(Discount discount) {
+		return DiscountService.validateAndSaveDiscount(discount);
+		
 	}
 }

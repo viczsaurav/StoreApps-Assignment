@@ -7,7 +7,7 @@ import com.iss.storeApplication.domain.StoreKeeper;
 
 public interface CommonDao<T> {
 
-	public void save(T t);
+	public boolean save(T t);
 
 	public List<T> retrieveAll();
 	

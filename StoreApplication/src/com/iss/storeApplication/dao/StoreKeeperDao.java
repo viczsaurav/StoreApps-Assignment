@@ -31,7 +31,7 @@ public class StoreKeeperDao implements CommonDao<StoreKeeper> {
 	 * Save Storekeeper to file
 	 */
 	@Override
-	public void save(StoreKeeper s) 
+	public boolean save(StoreKeeper s) 
 	{
 
 		try {
@@ -44,8 +44,10 @@ public class StoreKeeperDao implements CommonDao<StoreKeeper> {
 
 			out.println(s.getCommaSeperatedValue());
 			out.close();
+			return true;
 		} catch (IOException e) {
 			System.out.println("IOException :" + e.getMessage());
+			return false;
 		}
 	}
 

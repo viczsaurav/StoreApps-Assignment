@@ -26,7 +26,7 @@ public class ProductDao implements CommonDao<Product> {
 	 * Save the product to file
 	 */
 	@Override
-	public void save(Product t) {
+	public boolean save(Product t) {
 		// TODO Auto-generated method stub
 
 		try {
@@ -38,8 +38,10 @@ public class ProductDao implements CommonDao<Product> {
 					new FileWriter(file, true)));
 			out.println(t.getCommaSeperatedValue());
 			out.close();
+			return true;
 		} catch (IOException e) {
 			System.out.println("IOException :" + e.getMessage());
+			return false;
 		}
 
 	}

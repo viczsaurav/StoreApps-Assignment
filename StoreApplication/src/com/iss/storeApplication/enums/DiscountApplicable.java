@@ -1,5 +1,10 @@
 package com.iss.storeApplication.enums;
 
+/**
+ * 
+ * @author milan
+ *
+ */
 public enum DiscountApplicable {
 
 	Member("M"), All("A");

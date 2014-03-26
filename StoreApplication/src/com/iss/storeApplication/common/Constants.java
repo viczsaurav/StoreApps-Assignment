@@ -84,15 +84,22 @@ public interface Constants {
 	public static final String FILENAME_STOREKEEPER = "StoreKeepers";
 	public static final String FILENAME_PRODUCT = "Products";
 	public static final String FILENAME_CATEGORY = "Category";
+	public static final String FILENAME_DISCOUNT = "Discounts";
 
 	// Discount
 	public static final String ADDDISCOUNT_BTN = "AddDiscountBtn";
 	public static final String DISCOUNT_CODE = "DiscountCode";
 	public static final String Description = "Description";
-	public static final String Discount = "Discount";
+	public static final String discount = "discount";
 	public static final String memberApplicable = "memberApplicable";
 	public static final String startDate = "startDate";
-	public static final String endDate = "endDate";
+	public static final String duration = "duration";
 	public static final String discountType = "discountType";
 	public static final String discountApplicable = "discountApplicable";
+	public static final String seasonalDiscount="seasonalDiscount";
+	public static final String permanentDiscount="permanentDiscount";
+	public static final String validateMessage = "validateMessage";
+	public static final String failure = "failure";
+	
+	
 }

@@ -23,4 +23,11 @@ public class PermanentDiscount extends Discount {
 		this.duration = duration;
 	}
 
+
+	public String getCommaSeperatedValue() {
+		return getDiscountCode() + "," + getDescription() + "," + startDate
+				+ "," + duration + "," + getDiscount() + ","
+				+ getMemberApplicable();
+	}
+
 }

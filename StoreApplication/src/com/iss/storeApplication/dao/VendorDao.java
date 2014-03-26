@@ -26,7 +26,7 @@ public class VendorDao implements CommonDao<Vendor>{
 	/**
 	 * Save Vendor to file
 	 */
-	public void save(Vendor v) {
+	public boolean save(Vendor v) {
 
 		try {
 			File file = new File(Constants.DATA_FILE_DIR, fileName);
@@ -38,8 +38,10 @@ public class VendorDao implements CommonDao<Vendor>{
 
 			out.println(v.getCommaSeperatedValue());
 			out.close();
+			return true;
 		} catch (IOException e) {
 			System.out.println("IOException :" + e.getMessage());
+			return false;
 		}
 	}
 

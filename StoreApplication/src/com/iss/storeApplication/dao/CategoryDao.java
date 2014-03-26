@@ -25,7 +25,7 @@ public class CategoryDao implements CommonDao<Category> {
 	 * Save category to file
 	 */
 	@Override
-	public void save(Category c) {
+	public boolean save(Category c) {
 		// TODO Auto-generated method stub
 
 		try {
@@ -37,8 +37,10 @@ public class CategoryDao implements CommonDao<Category> {
 					new FileWriter(file, true)));
 			out.println(c.getCommaSeperatedValue());
 			out.close();
+			return true;
 		} catch (IOException e) {
 			System.out.println("IOException :" + e.getMessage());
+			return false;
 		}
 
 	}

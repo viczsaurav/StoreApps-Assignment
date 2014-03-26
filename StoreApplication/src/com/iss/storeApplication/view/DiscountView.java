@@ -1,24 +1,31 @@
 package com.iss.storeApplication.view;
 
 import java.awt.Button;
-import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.iss.storeApplication.common.Constants;
+import com.iss.storeApplication.common.StringUtility;
 import com.iss.storeApplication.common.SwingUtility;
 import com.iss.storeApplication.common.Utility;
+import com.iss.storeApplication.component.DatePicker;
+import com.iss.storeApplication.controller.Controller;
+import com.iss.storeApplication.domain.PermanentDiscount;
+import com.iss.storeApplication.domain.SeasonalDiscount;
 import com.iss.storeApplication.enums.DiscountApplicable;
 import com.iss.storeApplication.enums.DiscountType;
 
@@ -32,6 +39,32 @@ public class DiscountView extends JPanel {
 	private Button addBtn = new Button(
 			Utility.getPropertyValue(Constants.ADDDISCOUNT_BTN));
 	private MainView mainView;
+	private final JPanel addDiscountPanel = new JPanel();
+	private JComboBox<DiscountType> discountTypeCmbBox = new JComboBox<DiscountType>();
+	private final JLabel discountCodeLabel = new JLabel(
+			Utility.getPropertyValue(Constants.DISCOUNT_CODE));
+	private final JLabel decriptionLabel = new JLabel(
+			Utility.getPropertyValue(Constants.Description));
+	private final JLabel discountApplicableLabel = new JLabel(
+			Utility.getPropertyValue(Constants.discountApplicable));
+	private final JLabel discountLabel = new JLabel(
+			Utility.getPropertyValue(Constants.discount));
+
+	private final JLabel durationLabel = new JLabel(
+			Utility.getPropertyValue(Constants.duration));
+
+	private final JTextField discountCodeField = new JTextField(10);
+	private final JTextField descriptionField = new JTextField(10);
+	private final JComboBox<DiscountApplicable> discountApplicableCmbBox = new JComboBox<DiscountApplicable>();
+	private JLabel discountTypeLabel = new JLabel(
+			Utility.getPropertyValue(Constants.discountType));
+	private final JFormattedTextField discountField = new JFormattedTextField(
+			Utility.getPercentageNumberFormat());
+
+	private final DatePicker startDatePicker = new DatePicker(
+			Utility.getPropertyValue(Constants.startDate));
+	private final JFormattedTextField durationField = new JFormattedTextField(
+			Utility.getDurationNumberFormat());
 
 	public DiscountView(MainView mainView) {
 		this.mainView = mainView;
@@ -44,37 +77,62 @@ public class DiscountView extends JPanel {
 			}
 		});
 		add(addBtn);
+		initAddDiscountDialog();
 	}
 
 	protected void addBtnClicked(ActionEvent event) {
 
-		addDiscountPopup();
+		showDiscountDialog();
 	}
 
-	private void addDiscountPopup() {
+	private void initAddDiscountDialog() {
+		addDiscountPanel.setLayout(new GridBagLayout());
+		final GridBagConstraints c = new GridBagConstraints();
 
-		final JPanel addDiscountPanel = new JPanel();
-		addDiscountPanel.setMinimumSize(new Dimension(600, 600));
-		addDiscountPanel.setPreferredSize(new Dimension(300, 300));
-		addDiscountPanel.setLayout(new GridLayout(7, 4));
-		JComboBox<DiscountType> discountTypeCmbBox = new JComboBox<DiscountType>();
 		discountTypeCmbBox.setModel(new DefaultComboBoxModel<>(DiscountType
 				.values()));
 
-		JLabel discountTypeLabel = new JLabel(
-				Utility.getPropertyValue(Constants.discountType));
-		final JLabel discountCodeLabel = new JLabel(
-				Utility.getPropertyValue(Constants.DISCOUNT_CODE));
-		final JLabel decriptionLabel = new JLabel(
-				Utility.getPropertyValue(Constants.Description));
-		final JLabel discountApplicableLabel = new JLabel(
-				Utility.getPropertyValue(Constants.discountApplicable));
-
-		final JTextField discountCodeField = new JTextField();
-		final JTextField descriptionField = new JTextField();
-		final JComboBox<DiscountApplicable> discountApplicableCmbBox = new JComboBox<DiscountApplicable>();
 		discountApplicableCmbBox.setModel(new DefaultComboBoxModel<>(
 				DiscountApplicable.values()));
+
+		discountField.setColumns(10);
+		discountField.setText("0");
+		durationField.setColumns(10);
+		durationField.setText("1");
+
+		discountField.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (StringUtility.isEmpty(discountField.getText())) {
+					discountField.setText("0");
+				}
+
+			}
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		durationField.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (StringUtility.isEmpty(durationField.getText())) {
+					durationField.setText("1");
+				}
+
+			}
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		discountTypeCmbBox.addItemListener(new ItemListener() {
 
@@ -85,28 +143,80 @@ public class DiscountView extends JPanel {
 							.getSelectedItem());
 					Object selectedItem = ((JComboBox<DiscountType>) e
 							.getSource()).getSelectedItem();
-					if (DiscountType.PERMANENT_DISCOUNT.equals(selectedItem)) {
+					if (DiscountType.SEASONAL_DISCOUNT.equals(selectedItem)) {
 
-						addDiscountPanel.add(discountCodeLabel);
-						addDiscountPanel.add(discountCodeField);
-
-						addDiscountPanel.add(decriptionLabel);
-						addDiscountPanel.add(descriptionField);
-
-						addDiscountPanel.add(discountApplicableLabel);
-						addDiscountPanel.add(discountApplicableCmbBox);
-
-						SwingUtility.refreshJpanel(addDiscountPanel);
+						c.gridx = 0;
+						c.gridy = 1;
+						c.gridwidth = 2;
+						addDiscountPanel.add(startDatePicker, c);
+						c.gridwidth = 1;
+						c.gridx = 0;
+						c.gridy = 2;
+						addDiscountPanel.add(durationLabel, c);
+						c.gridx = 1;
+						c.gridy = 2;
+						addDiscountPanel.add(durationField, c);
 					} else {
-
+						addDiscountPanel.remove(startDatePicker);
+						addDiscountPanel.remove(durationLabel);
+						addDiscountPanel.remove(durationField);
 					}
+
+					SwingUtility.refreshJpanel(addDiscountPanel);
 				}
 
 			}
 		});
 
-		addDiscountPanel.add(discountTypeLabel);
-		addDiscountPanel.add(discountTypeCmbBox);
+		c.gridx = 0;
+		c.gridy = 0;
+		// c.fill = GridBagConstraints.BOTH;
+		// c.insets = new Insets(5,5,5,5); // padding
+		// c.anchor = GridBagConstraints.NORTHWEST;
+
+		addDiscountPanel.add(discountTypeLabel, c);
+		c.gridx = 1;
+		c.gridy = 0;
+		addDiscountPanel.add(discountTypeCmbBox, c);
+		c.gridx = 0;
+		c.gridy = 1;
+		c.gridwidth = 2;
+		addDiscountPanel.add(startDatePicker, c);
+		c.gridwidth = 1;
+		c.gridx = 0;
+		c.gridy = 2;
+		addDiscountPanel.add(durationLabel, c);
+		c.gridx = 1;
+		c.gridy = 2;
+		addDiscountPanel.add(durationField, c);
+		c.gridx = 0;
+		c.gridy = 3;
+		addDiscountPanel.add(discountCodeLabel, c);
+		c.gridx = 1;
+		c.gridy = 3;
+		addDiscountPanel.add(discountCodeField, c);
+
+		c.gridx = 0;
+		c.gridy = 4;
+		addDiscountPanel.add(decriptionLabel, c);
+		c.gridx = 1;
+		c.gridy = 4;
+		addDiscountPanel.add(descriptionField, c);
+		c.gridx = 0;
+		c.gridy = 5;
+		addDiscountPanel.add(discountLabel, c);
+		c.gridx = 1;
+		c.gridy = 5;
+		addDiscountPanel.add(discountField, c);
+		c.gridx = 0;
+		c.gridy = 6;
+		addDiscountPanel.add(discountApplicableLabel, c);
+		c.gridx = 1;
+		c.gridy = 6;
+		addDiscountPanel.add(discountApplicableCmbBox, c);
+	}
+
+	private void showDiscountDialog() {
 
 		/*
 		 * Object[] message = { Constants.CATEGORYID_LABEL, discountTypeCmbBox,
@@ -116,6 +226,40 @@ public class DiscountView extends JPanel {
 		int result = JOptionPane.showConfirmDialog(mainView, addDiscountPanel,
 				Utility.getPropertyValue(Constants.ADDDISCOUNT_BTN),
 				JOptionPane.OK_CANCEL_OPTION);
+
+		if (result == JOptionPane.OK_OPTION) {
+			Object selectedItem = discountTypeCmbBox.getSelectedItem();
+
+			// Seasonal Discount
+			String message = "";
+			if (DiscountType.SEASONAL_DISCOUNT.equals(selectedItem)) {
+				SeasonalDiscount sd = new SeasonalDiscount();
+				sd.setDescription(descriptionField.getText());
+				sd.setDiscount(new Double(discountField.getText()));
+				sd.setDiscountCode(discountCodeField.getText());
+				sd.setDuration(new Integer(durationField.getText()));
+				sd.setMemberApplicable((((DiscountApplicable) discountApplicableCmbBox
+						.getSelectedItem()).toString()));
+				sd.setStartDate(startDatePicker.getPickedDate());
+				message = Controller.validateAndSaveDiscount(sd);
+			} else {
+				PermanentDiscount pd = new PermanentDiscount();
+				pd.setDescription(descriptionField.getText());
+				pd.setDiscount(new Double(discountField.getText()));
+				pd.setDiscountCode(discountCodeField.getText());
+				pd.setMemberApplicable((((DiscountApplicable) discountApplicableCmbBox
+						.getSelectedItem()).toString()));
+				message = Controller.validateAndSaveDiscount(pd);
+			}
+
+			if (message.equals(Constants.SUCCESS)) {
+				JOptionPane.showMessageDialog(null, message);
+			} else {
+				JOptionPane.showMessageDialog(null, message, "Message",
+						JOptionPane.ERROR_MESSAGE);
+				showDiscountDialog();
+			}
+		}
 
 		/*
 		 * int option = JOptionPane.showInputDialog(null, addDiscountPanel,
