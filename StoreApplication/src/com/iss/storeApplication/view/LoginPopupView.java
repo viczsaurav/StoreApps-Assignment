@@ -16,6 +16,7 @@ import com.iss.storeApplication.common.RequestFocusListener;
 import com.iss.storeApplication.controller.Controller;
 import com.iss.storeApplication.domain.StoreKeeper;
 
+
 /**
  * 
  * @author sakthi
@@ -68,9 +69,9 @@ public class LoginPopupView {
 			String message = Controller.validateUser(new StoreKeeper(
 					userNameTxtField.getText().trim(), passwordField.getText()
 							.trim()));
-			if (message.equals(Constants.LOGIN_SUCCESS_MESSAGE)) {
-				JOptionPane.showMessageDialog(null, message);
-				return true;
+			if (message.equals(Constants.LOGIN_SUCCESS_MESSAGE)) {				
+				ToolBarView.loginWelcomeMessage();
+				return true;				
 
 			} else {
 				// show message to user
@@ -87,6 +88,8 @@ public class LoginPopupView {
 		}
 
 	}
+	
+	
 
 	/*public JComponent getComponent() {
 		return mainPanel;
