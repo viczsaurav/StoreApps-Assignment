@@ -43,7 +43,7 @@ import com.iss.storeApplication.enums.DiscountType;
  */
 public class DiscountView extends JPanel {
 
-	private Button addBtn = new Button(
+	private Button addDiscountBtn = new Button(
 			Utility.getPropertyValue(Constants.ADDDISCOUNT_BTN));
 	private MainView mainView;
 	private final JPanel addDiscountPanel = new JPanel();
@@ -80,8 +80,9 @@ public class DiscountView extends JPanel {
 	private JButton deleteDiscountBtn = new JButton("Delete");
 
 	public DiscountView(MainView mainView) {
+		super(new BorderLayout());
 		this.mainView = mainView;
-		addBtn.addActionListener(new ActionListener() {
+		addDiscountBtn.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent event) {
@@ -96,6 +97,13 @@ public class DiscountView extends JPanel {
 	}
 
 	private void initDiscountTable() {
+
+		JPanel panelButton = new JPanel();
+		// panelButton.setLayout(new FlowLayout());
+		panelButton.add(addDiscountBtn, BorderLayout.NORTH);
+		panelButton.add(deleteDiscountBtn, BorderLayout.NORTH);
+		add(panelButton, BorderLayout.NORTH);
+
 		discountTable.setModel(discountModel);
 		add(new JScrollPane(discountTable), BorderLayout.CENTER);
 		deleteDiscountBtn.addActionListener(new ActionListener() {
@@ -103,12 +111,6 @@ public class DiscountView extends JPanel {
 				deleteDiscount();
 			}
 		});
-		JPanel panelButton = new JPanel();
-		panelButton.setLayout(new FlowLayout());
-		panelButton.add(addBtn);
-		panelButton.add(deleteDiscountBtn);
-
-		add(panelButton, BorderLayout.PAGE_END);
 
 	}
 
@@ -120,11 +122,16 @@ public class DiscountView extends JPanel {
 	}
 
 	private void deleteDiscount() {
+
 		int rowIndex = discountTable.getSelectedRow();
 		if (rowIndex >= 0) {
 			discountModel.removeDiscount(rowIndex);
-			discountModel.fireTableDataChanged();
 
+		}
+		if (Controller.saveAll(discountModel.getListDiscounts())) {
+			discountModel.fireTableDataChanged();
+		} else {
+			JOptionPane.showMessageDialog(mainView, Constants.failure);
 		}
 	}
 
@@ -147,27 +154,27 @@ public class DiscountView extends JPanel {
 		discountField.setText("0");
 		durationField.setColumns(10);
 		durationField.setText("1");
-		
-		
+
 		discountCodeField.addFocusListener(new FocusListener() {
-			
+
 			@Override
 			public void focusLost(FocusEvent arg0) {
-				if(Controller.isDiscountCodeAlreadyExist(discountCodeField.getText()))
-				{
-					JOptionPane.showMessageDialog(mainView, Constants.dcAlreadyExist);
+				if (Controller.isDiscountCodeAlreadyExist(discountCodeField
+						.getText())) {
+					JOptionPane.showMessageDialog(mainView,
+							Constants.dcAlreadyExist);
 					discountCodeField.setText("");
 				}
-				
+
 			}
-			
+
 			@Override
 			public void focusGained(FocusEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
-		
+
 		discountField.addFocusListener(new FocusListener() {
 
 			@Override
@@ -331,15 +338,11 @@ public class DiscountView extends JPanel {
 		}
 
 	}
-	
-	
-	
-	public void refreshDiscountTable()
-	{
+
+	public void refreshDiscountTable() {
 		discountModel.clear();
-		List<Discount> discounts=Controller.getDiscounts();
-		for(Discount d:discounts)
-		{
+		List<Discount> discounts = Controller.getDiscounts();
+		for (Discount d : discounts) {
 			addDiscount(d);
 		}
 	}

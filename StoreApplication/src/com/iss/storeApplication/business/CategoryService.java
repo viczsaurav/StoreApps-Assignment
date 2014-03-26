@@ -44,7 +44,7 @@ public class CategoryService {
 	
 	public static void addCategory(Category c)
 	{
-		categoryDao.save(c);
+		categoryDao.save(c,true);
 	}
 	
 }

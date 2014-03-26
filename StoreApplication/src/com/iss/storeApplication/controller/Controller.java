@@ -36,4 +36,9 @@ public class Controller {
 	public static boolean isDiscountCodeAlreadyExist(String discountCode) {
 		return DiscountService.isDiscountCodeAlreadyExist(discountCode);
 	}
+
+	public static boolean saveAll(List<Discount> listDiscounts) {
+		// TODO Auto-generated method stub
+		return DiscountService.saveAll(listDiscounts);
+	}
 }

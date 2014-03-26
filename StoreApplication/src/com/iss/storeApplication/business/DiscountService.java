@@ -34,7 +34,7 @@ public class DiscountService {
 			}
 
 		}
-		if (discountDao.save(discount))
+		if (discountDao.save(discount, true))
 			return Constants.SUCCESS;
 		else
 			return Constants.failure;
@@ -47,5 +47,10 @@ public class DiscountService {
 	public static boolean isDiscountCodeAlreadyExist(String discountCode) {
 		Map<String, Discount> map = discountDao.getMap();
 		return map.containsKey(discountCode.trim());
+	}
+
+	public static boolean saveAll(List<Discount> discounts) {
+
+		return discountDao.saveAll(discounts);
 	}
 }

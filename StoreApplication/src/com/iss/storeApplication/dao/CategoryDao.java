@@ -25,7 +25,7 @@ public class CategoryDao implements CommonDao<Category> {
 	 * Save category to file
 	 */
 	@Override
-	public boolean save(Category c) {
+	public boolean save(Category c,boolean append) {
 		// TODO Auto-generated method stub
 
 		try {

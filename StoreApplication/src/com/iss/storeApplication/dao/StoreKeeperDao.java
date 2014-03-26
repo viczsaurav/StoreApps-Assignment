@@ -31,7 +31,7 @@ public class StoreKeeperDao implements CommonDao<StoreKeeper> {
 	 * Save Storekeeper to file
 	 */
 	@Override
-	public boolean save(StoreKeeper s) 
+	public boolean save(StoreKeeper s,boolean append) 
 	{
 
 		try {

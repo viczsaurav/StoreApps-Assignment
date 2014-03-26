@@ -3,11 +3,9 @@ package com.iss.storeApplication.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.iss.storeApplication.domain.StoreKeeper;
-
 public interface CommonDao<T> {
 
-	public boolean save(T t);
+	public boolean save(T t,boolean append);
 
 	public List<T> retrieveAll();
 	

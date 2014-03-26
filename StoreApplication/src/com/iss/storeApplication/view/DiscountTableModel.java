@@ -29,7 +29,7 @@ public class DiscountTableModel extends AbstractTableModel {
 	/**
 	 * the list contains discounts objects
 	 */
-	private List<Discount> listDiscountss;
+	private List<Discount> listDiscounts;
 
 	/**
 	 * names for column header in table
@@ -41,7 +41,7 @@ public class DiscountTableModel extends AbstractTableModel {
 	 */
 	public DiscountTableModel() {
 		// initializes discount list
-		this.listDiscountss = new ArrayList<Discount>();
+		this.listDiscounts = new ArrayList<Discount>();
 		// define column names
 		columnNames = new String[] {
 				Utility.getPropertyValue(Constants.DISCOUNT_CODE),
@@ -50,6 +50,10 @@ public class DiscountTableModel extends AbstractTableModel {
 				Utility.getPropertyValue(Constants.duration),
 				Utility.getPropertyValue(Constants.discount),
 				Utility.getPropertyValue(Constants.memberApplicable) };
+	}
+
+	public List<Discount> getListDiscounts() {
+		return listDiscounts;
 	}
 
 	/**
@@ -70,7 +74,7 @@ public class DiscountTableModel extends AbstractTableModel {
 	 * returns the number of rows in the table
 	 */
 	public int getRowCount() {
-		return listDiscountss.size();
+		return listDiscounts.size();
 	}
 
 	/**
@@ -80,7 +84,7 @@ public class DiscountTableModel extends AbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Object value = null;
 
-		Discount discount = listDiscountss.get(rowIndex);
+		Discount discount = listDiscounts.get(rowIndex);
 
 		switch (columnIndex) {
 		case COLUMN_DISCOUNT_CODE:
@@ -122,7 +126,7 @@ public class DiscountTableModel extends AbstractTableModel {
 	 * cell at [row, column]. The corresponding discount object will be updated.
 	 */
 	public void setValueAt(Object value, int rowIndex, int columnIndex) {
-		Discount discount = listDiscountss.get(rowIndex);
+		Discount discount = listDiscounts.get(rowIndex);
 
 		switch (columnIndex) {
 		case COLUMN_DISCOUNT_CODE:
@@ -173,7 +177,7 @@ public class DiscountTableModel extends AbstractTableModel {
 	 * appended to the table.
 	 */
 	public void addDiscount(Discount discount) {
-		this.listDiscountss.add(discount);
+		this.listDiscounts.add(discount);
 	}
 
 	/**
@@ -181,12 +185,12 @@ public class DiscountTableModel extends AbstractTableModel {
 	 * corresponding discount object in the discount list is removed also.
 	 */
 	public void removeDiscount(int rowIndex) {
-		this.listDiscountss.remove(rowIndex);
+		this.listDiscounts.remove(rowIndex);
 	}
 	
 	public void clear()
 	{
-		this.listDiscountss.clear();
+		this.listDiscounts.clear();
 	}
 
 }

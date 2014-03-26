@@ -15,6 +15,7 @@ import java.util.Map;
 
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.StringUtility;
+import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.domain.Discount;
 import com.iss.storeApplication.domain.PermanentDiscount;
 import com.iss.storeApplication.domain.SeasonalDiscount;
@@ -30,14 +31,14 @@ public class DiscountDao implements CommonDao<Discount> {
 			+ Constants.FILE_EXT_SEPERATOR + Constants.FILE_EXTENSION;
 
 	@Override
-	public boolean save(Discount discount) {
+	public boolean save(Discount discount, boolean append) {
 		try {
 			File file = new File(Constants.DATA_FILE_DIR, fileName);
 			if (!file.exists()) {
 				file.createNewFile();
 			}
 			PrintWriter out = new PrintWriter(new BufferedWriter(
-					new FileWriter(file, true)));
+					new FileWriter(file, append)));
 
 			String row = "";
 			if (discount instanceof PermanentDiscount) {
@@ -120,4 +121,20 @@ public class DiscountDao implements CommonDao<Discount> {
 		return map;
 	}
 
+	public boolean saveAll(List<Discount> discounts)
+	{
+		if(discounts.size()==0)
+		{
+			File file = new File(Constants.DATA_FILE_DIR, fileName);
+			return Utility.clearFile(file);
+			
+		}
+		for(Discount d:discounts)
+		{
+			if(!save(d,false)){
+				return false;
+			}
+		}
+		return true;
+	}
 }

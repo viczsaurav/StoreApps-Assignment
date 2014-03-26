@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.iss.storeApplication.common.Constants;
-import com.iss.storeApplication.domain.StoreKeeper;
 import com.iss.storeApplication.domain.Vendor;
 
 public class VendorDao implements CommonDao<Vendor>{
@@ -26,7 +25,7 @@ public class VendorDao implements CommonDao<Vendor>{
 	/**
 	 * Save Vendor to file
 	 */
-	public boolean save(Vendor v) {
+	public boolean save(Vendor v,boolean append) {
 
 		try {
 			File file = new File(Constants.DATA_FILE_DIR, fileName);

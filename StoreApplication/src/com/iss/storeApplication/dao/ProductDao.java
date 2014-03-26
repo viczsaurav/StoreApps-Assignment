@@ -26,7 +26,7 @@ public class ProductDao implements CommonDao<Product> {
 	 * Save the product to file
 	 */
 	@Override
-	public boolean save(Product t) {
+	public boolean save(Product t,boolean append) {
 		// TODO Auto-generated method stub
 
 		try {
