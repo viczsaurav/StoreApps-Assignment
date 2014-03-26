@@ -9,16 +9,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.StringUtility;
-import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.domain.Discount;
 import com.iss.storeApplication.domain.PermanentDiscount;
 import com.iss.storeApplication.domain.SeasonalDiscount;
-import com.iss.storeApplication.domain.StoreKeeper;
 
 /**
  * 
@@ -111,7 +110,14 @@ public class DiscountDao implements CommonDao<Discount> {
 	@Override
 	public Map<String, Discount> getMap() {
 		// TODO Auto-generated method stub
-		return null;
+		List<Discount> discounts = retrieveAll();
+		HashMap<String, Discount> map = new HashMap<String, Discount>();
+
+		for (Discount d : discounts) {
+			map.put(d.getDiscountCode(), d);
+		}
+
+		return map;
 	}
 
 }

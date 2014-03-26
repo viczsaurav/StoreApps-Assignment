@@ -32,4 +32,8 @@ public class Controller {
 	{
 		return DiscountService.getDiscounts();
 	}
+	
+	public static boolean isDiscountCodeAlreadyExist(String discountCode) {
+		return DiscountService.isDiscountCodeAlreadyExist(discountCode);
+	}
 }

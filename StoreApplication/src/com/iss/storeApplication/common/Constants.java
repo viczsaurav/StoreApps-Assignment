@@ -100,6 +100,7 @@ public interface Constants {
 	public static final String permanentDiscount="permanentDiscount";
 	public static final String validateMessage = "validateMessage";
 	public static final String failure = "failure";
+	public static final Object dcAlreadyExist = "dcAlreadyExist";
 	
 	
 }

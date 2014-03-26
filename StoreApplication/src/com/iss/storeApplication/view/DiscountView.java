@@ -149,6 +149,24 @@ public class DiscountView extends JPanel {
 		durationField.setText("1");
 		
 		
+		discountCodeField.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				if(Controller.isDiscountCodeAlreadyExist(discountCodeField.getText()))
+				{
+					JOptionPane.showMessageDialog(mainView, Constants.dcAlreadyExist);
+					discountCodeField.setText("");
+				}
+				
+			}
+			
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 		discountField.addFocusListener(new FocusListener() {
 
