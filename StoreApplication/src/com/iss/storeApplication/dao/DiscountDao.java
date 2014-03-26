@@ -68,6 +68,10 @@ public class DiscountDao implements CommonDao<Discount> {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String row;
 			while ((row = br.readLine()) != null) {
+				if(StringUtility.isEmpty(row))
+				{
+					return discounts;
+				}
 				String[] rowValues = row.split(",");
 
 				if (rowValues[2].equals(Constants.ALWAYS))// Permanent Discount
