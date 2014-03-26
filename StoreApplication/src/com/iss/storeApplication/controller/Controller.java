@@ -1,5 +1,7 @@
 package com.iss.storeApplication.controller;
 
+import java.util.List;
+
 import com.iss.storeApplication.business.DiscountService;
 import com.iss.storeApplication.business.LoginService;
 import com.iss.storeApplication.business.MemberRegistrationService;
@@ -24,5 +26,10 @@ public class Controller {
 	public static String validateAndSaveDiscount(Discount discount) {
 		return DiscountService.validateAndSaveDiscount(discount);
 		
+	}
+	
+	public static List<Discount> getDiscounts()
+	{
+		return DiscountService.getDiscounts();
 	}
 }

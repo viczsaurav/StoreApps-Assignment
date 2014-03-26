@@ -1,5 +1,7 @@
 package com.iss.storeApplication.business;
 
+import java.util.List;
+
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.StringUtility;
 import com.iss.storeApplication.common.Utility;
@@ -35,5 +37,10 @@ public class DiscountService {
 		return Constants.SUCCESS;
 		else
 			return Constants.failure;
+	}
+	
+	public static List<Discount> getDiscounts()
+	{
+		return discountDao.retrieveAll();
 	}
 }

@@ -1,11 +1,13 @@
 package com.iss.storeApplication.view;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
@@ -20,9 +22,8 @@ public class ToolBarView extends JToolBar implements ActionListener {
 	private MainView mainView;
 	private static JLabel label;
 
-
 	public ToolBarView(MainView mainView) {
-		this.mainView=mainView;
+		this.mainView = mainView;
 		addToolBar();
 	}
 
@@ -46,35 +47,31 @@ public class ToolBarView extends JToolBar implements ActionListener {
 			e.printStackTrace();
 		}
 	}
-	  
+
 	/**
 	 * @author sakthi
 	 */
-	public JLabel addLabel(final String  labelName)
-	{		
-		Dimension size = new Dimension(650, 20);		
-		addSeparator(size);		
-		label = new JLabel();		
-		label.setVisible(false);		
+	public JLabel addLabel(final String labelName) {
+		Dimension size = new Dimension(650, 20);
+		addSeparator(size);
+		label = new JLabel();
+		label.setVisible(false);
 		return label;
 	}
-	
-	
-	public  JButton addButton(final String buttonName) {
+
+	public JButton addButton(final String buttonName) {
 		JButton button = new JButton();
 		button.setText(buttonName);
 		button.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				showContent(buttonName);
-				
+
 			}
 		});
 		return button;
 	}
-
-	
 
 	public MainView getMainView() {
 		return mainView;
@@ -83,33 +80,45 @@ public class ToolBarView extends JToolBar implements ActionListener {
 	public void setMainView(MainView mainView) {
 		this.mainView = mainView;
 	}
-	
-	protected  void showContent(String name) {
+
+	protected void showContent(String name) {
 		mainView.getCardLayout().show(mainView.getContentPanel(), name);
+		
+		
+		//refresh visible card panel
+		JPanel card = null;
+		for (Component comp : mainView.getContentPanel().getComponents()) {
+			if (comp.isVisible() == true) {
+				card = (JPanel) comp;
+				card.repaint();
+			}
+
+		}
+
 		/**
 		 * @author sakthi
 		 */
-		if(name.equals("Logout")){
+		if (name.equals("Logout")) {
 			LoginPopupView.userNameTxtField.setText("");
-		    LoginPopupView.passwordField.setText("");
-		    label.setText("");
-			label.setVisible(false);			    
+			LoginPopupView.passwordField.setText("");
+			label.setText("");
+			label.setVisible(false);
 			LoginPopupView.showLoginDialog(mainView);
 		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
 	}
+
 	/**
 	 * @author sakthi
 	 */
-	
-	public static void loginWelcomeMessage()
-	{		
+
+	public static void loginWelcomeMessage() {
 		String userName = LoginPopupView.userNameTxtField.getText();
-		label.setText("Welcome "+  userName);
-		label.setVisible(true);				
+		label.setText("Welcome " + userName);
+		label.setVisible(true);
 	}
 }

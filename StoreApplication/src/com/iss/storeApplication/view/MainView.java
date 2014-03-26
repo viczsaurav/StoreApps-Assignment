@@ -75,6 +75,8 @@ public class MainView extends JFrame {
 		//cardLayout.setVgap(10);
 		
 		//set card layout panel
+		
+		
 		contentPanel.setLayout(cardLayout);
 
 		//add all content views in content panel

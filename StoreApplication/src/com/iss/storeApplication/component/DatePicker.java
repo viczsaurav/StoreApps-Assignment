@@ -59,6 +59,7 @@ public class DatePicker extends JPanel {
 			}
 		});
 		this.hide();
+		text.setText(StringUtility.getStringFromDate(new Date()));
 
 	}
 

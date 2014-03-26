@@ -1,6 +1,8 @@
 package com.iss.storeApplication.view;
 
+import java.awt.BorderLayout;
 import java.awt.Button;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -9,13 +11,17 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import com.iss.storeApplication.common.Constants;
@@ -24,6 +30,7 @@ import com.iss.storeApplication.common.SwingUtility;
 import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.component.DatePicker;
 import com.iss.storeApplication.controller.Controller;
+import com.iss.storeApplication.domain.Discount;
 import com.iss.storeApplication.domain.PermanentDiscount;
 import com.iss.storeApplication.domain.SeasonalDiscount;
 import com.iss.storeApplication.enums.DiscountApplicable;
@@ -66,6 +73,12 @@ public class DiscountView extends JPanel {
 	private final JFormattedTextField durationField = new JFormattedTextField(
 			Utility.getDurationNumberFormat());
 
+	// Table
+	private JTable discountTable = new JTable();
+	private DiscountTableModel discountModel = new DiscountTableModel();
+
+	private JButton deleteDiscountBtn = new JButton("Delete");
+
 	public DiscountView(MainView mainView) {
 		this.mainView = mainView;
 		addBtn.addActionListener(new ActionListener() {
@@ -76,8 +89,43 @@ public class DiscountView extends JPanel {
 
 			}
 		});
-		add(addBtn);
+		// add(addBtn);
 		initAddDiscountDialog();
+		initDiscountTable();
+		refreshDiscountTable();
+	}
+
+	private void initDiscountTable() {
+		discountTable.setModel(discountModel);
+		add(new JScrollPane(discountTable), BorderLayout.CENTER);
+		deleteDiscountBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				deleteDiscount();
+			}
+		});
+		JPanel panelButton = new JPanel();
+		panelButton.setLayout(new FlowLayout());
+		panelButton.add(addBtn);
+		panelButton.add(deleteDiscountBtn);
+
+		add(panelButton, BorderLayout.PAGE_END);
+
+	}
+
+	private void addDiscount(Discount discount) {
+
+		discountModel.addDiscount(discount);
+		discountModel.fireTableDataChanged();
+
+	}
+
+	private void deleteDiscount() {
+		int rowIndex = discountTable.getSelectedRow();
+		if (rowIndex >= 0) {
+			discountModel.removeDiscount(rowIndex);
+			discountModel.fireTableDataChanged();
+
+		}
 	}
 
 	protected void addBtnClicked(ActionEvent event) {
@@ -99,7 +147,9 @@ public class DiscountView extends JPanel {
 		discountField.setText("0");
 		durationField.setColumns(10);
 		durationField.setText("1");
-
+		
+		
+		
 		discountField.addFocusListener(new FocusListener() {
 
 			@Override
@@ -254,6 +304,7 @@ public class DiscountView extends JPanel {
 
 			if (message.equals(Constants.SUCCESS)) {
 				JOptionPane.showMessageDialog(null, message);
+				refreshDiscountTable();
 			} else {
 				JOptionPane.showMessageDialog(null, message, "Message",
 						JOptionPane.ERROR_MESSAGE);
@@ -261,19 +312,17 @@ public class DiscountView extends JPanel {
 			}
 		}
 
-		/*
-		 * int option = JOptionPane.showInputDialog(null, addDiscountPanel,
-		 * Constants.ADDCATEGORY_BTN, JOptionPane.OK_CANCEL_OPTION);
-		 */
-
-		/*
-		 * if (option == JOptionPane.OK_OPTION) { String categoryCode =
-		 * codeField.getText(); String categoryName = namefield.getText();
-		 * System.out.println("categoryCode:" + categoryCode);
-		 * System.out.println("categoryName:" + categoryName);
-		 * 
-		 * }
-		 */
-
+	}
+	
+	
+	
+	public void refreshDiscountTable()
+	{
+		discountModel.clear();
+		List<Discount> discounts=Controller.getDiscounts();
+		for(Discount d:discounts)
+		{
+			addDiscount(d);
+		}
 	}
 }
