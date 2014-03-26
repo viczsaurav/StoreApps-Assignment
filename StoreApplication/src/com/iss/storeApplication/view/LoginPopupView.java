@@ -1,21 +1,24 @@
 package com.iss.storeApplication.view;
 
 import java.awt.Color;
-import java.awt.GridLayout;
 import java.awt.event.WindowEvent;
-
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import java.awt.GridLayout;
+
+/*import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Paint;
+import javax.swing.JComponent;*/
 
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.RequestFocusListener;
 import com.iss.storeApplication.controller.Controller;
 import com.iss.storeApplication.domain.StoreKeeper;
-
 
 /**
  * 
@@ -25,13 +28,13 @@ import com.iss.storeApplication.domain.StoreKeeper;
 public class LoginPopupView {
 
 	private static JPanel loginPanel = new JPanel();
-	static JTextField userNameTxtField = new JTextField();
-	static JPasswordField passwordField = new JPasswordField();
+	public static JTextField userNameTxtField = new JTextField();
+	public static JPasswordField passwordField = new JPasswordField();
 	static String[] loginBtns = { Constants.LOGIN_BTN, Constants.CANCEL };
 
-	//private static final Color gradientColor = new Color(107, 106, 104);
-	//private static final float gradientX = 1000;
-	//private static final float gradientY = 1000;
+	/*private static final Color gradientColor = new Color(107, 106, 104);
+	private static final float gradientX = 1000;
+	private static final float gradientY = 1000;*/
 
 	static {
 		loginPanel.setLayout(new GridLayout(2, 10));
@@ -43,35 +46,35 @@ public class LoginPopupView {
 		loginPanel.add(passwordField);
 	}
 
-	/*private static JPanel mainPanel = new JPanel() {
-		@Override
-		protected void paintComponent(Graphics g) {
-			super.paintComponent(g);
-			Paint paint = new GradientPaint(0f, 0f, Color.white, gradientX,
-					gradientY, gradientColor, true);
-			Graphics2D graphics = (Graphics2D) g;
-			graphics.setPaint(paint);
-			graphics.fillRect(0, 0, getWidth(), getHeight());
-
-		}
-	};*/
+	/*
+	 * private static JPanel mainPanel = new JPanel() {
+	 * 
+	 * @Override protected void paintComponent(Graphics g) {
+	 * super.paintComponent(g); Paint paint = new GradientPaint(0f, 0f,
+	 * Color.white, gradientX, gradientY, gradientColor, true); Graphics2D
+	 * graphics = (Graphics2D) g; graphics.setPaint(paint); graphics.fillRect(0,
+	 * 0, getWidth(), getHeight());
+	 * 
+	 * } };
+	 */
 
 	public static boolean showLoginDialog(MainView mainView) {
-		
-		userNameTxtField.addAncestorListener( new RequestFocusListener() );
-		(userNameTxtField).requestFocusInWindow();				
+
+		userNameTxtField.addAncestorListener(new RequestFocusListener());
+		(userNameTxtField).requestFocusInWindow();
 
 		int result = JOptionPane.showOptionDialog(mainView, loginPanel,
 				Constants.LOGIN_DIALOG_TITLE, JOptionPane.OK_CANCEL_OPTION,
 				JOptionPane.INFORMATION_MESSAGE, null, loginBtns, loginBtns[0]);
 		if (result == JOptionPane.OK_OPTION) {
-
+			char[] passwordChar = passwordField.getPassword();
+			String passwordString = new String(passwordChar);
 			String message = Controller.validateUser(new StoreKeeper(
-					userNameTxtField.getText().trim(), passwordField.getText()
-							.trim()));
-			if (message.equals(Constants.LOGIN_SUCCESS_MESSAGE)) {				
+					userNameTxtField.getText().trim(), passwordString.trim()));
+
+			if (message.equals(Constants.LOGIN_SUCCESS_MESSAGE)) {
 				ToolBarView.loginWelcomeMessage();
-				return true;				
+				return true;
 
 			} else {
 				// show message to user
@@ -82,17 +85,16 @@ public class LoginPopupView {
 			}
 
 		} else {
+
 			mainView.dispatchEvent(new WindowEvent(mainView,
 					WindowEvent.WINDOW_CLOSING));
 			return false;
 		}
 
 	}
-	
-	
 
-	/*public JComponent getComponent() {
-		return mainPanel;
-	}*/
+	/*
+	 * public JComponent getComponent() { return mainPanel; }
+	 */
 
 }
