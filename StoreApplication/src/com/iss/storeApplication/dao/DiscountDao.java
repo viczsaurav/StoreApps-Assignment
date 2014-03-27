@@ -30,7 +30,10 @@ public class DiscountDao implements CommonDao<Discount> {
 
 	private String fileName = Constants.FILENAME_DISCOUNT
 			+ Constants.FILE_EXT_SEPERATOR + Constants.FILE_EXTENSION;
-
+	
+	/**
+	 * save Discount Object
+	 */
 	@Override
 	public boolean save(Discount discount, boolean append) {
 		try {
@@ -56,7 +59,10 @@ public class DiscountDao implements CommonDao<Discount> {
 		}
 
 	}
-
+	
+	/**
+	 * Retrive all discounts from file
+	 */
 	@Override
 	public List<Discount> retrieveAll() {
 		List<Discount> discounts = new ArrayList<Discount>();
@@ -114,7 +120,10 @@ public class DiscountDao implements CommonDao<Discount> {
 
 		return discounts;
 	}
-
+	
+	/**
+	 * Get Discount code, Discount Map 
+	 */
 	@Override
 	public Map<String, Discount> getMap() {
 		// TODO Auto-generated method stub
@@ -128,6 +137,9 @@ public class DiscountDao implements CommonDao<Discount> {
 		return map;
 	}
 
+	/*
+	 * Clears file and saves list of discount object to file.
+	 */
 	public boolean saveAll(List<Discount> discounts) {
 		//if (discounts.size() == 0) {
 			File file = new File(Constants.DATA_FILE_DIR, fileName);

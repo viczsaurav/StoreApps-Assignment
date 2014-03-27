@@ -27,34 +27,33 @@ public class Controller {
 
 	public static String validateAndSaveDiscount(Discount discount) {
 		return DiscountService.validateAndSaveDiscount(discount);
-		
+
 	}
-	
-	public static List<Discount> getDiscounts()
-	{
+
+	public static List<Discount> getDiscounts() {
 		return DiscountService.getDiscounts();
 	}
-	
+
 	public static boolean isDiscountCodeAlreadyExist(String discountCode) {
 		return DiscountService.isDiscountCodeAlreadyExist(discountCode);
 	}
-
+	
 	public static boolean saveAll(List<Discount> listDiscounts) {
-		// TODO Auto-generated method stub
+
 		return DiscountService.saveAll(listDiscounts);
 	}
-	public static String validateDiscount(Discount d)
-	{
+
+	public static String validateDiscount(Discount d) {
 		return DiscountService.validateDiscount(d);
 	}
-	
-	
+
 	public static boolean saveAllCategory(List<Category> listCategorys) {
-		// TODO Auto-generated method stub
+
 		return CategoryService.saveAll(listCategorys);
 	}
+
 	public static String validateAndSaveCategory(Category c) {
 		return CategoryService.validateAndSaveCategory(c);
 	}
-	
+
 }

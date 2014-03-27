@@ -13,6 +13,11 @@ import com.iss.storeApplication.domain.PermanentDiscount;
 import com.iss.storeApplication.domain.SeasonalDiscount;
 import com.iss.storeApplication.enums.DiscountApplicable;
 
+/**
+ * Table Model used by Jtable
+ * @author milan
+ *
+ */
 public class DiscountTableModel extends AbstractTableModel {
 
 	/*
@@ -193,5 +198,7 @@ public class DiscountTableModel extends AbstractTableModel {
 	public void clear() {
 		this.listDiscounts.clear();
 	}
+	
+	
 
 }

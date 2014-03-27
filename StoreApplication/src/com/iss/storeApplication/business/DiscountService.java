@@ -19,6 +19,12 @@ public class DiscountService {
 
 	private static DiscountDao discountDao = new DiscountDao();
 
+	/**
+	 * It Saves Discount if valid
+	 * 
+	 * @param discount
+	 * @return
+	 */
 	public static String validateAndSaveDiscount(Discount discount) {
 		String msg = validateDiscount(discount);
 		if (msg.equals(Constants.SUCCESS)) {
@@ -31,6 +37,12 @@ public class DiscountService {
 		}
 	}
 
+	/**
+	 * It Validates Discount
+	 * 
+	 * @param discount
+	 * @return
+	 */
 	public static String validateDiscount(Discount discount) {
 
 		if (discount == null) {
@@ -53,15 +65,32 @@ public class DiscountService {
 		return Constants.SUCCESS;
 	}
 
+	/**
+	 * get all discount stored in file
+	 * 
+	 * @return
+	 */
 	public static List<Discount> getDiscounts() {
 		return discountDao.retrieveAll();
 	}
 
+	/**
+	 * Checks if discount Code already exist in file
+	 * 
+	 * @param discountCode
+	 * @return
+	 */
 	public static boolean isDiscountCodeAlreadyExist(String discountCode) {
 		Map<String, Discount> map = discountDao.getMap();
 		return map.containsKey(discountCode.trim());
 	}
 
+	/**
+	 * Clears and Saves discount objects to file
+	 * 
+	 * @param discounts
+	 * @return
+	 */
 	public static boolean saveAll(List<Discount> discounts) {
 
 		return discountDao.saveAll(discounts);

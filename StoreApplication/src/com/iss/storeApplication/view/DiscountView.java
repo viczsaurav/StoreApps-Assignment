@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.StringUtility;
@@ -41,11 +42,9 @@ import com.iss.storeApplication.enums.DiscountType;
  */
 public class DiscountView extends JPanel {
 
-	private JButton addDiscountBtn = new JButton(
-			Utility.getPropertyValue(Constants.ADDDISCOUNT_BTN));
-	private JButton editDiscountBtn = new JButton(
-			Utility.getPropertyValue(Constants.editDiscount));
 	private MainView mainView;
+
+	// Add / Edit Discount Panel
 	private final JPanel addDiscountPanel = new JPanel();
 	private JComboBox<DiscountType> discountTypeCmbBox = new JComboBox<DiscountType>();
 	private final JLabel discountCodeLabel = new JLabel(
@@ -77,7 +76,12 @@ public class DiscountView extends JPanel {
 	private JTable discountTable = new JTable();
 	private DiscountTableModel discountModel = new DiscountTableModel();
 
+	// add Edit Delete
 	private JButton deleteDiscountBtn = new JButton("Delete");
+	private JButton addDiscountBtn = new JButton(
+			Utility.getPropertyValue(Constants.ADDDISCOUNT_BTN));
+	private JButton editDiscountBtn = new JButton(
+			Utility.getPropertyValue(Constants.editDiscount));
 
 	public DiscountView(MainView mainView) {
 		super(new BorderLayout());
@@ -98,12 +102,22 @@ public class DiscountView extends JPanel {
 
 			}
 		});
-		// add(addBtn);
+		
+		//init add / edit discount panel
 		initAddDiscountDialog();
+		
+		//init discount table
 		initDiscountTable();
+		
+		//populate discounts in jtable
 		refreshDiscountTable();
 	}
 
+	/**
+	 * Edit Button Clicked. Edit Popup will show.
+	 * 
+	 * @param event
+	 */
 	protected void editBtnClicked(ActionEvent event) {
 		int row = discountTable.getSelectedRow();
 		if (row == -1) {
@@ -116,10 +130,13 @@ public class DiscountView extends JPanel {
 		showEditDiscountDialog(d);
 	}
 
+	/*
+	 * Initialize Discount Jtable
+	 */
 	private void initDiscountTable() {
 
+		discountTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JPanel panelButton = new JPanel();
-		// panelButton.setLayout(new FlowLayout());
 		panelButton.add(addDiscountBtn, BorderLayout.NORTH);
 		panelButton.add(editDiscountBtn, BorderLayout.NORTH);
 		panelButton.add(deleteDiscountBtn, BorderLayout.NORTH);
@@ -135,6 +152,11 @@ public class DiscountView extends JPanel {
 
 	}
 
+	/**
+	 * Add Discount Object To JTable
+	 * 
+	 * @param discount
+	 */
 	private void addDiscount(Discount discount) {
 
 		discountModel.addDiscount(discount);
@@ -142,6 +164,9 @@ public class DiscountView extends JPanel {
 
 	}
 
+	/**
+	 * Delete Discount from file and Jtable
+	 */
 	private void deleteDiscount() {
 
 		int rowIndex = discountTable.getSelectedRow();
@@ -157,6 +182,11 @@ public class DiscountView extends JPanel {
 		}
 	}
 
+	/**
+	 * Save Edited discount to file and reflect edited changes to Jtable
+	 * 
+	 * @param d
+	 */
 	private void editDiscount(Discount d) {
 
 		int rowIndex = discountTable.getSelectedRow();
@@ -171,11 +201,19 @@ public class DiscountView extends JPanel {
 		}
 	}
 
+	/**
+	 * Add Discount Button Clicked. Add Discount Popup will appear.
+	 * 
+	 * @param event
+	 */
 	protected void addBtnClicked(ActionEvent event) {
 
-		showAddDiscountDialog(null);
+		showAddDiscountDialog();
 	}
 
+	/**
+	 * Initialize Add/Edit Discount Panel
+	 */
 	private void initAddDiscountDialog() {
 		addDiscountPanel.setLayout(new GridBagLayout());
 		final GridBagConstraints c = new GridBagConstraints();
@@ -327,6 +365,11 @@ public class DiscountView extends JPanel {
 		addDiscountPanel.add(discountApplicableCmbBox, c);
 	}
 
+	/**
+	 * set discount object property to Add / Edit Discount Panel
+	 * 
+	 * @param d
+	 */
 	private void setDiscountToDiscountDialogView(Discount d) {
 		if (d != null) {
 			if (d instanceof SeasonalDiscount) {
@@ -348,7 +391,12 @@ public class DiscountView extends JPanel {
 		}
 	}
 
-	private void showAddDiscountDialog(Discount d) {
+	/**
+	 * Show Add Discount Popup
+	 * 
+	 * @param d
+	 */
+	private void showAddDiscountDialog() {
 
 		/*
 		 * Object[] message = { Constants.CATEGORYID_LABEL, discountTypeCmbBox,
@@ -379,12 +427,17 @@ public class DiscountView extends JPanel {
 			} else {
 				JOptionPane.showMessageDialog(null, message, "Message",
 						JOptionPane.ERROR_MESSAGE);
-				showAddDiscountDialog(null);
+				showAddDiscountDialog();
 			}
 		}
 
 	}
 
+	/**
+	 * It shows edit Discount Popup.
+	 * 
+	 * @param d
+	 */
 	private void showEditDiscountDialog(Discount d) {
 
 		/*
@@ -424,6 +477,11 @@ public class DiscountView extends JPanel {
 
 	}
 
+	/**
+	 * create Permanent Discount Object from Add / Edit Discount Panel
+	 * 
+	 * @return
+	 */
 	private PermanentDiscount createPermanentDiscountFromView() {
 		PermanentDiscount pd = new PermanentDiscount();
 		pd.setDescription(descriptionField.getText());
@@ -434,6 +492,11 @@ public class DiscountView extends JPanel {
 		return pd;
 	}
 
+	/**
+	 * create Seasonal Discount Object from Add / Edit Discount Panel
+	 * 
+	 * @return
+	 */
 	private SeasonalDiscount createSeasonalDiscountFromView() {
 		SeasonalDiscount sd = new SeasonalDiscount();
 		sd.setDescription(descriptionField.getText());
@@ -446,6 +509,9 @@ public class DiscountView extends JPanel {
 		return sd;
 	}
 
+	/**
+	 * refreshes Jtable
+	 */
 	public void refreshDiscountTable() {
 		discountModel.clear();
 		List<Discount> discounts = Controller.getDiscounts();
