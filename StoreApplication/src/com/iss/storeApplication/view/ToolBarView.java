@@ -4,13 +4,10 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.JToolBar;
-import javax.swing.SwingConstants;
 
 import com.iss.storeApplication.common.Constants;
 
@@ -21,6 +18,7 @@ public class ToolBarView extends JToolBar implements ActionListener {
 
 	private MainView mainView;
 	private static JLabel label;
+	private static JButton button;
 
 	public ToolBarView(MainView mainView) {
 		this.mainView = mainView;
@@ -60,16 +58,18 @@ public class ToolBarView extends JToolBar implements ActionListener {
 	}
 
 	public JButton addButton(final String buttonName) {
-		JButton button = new JButton();
-		button.setText(buttonName);
-		button.addActionListener(new ActionListener() {
 
+		button = new JButton();
+		button.setText(buttonName);
+		setToolbarShortcut(buttonName);
+
+		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				showContent(buttonName);
-
 			}
 		});
+
 		return button;
 	}
 
@@ -83,9 +83,8 @@ public class ToolBarView extends JToolBar implements ActionListener {
 
 	protected void showContent(String name) {
 		mainView.getCardLayout().show(mainView.getContentPanel(), name);
-		
-		
-		//refresh visible card panel
+
+		// refresh visible card panel
 		JPanel card = null;
 		for (Component comp : mainView.getContentPanel().getComponents()) {
 			if (comp.isVisible() == true) {
@@ -98,6 +97,7 @@ public class ToolBarView extends JToolBar implements ActionListener {
 		/**
 		 * @author sakthi
 		 */
+
 		if (name.equals("Logout")) {
 			LoginPopupView.userNameTxtField.setText("");
 			LoginPopupView.passwordField.setText("");
@@ -105,6 +105,7 @@ public class ToolBarView extends JToolBar implements ActionListener {
 			label.setVisible(false);
 			LoginPopupView.showLoginDialog(mainView);
 		}
+
 	}
 
 	@Override
@@ -121,4 +122,44 @@ public class ToolBarView extends JToolBar implements ActionListener {
 		label.setText("Welcome " + userName);
 		label.setVisible(true);
 	}
+	
+	/**
+	 * @author sakthi
+	 */
+
+	public static void setToolbarShortcut(String buttonName) {
+
+		if (buttonName.equals(Constants.TRANSACTIONBUTTONLBL)) {
+			button.setMnemonic(java.awt.event.KeyEvent.VK_T);
+		}
+		if (buttonName.equals(Constants.CATEGORYBUTTONLBL)) {
+			button.setMnemonic(java.awt.event.KeyEvent.VK_C);
+
+		}
+		if (buttonName.equals(Constants.MEMBERBUTTONLBL)) {
+			button.setMnemonic(java.awt.event.KeyEvent.VK_M);
+
+		}
+		if (buttonName.equals(Constants.DISCOUNTBUTTONLBL)) {
+			button.setMnemonic(java.awt.event.KeyEvent.VK_D);
+
+		}
+		if (buttonName.equals(Constants.PURCHASEORDERBUTTONLBL)) {
+			button.setMnemonic(java.awt.event.KeyEvent.VK_U);
+
+		}
+		if (buttonName.equals(Constants.PRODUCTBUTTONLBL)) {
+			button.setMnemonic(java.awt.event.KeyEvent.VK_P);
+
+		}
+		if (buttonName.equals(Constants.REPORTBUTTONLBL)) {
+			button.setMnemonic(java.awt.event.KeyEvent.VK_R);
+
+		}
+		if (buttonName.equals(Constants.LOGOUTBUTTONLBL)) {
+			button.setMnemonic(java.awt.event.KeyEvent.VK_L);
+
+		}
+	}
+
 }
