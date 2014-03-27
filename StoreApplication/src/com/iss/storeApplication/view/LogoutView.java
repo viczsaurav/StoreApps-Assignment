@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 public class LogoutView extends JPanel {
 	
 	public LogoutView(){
-		add(new Label("Thank You !!!")).setFont(new Font("Serif", Font.BOLD, 14));
+		add(new Label("You have Logged out of the application.Login Again !!!")).setFont(new Font("Serif", Font.BOLD, 14));
 	}
 
 }
