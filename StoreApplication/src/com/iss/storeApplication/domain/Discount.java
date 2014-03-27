@@ -1,11 +1,13 @@
 package com.iss.storeApplication.domain;
 
+import com.iss.storeApplication.enums.DiscountApplicable;
+
 public abstract class Discount {
 
 	private String discountCode;
 	private String description;
 	private Double discount;// in %
-	private String memberApplicable;
+	private DiscountApplicable memberApplicable;
 
 	public String getDiscountCode() {
 		return discountCode;
@@ -32,10 +34,10 @@ public abstract class Discount {
 	}
 
 	public String getMemberApplicable() {
-		return memberApplicable;
+		return memberApplicable.toString();
 	}
 
-	public void setMemberApplicable(String memberApplicable) {
+	public void setMemberApplicable(DiscountApplicable memberApplicable) {
 		this.memberApplicable = memberApplicable;
 	}
 

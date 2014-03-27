@@ -41,4 +41,8 @@ public class Controller {
 		// TODO Auto-generated method stub
 		return DiscountService.saveAll(listDiscounts);
 	}
+	public static String validateDiscount(Discount d)
+	{
+		return DiscountService.validateDiscount(d);
+	}
 }

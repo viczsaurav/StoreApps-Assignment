@@ -20,6 +20,22 @@ public class DiscountService {
 	private static DiscountDao discountDao = new DiscountDao();
 
 	public static String validateAndSaveDiscount(Discount discount) {
+		String msg = validateDiscount(discount);
+		if (msg.equals(Constants.SUCCESS)) {
+			if (discountDao.save(discount, true))
+				return Constants.SUCCESS;
+			else
+				return Utility.getPropertyValue(Constants.failure);
+		} else {
+			return msg;
+		}
+	}
+
+	public static String validateDiscount(Discount discount) {
+
+		if (discount == null) {
+			return Utility.getPropertyValue(Constants.validateMessage);
+		}
 		if (StringUtility.isEmpty(discount.getDescription())
 				| StringUtility.isEmpty(discount.getDescription())
 				| StringUtility.isEmpty(discount.getDiscountCode())
@@ -34,10 +50,7 @@ public class DiscountService {
 			}
 
 		}
-		if (discountDao.save(discount, true))
-			return Constants.SUCCESS;
-		else
-			return Utility.getPropertyValue(Constants.failure);
+		return Constants.SUCCESS;
 	}
 
 	public static List<Discount> getDiscounts() {

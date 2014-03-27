@@ -177,4 +177,9 @@ public class DatePicker extends JPanel {
 		f.setExtendedState(f.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
 	}
+
+	public void setDate(Date startDate) {
+		this.text.setText(StringUtility.getStringFromDate(startDate));
+		
+	}
 }

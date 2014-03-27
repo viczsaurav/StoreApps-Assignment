@@ -1,8 +1,6 @@
 package com.iss.storeApplication.view;
 
 import java.awt.BorderLayout;
-import java.awt.Button;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -43,8 +41,10 @@ import com.iss.storeApplication.enums.DiscountType;
  */
 public class DiscountView extends JPanel {
 
-	private Button addDiscountBtn = new Button(
+	private JButton addDiscountBtn = new JButton(
 			Utility.getPropertyValue(Constants.ADDDISCOUNT_BTN));
+	private JButton editDiscountBtn = new JButton(
+			Utility.getPropertyValue(Constants.editDiscount));
 	private MainView mainView;
 	private final JPanel addDiscountPanel = new JPanel();
 	private JComboBox<DiscountType> discountTypeCmbBox = new JComboBox<DiscountType>();
@@ -90,10 +90,30 @@ public class DiscountView extends JPanel {
 
 			}
 		});
+		editDiscountBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				editBtnClicked(event);
+
+			}
+		});
 		// add(addBtn);
 		initAddDiscountDialog();
 		initDiscountTable();
 		refreshDiscountTable();
+	}
+
+	protected void editBtnClicked(ActionEvent event) {
+		int row = discountTable.getSelectedRow();
+		if (row == -1) {
+			JOptionPane.showMessageDialog(mainView,
+					Utility.getPropertyValue(Constants.selectRow));
+			return;
+		}
+
+		Discount d = discountModel.getListDiscounts().get(row);
+		showEditDiscountDialog(d);
 	}
 
 	private void initDiscountTable() {
@@ -101,6 +121,7 @@ public class DiscountView extends JPanel {
 		JPanel panelButton = new JPanel();
 		// panelButton.setLayout(new FlowLayout());
 		panelButton.add(addDiscountBtn, BorderLayout.NORTH);
+		panelButton.add(editDiscountBtn, BorderLayout.NORTH);
 		panelButton.add(deleteDiscountBtn, BorderLayout.NORTH);
 		add(panelButton, BorderLayout.NORTH);
 
@@ -131,13 +152,28 @@ public class DiscountView extends JPanel {
 		if (Controller.saveAll(discountModel.getListDiscounts())) {
 			discountModel.fireTableDataChanged();
 		} else {
-			JOptionPane.showMessageDialog(mainView, Utility.getPropertyValue(Constants.failure));
+			JOptionPane.showMessageDialog(mainView,
+					Utility.getPropertyValue(Constants.failure));
+		}
+	}
+
+	private void editDiscount(Discount d) {
+
+		int rowIndex = discountTable.getSelectedRow();
+
+		discountModel.getListDiscounts().set(rowIndex, d);
+
+		if (Controller.saveAll(discountModel.getListDiscounts())) {
+			discountModel.fireTableDataChanged();
+		} else {
+			JOptionPane.showMessageDialog(mainView,
+					Utility.getPropertyValue(Constants.failure));
 		}
 	}
 
 	protected void addBtnClicked(ActionEvent event) {
 
-		showDiscountDialog();
+		showAddDiscountDialog(null);
 	}
 
 	private void initAddDiscountDialog() {
@@ -162,7 +198,7 @@ public class DiscountView extends JPanel {
 				if (Controller.isDiscountCodeAlreadyExist(discountCodeField
 						.getText())) {
 					JOptionPane.showMessageDialog(mainView,
-							Constants.dcAlreadyExist);
+							Utility.getPropertyValue(Constants.dcAlreadyExist));
 					discountCodeField.setText("");
 				}
 
@@ -291,7 +327,28 @@ public class DiscountView extends JPanel {
 		addDiscountPanel.add(discountApplicableCmbBox, c);
 	}
 
-	private void showDiscountDialog() {
+	private void setDiscountToDiscountDialogView(Discount d) {
+		if (d != null) {
+			if (d instanceof SeasonalDiscount) {
+				SeasonalDiscount sd = (SeasonalDiscount) d;
+				discountTypeCmbBox
+						.setSelectedItem(DiscountType.SEASONAL_DISCOUNT);
+				startDatePicker.setDate(sd.getStartDate());
+				durationField.setText(sd.getDuration().toString());
+			} else {
+
+				discountTypeCmbBox
+						.setSelectedItem(DiscountType.PERMANENT_DISCOUNT);
+			}
+			discountCodeField.setText(d.getDiscountCode());
+			discountField.setText(d.getDiscount().toString());
+			descriptionField.setText(d.getDescription());
+			discountApplicableCmbBox.setSelectedItem(d.getMemberApplicable());
+
+		}
+	}
+
+	private void showAddDiscountDialog(Discount d) {
 
 		/*
 		 * Object[] message = { Constants.CATEGORYID_LABEL, discountTypeCmbBox,
@@ -308,22 +365,11 @@ public class DiscountView extends JPanel {
 			// Seasonal Discount
 			String message = "";
 			if (DiscountType.SEASONAL_DISCOUNT.equals(selectedItem)) {
-				SeasonalDiscount sd = new SeasonalDiscount();
-				sd.setDescription(descriptionField.getText());
-				sd.setDiscount(new Double(discountField.getText()));
-				sd.setDiscountCode(discountCodeField.getText());
-				sd.setDuration(new Integer(durationField.getText()));
-				sd.setMemberApplicable((((DiscountApplicable) discountApplicableCmbBox
-						.getSelectedItem()).toString()));
-				sd.setStartDate(startDatePicker.getPickedDate());
+
+				SeasonalDiscount sd = createSeasonalDiscountFromView();
 				message = Controller.validateAndSaveDiscount(sd);
 			} else {
-				PermanentDiscount pd = new PermanentDiscount();
-				pd.setDescription(descriptionField.getText());
-				pd.setDiscount(new Double(discountField.getText()));
-				pd.setDiscountCode(discountCodeField.getText());
-				pd.setMemberApplicable((((DiscountApplicable) discountApplicableCmbBox
-						.getSelectedItem()).toString()));
+				PermanentDiscount pd = createPermanentDiscountFromView();
 				message = Controller.validateAndSaveDiscount(pd);
 			}
 
@@ -333,10 +379,71 @@ public class DiscountView extends JPanel {
 			} else {
 				JOptionPane.showMessageDialog(null, message, "Message",
 						JOptionPane.ERROR_MESSAGE);
-				showDiscountDialog();
+				showAddDiscountDialog(null);
 			}
 		}
 
+	}
+
+	private void showEditDiscountDialog(Discount d) {
+
+		/*
+		 * Object[] message = { Constants.CATEGORYID_LABEL, discountTypeCmbBox,
+		 * Constants.CATEGORYNAME_LABEL, namefield };
+		 */
+
+		setDiscountToDiscountDialogView(d);
+
+		int result = JOptionPane.showConfirmDialog(mainView, addDiscountPanel,
+				Utility.getPropertyValue(Constants.editDiscount),
+				JOptionPane.OK_CANCEL_OPTION);
+
+		if (result == JOptionPane.OK_OPTION) {
+
+			Object selectedItem = discountTypeCmbBox.getSelectedItem();
+			Discount discount = null;
+			if (DiscountType.SEASONAL_DISCOUNT.equals(selectedItem)) {
+
+				discount = createSeasonalDiscountFromView();
+
+			} else {
+				discount = createPermanentDiscountFromView();
+
+			}
+			String msg = Controller.validateDiscount(discount);
+			if (msg.equals(Constants.SUCCESS))
+				editDiscount(discount);
+			else {
+				JOptionPane.showMessageDialog(mainView, msg, "Message",
+						JOptionPane.ERROR_MESSAGE);
+
+				showEditDiscountDialog(discount);
+			}
+
+		}
+
+	}
+
+	private PermanentDiscount createPermanentDiscountFromView() {
+		PermanentDiscount pd = new PermanentDiscount();
+		pd.setDescription(descriptionField.getText());
+		pd.setDiscount(new Double(discountField.getText()));
+		pd.setDiscountCode(discountCodeField.getText());
+		pd.setMemberApplicable((((DiscountApplicable) discountApplicableCmbBox
+				.getSelectedItem())));
+		return pd;
+	}
+
+	private SeasonalDiscount createSeasonalDiscountFromView() {
+		SeasonalDiscount sd = new SeasonalDiscount();
+		sd.setDescription(descriptionField.getText());
+		sd.setDiscount(new Double(discountField.getText()));
+		sd.setDiscountCode(discountCodeField.getText());
+		sd.setDuration(new Integer(durationField.getText()));
+		sd.setMemberApplicable((((DiscountApplicable) discountApplicableCmbBox
+				.getSelectedItem())));
+		sd.setStartDate(startDatePicker.getPickedDate());
+		return sd;
 	}
 
 	public void refreshDiscountTable() {

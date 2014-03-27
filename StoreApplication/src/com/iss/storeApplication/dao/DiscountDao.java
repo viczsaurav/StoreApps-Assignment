@@ -19,6 +19,7 @@ import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.domain.Discount;
 import com.iss.storeApplication.domain.PermanentDiscount;
 import com.iss.storeApplication.domain.SeasonalDiscount;
+import com.iss.storeApplication.enums.DiscountApplicable;
 
 /**
  * 
@@ -81,7 +82,8 @@ public class DiscountDao implements CommonDao<Discount> {
 						pd.setStartDate(rowValues[2]);
 						pd.setDuration(rowValues[3]);
 						pd.setDiscount(new Double(rowValues[4]));
-						pd.setMemberApplicable(rowValues[5]);
+						pd.setMemberApplicable(DiscountApplicable
+								.fromString(rowValues[5]));
 
 						discounts.add(pd);
 					} else {
@@ -92,7 +94,8 @@ public class DiscountDao implements CommonDao<Discount> {
 								.getDateFromString(rowValues[2]));
 						sd.setDuration(new Integer(rowValues[3]));
 						sd.setDiscount(new Double(rowValues[4]));
-						sd.setMemberApplicable(rowValues[5]);
+						sd.setMemberApplicable(DiscountApplicable
+								.fromString(rowValues[5]));
 						discounts.add(sd);
 					}
 				}
@@ -126,13 +129,14 @@ public class DiscountDao implements CommonDao<Discount> {
 	}
 
 	public boolean saveAll(List<Discount> discounts) {
-		if (discounts.size() == 0) {
+		//if (discounts.size() == 0) {
 			File file = new File(Constants.DATA_FILE_DIR, fileName);
-			return Utility.clearFile(file);
+			if(!Utility.clearFile(file))
+				return false;
 
-		}
+		//}
 		for (Discount d : discounts) {
-			if (!save(d, false)) {
+			if (!save(d, true)) {
 				return false;
 			}
 		}

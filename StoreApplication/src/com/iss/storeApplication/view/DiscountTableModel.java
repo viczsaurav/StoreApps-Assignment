@@ -11,6 +11,7 @@ import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.domain.Discount;
 import com.iss.storeApplication.domain.PermanentDiscount;
 import com.iss.storeApplication.domain.SeasonalDiscount;
+import com.iss.storeApplication.enums.DiscountApplicable;
 
 public class DiscountTableModel extends AbstractTableModel {
 
@@ -143,7 +144,8 @@ public class DiscountTableModel extends AbstractTableModel {
 				((SeasonalDiscount) discount).setStartDate(StringUtility
 						.getDateFromString(value.toString()));
 			} else {
-				//((PermanentDiscount) discount).setStartDate(value.toString());
+				// ((PermanentDiscount)
+				// discount).setStartDate(value.toString());
 			}
 			break;
 		case COLUMN_DURATION:
@@ -156,7 +158,7 @@ public class DiscountTableModel extends AbstractTableModel {
 			}
 			break;
 		case COLUMN_APPLICABLE:
-			discount.setMemberApplicable(value.toString());
+			discount.setMemberApplicable(DiscountApplicable.valueOf(value.toString()));
 			break;
 
 		case COLUMN_DISCOUNT:
@@ -169,7 +171,7 @@ public class DiscountTableModel extends AbstractTableModel {
 	 * since every cell in the table is editable, we return true always
 	 */
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		return true;
+		return false;
 	}
 
 	/**
@@ -187,9 +189,8 @@ public class DiscountTableModel extends AbstractTableModel {
 	public void removeDiscount(int rowIndex) {
 		this.listDiscounts.remove(rowIndex);
 	}
-	
-	public void clear()
-	{
+
+	public void clear() {
 		this.listDiscounts.clear();
 	}
 
