@@ -2,9 +2,11 @@ package com.iss.storeApplication.controller;
 
 import java.util.List;
 
+import com.iss.storeApplication.business.CategoryService;
 import com.iss.storeApplication.business.DiscountService;
 import com.iss.storeApplication.business.LoginService;
 import com.iss.storeApplication.business.MemberRegistrationService;
+import com.iss.storeApplication.domain.Category;
 import com.iss.storeApplication.domain.Discount;
 import com.iss.storeApplication.domain.MemberCustomer;
 import com.iss.storeApplication.domain.StoreKeeper;
@@ -45,4 +47,14 @@ public class Controller {
 	{
 		return DiscountService.validateDiscount(d);
 	}
+	
+	
+	public static boolean saveAllCategory(List<Category> listCategorys) {
+		// TODO Auto-generated method stub
+		return CategoryService.saveAll(listCategorys);
+	}
+	public static String validateAndSaveCategory(Category c) {
+		return CategoryService.validateAndSaveCategory(c);
+	}
+	
 }

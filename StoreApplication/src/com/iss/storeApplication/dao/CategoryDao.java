@@ -45,6 +45,8 @@ public class CategoryDao implements CommonDao<Category> {
 
 	}
 	
+	
+	
 	/**
 	 * List of all categories
 	 */
@@ -110,4 +112,26 @@ public class CategoryDao implements CommonDao<Category> {
 
 			return categoriesMap;
 		}
+	
+	//added by luke for save array of categories in one time
+	public boolean save(List<Category> listCategorys) {
+		
+		try {
+			File file = new File(Constants.DATA_FILE_DIR, fileName);
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			PrintWriter out = new PrintWriter(new BufferedWriter(
+					new FileWriter(file, false)));
+			out.close();
+			out = new PrintWriter(new BufferedWriter(
+					new FileWriter(file, true)));
+			for(Category c : listCategorys) out.println(c.getCommaSeperatedValue());
+			out.close();
+			return true;
+		} catch (IOException e) {
+			System.out.println("IOException :" + e.getMessage());
+			return false;
+		}	
 	}
+}

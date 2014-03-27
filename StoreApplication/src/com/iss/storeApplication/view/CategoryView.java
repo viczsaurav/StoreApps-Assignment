@@ -15,11 +15,11 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import com.iss.storeApplication.business.CategoryService;
 import com.iss.storeApplication.common.Constants;
+import com.iss.storeApplication.common.Utility;
+import com.iss.storeApplication.controller.Controller;
 import com.iss.storeApplication.dao.CategoryDao;
 import com.iss.storeApplication.domain.Category;
-
 
 /**
  * @author luke
@@ -27,6 +27,7 @@ import com.iss.storeApplication.domain.Category;
 
 public class CategoryView extends JPanel {
 
+	List<Category> cat1;
 	CategoryView objectCat = this;
 	public JTable table;
 	DefaultTableModel model;
@@ -46,26 +47,28 @@ public class CategoryView extends JPanel {
 		// ScrollPane for Table
 		scrollPane.setBounds(33, 41, 494, 90);
 		// some setting on panel
-		JButton btnGetRowSelected = new JButton(Constants.ADDCATEGORY_BTN);
-
+		JButton btnAdd = new JButton(Constants.ADDCATEGORY_BTN);
+		JButton btnDelete = new JButton("Delete");
 		// Table
 		table = new JTable();
 		scrollPane.setViewportView(table);
 
-		categoryPanel.add(btnGetRowSelected, BorderLayout.EAST);
-		//define add button function
-		btnGetRowSelected.addActionListener(new ActionListener() {
+		categoryPanel.add(btnAdd, BorderLayout.CENTER);
+		categoryPanel.add(btnDelete, BorderLayout.CENTER);
+		// define add button function
+		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				JTextField codeField = new JTextField();
 				JTextField namefield = new JTextField();
 
-				Object[] message = {Constants.CATEGORYID_LABEL, codeField, 
-									Constants.CATEGORYNAME_LABEL,namefield};
+				Object[] message = { Constants.CATEGORYID_LABEL, codeField,
+						Constants.CATEGORYNAME_LABEL, namefield };
 
-
-				int option = JOptionPane.showConfirmDialog(null, message,
-						Constants.ADDCATEGORY_BTN, JOptionPane.OK_CANCEL_OPTION);
+				int option = JOptionPane
+						.showConfirmDialog(null, message,
+								Constants.ADDCATEGORY_BTN,
+								JOptionPane.OK_CANCEL_OPTION);
 				if (option == JOptionPane.OK_OPTION) {
 					String categoryCode = codeField.getText();
 					String categoryName = namefield.getText();
@@ -74,56 +77,70 @@ public class CategoryView extends JPanel {
 					Category cat = new Category();
 					cat.setCategoryCode(categoryCode);
 					cat.setCategoryName(categoryName);
-					CategoryService.validateAndSaveCategory(cat);
-//					SwingUtility.refreshJpanel(categoryPanel);
-//					SwingUtility.refreshJpanel(objectCat);
-					freshCategory(model);
+					String result = Controller.validateAndSaveCategory(cat);
+					if (Constants.SUCCESS.equals(result)) {
+						freshCategory(model);
+					} else {
+						// can not pass validation method
+						JOptionPane.showMessageDialog(null, result);
+					}
 				}
-
 			}
 		});
-		
-		
-		btnGetRowSelected.setBounds(224, 149, 131, 23);
+
+		// define delete button function
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int rowIndex = table.getSelectedRow();
+				if (rowIndex >= 0) {
+					cat1.remove(rowIndex);
+				}
+				if (Controller.saveAllCategory(cat1)) {
+					freshCategory(model);
+				} else {
+					JOptionPane.showMessageDialog(null,
+							Utility.getPropertyValue(Constants.failure));
+				}
+			}
+		});
+
+		btnAdd.setBounds(224, 149, 131, 23);
 		add(categoryPanel, BorderLayout.NORTH);
 		add(scrollPane);
 
-
-
-
-
-//get and display category list 
+		// get and display category list
 		freshCategory(model);
 	}
 
 	private void freshCategory(DefaultTableModel model) {
-		//define Model for Table
+		// define Model for Table
 		model = new DefaultTableModel() {
 			public Class<?> getColumnClass(int column) {
 				switch (column) {
-					default:
+				default:
 					return String.class;
 				}
 			}
+
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
-		
-		//align category field in center 
-		 DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-         centerRenderer.setHorizontalAlignment( JLabel.CENTER );
-         table.setDefaultRenderer(String.class, centerRenderer); 
+
+		// align category field in center
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+		table.setDefaultRenderer(String.class, centerRenderer);
 
 		table.setModel(model);
 
 		model.addColumn(Constants.CATEGORYID_LABEL);
 		model.addColumn(Constants.CATEGORYNAME_LABEL);
-		List<Category> cat1;
+
 		CategoryDao categoryDao = new CategoryDao();
 		cat1 = categoryDao.retrieveAll();
-		
+
 		// Putting Values in the Category Table
 		int i = 0;
 		for (Category entry : cat1) {
