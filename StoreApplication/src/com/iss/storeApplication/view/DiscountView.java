@@ -9,6 +9,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -170,6 +171,12 @@ public class DiscountView extends JPanel {
 	private void deleteDiscount() {
 
 		int rowIndex = discountTable.getSelectedRow();
+		if(rowIndex==-1)
+		{
+			JOptionPane.showMessageDialog(mainView, Utility.getPropertyValue(Constants.selectRow));
+			return;
+		}
+		
 		if (rowIndex >= 0) {
 			discountModel.removeDiscount(rowIndex);
 
@@ -389,6 +396,14 @@ public class DiscountView extends JPanel {
 			discountApplicableCmbBox.setSelectedItem(d.getMemberApplicable());
 
 		}
+		else // reset to default value
+		{
+			durationField.setText("1");
+			discountCodeField.setText("");
+			discountField.setText("1");
+			descriptionField.setText("");
+			startDatePicker.setDate(new Date());
+		}
 	}
 
 	/**
@@ -397,7 +412,10 @@ public class DiscountView extends JPanel {
 	 * @param d
 	 */
 	private void showAddDiscountDialog() {
-
+		
+		//reset discount panel to default value
+		setDiscountToDiscountDialogView(null);
+		
 		/*
 		 * Object[] message = { Constants.CATEGORYID_LABEL, discountTypeCmbBox,
 		 * Constants.CATEGORYNAME_LABEL, namefield };
