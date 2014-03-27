@@ -37,7 +37,7 @@ public class DiscountService {
 		if (discountDao.save(discount, true))
 			return Constants.SUCCESS;
 		else
-			return Constants.failure;
+			return Utility.getPropertyValue(Constants.failure);
 	}
 
 	public static List<Discount> getDiscounts() {

@@ -131,7 +131,7 @@ public class DiscountView extends JPanel {
 		if (Controller.saveAll(discountModel.getListDiscounts())) {
 			discountModel.fireTableDataChanged();
 		} else {
-			JOptionPane.showMessageDialog(mainView, Constants.failure);
+			JOptionPane.showMessageDialog(mainView, Utility.getPropertyValue(Constants.failure));
 		}
 	}
 

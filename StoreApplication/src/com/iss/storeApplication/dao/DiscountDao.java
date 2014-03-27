@@ -68,33 +68,33 @@ public class DiscountDao implements CommonDao<Discount> {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String row;
 			while ((row = br.readLine()) != null) {
-				if(StringUtility.isEmpty(row))
-				{
-					return discounts;
-				}
-				String[] rowValues = row.split(",");
+				if (!StringUtility.isEmpty(row)) {
 
-				if (rowValues[2].equals(Constants.ALWAYS))// Permanent Discount
-				{
-					PermanentDiscount pd = new PermanentDiscount();
-					pd.setDiscountCode(rowValues[0]);
-					pd.setDescription(rowValues[1]);
-					pd.setStartDate(rowValues[2]);
-					pd.setDuration(rowValues[3]);
-					pd.setDiscount(new Double(rowValues[4]));
-					pd.setMemberApplicable(rowValues[5]);
+					String[] rowValues = row.split(",");
 
-					discounts.add(pd);
-				} else {
-					SeasonalDiscount sd = new SeasonalDiscount();
-					sd.setDiscountCode(rowValues[0]);
-					sd.setDescription(rowValues[1]);
-					sd.setStartDate(StringUtility
-							.getDateFromString(rowValues[2]));
-					sd.setDuration(new Integer(rowValues[3]));
-					sd.setDiscount(new Double(rowValues[4]));
-					sd.setMemberApplicable(rowValues[5]);
-					discounts.add(sd);
+					if (rowValues[2].equals(Constants.ALWAYS))// Permanent
+																// Discount
+					{
+						PermanentDiscount pd = new PermanentDiscount();
+						pd.setDiscountCode(rowValues[0]);
+						pd.setDescription(rowValues[1]);
+						pd.setStartDate(rowValues[2]);
+						pd.setDuration(rowValues[3]);
+						pd.setDiscount(new Double(rowValues[4]));
+						pd.setMemberApplicable(rowValues[5]);
+
+						discounts.add(pd);
+					} else {
+						SeasonalDiscount sd = new SeasonalDiscount();
+						sd.setDiscountCode(rowValues[0]);
+						sd.setDescription(rowValues[1]);
+						sd.setStartDate(StringUtility
+								.getDateFromString(rowValues[2]));
+						sd.setDuration(new Integer(rowValues[3]));
+						sd.setDiscount(new Double(rowValues[4]));
+						sd.setMemberApplicable(rowValues[5]);
+						discounts.add(sd);
+					}
 				}
 
 			}
@@ -125,17 +125,14 @@ public class DiscountDao implements CommonDao<Discount> {
 		return map;
 	}
 
-	public boolean saveAll(List<Discount> discounts)
-	{
-		if(discounts.size()==0)
-		{
+	public boolean saveAll(List<Discount> discounts) {
+		if (discounts.size() == 0) {
 			File file = new File(Constants.DATA_FILE_DIR, fileName);
 			return Utility.clearFile(file);
-			
+
 		}
-		for(Discount d:discounts)
-		{
-			if(!save(d,false)){
+		for (Discount d : discounts) {
+			if (!save(d, false)) {
 				return false;
 			}
 		}

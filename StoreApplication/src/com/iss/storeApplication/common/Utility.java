@@ -67,7 +67,7 @@ public class Utility {
 		try {
 			out = new PrintWriter(new BufferedWriter(
 					new FileWriter(file, false)));
-			out.println("");
+			out.println();
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
