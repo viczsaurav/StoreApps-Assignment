@@ -56,7 +56,7 @@ public interface Constants {
 	// Category Button Labels
 	public static final String CATEGORYID_LABEL = "Category ID";
 	public static final String CATEGORYNAME_LABEL = "Category Name";
-	public static final String ADDCATEGORY_BTN = "+ Add New Category";
+	public static final String ADDCATEGORY_BTN = "Add Category";
 	public static final String CATEGORY_CODE_NAME_EMPTY = "Category Name and Code are empty";
 	public static final String CATEGORY_NAME_EMPTY = "Category Name is empty";
 	public static final String CATEGORY_CODE_EMPTY = "Category code is empty";
@@ -73,7 +73,7 @@ public interface Constants {
 	public static final String PRODUCT_BARCODE_LABEL = "Product Barcode";
 	public static final String PRODUCT_REORDER_QUANT_LABEL = "Product Reorder Threshold";
 	public static final String PRODUCT_ORDER_QUANT_LABEL = "Product Order Quantity";
-	public static final String ADDPRODUCT_BTN = "+ Add New Product";
+	public static final String ADDPRODUCT_BTN = "Add Product";
 	public static final String PRODUCT_CODE_NAME_EMPTY = "Product Name and Code are empty";
 	public static final String PRODUCT_NAME_EMPTY = "Product Name is empty";
 	public static final String PRODUCT_CODE_EMPTY = "Product code is empty";

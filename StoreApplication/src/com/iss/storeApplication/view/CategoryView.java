@@ -56,15 +56,16 @@ public class CategoryView extends JPanel {
 		scrollPane.setBounds(33, 41, 494, 90);
 		// some setting on panel
 		JButton btnAdd = new JButton(Constants.ADDCATEGORY_BTN);
-		JButton btnDelete = new JButton("Delete");
-		JButton btnEdit = new JButton("Edit");
+		JButton btnDelete = new JButton("Delete Category");
+		JButton btnEdit = new JButton("Edit Category");
 		// Table
 		table = new JTable();
 		scrollPane.setViewportView(table);
 
 		categoryPanel.add(btnAdd, BorderLayout.CENTER);
-		categoryPanel.add(btnDelete, BorderLayout.CENTER);
 		categoryPanel.add(btnEdit, BorderLayout.CENTER);
+		categoryPanel.add(btnDelete, BorderLayout.CENTER);
+		
 		// define add button function
 		btnAdd.addActionListener(new ActionListener() {
 

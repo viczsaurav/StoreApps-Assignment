@@ -61,6 +61,33 @@ public class Utility {
 		nf.setMinimumFractionDigits(0);
 		return nf;
 	}
+	
+	public static NumberFormat getProductBarcodeFormat() {
+		NumberFormat pbf = NumberFormat.getNumberInstance();
+		pbf.setMaximumIntegerDigits(4);
+		pbf.setMinimumIntegerDigits(1);
+		pbf.setMaximumFractionDigits(0);
+		pbf.setMinimumFractionDigits(0);
+		return pbf;
+	}
+	
+	public static NumberFormat getProductPriceFormat() {
+		NumberFormat ppf = NumberFormat.getNumberInstance();
+		ppf.setMaximumIntegerDigits(6);
+		ppf.setMinimumIntegerDigits(1);
+		ppf.setMaximumFractionDigits(2);
+		ppf.setMinimumFractionDigits(2);
+		return ppf;
+	}
+	
+	public static NumberFormat getProductNumberFormat() {
+		NumberFormat pnf = NumberFormat.getNumberInstance();
+		pnf.setMaximumIntegerDigits(4);
+		pnf.setMinimumIntegerDigits(1);
+		pnf.setMaximumFractionDigits(0);
+		pnf.setMinimumFractionDigits(0);
+		return pnf;
+	}
 
 	public static boolean clearFile(File file) {
 		PrintWriter out = null;
