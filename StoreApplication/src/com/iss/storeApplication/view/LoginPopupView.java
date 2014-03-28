@@ -2,11 +2,15 @@ package com.iss.storeApplication.view;
 
 import java.awt.Color;
 import java.awt.event.WindowEvent;
+
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
+
 import java.awt.GridLayout;
 
 /*import java.awt.GradientPaint;
@@ -14,6 +18,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import javax.swing.JComponent;*/
+
 
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.RequestFocusListener;
@@ -60,7 +65,10 @@ public class LoginPopupView {
 					userNameTxtField.getText().trim(), passwordString.trim()));
 
 			if (message.equals(Constants.LOGIN_SUCCESS_MESSAGE)) {
-				mainView.getCardLayout().show(mainView.getContentPanel(), "Transaction");
+				mainView.getCardLayout().show(mainView.getContentPanel(), Constants.TRANSACTIONBUTTONLBL);
+				TitledBorder nameBorder = BorderFactory
+						.createTitledBorder(Constants.TRANSACTIONBUTTONLBL);
+				mainView.contentPanel.setBorder(nameBorder);
 				ToolBarView.loginWelcomeMessage();
 				return true;
 

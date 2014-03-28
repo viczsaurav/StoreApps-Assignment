@@ -5,13 +5,16 @@ import java.awt.Container;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.BoxLayout;
+import javax.swing.border.TitledBorder;
 
 import sun.tools.jar.Main;
 
+import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.view.LoginPopupView;
 import com.iss.storeApplication.view.MainView;
 
@@ -48,7 +51,14 @@ public class StoreApps {
 				            JOptionPane.YES_NO_OPTION);
 
 				        if (result == JOptionPane.YES_OPTION)
-				            mainView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);				       
+				            mainView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+				        else
+				        {
+				        	mainView.getCardLayout().show(mainView.getContentPanel(), Constants.TRANSACTIONBUTTONLBL);
+							TitledBorder nameBorder = BorderFactory
+									.createTitledBorder(Constants.TRANSACTIONBUTTONLBL);
+							mainView.contentPanel.setBorder(nameBorder);
+				        }
 				        		       
 				    }
 				});
