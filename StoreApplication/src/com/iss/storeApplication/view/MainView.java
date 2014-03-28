@@ -114,6 +114,7 @@ public class MainView extends JFrame {
 	public void addDefaultToolbar() {
 		ToolBarView toolBarView = new ToolBarView(this);
 		add(toolBarView, BorderLayout.NORTH);
+		toolBarView.setFloatable(false);
 	}
 
 }
