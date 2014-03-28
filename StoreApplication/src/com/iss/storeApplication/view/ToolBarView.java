@@ -2,12 +2,16 @@ package com.iss.storeApplication.view;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
+import javax.swing.border.TitledBorder;
 
 import com.iss.storeApplication.common.Constants;
 
@@ -50,8 +54,7 @@ public class ToolBarView extends JToolBar implements ActionListener {
 	 * @author sakthi
 	 */
 	public JLabel addLabel(final String labelName) {
-		Dimension size = new Dimension(650, 20);
-		addSeparator(size);
+		addSeparator();
 		label = new JLabel();
 		label.setVisible(false);
 		return label;
@@ -82,6 +85,10 @@ public class ToolBarView extends JToolBar implements ActionListener {
 	}
 
 	protected void showContent(String name) {
+		
+		TitledBorder nameBorder = BorderFactory.createTitledBorder(
+				name);
+		MainView.contentPanel.setBorder(nameBorder);
 		mainView.getCardLayout().show(mainView.getContentPanel(), name);
 
 		// refresh visible card panel
@@ -119,7 +126,8 @@ public class ToolBarView extends JToolBar implements ActionListener {
 
 	public static void loginWelcomeMessage() {
 		String userName = LoginPopupView.userNameTxtField.getText();
-		label.setText("Welcome " + userName);
+		label.setText("Welcome " + userName + "!!!" +  "  ");
+		label.setFont(new Font("Serif", Font.BOLD, 14));
 		label.setVisible(true);
 	}
 	

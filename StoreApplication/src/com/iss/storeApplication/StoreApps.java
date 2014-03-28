@@ -8,6 +8,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.swing.BoxLayout;
 
 import sun.tools.jar.Main;
 
@@ -25,15 +26,15 @@ public class StoreApps {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				final MainView mainView = new MainView();
-				//mainView.getContentPane().add(
-				//new LoginPopupView().getComponent());
-				mainView.showLoginView();
-				
 				/**
 				 *
 				 * @author Sakthi
 				 *
 				 */
+				mainView.getContentPane().setLayout(new BoxLayout(mainView.getContentPane(),
+			            BoxLayout.Y_AXIS));
+				mainView.add(mainView.getContentPanel());
+				mainView.showLoginView();				
 				mainView.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 				mainView.addWindowListener( new WindowAdapter()
 				{

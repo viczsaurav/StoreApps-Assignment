@@ -32,10 +32,7 @@ public class LoginPopupView {
 	public static JPasswordField passwordField = new JPasswordField();
 	static String[] loginBtns = { Constants.LOGIN_BTN, Constants.CANCEL };
 
-	/*private static final Color gradientColor = new Color(107, 106, 104);
-	private static final float gradientX = 1000;
-	private static final float gradientY = 1000;*/
-
+	
 	static {
 		loginPanel.setLayout(new GridLayout(2, 10));
 		loginPanel.setBackground(new Color(255, 0, 0, 20));
@@ -46,17 +43,7 @@ public class LoginPopupView {
 		loginPanel.add(passwordField);
 	}
 
-	/*
-	 * private static JPanel mainPanel = new JPanel() {
-	 * 
-	 * @Override protected void paintComponent(Graphics g) {
-	 * super.paintComponent(g); Paint paint = new GradientPaint(0f, 0f,
-	 * Color.white, gradientX, gradientY, gradientColor, true); Graphics2D
-	 * graphics = (Graphics2D) g; graphics.setPaint(paint); graphics.fillRect(0,
-	 * 0, getWidth(), getHeight());
-	 * 
-	 * } };
-	 */
+	
 
 	public static boolean showLoginDialog(MainView mainView) {
 
@@ -73,13 +60,14 @@ public class LoginPopupView {
 					userNameTxtField.getText().trim(), passwordString.trim()));
 
 			if (message.equals(Constants.LOGIN_SUCCESS_MESSAGE)) {
+				mainView.getCardLayout().show(mainView.getContentPanel(), "Transaction");
 				ToolBarView.loginWelcomeMessage();
 				return true;
 
 			} else {
 				// show message to user
 				JOptionPane.showMessageDialog(null, message, "Message",
-						JOptionPane.ERROR_MESSAGE);
+						JOptionPane.ERROR_MESSAGE);				
 				showLoginDialog(mainView);
 				return false;
 			}
@@ -93,8 +81,6 @@ public class LoginPopupView {
 
 	}
 
-	/*
-	 * public JComponent getComponent() { return mainPanel; }
-	 */
+	
 
 }

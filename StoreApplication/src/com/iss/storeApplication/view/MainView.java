@@ -3,24 +3,24 @@ package com.iss.storeApplication.view;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.ComponentOrientation;
+import java.awt.Dimension;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 import com.iss.storeApplication.common.Constants;
 
 /**
  * 
  * @author milan
- *
+ * 
  */
 public class MainView extends JFrame {
 
-	private static final Color gradientColor = new Color(107, 106, 104);
-	private static final float gradientX = 1000;
-	private static final float gradientY = 1000;
-
-	private JPanel contentPanel = new JPanel();
+	public static JPanel contentPanel = new JPanel();
 
 	public JPanel getContentPanel() {
 		return contentPanel;
@@ -51,35 +51,39 @@ public class MainView extends JFrame {
 	 */
 	private void initMainView() {
 
-		//init main view
+		// init main view
 		setVisible(true);
 		setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
 		setTitle("University Souvenir Store Application - SE224FT");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		//add tool bar
+
+		// add tool bar
 		addDefaultToolbar();
-		
-		//add content panel
+
+		// add content panel
 		addContentPanel();
-	}	
-	
-	
+	}
+
 	/**
-	 *  set card layout in content panel. 
+	 * set card layout in content panel.
 	 */
 	private void addContentPanel() {
-		contentPanel.setBackground(Color.CYAN);
-		contentPanel.setSize(600, 600);
-		//cardLayout.setHgap(10);
-		//cardLayout.setVgap(10);
-		
-		//set card layout panel
-		
-		
+
+		TitledBorder nameBorder = BorderFactory
+				.createTitledBorder("Transaction");
+		contentPanel.setBorder(nameBorder);
+		contentPanel
+				.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		contentPanel.setPreferredSize(new Dimension(550, 550));
+		contentPanel.setMaximumSize(new Dimension(1100, 650));
+		contentPanel.setMinimumSize(new Dimension(150, 150));
 		contentPanel.setLayout(cardLayout);
 
-		//add all content views in content panel
+		// set card layout panel
+
+		contentPanel.setLayout(cardLayout);
+
+		// add all content views in content panel
 		contentPanel.add(Constants.TRANSACTIONBUTTONLBL, new TransactionView());
 		contentPanel.add(Constants.CATEGORYBUTTONLBL, new CategoryView());
 		contentPanel.add(Constants.DISCOUNTBUTTONLBL, new DiscountView(this));
@@ -88,6 +92,7 @@ public class MainView extends JFrame {
 		contentPanel.add(Constants.PURCHASEORDERBUTTONLBL,
 				new PurchaseOrderView());
 		contentPanel.add(Constants.REPORTBUTTONLBL, new ReportView());
+		contentPanel.add(Constants.LOGOUTBUTTONLBL, new LogoutView());
 		add(contentPanel);
 	}
 
@@ -102,10 +107,9 @@ public class MainView extends JFrame {
 		LoginPopupView.showLoginDialog(this);
 
 	}
-	
+
 	/*
 	 * add Tool bar
-	 * 
 	 */
 	public void addDefaultToolbar() {
 		ToolBarView toolBarView = new ToolBarView(this);
