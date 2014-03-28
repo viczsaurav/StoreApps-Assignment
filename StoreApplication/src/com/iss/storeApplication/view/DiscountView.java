@@ -78,7 +78,7 @@ public class DiscountView extends JPanel {
 	private DiscountTableModel discountModel = new DiscountTableModel();
 
 	// add Edit Delete
-	private JButton deleteDiscountBtn = new JButton("Delete");
+	private JButton deleteDiscountBtn = new JButton("Delete Discount");
 	private JButton addDiscountBtn = new JButton(
 			Utility.getPropertyValue(Constants.ADDDISCOUNT_BTN));
 	private JButton editDiscountBtn = new JButton(
