@@ -30,18 +30,18 @@ public class CategoryService {
 	public static String validateAndSaveCategory(Category c) {
 		if (c.getCategoryCode().equals("") && c.getCategoryName().equals("")) {
 			// check whether category name and code both are empty?
-			return Constants.CATEGORY_CODE_NAME_EMPTY;
+			return Constants.categoryNameCodeEmpty;
 		} else if (c.getCategoryName().equals("")) {
 			// check whether category name is empty?
-			return Constants.CATEGORY_NAME_EMPTY;
+			return Constants.categoryNameEmpty;
 		} else if (c.getCategoryCode().equals("")) {
 			// check whether category code is empty?
-			return Constants.CATEGORY_CODE_EMPTY;
+			return Constants.categoryCodeEmpty;
 		} else {
 			// check whether category is exist?
 			Map<String, Category> categories = categoryDao.getMap();
 			if (categories.containsKey(c.getCategoryCode())) {
-				return Constants.CATEGORY_EXIST;
+				return Constants.categoryExists;
 			}
 		}
 		addCategory(c);

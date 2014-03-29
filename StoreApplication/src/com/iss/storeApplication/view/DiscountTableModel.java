@@ -50,7 +50,7 @@ public class DiscountTableModel extends AbstractTableModel {
 		this.listDiscounts = new ArrayList<Discount>();
 		// define column names
 		columnNames = new String[] {
-				Utility.getPropertyValue(Constants.DISCOUNT_CODE),
+				Utility.getPropertyValue(Constants.discountCode),
 				Utility.getPropertyValue(Constants.Description),
 				Utility.getPropertyValue(Constants.startDate),
 				Utility.getPropertyValue(Constants.duration),

@@ -72,13 +72,13 @@ public class CategoryView extends JPanel {
 			}
 		};
 		
-		model.addColumn(Constants.CATEGORYID_LABEL);
-		model.addColumn(Constants.CATEGORYNAME_LABEL);
+		model.addColumn(Constants.categoryID);
+		model.addColumn(Constants.categoryName);
 
 		// ScrollPane for Table
 		scrollPane.setBounds(33, 41, 494, 90);
 		// some setting on panel
-		JButton btnAdd = new JButton(Constants.ADDCATEGORY_BTN);
+		JButton btnAdd = new JButton(Constants.addCategoryBtn);
 		JButton btnDelete = new JButton("Delete Category");
 		JButton btnEdit = new JButton("Edit Category");
 		// Table
@@ -145,13 +145,13 @@ private void addElement(){
 		}
 	});
 
-	Object[] message = { Constants.CATEGORYID_LABEL, codeField,
-			Constants.CATEGORYNAME_LABEL, namefield };
+	Object[] message = { Constants.categoryID, codeField,
+			Constants.categoryName, namefield };
 	boolean isdone = true;
 	int option;
 	while (isdone) {
 		option = JOptionPane.showConfirmDialog(null, message,
-				Constants.ADDCATEGORY_BTN,
+				Constants.addCategoryBtn,
 				JOptionPane.OK_CANCEL_OPTION);
 		if (option == JOptionPane.OK_OPTION) {
 			String categoryCode = codeField.getText();
@@ -188,13 +188,13 @@ private void addElement(){
 			JTextField codeField = new JTextField(categoriesItem.getCategoryCode());
 			JTextField namefield = new JTextField(categoriesItem.getCategoryName());
 
-			Object[] message = { Constants.CATEGORYID_LABEL, codeField,
-					Constants.CATEGORYNAME_LABEL, namefield };
+			Object[] message = { Constants.categoryID, codeField,
+					Constants.categoryName, namefield };
 			boolean isdone = true;
 			int option;
 			while (isdone) {
 				option = JOptionPane.showConfirmDialog(null, message,
-						Constants.ADDCATEGORY_BTN,
+						Constants.addCategoryBtn,
 						JOptionPane.OK_CANCEL_OPTION);
 				if (option == JOptionPane.OK_OPTION) {
 					String categoryCode = codeField.getText();
@@ -209,7 +209,7 @@ private void addElement(){
 						cat1.add(rowIndex, cat);
 						isdone = false;
 					} 
-					else if(Constants.CATEGORY_EXIST.equals(result)){
+					else if(Constants.categoryExists.equals(result)){
 						if(categoryCode.equals(categoriesItem.getCategoryCode())){
 							categoriesItem.setCategoryName(categoryName);
 							isdone = false;

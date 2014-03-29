@@ -46,22 +46,16 @@ public interface Constants {
 	public static final String login = "login";
 	public static final String cancel = "cancel";
 
-	public static final String CATEGORY_CLASSNAME = "Category";
-	public static final String PRODUCT_CLASSNAME = "Product";
-	public static final String STOREKEEPER_CLASSNAME = "StoreKeeper";
-	public static final String CUSTOMER_CLASSNAME = "Customer";
-	public static final String DISCOUNT_CLASSNAME = "Discount";
-	public static final String TRANSACTION_CLASSNAME = "Transaction";
 
 	// Category Button Labels
-	public static final String CATEGORYID_LABEL = "Category ID";
-	public static final String CATEGORYNAME_LABEL = "Category Name";
-	public static final String ADDCATEGORY_BTN = "Add Category";
-	public static final String CATEGORY_CODE_NAME_EMPTY = "Category Name and Code are empty";
-	public static final String CATEGORY_NAME_EMPTY = "Category Name is empty";
-	public static final String CATEGORY_CODE_EMPTY = "Category code is empty";
-	public static final String CATEGORY_EXIST = "Category exists";
-	public static final String CATEGORY_CORRECT = "Correct Category";
+	public static final String categoryID = "categoryID";
+	public static final String categoryName = "categoryName";
+	public static final String addCategoryBtn = "addCategoryBtn";
+	public static final String categoryNameCodeEmpty = "categoryNameCodeEmpty";
+	public static final String categoryNameEmpty = "categoryNameEmpty";
+	public static final String categoryCodeEmpty = "categoryCodeEmpty";
+	public static final String categoryExists = "categoryExists";
+	public static final String categoryCorrect = "categoryCorrect";
 	
 	// Product View Labels
 	public static final String productCategory = "productCategory";
@@ -87,8 +81,8 @@ public interface Constants {
 	public static final String FILENAME_DISCOUNT = "Discounts";
 	public static final String FILENAME_MEMBER = "Members";
 	// Discount
-	public static final String ADDDISCOUNT_BTN = "AddDiscountBtn";
-	public static final String DISCOUNT_CODE = "DiscountCode";
+	public static final String addDiscountBtn = "AddDiscountBtn";
+	public static final String discountCode = "DiscountCode";
 	public static final String Description = "Description";
 	public static final String discount = "discount";
 	public static final String memberApplicable = "memberApplicable";

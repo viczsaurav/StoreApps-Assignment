@@ -49,7 +49,7 @@ public class DiscountView extends JPanel {
 	private final JPanel addDiscountPanel = new JPanel();
 	private JComboBox<DiscountType> discountTypeCmbBox = new JComboBox<DiscountType>();
 	private final JLabel discountCodeLabel = new JLabel(
-			Utility.getPropertyValue(Constants.DISCOUNT_CODE));
+			Utility.getPropertyValue(Constants.discountCode));
 	private final JLabel decriptionLabel = new JLabel(
 			Utility.getPropertyValue(Constants.Description));
 	private final JLabel discountApplicableLabel = new JLabel(
@@ -80,7 +80,7 @@ public class DiscountView extends JPanel {
 	// add Edit Delete
 	private JButton deleteDiscountBtn = new JButton("Delete Discount");
 	private JButton addDiscountBtn = new JButton(
-			Utility.getPropertyValue(Constants.ADDDISCOUNT_BTN));
+			Utility.getPropertyValue(Constants.addDiscountBtn));
 	private JButton editDiscountBtn = new JButton(
 			Utility.getPropertyValue(Constants.editDiscount));
 
@@ -417,12 +417,12 @@ public class DiscountView extends JPanel {
 		setDiscountToDiscountDialogView(null);
 		
 		/*
-		 * Object[] message = { Constants.CATEGORYID_LABEL, discountTypeCmbBox,
-		 * Constants.CATEGORYNAME_LABEL, namefield };
+		 * Object[] message = { Constants.categoryID, discountTypeCmbBox,
+		 * Constants.categoryName, namefield };
 		 */
 
 		int result = JOptionPane.showConfirmDialog(mainView, addDiscountPanel,
-				Utility.getPropertyValue(Constants.ADDDISCOUNT_BTN),
+				Utility.getPropertyValue(Constants.addDiscountBtn),
 				JOptionPane.OK_CANCEL_OPTION);
 
 		if (result == JOptionPane.OK_OPTION) {
@@ -459,8 +459,8 @@ public class DiscountView extends JPanel {
 	private void showEditDiscountDialog(Discount d) {
 
 		/*
-		 * Object[] message = { Constants.CATEGORYID_LABEL, discountTypeCmbBox,
-		 * Constants.CATEGORYNAME_LABEL, namefield };
+		 * Object[] message = { Constants.categoryID, discountTypeCmbBox,
+		 * Constants.categoryName, namefield };
 		 */
 
 		setDiscountToDiscountDialogView(d);
