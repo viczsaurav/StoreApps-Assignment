@@ -127,7 +127,7 @@ public class ProductView extends JPanel {
 						Constants.PRODUCT_DESC_LABEL, prodDesc,
 						Constants.PRODUCT_QUANTITY_LABEL, prodQuant,
 						Constants.PRODUCT_PRICE_LABEL, prodPrice,
-						Constants.PRODUCT_BARCODE_LABEL, prodBarCode,
+						Constants.barcode, prodBarCode,
 						Constants.PRODUCT_REORDER_QUANT_LABEL,
 						prodReorderQuant, Constants.PRODUCT_ORDER_QUANT_LABEL,
 						prodOrderQuant };
@@ -218,7 +218,7 @@ public class ProductView extends JPanel {
 		model.addColumn(Constants.PRODUCT_DESC_LABEL);
 		model.addColumn(Constants.PRODUCT_QUANTITY_LABEL);
 		model.addColumn(Constants.PRODUCT_PRICE_LABEL);
-		model.addColumn(Constants.PRODUCT_BARCODE_LABEL);
+		model.addColumn(Constants.barcode);
 		model.addColumn(Constants.PRODUCT_REORDER_QUANT_LABEL);
 		model.addColumn(Constants.PRODUCT_ORDER_QUANT_LABEL);
 

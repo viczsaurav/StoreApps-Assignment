@@ -5,6 +5,8 @@ package com.iss.storeApplication.business;
  * 
  */
 
+import java.util.Map;
+
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.dao.ProductDao;
 import com.iss.storeApplication.domain.Category;
@@ -45,5 +47,14 @@ public class ProductService {
 	private static void generateProductID(Category category) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public static Product getProduct(Long barcode)
+	{
+		Map<Long,Product> barcodeProductMap=productDao.getBarCodeProductMap();
+		if(barcodeProductMap.containsKey(barcode))
+			return barcodeProductMap.get(barcode);
+		else
+			return null;
 	}
 }

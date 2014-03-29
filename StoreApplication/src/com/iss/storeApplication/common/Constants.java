@@ -35,16 +35,15 @@ public interface Constants {
 	public static final String LOGIN_INVALID_PASSWORD = "Invalid Password";
 
 	// Toolbar Button Labels
-	public static final String TRANSACTIONBUTTONLBL = "Transaction";
-	public static final String CATEGORYBUTTONLBL = "Category";
-	public static final String MEMBERBUTTONLBL = "Members";
-	public static final String DISCOUNTBUTTONLBL = "Discount";
-	public static final String PURCHASEORDERBUTTONLBL = "Purchase Order";
-	public static final String PRODUCTBUTTONLBL = "Products";
-	public static final String REPORTBUTTONLBL = "Reports";
-	public static final String LOGOUTBUTTONLBL = "Logout";
-	public static final String LOGIN_BTN = "login";
-	public static final String CANCEL = "cancel";
+	public static final String billing = "billing";
+	public static final String category = "category";
+	public static final String members = "members";
+	public static final String purchaseOrder = "purchaseOrder";
+	public static final String products = "products";
+	public static final String reports = "reports";
+	public static final String logout = "logout";
+	public static final String login = "login";
+	public static final String cancel = "cancel";
 
 	public static final String CATEGORY_CLASSNAME = "Category";
 	public static final String PRODUCT_CLASSNAME = "Product";
@@ -70,7 +69,7 @@ public interface Constants {
 	public static final String PRODUCT_DESC_LABEL = "Product Description";
 	public static final String PRODUCT_QUANTITY_LABEL = "Product Quantity";
 	public static final String PRODUCT_PRICE_LABEL = "Product Price";
-	public static final String PRODUCT_BARCODE_LABEL = "Product Barcode";
+	public static final String barcode = "barcode";
 	public static final String PRODUCT_REORDER_QUANT_LABEL = "Product Reorder Threshold";
 	public static final String PRODUCT_ORDER_QUANT_LABEL = "Product Order Quantity";
 	public static final String ADDPRODUCT_BTN = "Add Product";
@@ -105,6 +104,9 @@ public interface Constants {
 	public static final String selectRow = "selectRow";
 	public static final String msgnotGrtThan100 = "msgnotGrtThan100";
 	public static final String msgnotNegative = "msgnotNegative";
+	public static final String find = "find";
+	public static final String barcodeNotNull = "barcodeNotNull";
+	public static final String productNotFound = "productNotFound";
 	
 	
 }

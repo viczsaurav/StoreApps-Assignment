@@ -20,8 +20,10 @@ import java.awt.Paint;
 import javax.swing.JComponent;*/
 
 
+
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.RequestFocusListener;
+import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.controller.Controller;
 import com.iss.storeApplication.domain.StoreKeeper;
 
@@ -35,7 +37,7 @@ public class LoginPopupView {
 	private static JPanel loginPanel = new JPanel();
 	public static JTextField userNameTxtField = new JTextField();
 	public static JPasswordField passwordField = new JPasswordField();
-	static String[] loginBtns = { Constants.LOGIN_BTN, Constants.CANCEL };
+	static String[] loginBtns = { Constants.login, Constants.cancel };
 
 	
 	static {
@@ -65,9 +67,9 @@ public class LoginPopupView {
 					userNameTxtField.getText().trim(), passwordString.trim()));
 
 			if (message.equals(Constants.LOGIN_SUCCESS_MESSAGE)) {
-				mainView.getCardLayout().show(mainView.getContentPanel(), Constants.TRANSACTIONBUTTONLBL);
+				mainView.getCardLayout().show(mainView.getContentPanel(), Utility.getPropertyValue(Constants.billing));
 				TitledBorder nameBorder = BorderFactory
-						.createTitledBorder(Constants.TRANSACTIONBUTTONLBL);
+						.createTitledBorder(Utility.getPropertyValue((Constants.billing)));
 				mainView.contentPanel.setBorder(nameBorder);
 				ToolBarView.loginWelcomeMessage();				
 				ToolBarView.getToolbarName();
