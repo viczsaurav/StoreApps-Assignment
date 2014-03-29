@@ -81,8 +81,8 @@ public interface Constants {
 	public static final String FILENAME_DISCOUNT = "Discounts";
 	public static final String FILENAME_MEMBER = "Members";
 	// Discount
-	public static final String addDiscountBtn = "AddDiscountBtn";
-	public static final String discountCode = "DiscountCode";
+	public static final String addDiscountBtn = "addDiscountBtn";
+	public static final String discountCode = "discountCode";
 	public static final String Description = "Description";
 	public static final String discount = "discount";
 	public static final String memberApplicable = "memberApplicable";
