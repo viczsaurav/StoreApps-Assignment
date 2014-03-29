@@ -15,7 +15,8 @@ public interface Constants {
 	public static final String FILE_EXT_SEPERATOR = ".";
 	public static final String CATEGORY_NAME = "CategoryName";
 	public static final String ALL_FIELDS_REQUIRED = "All fields are mandatory !";
-
+    
+	
 	/**
 	 * 
 	 * @author sakthi
@@ -85,7 +86,7 @@ public interface Constants {
 	public static final String FILENAME_PRODUCT = "Products";
 	public static final String FILENAME_CATEGORY = "Category";
 	public static final String FILENAME_DISCOUNT = "Discounts";
-
+	public static final String FILENAME_MEMBER = "Members";
 	// Discount
 	public static final String ADDDISCOUNT_BTN = "AddDiscountBtn";
 	public static final String DISCOUNT_CODE = "DiscountCode";
