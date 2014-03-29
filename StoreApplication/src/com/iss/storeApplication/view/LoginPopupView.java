@@ -69,7 +69,9 @@ public class LoginPopupView {
 				TitledBorder nameBorder = BorderFactory
 						.createTitledBorder(Constants.TRANSACTIONBUTTONLBL);
 				mainView.contentPanel.setBorder(nameBorder);
-				ToolBarView.loginWelcomeMessage();
+				ToolBarView.loginWelcomeMessage();				
+				ToolBarView.getToolbarName();
+				ToolBarView.toolBarName="";
 				return true;
 
 			} else {

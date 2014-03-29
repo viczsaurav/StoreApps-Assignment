@@ -23,7 +23,7 @@ public class ToolBarView extends JToolBar implements ActionListener {
 	private MainView mainView;
 	private static JLabel label;
 	private static JButton button;
-
+ public static String toolBarName="";
 	public ToolBarView(MainView mainView) {
 		this.mainView = mainView;
 		addToolBar();
@@ -70,6 +70,8 @@ public class ToolBarView extends JToolBar implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				showContent(buttonName);
+				
+				
 			}
 		});
 
@@ -85,7 +87,7 @@ public class ToolBarView extends JToolBar implements ActionListener {
 	}
 
 	protected void showContent(String name) {
-		
+		toolBarName = "";
 		TitledBorder nameBorder = BorderFactory.createTitledBorder(
 				name);
 		MainView.contentPanel.setBorder(nameBorder);
@@ -110,8 +112,11 @@ public class ToolBarView extends JToolBar implements ActionListener {
 			LoginPopupView.passwordField.setText("");
 			label.setText("");
 			label.setVisible(false);
+			toolBarName = "Logout";
+			getToolbarName();
 			LoginPopupView.showLoginDialog(mainView);
-		}
+		}	
+		
 
 	}
 
@@ -168,6 +173,12 @@ public class ToolBarView extends JToolBar implements ActionListener {
 			button.setMnemonic(java.awt.event.KeyEvent.VK_L);
 
 		}
+	}
+	
+	
+	public static String getToolbarName() {
+		//toolBarName = name;
+	   return toolBarName;
 	}
 
 }
