@@ -77,5 +77,10 @@ public class Controller {
 	public static Product getProduct(Long barcode) {
 		return ProductService.getProduct(barcode);
 	}
-
+	
+	public static Discount getMaxPublicDiscount()
+	{
+		return DiscountService.getMaxPublicDiscount();
+	}
+	
 }

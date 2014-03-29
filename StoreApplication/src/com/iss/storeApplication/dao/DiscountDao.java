@@ -9,7 +9,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +24,7 @@ import com.iss.storeApplication.domain.Discount;
 import com.iss.storeApplication.domain.PermanentDiscount;
 import com.iss.storeApplication.domain.SeasonalDiscount;
 import com.iss.storeApplication.enums.DiscountApplicable;
+import com.iss.storeApplication.enums.MemberType;
 
 /**
  * 
@@ -30,7 +35,7 @@ public class DiscountDao implements CommonDao<Discount> {
 
 	private String fileName = Constants.FILENAME_DISCOUNT
 			+ Constants.FILE_EXT_SEPERATOR + Constants.FILE_EXTENSION;
-	
+
 	/**
 	 * save Discount Object
 	 */
@@ -59,7 +64,7 @@ public class DiscountDao implements CommonDao<Discount> {
 		}
 
 	}
-	
+
 	/**
 	 * Retrive all discounts from file
 	 */
@@ -120,9 +125,9 @@ public class DiscountDao implements CommonDao<Discount> {
 
 		return discounts;
 	}
-	
+
 	/**
-	 * Get Discount code, Discount Map 
+	 * Get Discount code, Discount Map
 	 */
 	@Override
 	public Map<String, Discount> getMap() {
@@ -141,17 +146,47 @@ public class DiscountDao implements CommonDao<Discount> {
 	 * Clears file and saves list of discount object to file.
 	 */
 	public boolean saveAll(List<Discount> discounts) {
-		//if (discounts.size() == 0) {
-			File file = new File(Constants.DATA_FILE_DIR, fileName);
-			if(!Utility.clearFile(file))
-				return false;
+		// if (discounts.size() == 0) {
+		File file = new File(Constants.DATA_FILE_DIR, fileName);
+		if (!Utility.clearFile(file))
+			return false;
 
-		//}
+		// }
 		for (Discount d : discounts) {
 			if (!save(d, true)) {
 				return false;
 			}
 		}
 		return true;
+	}
+
+	public List<Discount> getPublicDiscount() {
+		List<Discount> discounts = retrieveAll();
+
+		for (Iterator<Discount> iterator = discounts.iterator(); iterator
+				.hasNext();) {
+			Discount d = iterator.next();
+			if (d.getMemberApplicable().equals(MemberType.Member))
+				iterator.remove();
+			else {
+				if (d instanceof SeasonalDiscount) {
+					if (((SeasonalDiscount) d).getStartDate()
+							.before(new Date())) {
+						iterator.remove();
+
+					}
+				}
+			}
+		}
+
+		return discounts;
+	}
+
+	public Discount getMaxPublicDiscount() {
+		List<Discount> discounts = getPublicDiscount();
+		if (discounts != null && discounts.size() != 0)
+			return Collections.max(discounts);
+		else
+			return null;
 	}
 }

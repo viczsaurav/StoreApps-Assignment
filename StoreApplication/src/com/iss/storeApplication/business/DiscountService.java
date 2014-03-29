@@ -109,4 +109,9 @@ public class DiscountService {
 
 		return discountDao.saveAll(discounts);
 	}
+	
+	public static Discount getMaxPublicDiscount()
+	{
+		return discountDao.getMaxPublicDiscount();
+	}
 }

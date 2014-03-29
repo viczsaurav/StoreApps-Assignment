@@ -101,6 +101,19 @@ public interface Constants {
 	public static final String find = "find";
 	public static final String barcodeNotNull = "barcodeNotNull";
 	public static final String productNotFound = "productNotFound";
+	public static final String purchaseQty = "purchaseQty";
+	public static final String purchasedQtyNotNegative = "purchasedQtyNotNegative";
+	public static final String remove = "remove";
+	public static final String msgChgQty = "msgChgQty";
+	public static final String total = "total";
+	public static final String memberType = "memberType";
+	public static final String memberId = "memberId";
+	public static final String applyDiscount = "applyDiscount";
+	public static final String billAmt = "billAmt";
+	public static final String generateBill = "generateBill";
+	public static final String reset = "reset";
+	public static final String loyalityEarned = "loyalityEarned";
+	public static final String reedemPoint = "reedemPoint";
 	
 	//Category
 	

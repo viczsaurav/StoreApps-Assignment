@@ -2,7 +2,7 @@ package com.iss.storeApplication.domain;
 
 import com.iss.storeApplication.enums.DiscountApplicable;
 
-public abstract class Discount {
+public abstract class Discount implements Comparable<Discount> {
 
 	private String discountCode;
 	private String description;
@@ -41,5 +41,10 @@ public abstract class Discount {
 		this.memberApplicable = memberApplicable;
 	}
 
-	
+	@Override
+	public int compareTo(Discount o) {
+
+		return this.getDiscount().compareTo(o.getDiscount());
+	}
+
 }

@@ -2,14 +2,18 @@ package com.iss.storeApplication.domain;
 
 import java.util.Date;
 
-public class Transcation {
+/**
+ * 
+ * @author milan
+ *
+ */
+public class Transaction {
 
 	private String transactionId;
 	private Product product;
 	private Customer customer;
-	private Integer qtyPurchase;
-	private Date dateOfPurchase;
-	private Discount discount;// can be null
+	private Integer qtyPurchase=0;
+	private Date dateOfPurchase=new Date();
 
 	public String getTransactionId() {
 		return transactionId;
@@ -51,12 +55,5 @@ public class Transcation {
 		this.dateOfPurchase = dateOfPurchase;
 	}
 
-	public Discount getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(Discount discount) {
-		this.discount = discount;
-	}
 
 }

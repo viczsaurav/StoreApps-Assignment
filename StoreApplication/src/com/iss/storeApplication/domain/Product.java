@@ -89,5 +89,7 @@ public class Product implements java.io.Serializable {
 		return productId+","+productName+","+description+","+qtyAvailable+","+price+","+barCode+","+reorderQty+","+orderQty;
 		
 	}
+	
+	
 
 }
