@@ -50,7 +50,7 @@ public class Utility {
 		nf.setMinimumIntegerDigits(1);
 		nf.setMaximumFractionDigits(2);
 		nf.setMinimumFractionDigits(2);
-		
+		nf.setGroupingUsed(false);
 		return nf;
 	}
 
@@ -60,6 +60,7 @@ public class Utility {
 		nf.setMinimumIntegerDigits(1);
 		nf.setMaximumFractionDigits(0);
 		nf.setMinimumFractionDigits(0);
+		nf.setGroupingUsed(false);
 		return nf;
 	}
 	
@@ -69,6 +70,7 @@ public class Utility {
 		pbf.setMinimumIntegerDigits(1);
 		pbf.setMaximumFractionDigits(0);
 		pbf.setMinimumFractionDigits(0);
+		pbf.setGroupingUsed(false);
 		return pbf;
 	}
 	
@@ -78,6 +80,7 @@ public class Utility {
 		ppf.setMinimumIntegerDigits(1);
 		ppf.setMaximumFractionDigits(2);
 		ppf.setMinimumFractionDigits(2);
+		ppf.setGroupingUsed(false);
 		return ppf;
 	}
 	
@@ -87,8 +90,11 @@ public class Utility {
 		pnf.setMinimumIntegerDigits(1);
 		pnf.setMaximumFractionDigits(0);
 		pnf.setMinimumFractionDigits(0);
+		pnf.setGroupingUsed(false);
 		return pnf;
 	}
+	
+
 
 	public static boolean clearFile(File file) {
 		PrintWriter out = null;

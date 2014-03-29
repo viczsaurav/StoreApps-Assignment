@@ -14,6 +14,7 @@ import javax.swing.JToolBar;
 import javax.swing.border.TitledBorder;
 
 import com.iss.storeApplication.common.Constants;
+import com.iss.storeApplication.common.Utility;
 
 /*
  * @author Saurav
@@ -34,14 +35,14 @@ public class ToolBarView extends JToolBar implements ActionListener {
 		try {
 			// Adding Buttons
 			// add(addButton(Utility.getPropertyValue(Constants.CATEGORYBUTTONLBL)));
-			add(addButton(Constants.TRANSACTIONBUTTONLBL));
-			add(addButton(Constants.CATEGORYBUTTONLBL));
-			add(addButton(Constants.MEMBERBUTTONLBL));
-			add(addButton(Constants.DISCOUNTBUTTONLBL));
-			add(addButton(Constants.PURCHASEORDERBUTTONLBL));
-			add(addButton(Constants.PRODUCTBUTTONLBL));
-			add(addButton(Constants.REPORTBUTTONLBL));
-			add(addButton(Constants.LOGOUTBUTTONLBL));
+			add(addButton(Utility.getPropertyValue(Constants.billing)));
+			add(addButton(Utility.getPropertyValue(Constants.category)));
+			add(addButton(Utility.getPropertyValue(Constants.members)));
+			add(addButton(Utility.getPropertyValue(Constants.discount)));
+			add(addButton(Utility.getPropertyValue(Constants.purchaseOrder)));
+			add(addButton(Utility.getPropertyValue(Constants.products)));
+			add(addButton(Utility.getPropertyValue(Constants.reports)));
+			add(addButton(Utility.getPropertyValue(Constants.logout)));
 			add(addLabel("Label"));
 
 		} catch (Exception e) {
@@ -107,12 +108,12 @@ public class ToolBarView extends JToolBar implements ActionListener {
 		 * @author sakthi
 		 */
 
-		if (name.equals(Constants.LOGOUTBUTTONLBL)) {
+		if (name.equals(Constants.logout)) {
 			LoginPopupView.userNameTxtField.setText("");
 			LoginPopupView.passwordField.setText("");
 			label.setText("");
 			label.setVisible(false);
-			toolBarName = Constants.LOGOUTBUTTONLBL;
+			toolBarName = Constants.logout;
 			getToolbarName();
 			LoginPopupView.showLoginDialog(mainView);
 		}	
@@ -142,34 +143,34 @@ public class ToolBarView extends JToolBar implements ActionListener {
 
 	public static void setToolbarShortcut(String buttonName) {
 
-		if (buttonName.equals(Constants.TRANSACTIONBUTTONLBL)) {
+		if (buttonName.equals(Utility.getPropertyValue(Constants.billing))) {
 			button.setMnemonic(java.awt.event.KeyEvent.VK_T);
 		}
-		if (buttonName.equals(Constants.CATEGORYBUTTONLBL)) {
+		if (buttonName.equals(Utility.getPropertyValue(Constants.category))) {
 			button.setMnemonic(java.awt.event.KeyEvent.VK_C);
 
 		}
-		if (buttonName.equals(Constants.MEMBERBUTTONLBL)) {
+		if (buttonName.equals(Utility.getPropertyValue(Constants.members))) {
 			button.setMnemonic(java.awt.event.KeyEvent.VK_M);
 
 		}
-		if (buttonName.equals(Constants.DISCOUNTBUTTONLBL)) {
+		if (buttonName.equals(Utility.getPropertyValue(Constants.discount))) {
 			button.setMnemonic(java.awt.event.KeyEvent.VK_D);
 
 		}
-		if (buttonName.equals(Constants.PURCHASEORDERBUTTONLBL)) {
+		if (buttonName.equals(Utility.getPropertyValue(Constants.purchaseOrder))) {
 			button.setMnemonic(java.awt.event.KeyEvent.VK_U);
 
 		}
-		if (buttonName.equals(Constants.PRODUCTBUTTONLBL)) {
+		if (buttonName.equals(Utility.getPropertyValue(Constants.products))) {
 			button.setMnemonic(java.awt.event.KeyEvent.VK_P);
 
 		}
-		if (buttonName.equals(Constants.REPORTBUTTONLBL)) {
+		if (buttonName.equals(Utility.getPropertyValue(Constants.reports))) {
 			button.setMnemonic(java.awt.event.KeyEvent.VK_R);
 
 		}
-		if (buttonName.equals(Constants.LOGOUTBUTTONLBL)) {
+		if (buttonName.equals(Utility.getPropertyValue(Constants.logout))) {
 			button.setMnemonic(java.awt.event.KeyEvent.VK_L);
 
 		}

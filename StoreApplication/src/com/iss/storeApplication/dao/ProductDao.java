@@ -1,4 +1,4 @@
- 	package com.iss.storeApplication.dao;
+package com.iss.storeApplication.dao;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -26,7 +26,7 @@ public class ProductDao implements CommonDao<Product> {
 	 * Save the product to file
 	 */
 	@Override
-	public boolean save(Product t,boolean append) {
+	public boolean save(Product t, boolean append) {
 		// TODO Auto-generated method stub
 
 		try {
@@ -83,7 +83,6 @@ public class ProductDao implements CommonDao<Product> {
 		return products;
 	}
 
-	
 	public Product get(String searchKey) {
 		// TODO Auto-generated method stub
 		Map<String, Product> productsMap = getMap();
@@ -95,13 +94,22 @@ public class ProductDao implements CommonDao<Product> {
 	public Map<String, Product> getMap() {
 		// TODO Auto-generated method stub
 
-			List<Product> Products = retrieveAll();
-			HashMap<String, Product> productsMap = new HashMap<String, Product>();
+		List<Product> Products = retrieveAll();
+		HashMap<String, Product> productsMap = new HashMap<String, Product>();
 
-			for (Product p : Products) {
-				productsMap.put(p.getProductId(),p);
-			}
-			return productsMap;
+		for (Product p : Products) {
+			productsMap.put(p.getProductId(), p);
 		}
+		return productsMap;
 	}
 
+	public Map<Long, Product> getBarCodeProductMap() {
+		List<Product> Products = retrieveAll();
+		HashMap<Long, Product> barcodeProductsMap = new HashMap<Long, Product>();
+		for (Product p : Products) {
+			barcodeProductsMap.put(p.getBarCode(), p);
+		}
+		return barcodeProductsMap;
+	}
+
+}

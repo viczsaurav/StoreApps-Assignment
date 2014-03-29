@@ -6,9 +6,11 @@ import com.iss.storeApplication.business.CategoryService;
 import com.iss.storeApplication.business.DiscountService;
 import com.iss.storeApplication.business.LoginService;
 import com.iss.storeApplication.business.MemberRegistrationService;
+import com.iss.storeApplication.business.ProductService;
 import com.iss.storeApplication.domain.Category;
 import com.iss.storeApplication.domain.Discount;
 import com.iss.storeApplication.domain.MemberCustomer;
+import com.iss.storeApplication.domain.Product;
 import com.iss.storeApplication.domain.StoreKeeper;
 
 public class Controller {
@@ -37,7 +39,7 @@ public class Controller {
 	public static boolean isDiscountCodeAlreadyExist(String discountCode) {
 		return DiscountService.isDiscountCodeAlreadyExist(discountCode);
 	}
-	
+
 	public static boolean saveAll(List<Discount> listDiscounts) {
 
 		return DiscountService.saveAll(listDiscounts);
@@ -54,6 +56,10 @@ public class Controller {
 
 	public static String validateAndSaveCategory(Category c) {
 		return CategoryService.validateAndSaveCategory(c);
+	}
+
+	public static Product getProduct(Long barcode) {
+		return ProductService.getProduct(barcode);
 	}
 
 }

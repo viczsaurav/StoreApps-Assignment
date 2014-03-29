@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import com.iss.storeApplication.common.Constants;
+import com.iss.storeApplication.common.Utility;
 
 /**
  * 
@@ -84,15 +85,15 @@ public class MainView extends JFrame {
 		contentPanel.setLayout(cardLayout);
 
 		// add all content views in content panel
-		contentPanel.add(Constants.TRANSACTIONBUTTONLBL, new TransactionView());
-		contentPanel.add(Constants.CATEGORYBUTTONLBL, new CategoryView());
-		contentPanel.add(Constants.DISCOUNTBUTTONLBL, new DiscountView(this));
-		contentPanel.add(Constants.MEMBERBUTTONLBL, new MemberView());
-		contentPanel.add(Constants.PRODUCTBUTTONLBL, new ProductView(this));
-		contentPanel.add(Constants.PURCHASEORDERBUTTONLBL,
+		contentPanel.add(Utility.getPropertyValue(Constants.billing), new BillingView(this));
+		contentPanel.add(Utility.getPropertyValue(Constants.category), new CategoryView());
+		contentPanel.add(Utility.getPropertyValue(Constants.discount), new DiscountView(this));
+		contentPanel.add(Utility.getPropertyValue(Constants.members), new MemberView());
+		contentPanel.add(Utility.getPropertyValue(Constants.products), new ProductView(this));
+		contentPanel.add(Utility.getPropertyValue(Constants.purchaseOrder),
 				new PurchaseOrderView());
-		contentPanel.add(Constants.REPORTBUTTONLBL, new ReportView());
-		contentPanel.add(Constants.LOGOUTBUTTONLBL, new LogoutView());
+		contentPanel.add(Utility.getPropertyValue(Constants.reports), new ReportView());
+		contentPanel.add(Utility.getPropertyValue(Constants.logout), new LogoutView());
 		add(contentPanel);
 	}
 
