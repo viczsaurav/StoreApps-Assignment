@@ -46,12 +46,35 @@ public class CategoryView extends JPanel {
 
 	}
 
+	
+	
 	/**
 	 * initial Category
 	 */
 	private void initialCategory() {
 		scrollPane = new JScrollPane();
 		categoryPanel = new JPanel();
+		//initial table
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		// initial model for table of category
+		model  = new DefaultTableModel() {
+			public Class<?> getColumnClass(int column) {
+				switch (column) {
+				default:
+					return String.class;
+				}
+			}
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		
+		model.addColumn(Constants.CATEGORYID_LABEL);
+		model.addColumn(Constants.CATEGORYNAME_LABEL);
+
 		// ScrollPane for Table
 		scrollPane.setBounds(33, 41, 494, 90);
 		// some setting on panel
@@ -59,9 +82,6 @@ public class CategoryView extends JPanel {
 		JButton btnDelete = new JButton("Delete Category");
 		JButton btnEdit = new JButton("Edit Category");
 		// Table
-		table = new JTable();
-		scrollPane.setViewportView(table);
-
 		categoryPanel.add(btnAdd, BorderLayout.CENTER);
 		categoryPanel.add(btnEdit, BorderLayout.CENTER);
 		categoryPanel.add(btnDelete, BorderLayout.CENTER);
@@ -70,46 +90,8 @@ public class CategoryView extends JPanel {
 		btnAdd.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-
-				JTextField codeField = new JTextField();
-				JTextField namefield = new JTextField();
-
-				codeField.addCaretListener(new CaretListener() {
-
-					@Override
-					public void caretUpdate(CaretEvent arg0) {
-						System.out.println(arg0.toString());
-
-					}
-				});
-
-				Object[] message = { Constants.CATEGORYID_LABEL, codeField,
-						Constants.CATEGORYNAME_LABEL, namefield };
-				boolean isdone = true;
-				int option;
-				while (isdone) {
-					option = JOptionPane.showConfirmDialog(null, message,
-							Constants.ADDCATEGORY_BTN,
-							JOptionPane.OK_CANCEL_OPTION);
-					if (option == JOptionPane.OK_OPTION) {
-						String categoryCode = codeField.getText();
-						String categoryName = namefield.getText();
-						System.out.println("categoryCode:" + categoryCode);
-						System.out.println("categoryName:" + categoryName);
-						Category cat = new Category();
-						cat.setCategoryCode(categoryCode);
-						cat.setCategoryName(categoryName);
-						String result = Controller.validateAndSaveCategory(cat);
-						if (Constants.SUCCESS.equals(result)) {
-							freshCategory(model);
-							isdone = false;
-						} else {
-							JOptionPane.showMessageDialog(null, result);
-						}
-					}else{
-						isdone = false;
-					}
-				}
+				addElement();
+				
 			}
 		});
 
@@ -123,7 +105,7 @@ public class CategoryView extends JPanel {
 					JOptionPane.showMessageDialog(null,"please select one row!");
 				}
 				if (Controller.saveAllCategory(cat1)) {
-					freshCategory(model);
+					deleteCategory(model,rowIndex);
 				} else {
 					JOptionPane.showMessageDialog(null,
 							Utility.getPropertyValue(Constants.failure));
@@ -133,86 +115,137 @@ public class CategoryView extends JPanel {
 		// define edit button function
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int rowIndex = table.getSelectedRow();
-				if (rowIndex >= 0) {
-					Category categoriesItem =  cat1.get(rowIndex);
-	
-					JTextField codeField = new JTextField(categoriesItem.getCategoryCode());
-					JTextField namefield = new JTextField(categoriesItem.getCategoryName());
-
-					Object[] message = { Constants.CATEGORYID_LABEL, codeField,
-							Constants.CATEGORYNAME_LABEL, namefield };
-					boolean isdone = true;
-					int option;
-					while (isdone) {
-						option = JOptionPane.showConfirmDialog(null, message,
-								Constants.ADDCATEGORY_BTN,
-								JOptionPane.OK_CANCEL_OPTION);
-						if (option == JOptionPane.OK_OPTION) {
-							String categoryCode = codeField.getText();
-							String categoryName = namefield.getText();
-							System.out.println("categoryCode:" + categoryCode);
-							System.out.println("categoryName:" + categoryName);
-							Category cat = new Category();
-							cat.setCategoryCode(categoryCode);
-							cat.setCategoryName(categoryName);
-							String result = Controller.validateAndSaveCategory(cat);
-							if (Constants.SUCCESS.equals(result)) {
-								cat1.remove(rowIndex);
-								cat1.add(rowIndex, cat);
-								isdone = false;
-							} 
-							else if(Constants.CATEGORY_EXIST.equals(result)){
-								if(categoryCode.equals(categoriesItem.getCategoryCode())){
-									categoriesItem.setCategoryName(categoryName);
-									isdone = false;
-								}else{
-									JOptionPane.showMessageDialog(null, result);
-								}
-							}
-							else {
-								JOptionPane.showMessageDialog(null, result);
-							}
-						}else{
-							isdone = false;
-							
-						}
-					}			
-					
-				}else{
-					JOptionPane.showMessageDialog(null,"please select one row!");
-				}
-				if (Controller.saveAllCategory(cat1)) {
-					freshCategory(model);
-				} else {
-					JOptionPane.showMessageDialog(null,
-							Utility.getPropertyValue(Constants.failure));
-				}
+				editElement();
 			}
 		});
 		btnAdd.setBounds(224, 149, 131, 23);
 		add(categoryPanel, BorderLayout.NORTH);
 		add(scrollPane);
 		// get and display category list
-		freshCategory(model);
+		initialCategory(model);
 	}
+	
+	/**
+	 * function component for add button
+	 */
+private void addElement(){
+	
 
+
+	JTextField codeField = new JTextField();
+	JTextField namefield = new JTextField();
+
+	codeField.addCaretListener(new CaretListener() {
+
+		@Override
+		public void caretUpdate(CaretEvent arg0) {
+			System.out.println(arg0.toString());
+
+		}
+	});
+
+	Object[] message = { Constants.CATEGORYID_LABEL, codeField,
+			Constants.CATEGORYNAME_LABEL, namefield };
+	boolean isdone = true;
+	int option;
+	while (isdone) {
+		option = JOptionPane.showConfirmDialog(null, message,
+				Constants.ADDCATEGORY_BTN,
+				JOptionPane.OK_CANCEL_OPTION);
+		if (option == JOptionPane.OK_OPTION) {
+			String categoryCode = codeField.getText();
+			String categoryName = namefield.getText();
+			System.out.println("categoryCode:" + categoryCode);
+			System.out.println("categoryName:" + categoryName);
+			Category cat = new Category();
+			cat.setCategoryCode(categoryCode);
+			cat.setCategoryName(categoryName);
+			String result = Controller.validateAndSaveCategory(cat);
+			if (Constants.SUCCESS.equals(result)) {
+				cat1.add(cat);
+				addCategory(model,cat);
+				isdone = false;
+			} else {
+				JOptionPane.showMessageDialog(null, result);
+			}
+		}else{
+			isdone = false;
+		}
+	}
+}
+	/**
+	 * function component for edit button
+	 */
+
+	private void editElement(){
+		
+		int rowIndex = table.getSelectedRow();
+		Category cat = new Category();
+		if (rowIndex >= 0) {
+			Category categoriesItem =  cat1.get(rowIndex);
+
+			JTextField codeField = new JTextField(categoriesItem.getCategoryCode());
+			JTextField namefield = new JTextField(categoriesItem.getCategoryName());
+
+			Object[] message = { Constants.CATEGORYID_LABEL, codeField,
+					Constants.CATEGORYNAME_LABEL, namefield };
+			boolean isdone = true;
+			int option;
+			while (isdone) {
+				option = JOptionPane.showConfirmDialog(null, message,
+						Constants.ADDCATEGORY_BTN,
+						JOptionPane.OK_CANCEL_OPTION);
+				if (option == JOptionPane.OK_OPTION) {
+					String categoryCode = codeField.getText();
+					String categoryName = namefield.getText();
+					System.out.println("categoryCode:" + categoryCode);
+					System.out.println("categoryName:" + categoryName);
+					cat.setCategoryCode(categoryCode);
+					cat.setCategoryName(categoryName);
+					String result = Controller.validateAndSaveCategory(cat);
+					if (Constants.SUCCESS.equals(result)) {
+						cat1.remove(rowIndex);
+						cat1.add(rowIndex, cat);
+						isdone = false;
+					} 
+					else if(Constants.CATEGORY_EXIST.equals(result)){
+						if(categoryCode.equals(categoriesItem.getCategoryCode())){
+							categoriesItem.setCategoryName(categoryName);
+							isdone = false;
+						}else{
+							JOptionPane.showMessageDialog(null, result);
+						}
+					}
+					else {
+						JOptionPane.showMessageDialog(null, result);
+					}
+				}else{
+					isdone = false;
+					
+				}
+			}			
+			
+		}else{
+			JOptionPane.showMessageDialog(null,"please select one row!");
+		}
+		if (Controller.saveAllCategory(cat1)) {
+			editCategory(model,rowIndex,cat);
+		} else {
+			JOptionPane.showMessageDialog(null,
+					Utility.getPropertyValue(Constants.failure));
+		}
+	}
+	
+	
+	
+	
+	/**
+	 * fresh Category table: may be use in future
+	 */
 	private void freshCategory(DefaultTableModel model) {
 		// define Model for Table
-		model = new DefaultTableModel() {
-			public Class<?> getColumnClass(int column) {
-				switch (column) {
-				default:
-					return String.class;
-				}
-			}
-
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
-
+	
+		table.setModel(model);
 		// align category field in center
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -220,8 +253,38 @@ public class CategoryView extends JPanel {
 
 		table.setModel(model);
 
-		model.addColumn(Constants.CATEGORYID_LABEL);
-		model.addColumn(Constants.CATEGORYNAME_LABEL);
+
+		CategoryDao categoryDao = new CategoryDao();
+		cat1 = categoryDao.retrieveAll();
+
+		// Putting Values in the Category Table
+		int i = 0;
+		for (Category entry : cat1) {
+		//	model.addRow(new Object[0]);
+			model.setValueAt(entry.getCategoryCode(), i, 0);
+			model.setValueAt(entry.getCategoryName(), i, 1);
+			i++;
+		}
+
+	}
+	
+	
+	/**
+	 *  initial table of category
+	 * @param model
+	 */
+	
+	private void initialCategory(DefaultTableModel model) {
+		// define Model for Table
+		table.setModel(model);
+	
+
+		// align category field in center
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+		table.setDefaultRenderer(String.class, centerRenderer);
+
+
 
 		CategoryDao categoryDao = new CategoryDao();
 		cat1 = categoryDao.retrieveAll();
@@ -234,7 +297,41 @@ public class CategoryView extends JPanel {
 			model.setValueAt(entry.getCategoryName(), i, 1);
 			i++;
 		}
-
+	}
+	
+	/**
+	 * update view for add category
+	 * @param model
+	 * @param anCategory
+	 */
+	private void addCategory(DefaultTableModel model,Category anCategory) {
+			table.setModel(model);
+			int row = model.getRowCount();
+			model.addRow(new Object[0]);
+			model.setValueAt(anCategory.getCategoryCode(),row, 0);
+			model.setValueAt(anCategory.getCategoryName(),row, 1);
+	}
+	
+	/**
+	 * update view for deleteCategory
+	 * @param model
+	 * @param row which row you want to delete
+	 */
+	private void deleteCategory(DefaultTableModel model,int row) {
+		table.setModel(model);
+		model.removeRow(row);
+	}
+	
+	/**
+	 * update view for edit category
+	 * @param model
+	 * @param row which row you want to edit
+	 * @param anCategory an new category for replacing
+	 */
+	private void editCategory(DefaultTableModel model,int row,Category anCategory) {
+		table.setModel(model);
+		model.setValueAt(anCategory.getCategoryCode(), row, 0);
+		model.setValueAt(anCategory.getCategoryName(), row, 1);
 	}
 
 }
