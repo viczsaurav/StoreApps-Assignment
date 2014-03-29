@@ -59,13 +59,13 @@ public class ProductTableModel extends AbstractTableModel {
 		// define column names
 		columnNames = new String[] {
 				Utility.getPropertyValue(Constants.productId),
-				Utility.getPropertyValue(Constants.PRODUCTNAME_LABEL),
+				Utility.getPropertyValue(Constants.productName),
 				Utility.getPropertyValue(Constants.productDescription),
 				Utility.getPropertyValue(Constants.productQty),
 				Utility.getPropertyValue(Constants.productPrice),
 				Utility.getPropertyValue(Constants.barcode),
-				Utility.getPropertyValue(Constants.PRODUCT_REORDER_QUANT_LABEL),
-				Utility.getPropertyValue(Constants.PRODUCT_ORDER_QUANT_LABEL) };
+				Utility.getPropertyValue(Constants.productReorderThreshold),
+				Utility.getPropertyValue(Constants.productOrderQty) };
 	}
 	
 	// Return all Product Objects

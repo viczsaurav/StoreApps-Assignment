@@ -5,6 +5,7 @@ package com.iss.storeApplication.business;
  * 
  */
 
+import java.util.List;
 import java.util.Map;
 
 import com.iss.storeApplication.common.Constants;
@@ -56,5 +57,13 @@ public class ProductService {
 			return barcodeProductMap.get(barcode);
 		else
 			return null;
+	}
+
+	/**
+	 * Clears and Saves Product objects to file
+	 * 
+	 */
+	public static boolean saveAll(List<Product> listProducts) {
+		return productDao.saveAll(listProducts);
 	}
 }

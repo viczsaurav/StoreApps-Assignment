@@ -31,7 +31,10 @@ public class Controller {
 		return DiscountService.validateAndSaveDiscount(discount);
 
 	}
-
+	/**
+	 * Discount Controllers
+	 * @return
+	 */
 	public static List<Discount> getDiscounts() {
 		return DiscountService.getDiscounts();
 	}
@@ -49,6 +52,10 @@ public class Controller {
 		return DiscountService.validateDiscount(d);
 	}
 
+	/**
+	 * Category Controllers
+	 * @return
+	 */
 	public static boolean saveAllCategory(List<Category> listCategorys) {
 
 		return CategoryService.saveAll(listCategorys);
@@ -58,6 +65,15 @@ public class Controller {
 		return CategoryService.validateAndSaveCategory(c);
 	}
 
+	/**
+	 * Product Controllers
+	 * @return
+	 */
+	public static boolean saveAllProducts(List<Product> listProducts) {
+
+		return ProductService.saveAll(listProducts);
+	}
+	
 	public static Product getProduct(Long barcode) {
 		return ProductService.getProduct(barcode);
 	}

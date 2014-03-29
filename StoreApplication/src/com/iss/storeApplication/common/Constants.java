@@ -2,7 +2,7 @@ package com.iss.storeApplication.common;
 
 public interface Constants {
 
-	public static final String PRODUCT_NAME = "ProductName";
+	public static final String ProductName = "ProductName";
 	public static final String SUCCESS = "SUCCESS";
 	public static final String ALWAYS = "Always";
 	public static final Object COMMA_DELIMITER = ",";
@@ -64,21 +64,21 @@ public interface Constants {
 	public static final String CATEGORY_CORRECT = "Correct Category";
 	
 	// Product View Labels
-	public static final String PRODUCT_CATEGORY_LABEL = "Product Category";
+	public static final String productCategory = "productCategory";
 	public static final String productId = "productId";
-	public static final String PRODUCTNAME_LABEL = "Product Name";
+	public static final String productName = "productName";
 	public static final String productDescription = "productDescription";
 	public static final String productQty = "productQty";
 	public static final String productPrice = "productPrice";
 	public static final String barcode = "barcode";
-	public static final String PRODUCT_REORDER_QUANT_LABEL = "Product Reorder Threshold";
-	public static final String PRODUCT_ORDER_QUANT_LABEL = "Product Order Quantity";
-	public static final String ADDPRODUCT_BTN = "Add Product";
-	public static final String PRODUCT_CODE_NAME_EMPTY = "Product Name and Code are empty";
-	public static final String PRODUCT_NAME_EMPTY = "Product Name is empty";
-	public static final String PRODUCT_CODE_EMPTY = "Product code is empty";
-	public static final String PRODUCT_EXIST = "Product exists";
-	public static final String PRODUCT_CORRECT = "Correct Product";
+	public static final String productReorderThreshold = "productReorderThreshold";
+	public static final String productOrderQty = "productOrderQty";
+	public static final String addProductBtn = "addProductBtn";
+	public static final String productNameCodeEmpty = "productNameCodeEmpty";
+	public static final String productNameEmpty = "productNameEmpty";
+	public static final String productCodeEmpty = "productCodeEmpty";
+	public static final String productExists = "productExists";
+	public static final String productCorrect = "productCorrect";
 
 	// File Names
 	public static final String FILENAME_STOREKEEPER = "StoreKeepers";

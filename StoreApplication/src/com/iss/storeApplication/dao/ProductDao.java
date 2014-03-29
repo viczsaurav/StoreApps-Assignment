@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.iss.storeApplication.common.Constants;
+import com.iss.storeApplication.common.Utility;
+import com.iss.storeApplication.domain.Discount;
 import com.iss.storeApplication.domain.Product;
 import com.iss.storeApplication.domain.StoreKeeper;
 
@@ -110,6 +112,18 @@ public class ProductDao implements CommonDao<Product> {
 			barcodeProductsMap.put(p.getBarCode(), p);
 		}
 		return barcodeProductsMap;
+	}
+
+	public boolean saveAll(List<Product> listProducts) {
+		File file = new File(Constants.DATA_FILE_DIR, fileName);
+		if(!Utility.clearFile(file))
+			return false;
+		for (Product p : listProducts) {
+				if (!save(p, true)) {
+					return false;
+				}
+			}
+			return true;
 	}
 
 }

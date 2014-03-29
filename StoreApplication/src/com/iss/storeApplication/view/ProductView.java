@@ -73,7 +73,7 @@ public class ProductView extends JPanel {
 	private DefaultTableModel productTableModel;
 
 	// Buttons
-	private JButton addNewProduct = new JButton(Constants.ADDPRODUCT_BTN);
+	private JButton addNewProduct = new JButton(Constants.addProductBtn);
 	private JButton editProduct = new JButton("Edit Product");
 	private JButton deleteProduct = new JButton("Delete Product");
  /**
@@ -122,18 +122,18 @@ public class ProductView extends JPanel {
 					}
 				});
 
-				Object[] productFields = { Constants.PRODUCT_CATEGORY_LABEL,
-						prodCategory, Constants.PRODUCTNAME_LABEL, prodName,
+				Object[] productFields = { Constants.productCategory,
+						prodCategory, Constants.productName, prodName,
 						Constants.productDescription, prodDesc,
 						Constants.productQty, prodQuant,
 						Constants.productPrice, prodPrice,
 						Constants.barcode, prodBarCode,
-						Constants.PRODUCT_REORDER_QUANT_LABEL,
-						prodReorderQuant, Constants.PRODUCT_ORDER_QUANT_LABEL,
+						Constants.productReorderThreshold,
+						prodReorderQuant, Constants.productOrderQty,
 						prodOrderQuant };
 
 				int option = JOptionPane.showConfirmDialog(null, productFields,
-						Constants.ADDPRODUCT_BTN, JOptionPane.OK_CANCEL_OPTION);
+						Constants.addProductBtn, JOptionPane.OK_CANCEL_OPTION);
 				if (option == JOptionPane.OK_OPTION) {
 					String productName = prodName.getText();
 					String prodDescription = prodDesc.getText();
@@ -214,13 +214,13 @@ public class ProductView extends JPanel {
 		
 		// Adding Columns
 		model.addColumn(Constants.productId);
-		model.addColumn(Constants.PRODUCTNAME_LABEL);
+		model.addColumn(Constants.productName);
 		model.addColumn(Constants.productDescription);
 		model.addColumn(Constants.productQty);
 		model.addColumn(Constants.productPrice);
 		model.addColumn(Constants.barcode);
-		model.addColumn(Constants.PRODUCT_REORDER_QUANT_LABEL);
-		model.addColumn(Constants.PRODUCT_ORDER_QUANT_LABEL);
+		model.addColumn(Constants.productReorderThreshold);
+		model.addColumn(Constants.productOrderQty);
 
 		ProductDao product = new ProductDao();
 		allProduct = product.retrieveAll();
