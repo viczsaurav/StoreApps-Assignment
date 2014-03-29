@@ -199,9 +199,10 @@ private void addElement(){
 				option = JOptionPane.showConfirmDialog(null, message,
 						Constants.addCategoryBtn,
 						JOptionPane.OK_CANCEL_OPTION);
+				
+				String categoryCode = codeField.getText();
+				String categoryName = namefield.getText();
 				if (option == JOptionPane.OK_OPTION) {
-					String categoryCode = codeField.getText();
-					String categoryName = namefield.getText();
 					System.out.println("categoryCode:" + categoryCode);
 					System.out.println("categoryName:" + categoryName);
 					cat.setCategoryCode(categoryCode);
@@ -225,7 +226,8 @@ private void addElement(){
 					}
 				}else{
 					isdone = false;
-					
+					cat.setCategoryCode(categoryCode);
+					cat.setCategoryName(categoryName);
 				}
 			}			
 			
