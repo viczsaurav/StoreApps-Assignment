@@ -124,9 +124,9 @@ public class ProductView extends JPanel {
 
 				Object[] productFields = { Constants.PRODUCT_CATEGORY_LABEL,
 						prodCategory, Constants.PRODUCTNAME_LABEL, prodName,
-						Constants.PRODUCT_DESC_LABEL, prodDesc,
-						Constants.PRODUCT_QUANTITY_LABEL, prodQuant,
-						Constants.PRODUCT_PRICE_LABEL, prodPrice,
+						Constants.productDescription, prodDesc,
+						Constants.productQty, prodQuant,
+						Constants.productPrice, prodPrice,
 						Constants.barcode, prodBarCode,
 						Constants.PRODUCT_REORDER_QUANT_LABEL,
 						prodReorderQuant, Constants.PRODUCT_ORDER_QUANT_LABEL,
@@ -213,11 +213,11 @@ public class ProductView extends JPanel {
 		productTable.setModel(model);	
 		
 		// Adding Columns
-		model.addColumn(Constants.PRODUCTID_LABEL);
+		model.addColumn(Constants.productId);
 		model.addColumn(Constants.PRODUCTNAME_LABEL);
-		model.addColumn(Constants.PRODUCT_DESC_LABEL);
-		model.addColumn(Constants.PRODUCT_QUANTITY_LABEL);
-		model.addColumn(Constants.PRODUCT_PRICE_LABEL);
+		model.addColumn(Constants.productDescription);
+		model.addColumn(Constants.productQty);
+		model.addColumn(Constants.productPrice);
 		model.addColumn(Constants.barcode);
 		model.addColumn(Constants.PRODUCT_REORDER_QUANT_LABEL);
 		model.addColumn(Constants.PRODUCT_ORDER_QUANT_LABEL);

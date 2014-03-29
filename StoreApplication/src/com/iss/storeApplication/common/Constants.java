@@ -65,11 +65,11 @@ public interface Constants {
 	
 	// Product View Labels
 	public static final String PRODUCT_CATEGORY_LABEL = "Product Category";
-	public static final String PRODUCTID_LABEL = "Product ID";
+	public static final String productId = "productId";
 	public static final String PRODUCTNAME_LABEL = "Product Name";
-	public static final String PRODUCT_DESC_LABEL = "Product Description";
-	public static final String PRODUCT_QUANTITY_LABEL = "Product Quantity";
-	public static final String PRODUCT_PRICE_LABEL = "Product Price";
+	public static final String productDescription = "productDescription";
+	public static final String productQty = "productQty";
+	public static final String productPrice = "productPrice";
 	public static final String barcode = "barcode";
 	public static final String PRODUCT_REORDER_QUANT_LABEL = "Product Reorder Threshold";
 	public static final String PRODUCT_ORDER_QUANT_LABEL = "Product Order Quantity";

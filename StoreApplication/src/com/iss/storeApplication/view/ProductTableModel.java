@@ -58,11 +58,11 @@ public class ProductTableModel extends AbstractTableModel {
 		this.listProducts = new ArrayList<Product>();
 		// define column names
 		columnNames = new String[] {
-				Utility.getPropertyValue(Constants.PRODUCTID_LABEL),
+				Utility.getPropertyValue(Constants.productId),
 				Utility.getPropertyValue(Constants.PRODUCTNAME_LABEL),
-				Utility.getPropertyValue(Constants.PRODUCT_DESC_LABEL),
-				Utility.getPropertyValue(Constants.PRODUCT_QUANTITY_LABEL),
-				Utility.getPropertyValue(Constants.PRODUCT_PRICE_LABEL),
+				Utility.getPropertyValue(Constants.productDescription),
+				Utility.getPropertyValue(Constants.productQty),
+				Utility.getPropertyValue(Constants.productPrice),
 				Utility.getPropertyValue(Constants.barcode),
 				Utility.getPropertyValue(Constants.PRODUCT_REORDER_QUANT_LABEL),
 				Utility.getPropertyValue(Constants.PRODUCT_ORDER_QUANT_LABEL) };
