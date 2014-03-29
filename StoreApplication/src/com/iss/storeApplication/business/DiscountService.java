@@ -46,21 +46,35 @@ public class DiscountService {
 	public static String validateDiscount(Discount discount) {
 
 		if (discount == null) {
-			return Utility.getPropertyValue(Constants.validateMessage);
+			return Utility.getPropertyValue(Constants.validateEmptyMessage);
 		}
 		if (StringUtility.isEmpty(discount.getDescription())
 				| StringUtility.isEmpty(discount.getDescription())
 				| StringUtility.isEmpty(discount.getDiscountCode())
-				| StringUtility.isEmpty(discount.getMemberApplicable())
+
 				| discount.getDiscount() == null) {
-			return Utility.getPropertyValue(Constants.validateMessage);
+			return Utility.getPropertyValue(Constants.validateEmptyMessage);
+		}
+		if(discount.getMemberApplicable()==null)
+		{
+			return Utility.getPropertyValue(Constants.validateEmptyMessage);
 		}
 		if (discount instanceof SeasonalDiscount) {
 			SeasonalDiscount sd = (SeasonalDiscount) discount;
 			if (sd.getDuration() == null | sd.getStartDate() == null) {
-				return Utility.getPropertyValue(Constants.validateMessage);
+				return Utility.getPropertyValue(Constants.validateEmptyMessage);
+			}
+			if (sd.getDuration() < 0) {
+				return Utility.getPropertyValue(Constants.msgnotNegative);
 			}
 
+		}
+
+		if (discount.getDiscount() > 100) {
+			return Utility.getPropertyValue(Constants.msgnotGrtThan100);
+		}
+		if (discount.getDiscount() < 0) { // not -ve
+			return Utility.getPropertyValue(Constants.msgnotNegative);
 		}
 		return Constants.SUCCESS;
 	}

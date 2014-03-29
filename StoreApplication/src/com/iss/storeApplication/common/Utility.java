@@ -46,10 +46,11 @@ public class Utility {
 
 	public static NumberFormat getPercentageNumberFormat() {
 		NumberFormat nf = NumberFormat.getNumberInstance();
-		nf.setMaximumIntegerDigits(2);
-		nf.setMinimumIntegerDigits(2);
+		nf.setMaximumIntegerDigits(3);
+		nf.setMinimumIntegerDigits(1);
 		nf.setMaximumFractionDigits(2);
 		nf.setMinimumFractionDigits(2);
+		
 		return nf;
 	}
 

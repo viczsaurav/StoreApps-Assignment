@@ -33,8 +33,8 @@ public abstract class Discount {
 		this.discount = discount;
 	}
 
-	public String getMemberApplicable() {
-		return memberApplicable.toString();
+	public DiscountApplicable getMemberApplicable() {
+		return memberApplicable;
 	}
 
 	public void setMemberApplicable(DiscountApplicable memberApplicable) {

@@ -98,11 +98,13 @@ public interface Constants {
 	public static final String discountApplicable = "discountApplicable";
 	public static final String seasonalDiscount="seasonalDiscount";
 	public static final String permanentDiscount="permanentDiscount";
-	public static final String validateMessage = "validateMessage";
+	public static final String validateEmptyMessage = "validateEmptyMessage";
 	public static final String failure = "failure";
 	public static final String dcAlreadyExist = "dcAlreadyExist";
 	public static final String editDiscount = "editDiscount";
 	public static final String selectRow = "selectRow";
+	public static final String msgnotGrtThan100 = "msgnotGrtThan100";
+	public static final String msgnotNegative = "msgnotNegative";
 	
 	
 }
