@@ -226,14 +226,14 @@ private void addElement(){
 				}
 			}			
 			
+			if (Controller.saveAllCategory(cat1)) {
+				editCategory(model,rowIndex,cat);
+			} else {
+				JOptionPane.showMessageDialog(null,
+						Utility.getPropertyValue(Constants.failure));
+			}
 		}else{
 			JOptionPane.showMessageDialog(null,"please select one row!");
-		}
-		if (Controller.saveAllCategory(cat1)) {
-			editCategory(model,rowIndex,cat);
-		} else {
-			JOptionPane.showMessageDialog(null,
-					Utility.getPropertyValue(Constants.failure));
 		}
 	}
 	
