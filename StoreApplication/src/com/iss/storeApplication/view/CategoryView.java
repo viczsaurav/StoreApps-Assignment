@@ -233,7 +233,11 @@ private void addElement(){
 						Utility.getPropertyValue(Constants.failure));
 			}
 		}else{
-			JOptionPane.showMessageDialog(null,"please select one row!");
+			String hint = "please select one row!";
+			if(model.getRowCount() == 0){
+				hint ="There is no row to edit";
+			}
+			JOptionPane.showMessageDialog(null,hint);
 		}
 	}
 	
