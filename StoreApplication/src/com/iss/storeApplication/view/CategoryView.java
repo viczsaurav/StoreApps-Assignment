@@ -101,15 +101,16 @@ public class CategoryView extends JPanel {
 				int rowIndex = table.getSelectedRow();
 				if (rowIndex >= 0) {
 					cat1.remove(rowIndex);
+					if (Controller.saveAllCategory(cat1)) {
+						deleteCategory(model,rowIndex);
+					} else {
+						JOptionPane.showMessageDialog(null,
+								Utility.getPropertyValue(Constants.failure));
+					}
 				}else{
 					JOptionPane.showMessageDialog(null,"please select one row!");
 				}
-				if (Controller.saveAllCategory(cat1)) {
-					deleteCategory(model,rowIndex);
-				} else {
-					JOptionPane.showMessageDialog(null,
-							Utility.getPropertyValue(Constants.failure));
-				}
+				
 			}
 		});
 		// define edit button function
