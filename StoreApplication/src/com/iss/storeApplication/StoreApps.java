@@ -15,6 +15,7 @@ import javax.swing.border.TitledBorder;
 import sun.tools.jar.Main;
 
 import com.iss.storeApplication.common.Constants;
+import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.view.LoginPopupView;
 import com.iss.storeApplication.view.LogoutView;
 import com.iss.storeApplication.view.MainView;
@@ -55,7 +56,7 @@ public class StoreApps {
 						if (result == JOptionPane.YES_OPTION)
 							mainView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 						else {
-							if (ToolBarView.getToolbarName().equals(Constants.logout)) {
+							if (ToolBarView.getToolbarName().equals(Utility.getPropertyValue(Constants.logout))) {
 								mainView.showLoginView();
 							}
 

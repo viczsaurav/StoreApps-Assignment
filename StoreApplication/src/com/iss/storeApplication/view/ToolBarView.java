@@ -108,7 +108,7 @@ public class ToolBarView extends JToolBar implements ActionListener {
 		 * @author sakthi
 		 */
 
-		if (name.equals(Constants.logout)) {
+		if (name.equals(Utility.getPropertyValue(Constants.logout))) {
 			LoginPopupView.userNameTxtField.setText("");
 			LoginPopupView.passwordField.setText("");
 			label.setText("");
