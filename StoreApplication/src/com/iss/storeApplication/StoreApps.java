@@ -55,7 +55,7 @@ public class StoreApps {
 						if (result == JOptionPane.YES_OPTION)
 							mainView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 						else {
-							if (ToolBarView.getToolbarName().equals("Logout")) {
+							if (ToolBarView.getToolbarName().equals(Constants.LOGOUTBUTTONLBL)) {
 								mainView.showLoginView();
 							}
 
