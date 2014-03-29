@@ -14,15 +14,15 @@ import com.iss.storeApplication.domain.SeasonalDiscount;
 import com.iss.storeApplication.enums.DiscountApplicable;
 
 /**
- * Table Model used by Jtable
+ * Table Model used by Discount Jtable
  * @author milan
  *
  */
 public class DiscountTableModel extends AbstractTableModel {
 
 	/*
-	 * we define index numbers for columns in table in order to return the right
-	 * value in getValue() method and update the right value in setValue()
+	 * we define index numbers for columns in table in order to return the correct
+	 * value in getValue() method and update the correct value in setValue()
 	 * method
 	 */
 	private static final int COLUMN_DISCOUNT_CODE = 0;
@@ -173,7 +173,7 @@ public class DiscountTableModel extends AbstractTableModel {
 	}
 
 	/**
-	 * since every cell in the table is editable, we return true always
+	 * since every cell in the table is non-editable, we return "False" always
 	 */
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
 		return false;
