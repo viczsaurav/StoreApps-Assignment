@@ -129,4 +129,20 @@ public class MemberDao implements CommonDao<Member> {
 		}
 		return true;
 	}
+	
+	public boolean edit(Member member)
+	{
+		Map<String,Member> map=getMap();
+		if(map.containsKey(member.getMemberId()))
+		{
+			map.put(member.getMemberId(), member);
+			saveAll(new ArrayList<Member>(map.values()));
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		
+	}
 }
