@@ -129,5 +129,6 @@ public interface Constants {
 	public static final String MEMBER_FIRST = "MEMBER_FIRST";
 	public static final String msgEnterMemId = "msgEnterMemId";
 	public static final String msgMemNotFound = "msgMemNotFound";
+	public static final String msgCannotReedemMoreThanEarned = "msgCannotReedemMoreThanEarned";
 	
 }

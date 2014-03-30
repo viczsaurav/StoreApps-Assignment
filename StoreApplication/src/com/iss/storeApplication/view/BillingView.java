@@ -6,8 +6,12 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,15 +99,20 @@ public class BillingView extends JPanel {
 	private JPanel loyalityPanel = new JPanel();
 	private JLabel loyalityLbl = new JLabel(
 			Utility.getPropertyValue(Constants.loyalityEarned));
-	private JTextField loyalityField = new JTextField();
+	private JFormattedTextField loyalityField = new JFormattedTextField(
+			Utility.getIntegerFormat());
 
 	private JPanel reedemPanel = new JPanel();
 	private JLabel reedemLbl = new JLabel(
 			Utility.getPropertyValue(Constants.reedemPoint));
-	private JTextField reedemField = new JTextField();
+	private JFormattedTextField reedemField = new JFormattedTextField(
+			Utility.getIntegerFormat());
 
 	private JPanel centerPanel = new JPanel();
 	private JPanel southPanel = new JPanel(new GridLayout(9, 3));
+
+	private final double dollarToPointValue = 0.1;
+	private final double pointToDollarValue = 0.005;
 
 	public BillingView(MainView mainView) {
 		super(new BorderLayout());
@@ -138,13 +147,112 @@ public class BillingView extends JPanel {
 
 	private void initReedemPanel() {
 		reedemField.setColumns(10);
+		reedemField.setText("0");
 		reedemPanel.add(reedemLbl);
 		reedemPanel.add(reedemField);
+		/*
+		 * reedemField.getDocument().addDocumentListener(new DocumentListener()
+		 * {
+		 * 
+		 * public void insertUpdate(DocumentEvent e) { reedemPoints(); }
+		 * 
+		 * @Override public void changedUpdate(DocumentEvent e) { // TODO
+		 * Auto-generated method stub
+		 * 
+		 * }
+		 * 
+		 * @Override public void removeUpdate(DocumentEvent e) { // TODO
+		 * Auto-generated method stub
+		 * 
+		 * }
+		 * 
+		 * });
+		 */
+		reedemField.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
+					reedemPoints();
+				}
+
+			}
+		});
+
+		reedemField.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				reedemPoints();
+
+			}
+
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+	}
+
+	protected void reedemPoints() {
+
+		Integer loyalityEarned = 0;
+		Integer reedemPoint = 0;
+		Double billAmt = 0.0;
+		try {
+			loyalityEarned = new Integer(loyalityField.getText());
+		} catch (NumberFormatException e) {
+			loyalityField.setText("0");
+
+			return;
+		}
+		try {
+			reedemPoint = new Integer(reedemField.getText());
+		} catch (NumberFormatException e) {
+
+			reedemField.setText("0");
+
+			return;
+		}
+		try {
+			billAmt = new Double(billAmtField.getText());
+		} catch (NumberFormatException e) {
+
+			billAmtField.setText("0");
+
+			return;
+		}
+
+		if (reedemPoint > loyalityEarned) {
+
+			reedemField.setText("0");
+			JOptionPane.showMessageDialog(mainView, Utility
+					.getPropertyValue(Constants.msgCannotReedemMoreThanEarned));
+			return;
+		} else {
+			billAmt = billAmt - (pointToDollarValue * reedemPoint);
+			billAmtField.setText(billAmt.toString());
+		}
 
 	}
 
 	private void initLoyalityPanel() {
 		loyalityField.setColumns(10);
+		loyalityField.setText("0");
 		loyalityField.setEditable(false);
 		loyalityField.setEnabled(false);
 		loyalityPanel.add(loyalityLbl);
@@ -194,11 +302,11 @@ public class BillingView extends JPanel {
 			}
 		});
 		memberIdTxtField.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				applyMemberDiscount();
-				
+
 			}
 		});
 	}

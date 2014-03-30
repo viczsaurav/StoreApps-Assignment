@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.iss.storeApplication.common.Constants;
+import com.iss.storeApplication.common.StringUtility;
+import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.domain.Member;
 
 public class MemberDao implements CommonDao<Member> {
@@ -63,12 +65,14 @@ public class MemberDao implements CommonDao<Member> {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String row;
 			while ((row = br.readLine()) != null) {
-				String[] rowValues = row.split(",");
-				Member m = new Member();
-				m.setMemberName(rowValues[0]);
-				m.setMemberId(rowValues[1]);
-				m.setLoyaltyPoints(Integer.parseInt(rowValues[2]));
-				Members.add(m);
+				if (!StringUtility.isEmpty(row)) {
+					String[] rowValues = row.split(",");
+					Member m = new Member();
+					m.setMemberName(rowValues[0]);
+					m.setMemberId(rowValues[1]);
+					m.setLoyaltyPoints(Integer.parseInt(rowValues[2]));
+					Members.add(m);
+				}
 			}
 			br.close();
 		} catch (FileNotFoundException e) {
@@ -106,5 +110,23 @@ public class MemberDao implements CommonDao<Member> {
 		} else {
 			return null;
 		}
+	}
+
+	/*
+	 * Clears file and saves list of discount object to file.
+	 */
+	public boolean saveAll(List<Member> members) {
+		// if (discounts.size() == 0) {
+		File file = new File(Constants.DATA_FILE_DIR, fileName);
+		if (!Utility.clearFile(file))
+			return false;
+
+		// }
+		for (Member d : members) {
+			if (!save(d, true)) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

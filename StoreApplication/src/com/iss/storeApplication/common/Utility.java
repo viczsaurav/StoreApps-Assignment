@@ -94,6 +94,16 @@ public class Utility {
 		return pnf;
 	}
 	
+	public static NumberFormat getIntegerFormat() {
+		NumberFormat pnf = NumberFormat.getNumberInstance();
+		pnf.setMaximumIntegerDigits(9);
+		pnf.setMinimumIntegerDigits(1);
+		pnf.setMaximumFractionDigits(0);
+		pnf.setMinimumFractionDigits(0);
+		pnf.setGroupingUsed(false);
+		return pnf;
+	}
+	
 
 
 	public static boolean clearFile(File file) {
