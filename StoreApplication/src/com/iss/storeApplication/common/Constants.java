@@ -47,7 +47,7 @@ public interface Constants {
 	public static final String cancel = "cancel";
 
 	// Category Button Labels
-	public static final String categoryID = "categoryID";
+	public static final String categoryCode = "categoryCode";
 	public static final String categoryName = "categoryName";
 	public static final String addCategoryBtn = "addCategoryBtn";
 	public static final String categoryNameCodeEmpty = "categoryNameCodeEmpty";
@@ -103,7 +103,6 @@ public interface Constants {
 	public static final String productNotFound = "productNotFound";
 	
 	//Category
-	public static final String categoryCode = "categoryCode";
 	
 	
 	

@@ -72,7 +72,7 @@ public class CategoryView extends JPanel {
 			}
 		};
 		
-		model.addColumn(Constants.categoryID);
+		model.addColumn(Constants.categoryCode);
 		model.addColumn(Constants.categoryName);
 
 		// ScrollPane for Table
@@ -148,7 +148,7 @@ private void addElement(){
 		}
 	});
 
-	Object[] message = { Constants.categoryID, codeField,
+	Object[] message = { Constants.categoryCode, codeField,
 			Constants.categoryName, namefield };
 	boolean isdone = true;
 	int option;
@@ -191,7 +191,7 @@ private void addElement(){
 			JTextField codeField = new JTextField(categoriesItem.getCategoryCode());
 			JTextField namefield = new JTextField(categoriesItem.getCategoryName());
 
-			Object[] message = { Constants.categoryID, codeField,
+			Object[] message = { Constants.categoryCode, codeField,
 					Constants.categoryName, namefield };
 			boolean isdone = true;
 			int option;

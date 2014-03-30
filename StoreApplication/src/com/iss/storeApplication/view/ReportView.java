@@ -10,9 +10,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
 
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.Utility;
+import com.iss.storeApplication.component.DatePicker;
 
 /**
  * 
@@ -27,6 +30,62 @@ public class ReportView extends JPanel{
 	private final JButton memberRptBtn = new JButton(Utility.getPropertyValue(Constants.MEMBER_REPORT_BUTTON));
 
 	private final JTable commonTable = new JTable();
+	private final TableModel tm =new TableModel() {
+		
+		@Override
+		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void removeTableModelListener(TableModelListener l) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public boolean isCellEditable(int rowIndex, int columnIndex) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		@Override
+		public int getRowCount() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+		
+		@Override
+		public String getColumnName(int columnIndex) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		@Override
+		public int getColumnCount() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+		
+		@Override
+		public Class<?> getColumnClass(int columnIndex) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		@Override
+		public void addTableModelListener(TableModelListener l) {
+			// TODO Auto-generated method stub
+			
+		}
+	};
 	
 	private MainView mainView;
 
@@ -41,7 +100,7 @@ public class ReportView extends JPanel{
 	add(panelButton, BorderLayout.NORTH);
 	
 
-	commonTable.setModel(null);
+	commonTable.setModel(tm);
 	add(new JScrollPane(commonTable), BorderLayout.CENTER);
 	categoryRptBtn.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent event) {
@@ -55,6 +114,9 @@ public class ReportView extends JPanel{
 	{
 	final JButton getTransRptbtn = new JButton(Utility.getPropertyValue(Constants.GENERATE_TRANSACTIONS_BUTTON));
 	final JLabel dateRange = new JLabel(Utility.getPropertyValue(Constants.startDate));
+	final DatePicker startDate = new DatePicker();
+
+	
 	
 	}
 	
