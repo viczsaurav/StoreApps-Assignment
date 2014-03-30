@@ -19,7 +19,7 @@ public interface Constants {
 	
 	/**
 	 * 
-	 * @author sakthi
+	 * @author Sakthi
 	 * 
 	 */
 	// Login Pop-up Labels and Messages
@@ -72,6 +72,9 @@ public interface Constants {
 	public static final String productCodeEmpty = "productCodeEmpty";
 	public static final String productExists = "productExists";
 	public static final String productCorrect = "productCorrect";
+	public static final String prodReorderQuantDef = "prodReorderQuantDef";
+	public static final String prodOrderQuantDef = "prodOrderQuantDef";
+	public static final String barcodeExists = "barcodeExists";
 
 	// File Names
 	public static final String FILENAME_STOREKEEPER = "StoreKeepers";
@@ -79,6 +82,7 @@ public interface Constants {
 	public static final String FILENAME_CATEGORY = "Category";
 	public static final String FILENAME_DISCOUNT = "Discounts";
 	public static final String FILENAME_MEMBER = "Members";
+	
 	// Discount
 	public static final String addDiscountBtn = "addDiscountBtn";
 	public static final String discountCode = "discountCode";
@@ -115,9 +119,7 @@ public interface Constants {
 	public static final String loyalityEarned = "loyalityEarned";
 	public static final String reedemPoint = "reedemPoint";
 	
-	//Category
-	
-	
+	//Report Tab	
 	
 	public static final String CATEGORY_REPORT_BUTTON = "categoryReportButton";
 	public static final String PRODUCT_REPORT_BUTTON = "productReportButton";
@@ -127,6 +129,5 @@ public interface Constants {
 	public static final String MEMBER_FIRST = "MEMBER_FIRST";
 	public static final String msgEnterMemId = "msgEnterMemId";
 	public static final String msgMemNotFound = "msgMemNotFound";
-	
 	
 }

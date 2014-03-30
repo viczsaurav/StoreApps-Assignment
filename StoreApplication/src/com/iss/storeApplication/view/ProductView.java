@@ -1,8 +1,12 @@
 package com.iss.storeApplication.view;
 
 import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Iterator;
@@ -21,16 +25,25 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import com.iss.storeApplication.business.ProductService;
 import com.iss.storeApplication.common.Constants;
+import com.iss.storeApplication.common.StringUtility;
 import com.iss.storeApplication.common.SwingUtility;
 import com.iss.storeApplication.common.Utility;
+import com.iss.storeApplication.controller.Controller;
 import com.iss.storeApplication.dao.CategoryDao;
 import com.iss.storeApplication.dao.ProductDao;
 import com.iss.storeApplication.domain.Category;
+import com.iss.storeApplication.domain.Discount;
+import com.iss.storeApplication.domain.PermanentDiscount;
 import com.iss.storeApplication.domain.Product;
+import com.iss.storeApplication.domain.SeasonalDiscount;
+import com.iss.storeApplication.enums.DiscountApplicable;
+import com.iss.storeApplication.enums.DiscountType;
 
 /**
  * 
@@ -45,16 +58,16 @@ public class ProductView extends JPanel {
 	private String[] allCategoryName;
 	private String selectedCategory;
 
-	CategoryDao fetchCategory = new CategoryDao();
+	private CategoryDao fetchCategory = new CategoryDao();
+	private ProductDao fetchProduct = new ProductDao();
 
-/**
- * 
- * GUI
- * 
- */
+	/**
+	 * 
+	 * GUI
+	 * 
+	 */
 	// Add / Edit Product
 	private final JPanel productPanel = new JPanel();
-	private JComboBox<String> prodCategory = new JComboBox<>();
 	private final JTextField prodName = new JTextField();
 	private final JTextField prodDesc = new JTextField();
 	private final JFormattedTextField prodQuant = new JFormattedTextField(
@@ -70,176 +83,329 @@ public class ProductView extends JPanel {
 
 	// Table
 	private JTable productTable = new JTable();
-	private DefaultTableModel productTableModel;
+	private ProductTableModel productTableModel = new ProductTableModel();
 
 	// Buttons
 	private JButton addNewProduct = new JButton(Constants.addProductBtn);
 	private JButton editProduct = new JButton("Edit Product");
 	private JButton deleteProduct = new JButton("Delete Product");
- /**
+
+	// ComboBox
+	private JComboBox<String> productCategoryCmbBox = new JComboBox<String>();
+
+	/**
  * 
  */
 
-	
 	// Constructor
 	public ProductView(MainView mainView) {
 		this.mainView = mainView;
-		setBounds(100, 100, 580, 242);
-		setLayout(new BorderLayout());
-		initializeProduct();
-	}
 
-	private void initializeProduct() {
-
-		// ScrollPane for Table
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(33, 41, 494, 90);
-		scrollPane.setViewportView(productTable);
-
-		// Adding Buttons to Panel
-		productPanel.add(addNewProduct, BorderLayout.CENTER);
-		productPanel.add(editProduct, BorderLayout.CENTER);
-		productPanel.add(deleteProduct, BorderLayout.CENTER);
-
-		// define add button function
+		// Add New Product
 		addNewProduct.addActionListener(new ActionListener() {
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				// CategoryDao
-
-				// Adding Item listener for ComboBox
-				prodCategory.addItemListener(new ItemListener() {
-
-					@Override
-					public void itemStateChanged(ItemEvent e) {
-						if ((e.getStateChange() == ItemEvent.SELECTED)) {
-							String result = (String) prodCategory
-									.getSelectedItem();
-							selectedCategory = result.split("-")[0].trim();
-							System.out.println(selectedCategory);
-						}
-					}
-				});
-
-				Object[] productFields = { Constants.productCategory,
-						prodCategory, Constants.productName, prodName,
-						Constants.productDescription, prodDesc,
-						Constants.productQty, prodQuant,
-						Constants.productPrice, prodPrice,
-						Constants.barcode, prodBarCode,
-						Constants.productReorderThreshold,
-						prodReorderQuant, Constants.productOrderQty,
-						prodOrderQuant };
-
-				int option = JOptionPane.showConfirmDialog(null, productFields,
-						Constants.addProductBtn, JOptionPane.OK_CANCEL_OPTION);
-				if (option == JOptionPane.OK_OPTION) {
-					String productName = prodName.getText();
-					String prodDescription = prodDesc.getText();
-					System.out.println("categoryCode:" + productName);
-					System.out.println("categoryName:" + prodDescription);
-					// freshCategory(productTableModel);
-
-					// Refreshing the Panel
-					SwingUtility.refreshJpanel(productPanel);
-				}
+				addBtnClicked(e);
 
 			}
 		});
 
-		// define Edit button function
+		// Edit New Product
 		editProduct.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				editBtnClicked(e);
 
 			}
 		});
 
-		// define Delete button function
+		// init add / edit Product panel
+		initAddProductDialog();
+
+		// init discount table
+		initProductTable();
+
+		// populate discounts in jtable
+		refreshProductTable();
+	}
+
+	private void refreshProductTable() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * Add Discount Button Clicked. Add Product Popup will appear.
+	 * 
+	 * @param event
+	 */
+	protected void addBtnClicked(ActionEvent event) {
+
+		showAddProductDialog();
+	}
+
+	/**
+	 * Edit Button Clicked. Edit Popup Popup will show.
+	 * 
+	 * @param event
+	 */
+	protected void editBtnClicked(ActionEvent event) {
+		int row = productTable.getSelectedRow();
+		if (row == -1) {
+			JOptionPane.showMessageDialog(mainView,
+					Utility.getPropertyValue(Constants.selectRow));
+			return;
+		}
+
+		Product p = productTableModel.getListProducts().get(row);
+		showEditProductDialog(p);
+	}
+
+	private void showEditProductDialog(Product p) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/*
+	 * Initialize Discount Jtable
+	 */
+	private void initProductTable() {
+
+		productTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		JPanel panelButton = new JPanel();
+		panelButton.add(addNewProduct, BorderLayout.NORTH);
+		panelButton.add(editProduct, BorderLayout.NORTH);
+		panelButton.add(deleteProduct, BorderLayout.NORTH);
+		add(panelButton, BorderLayout.NORTH);
+
+		productTable.setModel(productTableModel);
+		add(new JScrollPane(productTable), BorderLayout.CENTER);
+
+		// Delete Button Action
 		deleteProduct.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
+			public void actionPerformed(ActionEvent event) {
+				deleteProduct();
 			}
 		});
+	}
 
+	/**
+	 * Add Product Object To JTable
+	 * 
+	 * @param discount
+	 */
+	private void addProduct(Product product) {
+		productTableModel.addProduct(product);
+		productTableModel.fireTableDataChanged();
+	}
 
+	/**
+	 * Save Edited discount to file and reflect edited changes to Jtable
+	 * 
+	 * @param p
+	 */
+	private void editProduct(Product p) {
 
-		// Getting Category Name
+		int rowIndex = productTable.getSelectedRow();
+
+		productTableModel.getListProducts().set(rowIndex, p);
+
+		if (Controller.saveAllProducts(productTableModel.getListProducts())) {
+			productTableModel.fireTableDataChanged();
+		} else {
+			JOptionPane.showMessageDialog(mainView,
+					Utility.getPropertyValue(Constants.failure));
+		}
+	}
+
+	/**
+	 * Delete Product from file and Jtable
+	 */
+	private void deleteProduct() {
+
+		int rowIndex = productTable.getSelectedRow();
+		if (rowIndex == -1) {
+			JOptionPane.showMessageDialog(mainView,
+					Utility.getPropertyValue(Constants.selectRow));
+			return;
+		}
+
+		if (rowIndex >= 0) {
+			productTableModel.removeProduct(rowIndex);
+
+		}
+		if (Controller.saveAllProducts(productTableModel.getListProducts())) {
+			productTableModel.fireTableDataChanged();
+		} else {
+			JOptionPane.showMessageDialog(mainView,
+					Utility.getPropertyValue(Constants.failure));
+		}
+	}
+
+	/**
+	 * Initialize Add/Edit Discount Panel
+	 */
+	private void initAddProductDialog() {
+		productPanel.setLayout(new GridBagLayout());
+		final GridBagConstraints c = new GridBagConstraints();
+		/*
+		 * Getting Combobox Ready
+		 */
+		// Getting Category Name- Code
 		category = fetchCategory.retrieveAll();
 		allCategoryName = new String[category.size()];
 		for (int i = 0; i < category.size(); i++) {
 			allCategoryName[i] = category.get(i).getCategoryCode() + " - "
 					+ category.get(i).getCategoryName();
 		}
-		// Initializing ComboBox
-		ComboBoxModel<String> jComboBoxModel = new DefaultComboBoxModel<>(
-				allCategoryName);
-		prodCategory.setModel(jComboBoxModel);
 
-		addNewProduct.setBounds(224, 149, 131, 23);
-		add(productPanel, BorderLayout.NORTH);
-		add(scrollPane);
-		// get and display category list
-		refreshProduct(productTableModel);
-	}
-	
-	private void refreshProduct(DefaultTableModel model) {
-		// define Model for Table
-		model = new DefaultTableModel() {
-			public Class<?> getColumnClass(int column) {
-				switch (column) {
-				default:
-					return String.class;
+		// Binding Category Values to ComboBox
+		productCategoryCmbBox.setModel(new DefaultComboBoxModel<>(
+				allCategoryName));
+
+		// Adding Listener to get Values
+		productCategoryCmbBox.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					String result = (String) productCategoryCmbBox
+							.getSelectedItem();
+					selectedCategory = result.split("-")[0].trim(); // Extracting
+																	// Category
+																	// Code
+					/*
+					 * System.out.println(selectedCategory); Code for Getting it
+					 * done
+					 */
+				}
+			}
+		});
+
+		// Setting default length and values of Text fields
+		prodQuant.setColumns(10);
+		prodBarCode.setColumns(10);
+		prodReorderQuant.setColumns(10);
+		prodOrderQuant.setColumns(10);
+		prodReorderQuant.setText(Utility
+				.getPropertyValue(Constants.prodReorderQuantDef));
+		prodOrderQuant.setText(Utility
+				.getPropertyValue(Constants.prodOrderQuantDef));
+
+		// Adding Listeners to Text Fields
+		prodReorderQuant.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				if (StringUtility.isEmpty(prodReorderQuant.getText())) {
+					prodReorderQuant.setText(Utility
+							.getPropertyValue(Constants.prodReorderQuantDef));
 				}
 			}
 
 			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
+			public void focusGained(FocusEvent arg0) {
+				// TODO Auto-generated method stub
 			}
-		};
+		});
 
-		// Center Align Column values
-		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-		productTable.setDefaultRenderer(String.class, centerRenderer);
+		prodOrderQuant.addFocusListener(new FocusListener() {
 
-		productTable.setModel(model);	
-		
-		// Adding Columns
-		model.addColumn(Constants.productId);
-		model.addColumn(Constants.productName);
-		model.addColumn(Constants.productDescription);
-		model.addColumn(Constants.productQty);
-		model.addColumn(Constants.productPrice);
-		model.addColumn(Constants.barcode);
-		model.addColumn(Constants.productReorderThreshold);
-		model.addColumn(Constants.productOrderQty);
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (StringUtility.isEmpty(prodOrderQuant.getText())) {
+					prodOrderQuant.setText(Utility
+							.getPropertyValue(Constants.prodOrderQuantDef));
+				}
+			}
 
-		ProductDao product = new ProductDao();
-		allProduct = product.retrieveAll();
+			@Override
+			public void focusGained(FocusEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
 
-		// Putting Values in the Product Table
-		int i = 0;
-		for (Product entry : allProduct) {
-			model.addRow(new Object[0]);
-			model.setValueAt(entry.getProductId(), i, 0);
-			model.setValueAt(entry.getProductName(), i, 1);
-			model.setValueAt(entry.getDescription(), i, 2);
-			model.setValueAt(entry.getQtyAvailable(), i, 3);
-			model.setValueAt(entry.getPrice(), i, 4);
-			model.setValueAt(entry.getBarCode(), i, 5);
-			model.setValueAt(entry.getReorderQty(), i, 6);
-			model.setValueAt(entry.getOrderQty(), i, 7);
-			i++;
-		}
-
+		c.gridx = 0;
+		c.gridy = 0;
+		productPanel.add(productCategoryCmbBox, c);
+		c.gridx = 1;
+		c.gridy = 0;
+		productPanel.add(prodName, c);
+		c.gridx = 0;
+		c.gridy = 1;
+		c.gridwidth = 2;
+		productPanel.add(prodDesc, c);
+		c.gridwidth = 1;
+		c.gridx = 0;
+		c.gridy = 2;
+		productPanel.add(prodQuant, c);
+		c.gridx = 1;
+		c.gridy = 2;
+		productPanel.add(prodPrice, c);
+		c.gridx = 0;
+		c.gridy = 3;
+		productPanel.add(prodBarCode, c);
+		c.gridx = 1;
+		c.gridy = 3;
+		productPanel.add(prodReorderQuant, c);
+		c.gridx = 0;
+		c.gridy = 4;
+		productPanel.add(prodOrderQuant, c);
 	}
 
+	/**
+	 * Add Product Popup
+	 * 
+	 * @param
+	 */
+	private void showAddProductDialog() {
+
+		int result = JOptionPane.showConfirmDialog(mainView, productPanel,
+				Utility.getPropertyValue(Constants.addProductBtn),
+				JOptionPane.OK_CANCEL_OPTION);
+
+		if (result == JOptionPane.OK_OPTION) {
+			
+			String message = "";
+			if (prodBarCode.getText() == null){
+				message = Utility.getPropertyValue(Constants.ALL_FIELDS_REQUIRED);
+			}
+			else if (fetchProduct.getBarCodeProductMap().containsKey(prodBarCode)){
+				message = Utility.getPropertyValue(Constants.barcodeExists);
+			}
+			else {
+				Product newProduct = createProductFromView();
+				message = Controller.validateAndSaveProduct(newProduct);
+			}
+			if (message.equals(Constants.SUCCESS)) {
+				JOptionPane.showMessageDialog(null, message);
+				refreshProductTable();
+			} else {
+				JOptionPane.showMessageDialog(null, message, "Message",
+						JOptionPane.ERROR_MESSAGE);
+				showAddProductDialog();
+			}
+		}
+	}
+	
+	/**
+	 * Create new Product Object from Add / Edit Discount Panel
+	 * 
+	 * @return
+	 */
+	private Product createProductFromView() {
+		Product newProduct = new Product();
+		newProduct.setProductName(prodName.getText());
+		newProduct.setDescription(prodDesc.getText());
+		newProduct.setQtyAvailable(Integer.parseInt(prodOrderQuant.getText()));
+		newProduct.setPrice(new Double(prodPrice.getText()));
+		newProduct.setBarCode(new Long(prodBarCode.getText()));
+		newProduct.setReorderQty(Integer.parseInt(prodReorderQuant.getText()));
+		newProduct.setOrderQty(Integer.parseInt(prodOrderQuant.getText()));
+		newProduct.setCategory(fetchCategory.get(selectedCategory));
+		return newProduct;
+	}
+	
 }

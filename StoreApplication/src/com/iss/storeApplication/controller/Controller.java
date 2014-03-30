@@ -22,7 +22,7 @@ public class Controller {
 
 	/**
 	 * 
-	 * @author sakthi
+	 * @author Saurav
 	 */
 	public static String validateUser(StoreKeeper storeKeeper) {
 		return LoginService.validateUser(storeKeeper);
@@ -81,6 +81,10 @@ public class Controller {
 
 	public static Product getProduct(Long barcode) {
 		return ProductService.getProduct(barcode);
+	}
+	
+	public static String validateAndSaveProduct(Product p) {
+		return ProductService.validateAndSaveProduct(p);
 	}
 
 	public static Discount getMaxPublicDiscount() {

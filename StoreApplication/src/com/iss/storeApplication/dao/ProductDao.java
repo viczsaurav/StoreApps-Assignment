@@ -20,7 +20,8 @@ import com.iss.storeApplication.domain.Product;
 import com.iss.storeApplication.domain.StoreKeeper;
 
 public class ProductDao implements CommonDao<Product> {
-
+	
+	private CategoryDao category = new CategoryDao();
 	private String fileName = Constants.PRODUCT_FILE_NAME
 			+ Constants.FILE_EXT_SEPERATOR + Constants.FILE_EXTENSION;
 
@@ -71,6 +72,7 @@ public class ProductDao implements CommonDao<Product> {
 				t.setBarCode(Long.parseLong(rowValues[5]));
 				t.setReorderQty(Integer.parseInt(rowValues[6]));
 				t.setOrderQty(Integer.parseInt(rowValues[7]));
+				t.setCategory(category.get(t.getProductId().split("/")[0].trim()));
 				products.add(t);
 			}
 			br.close();
