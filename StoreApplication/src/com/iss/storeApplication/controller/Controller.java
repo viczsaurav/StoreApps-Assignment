@@ -102,5 +102,10 @@ public class Controller {
 	public static Member getMember(String memberId) {
 		return MemberRegistrationService.getMember(memberId);
 	}
+	
+	public static boolean editMember(Member member)
+	{
+		return MemberRegistrationService.editMember(member);
+	}
 
 }

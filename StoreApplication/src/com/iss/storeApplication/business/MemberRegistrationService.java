@@ -20,5 +20,10 @@ public class MemberRegistrationService {
 	public static Member getMember(String memberId) {
 		return memberDao.getMember(memberId);
 	}
+	
+	public static boolean editMember(Member member)
+	{
+		return memberDao.edit(member);
+	}
 
 }
