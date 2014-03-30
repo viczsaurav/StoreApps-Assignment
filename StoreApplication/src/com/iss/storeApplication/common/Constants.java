@@ -46,7 +46,6 @@ public interface Constants {
 	public static final String login = "login";
 	public static final String cancel = "cancel";
 
-
 	// Category Button Labels
 	public static final String categoryID = "categoryID";
 	public static final String categoryName = "categoryName";
@@ -102,6 +101,17 @@ public interface Constants {
 	public static final String find = "find";
 	public static final String barcodeNotNull = "barcodeNotNull";
 	public static final String productNotFound = "productNotFound";
+	
+	//Category
+	public static final String categoryCode = "categoryCode";
+	
+	
+	
+	public static final String CATEGORY_REPORT_BUTTON = "categoryReportButton";
+	public static final String PRODUCT_REPORT_BUTTON = "productReportButton";
+	public static final String TRANSACTION_REPORT_BUTTON = "transactionReportButton";
+	public static final String MEMBER_REPORT_BUTTON = "memeberReportButton";
+	public static final String GENERATE_TRANSACTIONS_BUTTON = "generateTransactions";
 	
 	
 }

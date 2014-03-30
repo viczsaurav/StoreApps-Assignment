@@ -40,7 +40,7 @@ public class DatePicker extends JPanel {
 
 		text.setEditable(false);
 
-		JButton b = new JButton("popup");
+		JButton b = new JButton("Choose date");
 		showBtn = b;
 		JPanel p = new JPanel();
 		p.add(label);

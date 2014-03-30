@@ -202,6 +202,7 @@ public class DiscountView extends JPanel {
 
 		if (Controller.saveAll(discountModel.getListDiscounts())) {
 			discountModel.fireTableDataChanged();
+			
 		} else {
 			JOptionPane.showMessageDialog(mainView,
 					Utility.getPropertyValue(Constants.failure));
@@ -417,8 +418,8 @@ public class DiscountView extends JPanel {
 		setDiscountToDiscountDialogView(null);
 		
 		/*
-		 * Object[] message = { Constants.categoryID, discountTypeCmbBox,
-		 * Constants.categoryName, namefield };
+		 * Object[] message = { Constants.CATEGORYID_LABEL, discountTypeCmbBox,
+		 * Constants.CATEGORYNAME_LABEL, namefield };
 		 */
 
 		int result = JOptionPane.showConfirmDialog(mainView, addDiscountPanel,
@@ -459,8 +460,8 @@ public class DiscountView extends JPanel {
 	private void showEditDiscountDialog(Discount d) {
 
 		/*
-		 * Object[] message = { Constants.categoryID, discountTypeCmbBox,
-		 * Constants.categoryName, namefield };
+		 * Object[] message = { Constants.CATEGORYID_LABEL, discountTypeCmbBox,
+		 * Constants.CATEGORYNAME_LABEL, namefield };
 		 */
 
 		setDiscountToDiscountDialogView(d);
