@@ -1,6 +1,6 @@
 package com.iss.storeApplication.domain;
 
-public class Member {
+/*public class Member {
 	private String memberName;
 	private String memberId;
 	private Integer loyaltyPoints;
@@ -35,3 +35,4 @@ public class Member {
 	}
 
 }
+*/

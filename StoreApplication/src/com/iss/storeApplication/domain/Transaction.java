@@ -2,6 +2,9 @@ package com.iss.storeApplication.domain;
 
 import java.util.Date;
 
+import com.iss.storeApplication.common.StringUtility;
+import com.iss.storeApplication.common.Utility;
+
 /**
  * 
  * @author milan
@@ -12,8 +15,8 @@ public class Transaction {
 	private String transactionId;
 	private Product product;
 	private Customer customer;
-	private Integer qtyPurchase=0;
-	private Date dateOfPurchase=new Date();
+	private Integer qtyPurchase = 0;
+	private Date dateOfPurchase = new Date();
 
 	public String getTransactionId() {
 		return transactionId;
@@ -55,5 +58,16 @@ public class Transaction {
 		this.dateOfPurchase = dateOfPurchase;
 	}
 
+	public String getCommaSeperatedValue() {
+		String customerId = "";
+		if (customer instanceof MemberCustomer) {
+			customerId = ((MemberCustomer) customer).getMemberId();
+		} else if (customer instanceof MemberCustomer) {
+			customerId = ((PublicCustomer) customer).getMemberId();
+		}
+		return transactionId + "," + product.getProductId() + "," + customerId
+				+ "," + qtyPurchase + ","
+				+ StringUtility.getStringFromDate(dateOfPurchase);
+	}
 
 }

@@ -11,4 +11,12 @@ public class MemberCustomer extends Customer {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
+
+
+	public String getCommaSeperatedValue() {
+		return  getMemberName() +","+memberId + ","
+				+ getLoyality();
+	}
+	
+	
 }

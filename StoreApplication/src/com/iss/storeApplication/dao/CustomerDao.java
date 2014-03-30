@@ -16,9 +16,10 @@ import java.util.Map;
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.StringUtility;
 import com.iss.storeApplication.common.Utility;
-import com.iss.storeApplication.domain.Member;
+import com.iss.storeApplication.domain.Customer;
+import com.iss.storeApplication.domain.MemberCustomer;
 
-public class MemberDao implements CommonDao<Member> {
+public class CustomerDao implements CommonDao<Customer> {
 
 	private String fileName = Constants.FILENAME_MEMBER
 			+ Constants.FILE_EXT_SEPERATOR + Constants.FILE_EXTENSION;
@@ -27,7 +28,7 @@ public class MemberDao implements CommonDao<Member> {
 	 * Save member to file
 	 */
 	@Override
-	public boolean save(Member m, boolean append) {
+	public boolean save(Customer m, boolean append) {
 		// TODO Auto-generated method stub
 
 		try {
@@ -37,7 +38,7 @@ public class MemberDao implements CommonDao<Member> {
 			}
 			PrintWriter out = new PrintWriter(new BufferedWriter(
 					new FileWriter(file, true)));
-			out.println(m.getCommaSeperatedValue());
+			out.println(((MemberCustomer)m).getCommaSeperatedValue());
 			out.close();
 			return true;
 		} catch (IOException e) {
@@ -52,9 +53,9 @@ public class MemberDao implements CommonDao<Member> {
 	 */
 
 	@Override
-	public List<Member> retrieveAll() {
+	public List<Customer> retrieveAll() {
 		// TODO Auto-generated method stub
-		List<Member> Members = new ArrayList<Member>();
+		List<Customer> Members = new ArrayList<Customer>();
 
 		try {
 
@@ -67,10 +68,10 @@ public class MemberDao implements CommonDao<Member> {
 			while ((row = br.readLine()) != null) {
 				if (!StringUtility.isEmpty(row)) {
 					String[] rowValues = row.split(",");
-					Member m = new Member();
+					MemberCustomer m = new MemberCustomer();
 					m.setMemberName(rowValues[0]);
 					m.setMemberId(rowValues[1]);
-					m.setLoyaltyPoints(Integer.parseInt(rowValues[2]));
+					m.setLoyality(Integer.parseInt(rowValues[2]));
 					Members.add(m);
 				}
 			}
@@ -90,21 +91,21 @@ public class MemberDao implements CommonDao<Member> {
 	/**
 	 * Used to return a Map of members with memberID  as key and member object as value
 	 */
-	public Map<String, Member> getMap() {
+	public Map<String, Customer> getMap() {
 		// TODO Auto-generated method stub
 
-		List<Member> members = retrieveAll();
-		HashMap<String, Member> membersMap = new HashMap<String, Member>();
+		List<Customer> members = retrieveAll();
+		HashMap<String, Customer> membersMap = new HashMap<String, Customer>();
 
-		for (Member m : members) {
-			membersMap.put(m.getMemberId(), m);
+		for (Customer m : members) {
+			membersMap.put(((MemberCustomer)m).getMemberId(), m);
 		}
 
 		return membersMap;
 	}
 
-	public Member getMember(String memberId) {
-		Map<String, Member> membersMap = getMap();
+	public Customer getCustomer(String memberId) {
+		Map<String, Customer> membersMap = getMap();
 		if (membersMap.containsKey(memberId)) {
 			return membersMap.get(memberId);
 		} else {
@@ -115,14 +116,14 @@ public class MemberDao implements CommonDao<Member> {
 	/*
 	 * Clears file and saves list of discount object to file.
 	 */
-	public boolean saveAll(List<Member> members) {
+	public boolean saveAll(List<Customer> members) {
 		// if (discounts.size() == 0) {
 		File file = new File(Constants.DATA_FILE_DIR, fileName);
 		if (!Utility.clearFile(file))
 			return false;
 
 		// }
-		for (Member d : members) {
+		for (Customer d : members) {
 			if (!save(d, true)) {
 				return false;
 			}
@@ -130,13 +131,13 @@ public class MemberDao implements CommonDao<Member> {
 		return true;
 	}
 	
-	public boolean edit(Member member)
+	public boolean edit(Customer member)
 	{
-		Map<String,Member> map=getMap();
-		if(map.containsKey(member.getMemberId()))
+		Map<String,Customer> map=getMap();
+		if(map.containsKey(((MemberCustomer)member).getMemberId()))
 		{
-			map.put(member.getMemberId(), member);
-			saveAll(new ArrayList<Member>(map.values()));
+			map.put(((MemberCustomer)member).getMemberId(), member);
+			saveAll(new ArrayList<Customer>(map.values()));
 			return true;
 		}
 		else

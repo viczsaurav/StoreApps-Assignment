@@ -8,8 +8,8 @@ import com.iss.storeApplication.business.LoginService;
 import com.iss.storeApplication.business.MemberRegistrationService;
 import com.iss.storeApplication.business.ProductService;
 import com.iss.storeApplication.domain.Category;
+import com.iss.storeApplication.domain.Customer;
 import com.iss.storeApplication.domain.Discount;
-import com.iss.storeApplication.domain.Member;
 import com.iss.storeApplication.domain.MemberCustomer;
 import com.iss.storeApplication.domain.Product;
 import com.iss.storeApplication.domain.StoreKeeper;
@@ -99,13 +99,14 @@ public class Controller {
 		return DiscountService.getMemberFirstDiscount();
 	}
 	
-	public static Member getMember(String memberId) {
-		return MemberRegistrationService.getMember(memberId);
+	public static Customer getCustomer(String memberId) {
+		return MemberRegistrationService.getCustomer(memberId);
 	}
 	
-	public static boolean editMember(Member member)
+	public static boolean editCustomer(Customer member)
 	{
-		return MemberRegistrationService.editMember(member);
+		return MemberRegistrationService.editCustomer(member);
 	}
 
+	
 }

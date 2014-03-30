@@ -35,8 +35,8 @@ import com.iss.storeApplication.common.StringUtility;
 import com.iss.storeApplication.common.SwingUtility;
 import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.controller.Controller;
+import com.iss.storeApplication.domain.Customer;
 import com.iss.storeApplication.domain.Discount;
-import com.iss.storeApplication.domain.Member;
 import com.iss.storeApplication.domain.Product;
 import com.iss.storeApplication.domain.Transaction;
 import com.iss.storeApplication.enums.DiscountType;
@@ -57,7 +57,7 @@ public class BillingView extends JPanel {
 	private JButton findProductBtn = new JButton(
 			Utility.getPropertyValue(Constants.find));
 	private JPanel findProductPanel = new JPanel();
-	private JTable billingTabble = new JTable();
+	private JTable billingTable = new JTable();
 	private BillingTableModel billingTableModel = new BillingTableModel(this);
 	private JButton removeProductBtn = new JButton(
 			Utility.getPropertyValue(Constants.remove));
@@ -113,6 +113,7 @@ public class BillingView extends JPanel {
 
 	private final double dollarToPointValue = 0.1;
 	private final double pointToDollarValue = 0.005;
+	private Customer customer;
 
 	public BillingView(MainView mainView) {
 		super(new BorderLayout());
@@ -261,10 +262,37 @@ public class BillingView extends JPanel {
 	}
 
 	private void initGeneratePanel() {
-
+		generateBillBtn.setEnabled(false);
 		generateBillPanel.add(generateBillBtn);
 		generateBillPanel.add(resetBtn);
 		southPanel.add(generateBillPanel);
+		generateBillBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				generateBill();
+
+			}
+		});
+	}
+
+	protected void generateBill() {
+		//update member loyality point
+		Object selectedItem = memberTypeCmbBox.getSelectedItem();
+		
+		if (MemberType.Member.equals(selectedItem)) {
+			
+			Integer loyality=customer.getLoyality();
+			
+			loyality=loyality-new Integer(reedemField.getText());
+			customer.setLoyality(loyality);
+			if(!Controller.editCustomer(customer))
+			{
+				JOptionPane.showMessageDialog(mainView, Utility.getPropertyValue(Constants.failure));
+				return;
+			}
+		}
+
 	}
 
 	private void initBillAmtPanel() {
@@ -318,13 +346,13 @@ public class BillingView extends JPanel {
 					Utility.getPropertyValue(Constants.msgEnterMemId));
 			return;
 		}
-		Member member = Controller.getMember(memberId);
+		Customer member = Controller.getCustomer(memberId);
 		if (member == null) {
 			JOptionPane.showMessageDialog(mainView,
 					Utility.getPropertyValue(Constants.msgMemNotFound));
 			return;
 		}
-		if (member.getLoyaltyPoints() == -1)// first time purchase
+		if (member.getLoyality() == -1)// first time purchase
 		{
 			loyalityField.setText("0");// 1st time customer
 
@@ -334,13 +362,14 @@ public class BillingView extends JPanel {
 			}
 			setDiscountToTextField(d);
 		} else {
-			loyalityField.setText(member.getLoyaltyPoints().toString());// 1st
+			loyalityField.setText(member.getLoyality().toString());// 1st
 																		// time
 																		// customer
 			Discount d = Controller.getMaxMemberDiscount();
 			setDiscountToTextField(d);
 		}
 		calculateMemberBillAmount();
+		this.customer=member;
 
 	}
 
@@ -443,6 +472,8 @@ public class BillingView extends JPanel {
 	 * Recalculate when total has changed
 	 */
 	public void calculate() {
+		if (billingTable.getRowCount() > 0)
+			generateBillBtn.setEnabled(true);
 		Object selectedItem = memberTypeCmbBox.getSelectedItem();
 		if (MemberType.Public.equals(selectedItem)) {
 			calculatePublicBillAmount();
@@ -506,14 +537,14 @@ public class BillingView extends JPanel {
 	}
 
 	private void initBillingTableModel() {
-		billingTabble.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		billingTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		billingTabble.setModel(billingTableModel);
-		billingTabble
+		billingTable.setModel(billingTableModel);
+		billingTable
 				.setPreferredScrollableViewportSize(new Dimension(600, 400));
-		billingTabble.setPreferredSize(new Dimension(600, 400));
-		billingTabble.setSize(new Dimension(600, 400));
-		JScrollPane sp = new JScrollPane(billingTabble);
+		billingTable.setPreferredSize(new Dimension(600, 400));
+		billingTable.setSize(new Dimension(600, 400));
+		JScrollPane sp = new JScrollPane(billingTable);
 		sp.setPreferredSize(new Dimension(600, 400));
 		sp.setMaximumSize(new Dimension(600, 400));
 		centerPanel.add(sp);
@@ -522,7 +553,7 @@ public class BillingView extends JPanel {
 	}
 
 	protected void removeProductFromTable() {
-		int rowIndex = billingTabble.getSelectedRow();
+		int rowIndex = billingTable.getSelectedRow();
 		if (rowIndex == -1) {
 			JOptionPane.showMessageDialog(mainView,
 					Utility.getPropertyValue(Constants.selectRow));
@@ -582,6 +613,11 @@ public class BillingView extends JPanel {
 			total += (t.getProduct().getPrice() * t.getQtyPurchase());
 		}
 		totalTextField.setText(total.toString());
+	}
+	
+	public void resetBill()
+	{
+		customer=null;
 	}
 
 }

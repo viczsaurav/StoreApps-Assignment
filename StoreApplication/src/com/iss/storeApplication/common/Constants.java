@@ -130,5 +130,7 @@ public interface Constants {
 	public static final String msgEnterMemId = "msgEnterMemId";
 	public static final String msgMemNotFound = "msgMemNotFound";
 	public static final String msgCannotReedemMoreThanEarned = "msgCannotReedemMoreThanEarned";
+	public static final String FILENAME_TRANSACTION = "Transactions";
+	public static final String PUBLIC = "PUBLIC";
 	
 }
