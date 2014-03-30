@@ -32,6 +32,7 @@ import com.iss.storeApplication.common.SwingUtility;
 import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.controller.Controller;
 import com.iss.storeApplication.domain.Discount;
+import com.iss.storeApplication.domain.Member;
 import com.iss.storeApplication.domain.Product;
 import com.iss.storeApplication.domain.Transaction;
 import com.iss.storeApplication.enums.DiscountType;
@@ -183,6 +184,66 @@ public class BillingView extends JPanel {
 		memberIdPanel.add(memberIdTxtField);
 		memberIdPanel.add(applyDiscountBtn);
 		southPanel.add(memberIdPanel, BorderLayout.CENTER);
+
+		applyDiscountBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				applyMemberDiscount();
+
+			}
+		});
+		memberIdTxtField.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				applyMemberDiscount();
+				
+			}
+		});
+	}
+
+	protected void applyMemberDiscount() {
+		String memberId = memberIdTxtField.getText();
+		if (StringUtility.isEmpty(memberId)) {
+			JOptionPane.showMessageDialog(mainView,
+					Utility.getPropertyValue(Constants.msgEnterMemId));
+			return;
+		}
+		Member member = Controller.getMember(memberId);
+		if (member == null) {
+			JOptionPane.showMessageDialog(mainView,
+					Utility.getPropertyValue(Constants.msgMemNotFound));
+			return;
+		}
+		if (member.getLoyaltyPoints() == -1)// first time purchase
+		{
+			loyalityField.setText("0");// 1st time customer
+
+			Discount d = Controller.getMemberFirstDiscount();
+			if (d == null) {
+				d = Controller.getMaxMemberDiscount();
+			}
+			setDiscountToTextField(d);
+		} else {
+			loyalityField.setText(member.getLoyaltyPoints().toString());// 1st
+																		// time
+																		// customer
+			Discount d = Controller.getMaxMemberDiscount();
+			setDiscountToTextField(d);
+		}
+		calculateMemberBillAmount();
+
+	}
+
+	private void setDiscountToTextField(Discount d) {
+		if (d == null)// not discount means 0%
+		{
+			discountField.setText("0.0");
+		} else {
+			discountField.setText(d.getDiscount().toString());
+		}
+
 	}
 
 	private void initMemberTypePanel() {
@@ -258,18 +319,21 @@ public class BillingView extends JPanel {
 					@Override
 					public void changedUpdate(DocumentEvent e) {
 						// TODO Auto-generated method stub
-						
+
 					}
 
 					@Override
 					public void removeUpdate(DocumentEvent e) {
 						// TODO Auto-generated method stub
-						
+
 					}
 
 				});
 	}
 
+	/**
+	 * Recalculate when total has changed
+	 */
 	public void calculate() {
 		Object selectedItem = memberTypeCmbBox.getSelectedItem();
 		if (MemberType.Public.equals(selectedItem)) {
@@ -280,7 +344,19 @@ public class BillingView extends JPanel {
 	}
 
 	protected void calculateMemberBillAmount() {
-		// TODO Auto-generated method stub
+
+		Double discount = 0.0;
+		Double billAmount = 0.0;
+		try {
+			discount = new Double(discountField.getText());
+			billAmount = new Double(totalTextField.getText());
+		} catch (NumberFormatException e) {
+			totalTextField.setText("0");
+			discountField.setText("0");
+		}
+		billAmount = billAmount - (billAmount * discount) / 100.0;
+
+		billAmtField.setText(billAmount.toString());
 
 	}
 
@@ -346,6 +422,12 @@ public class BillingView extends JPanel {
 		}
 
 		if (rowIndex >= 0) {
+			if (barCodeTransaction.containsValue(billingTableModel
+					.getListtransactions().get(rowIndex))) {
+				barCodeTransaction.remove(billingTableModel
+						.getListtransactions().get(rowIndex).getProduct()
+						.getBarCode());
+			}
 			billingTableModel.removeTranscation(rowIndex);
 
 		}

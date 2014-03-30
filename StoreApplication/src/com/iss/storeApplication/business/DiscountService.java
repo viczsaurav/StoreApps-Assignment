@@ -114,4 +114,13 @@ public class DiscountService {
 	{
 		return discountDao.getMaxPublicDiscount();
 	}
+	
+	public static Discount getMaxMemberDiscount()
+	{
+		return discountDao.getMaxMemberDiscount();
+	}
+	
+	public static Discount getMemberFirstDiscount(){
+		return discountDao.getMemberFirstDiscount();
+	}
 }

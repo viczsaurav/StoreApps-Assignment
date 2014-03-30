@@ -9,6 +9,7 @@ import com.iss.storeApplication.business.MemberRegistrationService;
 import com.iss.storeApplication.business.ProductService;
 import com.iss.storeApplication.domain.Category;
 import com.iss.storeApplication.domain.Discount;
+import com.iss.storeApplication.domain.Member;
 import com.iss.storeApplication.domain.MemberCustomer;
 import com.iss.storeApplication.domain.Product;
 import com.iss.storeApplication.domain.StoreKeeper;
@@ -31,8 +32,10 @@ public class Controller {
 		return DiscountService.validateAndSaveDiscount(discount);
 
 	}
+
 	/**
 	 * Discount Controllers
+	 * 
 	 * @return
 	 */
 	public static List<Discount> getDiscounts() {
@@ -54,6 +57,7 @@ public class Controller {
 
 	/**
 	 * Category Controllers
+	 * 
 	 * @return
 	 */
 	public static boolean saveAllCategory(List<Category> listCategorys) {
@@ -67,20 +71,32 @@ public class Controller {
 
 	/**
 	 * Product Controllers
+	 * 
 	 * @return
 	 */
 	public static boolean saveAllProducts(List<Product> listProducts) {
 
 		return ProductService.saveAll(listProducts);
 	}
-	
+
 	public static Product getProduct(Long barcode) {
 		return ProductService.getProduct(barcode);
 	}
-	
-	public static Discount getMaxPublicDiscount()
-	{
+
+	public static Discount getMaxPublicDiscount() {
 		return DiscountService.getMaxPublicDiscount();
 	}
+
+	public static Discount getMaxMemberDiscount() {
+		return DiscountService.getMaxMemberDiscount();
+	}
+
+	public static Discount getMemberFirstDiscount() {
+		return DiscountService.getMemberFirstDiscount();
+	}
 	
+	public static Member getMember(String memberId) {
+		return MemberRegistrationService.getMember(memberId);
+	}
+
 }

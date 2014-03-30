@@ -124,6 +124,9 @@ public interface Constants {
 	public static final String TRANSACTION_REPORT_BUTTON = "transactionReportButton";
 	public static final String MEMBER_REPORT_BUTTON = "memeberReportButton";
 	public static final String GENERATE_TRANSACTIONS_BUTTON = "generateTransactions";
+	public static final String MEMBER_FIRST = "MEMBER_FIRST";
+	public static final String msgEnterMemId = "msgEnterMemId";
+	public static final String msgMemNotFound = "msgMemNotFound";
 	
 	
 }

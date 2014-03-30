@@ -84,7 +84,7 @@ public class DiscountDao implements CommonDao<Discount> {
 
 					String[] rowValues = row.split(",");
 
-					if (rowValues[2].equals(Constants.ALWAYS))// Permanent
+					if (rowValues[2].equalsIgnoreCase(Constants.ALWAYS))// Permanent
 																// Discount
 					{
 						PermanentDiscount pd = new PermanentDiscount();
@@ -166,7 +166,8 @@ public class DiscountDao implements CommonDao<Discount> {
 		for (Iterator<Discount> iterator = discounts.iterator(); iterator
 				.hasNext();) {
 			Discount d = iterator.next();
-			if (d.getMemberApplicable().equals(MemberType.Member))
+			
+			if (d.getMemberApplicable().equals(DiscountApplicable.Member))
 				iterator.remove();
 			else {
 				if (d instanceof SeasonalDiscount) {
@@ -188,5 +189,54 @@ public class DiscountDao implements CommonDao<Discount> {
 			return Collections.max(discounts);
 		else
 			return null;
+	}
+
+	public Discount getMaxMemberDiscount() {
+		List<Discount> discounts = getMemberDiscount();
+		if (discounts != null && discounts.size() != 0)
+			return Collections.max(discounts);
+		else
+			return null;
+	}
+
+	private List<Discount> getMemberDiscount() {
+		List<Discount> discounts = retrieveAll();
+
+		for (Iterator<Discount> iterator = discounts.iterator(); iterator
+				.hasNext();) {
+			Discount d = iterator.next();
+
+			if (d instanceof SeasonalDiscount) {
+				if (((SeasonalDiscount) d).getStartDate().before(new Date())) {
+					iterator.remove();
+
+				}
+			}
+			
+			if (d.getDiscountCode().equalsIgnoreCase(Constants.MEMBER_FIRST))
+			{
+				iterator.remove();
+			}
+
+		}
+
+		return discounts;
+	}
+
+	public Discount getMemberFirstDiscount() {
+		List<Discount> discounts = retrieveAll();
+
+		for (Iterator<Discount> iterator = discounts.iterator(); iterator
+				.hasNext();) {
+			Discount d = iterator.next();
+
+			String dc = d.getDiscountCode();
+			if (dc.equalsIgnoreCase(Constants.MEMBER_FIRST)) {
+				return d;
+			}
+
+		}
+
+		return null;
 	}
 }

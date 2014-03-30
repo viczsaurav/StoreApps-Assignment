@@ -18,7 +18,6 @@ import com.iss.storeApplication.domain.Member;
 
 public class MemberDao implements CommonDao<Member> {
 
-	
 	private String fileName = Constants.FILENAME_MEMBER
 			+ Constants.FILE_EXT_SEPERATOR + Constants.FILE_EXTENSION;
 
@@ -26,7 +25,7 @@ public class MemberDao implements CommonDao<Member> {
 	 * Save member to file
 	 */
 	@Override
-	public boolean save(Member m,boolean append) {
+	public boolean save(Member m, boolean append) {
 		// TODO Auto-generated method stub
 
 		try {
@@ -45,14 +44,11 @@ public class MemberDao implements CommonDao<Member> {
 		}
 
 	}
-	
 
 	/**
 	 * List of all members
 	 */
-	
-	
-	
+
 	@Override
 	public List<Member> retrieveAll() {
 		// TODO Auto-generated method stub
@@ -90,18 +86,25 @@ public class MemberDao implements CommonDao<Member> {
 	/**
 	 * Used to return a Map of members with memberID  as key and member object as value
 	 */
-
-	
 	public Map<String, Member> getMap() {
 		// TODO Auto-generated method stub
 
-			List<Member> members = retrieveAll();
-			HashMap<String, Member> membersMap = new HashMap<String, Member>();
+		List<Member> members = retrieveAll();
+		HashMap<String, Member> membersMap = new HashMap<String, Member>();
 
-			for (Member m :members ) {
-				membersMap.put(m.getMemberId(),m);
-			}
-
-			return membersMap;
+		for (Member m : members) {
+			membersMap.put(m.getMemberId(), m);
 		}
+
+		return membersMap;
+	}
+
+	public Member getMember(String memberId) {
+		Map<String, Member> membersMap = getMap();
+		if (membersMap.containsKey(memberId)) {
+			return membersMap.get(memberId);
+		} else {
+			return null;
+		}
+	}
 }

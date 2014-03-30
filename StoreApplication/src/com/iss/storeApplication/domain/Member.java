@@ -3,7 +3,7 @@ package com.iss.storeApplication.domain;
 public class Member {
  private String memberName;
  private String memberId;
- private int loyaltyPoints;
+ private Integer loyaltyPoints;
 public String getMemberName() {
 	return memberName;
 }
@@ -16,10 +16,10 @@ public String getMemberId() {
 public void setMemberId(String memberId) {
 	this.memberId = memberId;
 }
-public int getLoyaltyPoints() {
+public Integer getLoyaltyPoints() {
 	return loyaltyPoints;
 }
-public void setLoyaltyPoints(int loyaltyPoints) {
+public void setLoyaltyPoints(Integer loyaltyPoints) {
 	this.loyaltyPoints = loyaltyPoints;
 }
  
