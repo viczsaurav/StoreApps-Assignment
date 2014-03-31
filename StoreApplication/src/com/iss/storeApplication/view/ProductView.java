@@ -9,27 +9,42 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
+import com.iss.storeApplication.business.ProductService;
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.StringUtility;
+import com.iss.storeApplication.common.SwingUtility;
 import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.controller.Controller;
 import com.iss.storeApplication.dao.CategoryDao;
 import com.iss.storeApplication.dao.ProductDao;
 import com.iss.storeApplication.domain.Category;
+import com.iss.storeApplication.domain.Discount;
+import com.iss.storeApplication.domain.PermanentDiscount;
 import com.iss.storeApplication.domain.Product;
+import com.iss.storeApplication.domain.SeasonalDiscount;
+import com.iss.storeApplication.enums.DiscountApplicable;
+import com.iss.storeApplication.enums.DiscountType;
 
 /**
  * 
@@ -55,6 +70,8 @@ public class ProductView extends JPanel {
 	// Add / Edit Product
 	private final JPanel productPanel = new JPanel();
 	private final JTextField prodName = new JTextField();
+	private final JLabel productCategoryLabel = new JLabel(
+			Utility.getPropertyValue(Constants.productCategory));
 	private final JTextField prodDesc = new JTextField();
 	private final JFormattedTextField prodQuant = new JFormattedTextField(
 			Utility.getProductNumberFormat());
@@ -297,18 +314,18 @@ public class ProductView extends JPanel {
 		c.gridx = 0;
 		c.gridy = 0;
 		productPanel.add(productCategoryCmbBox, c);
-		c.gridx = 1;
-		c.gridy = 0;
-		productPanel.add(prodName, c);
 		c.gridx = 0;
 		c.gridy = 1;
+		productPanel.add(prodName, c);
+		c.gridx = 0;
+		c.gridy = 2;
 		c.gridwidth = 2;
 		productPanel.add(prodDesc, c);
 		c.gridwidth = 1;
 		c.gridx = 0;
 		c.gridy = 2;
 		productPanel.add(prodQuant, c);
-		c.gridx = 1;
+		c.gridx = 0;
 		c.gridy = 2;
 		productPanel.add(prodPrice, c);
 		c.gridx = 0;
@@ -320,6 +337,36 @@ public class ProductView extends JPanel {
 		c.gridx = 0;
 		c.gridy = 4;
 		productPanel.add(prodOrderQuant, c);
+	}
+	
+	/**
+	 * set product object property to Add / Edit Discount Panel
+	 * 
+	 * @param d
+	 */
+	private void setProductToProductDialogView(Product p) {
+		if (p != null) {
+			String categoryCmbBoxVal = fetchCategory.get(p.getCategory().getCategoryCode()).getCategoryCode()
+					+ " - " + fetchCategory.get(p.getCategory().getCategoryCode()).getCategoryName();
+			productCategoryCmbBox.setSelectedItem(categoryCmbBoxVal);
+			prodName.setText(p.getProductName());
+			prodDesc.setText(p.getDescription());
+			prodQuant.setText(Integer.toString(p.getQtyAvailable()));
+			prodPrice.setText(Double.toString(p.getPrice()));
+			prodBarCode.setText(Long.toString(p.getBarCode()));
+			prodReorderQuant.setText(Integer.toString(p.getReorderQty()));
+			prodOrderQuant.setText(Integer.toString(p.getOrderQty()));
+		}
+		else // reset to default value
+		{
+			prodName.setText("");
+			prodDesc.setText("");
+			prodQuant.setText("");
+			prodReorderQuant.setText(Utility
+					.getPropertyValue(Constants.prodReorderQuantDef));
+			prodOrderQuant.setText(Utility
+					.getPropertyValue(Constants.prodOrderQuantDef));
+		}
 	}
 
 	/**
@@ -364,7 +411,7 @@ public class ProductView extends JPanel {
 	 */
 	private void showEditProductDialog(Product p) {
 
-		//setProductToProductDialogView(p);
+		setProductToProductDialogView(p);
 
 		int result = JOptionPane.showConfirmDialog(mainView, productPanel,
 				Utility.getPropertyValue(Constants.editProduct),
@@ -380,12 +427,9 @@ public class ProductView extends JPanel {
 			else {
 				JOptionPane.showMessageDialog(mainView, msg, "Message",
 						JOptionPane.ERROR_MESSAGE);
-
 				showEditProductDialog(product);
 			}
-
 		}
-
 	}
 	
 	/**
