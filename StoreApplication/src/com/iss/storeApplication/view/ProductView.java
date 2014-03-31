@@ -131,11 +131,6 @@ public class ProductView extends JPanel {
 		refreshProductTable();
 	}
 
-	private void refreshProductTable() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	/**
 	 * Add Discount Button Clicked. Add Product Popup will appear.
 	 * 
@@ -161,11 +156,6 @@ public class ProductView extends JPanel {
 
 		Product p = productTableModel.getListProducts().get(row);
 		showEditProductDialog(p);
-	}
-
-	private void showEditProductDialog(Product p) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/*
@@ -273,13 +263,7 @@ public class ProductView extends JPanel {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					String result = (String) productCategoryCmbBox
 							.getSelectedItem();
-					selectedCategory = result.split("-")[0].trim(); // Extracting
-																	// Category
-																	// Code
-					/*
-					 * System.out.println(selectedCategory); Code for Getting it
-					 * done
-					 */
+					selectedCategory = result.split("-")[0].trim();  // Extracting Category Code
 				}
 			}
 		});
@@ -391,6 +375,42 @@ public class ProductView extends JPanel {
 	}
 	
 	/**
+	 * It shows edit Discount Popup.
+	 * 
+	 * @param d
+	 */
+	private void showEditProductDialog(Product p) {
+
+		/*
+		 * Object[] message = { Constants.CATEGORYID_LABEL, discountTypeCmbBox,
+		 * Constants.CATEGORYNAME_LABEL, namefield };
+		 */
+
+		setProductToProductDialogView(p);
+
+		int result = JOptionPane.showConfirmDialog(mainView, productPanel,
+				Utility.getPropertyValue(Constants.editProduct),
+				JOptionPane.OK_CANCEL_OPTION);
+
+		if (result == JOptionPane.OK_OPTION) {
+
+			Product product = null;
+			product = createProductFromView();
+			String msg = Controller.validateProduct(product);
+			if (msg.equals(Constants.SUCCESS))
+				editProduct(product);
+			else {
+				JOptionPane.showMessageDialog(mainView, msg, "Message",
+						JOptionPane.ERROR_MESSAGE);
+
+				showEditProductDialog(product);
+			}
+
+		}
+
+	}
+	
+	/**
 	 * Create new Product Object from Add / Edit Discount Panel
 	 * 
 	 * @return
@@ -408,4 +428,14 @@ public class ProductView extends JPanel {
 		return newProduct;
 	}
 	
+	/**
+	 * refreshes Jtable
+	 */
+	public void refreshProductTable() {
+		productTableModel.clear();
+		List<Product> products = Controller.getProducts();
+		for (Product p : products) {
+			addProduct(p);
+		}
+	}
 }

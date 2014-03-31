@@ -88,6 +88,10 @@ public class Controller {
 	public static String validateAndSaveProduct(Product p) {
 		return ProductService.validateAndSaveProduct(p);
 	}
+	
+	public static String validateProduct(Product p) {
+		return ProductService.validateProduct(p);
+	}
 
 	public static Discount getMaxPublicDiscount() {
 		return DiscountService.getMaxPublicDiscount();

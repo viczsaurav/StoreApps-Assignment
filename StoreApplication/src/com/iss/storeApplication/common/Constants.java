@@ -75,6 +75,8 @@ public interface Constants {
 	public static final String prodReorderQuantDef = "prodReorderQuantDef";
 	public static final String prodOrderQuantDef = "prodOrderQuantDef";
 	public static final String barcodeExists = "barcodeExists";
+	public static final String editProduct = "editProduct";
+	
 
 	// File Names
 	public static final String FILENAME_STOREKEEPER = "StoreKeepers";

@@ -9,9 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.iss.storeApplication.common.Constants;
+import com.iss.storeApplication.common.StringUtility;
+import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.dao.ProductDao;
 import com.iss.storeApplication.domain.Category;
 import com.iss.storeApplication.domain.Product;
+import com.iss.storeApplication.domain.SeasonalDiscount;
 
 public class ProductService {
 
@@ -36,7 +39,7 @@ public class ProductService {
 			p.getDescription() == null	||
 			p.getPrice() == null 		||
 			p.getOrderQty() == null 	||
-			p.getReorderQty() == null)  {
+			p.getReorderQty() == null)  	{
 			isEmpty = true;
 		}
 		if (isEmpty){
@@ -65,5 +68,23 @@ public class ProductService {
 	 */
 	public static boolean saveAll(List<Product> listProducts) {
 		return productDao.saveAll(listProducts);
+	}
+
+	public static String validateProduct(Product product) {
+		if (product == null) {
+			return Utility.getPropertyValue(Constants.validateEmptyMessage);
+		}
+		if (StringUtility.isEmpty(product.getDescription())
+				| StringUtility.isEmpty(product.getProductName())
+				| StringUtility.isEmpty(product.getDescription())
+				| product.getBarCode() == null) {
+			return Utility.getPropertyValue(Constants.validateEmptyMessage);
+		}
+		if(product.getPrice()==null)
+		{
+			return Utility.getPropertyValue(Constants.validateEmptyMessage);
+		}
+		
+		return Constants.SUCCESS;
 	}
 }
