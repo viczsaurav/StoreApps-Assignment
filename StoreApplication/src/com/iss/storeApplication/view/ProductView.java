@@ -1,6 +1,7 @@
 package com.iss.storeApplication.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -22,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.StringUtility;
@@ -387,6 +389,9 @@ public class ProductView extends JPanel {
 				}
 			}
 		});
+		
+		UIManager.put( "ComboBox.disabledBackground", new Color(212,212,210) );
+		UIManager.put( "ComboBox.disabledForeground", Color.BLACK );
 
 	}
 
@@ -471,6 +476,7 @@ public class ProductView extends JPanel {
 
 		// Fetch Product Values
 		setProductToProductDialogView(p);
+		productCategoryCmbBox.setEnabled(false);
 		// Setting selected category since its not instantiated without change
 		// event
 		selectedCategory = p.getCategory().getCategoryCode();
