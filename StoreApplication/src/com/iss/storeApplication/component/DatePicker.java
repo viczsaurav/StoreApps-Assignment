@@ -164,18 +164,37 @@ public class DatePicker extends JPanel {
 		int currentday = now.get(Calendar.DAY_OF_MONTH);
 
 		int daysInMonth = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
+		if(pastEnabled)
 		for (int x = 6 + dayOfWeek, day = 1; day <= daysInMonth; x++, day++) {
 			button[x].setText("" + day);
 			if (year <= currentyear && month == currentmonth) {
-				if (day < currentday && !this.isPastEnabled()) {
+				if (day < currentday) {
 					button[x].setEnabled(false);
 
 				}
-			} else if (year <= currentyear && month < currentmonth && !this.isPastEnabled()) {
+			} else if (year <= currentyear && month < currentmonth) {
 				button[x].setEnabled(false);
-			} else{
+			} else
 				button[x].setEnabled(true);
-			}
+		}
+		if(futureEnabled)
+		{
+		for (int x = 6 + dayOfWeek, day = 1; day <= daysInMonth; x++, day++) {
+			button[x].setText("" + day);
+			if (year >= currentyear && month == currentmonth) {
+				if (day > currentday) {
+					button[x].setEnabled(false);
+
+				}
+				else
+				{
+					button[x].setEnabled(true);
+				}
+			} else if (year >= currentyear && month > currentmonth) {
+				button[x].setEnabled(false);
+			} else
+				button[x].setEnabled(true);
+		}
 		}
 		l.setText(sdf.format(cal.getTime()));
 		d.setTitle("Date Picker");
@@ -196,4 +215,6 @@ public class DatePicker extends JPanel {
 		this.text.setText(StringUtility.getStringFromDate(startDate));
 		
 	}
+	
+
 }
