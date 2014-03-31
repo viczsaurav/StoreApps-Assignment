@@ -3,26 +3,25 @@ package com.iss.storeApplication.domain;
 import java.util.Date;
 
 import com.iss.storeApplication.common.StringUtility;
-import com.iss.storeApplication.common.Utility;
 
 /**
  * 
  * @author milan
  *
  */
-public class Transaction {
+public class Transaction implements Comparable<Transaction>{
 
-	private String transactionId;
+	private Integer transactionId;
 	private Product product;
 	private Customer customer;
 	private Integer qtyPurchase = 0;
 	private Date dateOfPurchase = new Date();
 
-	public String getTransactionId() {
+	public Integer getTransactionId() {
 		return transactionId;
 	}
 
-	public void setTransactionId(String transactionId) {
+	public void setTransactionId(Integer transactionId) {
 		this.transactionId = transactionId;
 	}
 
@@ -62,12 +61,18 @@ public class Transaction {
 		String customerId = "";
 		if (customer instanceof MemberCustomer) {
 			customerId = ((MemberCustomer) customer).getMemberId();
-		} else if (customer instanceof MemberCustomer) {
+		} else if (customer instanceof PublicCustomer) {
 			customerId = ((PublicCustomer) customer).getMemberId();
 		}
 		return transactionId + "," + product.getProductId() + "," + customerId
 				+ "," + qtyPurchase + ","
 				+ StringUtility.getStringFromDate(dateOfPurchase);
+	}
+
+	@Override
+	public int compareTo(Transaction o) {
+		// TODO Auto-generated method stub
+		return this.getTransactionId().compareTo(o.getTransactionId());
 	}
 
 }

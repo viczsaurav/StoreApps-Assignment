@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -74,7 +75,7 @@ public class TransactionDao implements CommonDao<Transaction> {
 					String[] rowValues = row.split(",");
 
 					Transaction t = new Transaction();
-					t.setTransactionId(rowValues[0]);
+					t.setTransactionId(new Integer(rowValues[0]));
 					t.setProduct(productDao.get(rowValues[1]));
 					if (rowValues[2].equalsIgnoreCase(Constants.PUBLIC)) {
 						t.setCustomer(new PublicCustomer());
@@ -111,7 +112,13 @@ public class TransactionDao implements CommonDao<Transaction> {
 		return null;
 	}
 
-	
-
+	public Integer getMaxTransactionId() {
+		List<Transaction> transactions = retrieveAll();
+		if (transactions.size() > 0) {
+			return Collections.max(transactions).getTransactionId();
+		} else {
+			return 0;
+		}
+	}
 
 }

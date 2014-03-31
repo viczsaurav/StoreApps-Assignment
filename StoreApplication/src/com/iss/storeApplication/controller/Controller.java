@@ -7,12 +7,14 @@ import com.iss.storeApplication.business.DiscountService;
 import com.iss.storeApplication.business.LoginService;
 import com.iss.storeApplication.business.MemberRegistrationService;
 import com.iss.storeApplication.business.ProductService;
+import com.iss.storeApplication.business.TransactionService;
 import com.iss.storeApplication.domain.Category;
 import com.iss.storeApplication.domain.Customer;
 import com.iss.storeApplication.domain.Discount;
 import com.iss.storeApplication.domain.MemberCustomer;
 import com.iss.storeApplication.domain.Product;
 import com.iss.storeApplication.domain.StoreKeeper;
+import com.iss.storeApplication.domain.Transaction;
 
 public class Controller {
 
@@ -106,6 +108,16 @@ public class Controller {
 	public static boolean editCustomer(Customer member)
 	{
 		return MemberRegistrationService.editCustomer(member);
+	}
+	
+	public static Integer getMaxTransactionId()
+	{
+		return TransactionService.getMaxTransactionId();
+	}
+	
+	public static boolean save(Transaction transaction)
+	{
+		return TransactionService.save(transaction);
 	}
 
 	

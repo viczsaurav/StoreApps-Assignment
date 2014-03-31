@@ -12,6 +12,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,7 @@ import com.iss.storeApplication.controller.Controller;
 import com.iss.storeApplication.domain.Customer;
 import com.iss.storeApplication.domain.Discount;
 import com.iss.storeApplication.domain.Product;
+import com.iss.storeApplication.domain.PublicCustomer;
 import com.iss.storeApplication.domain.Transaction;
 import com.iss.storeApplication.enums.DiscountType;
 import com.iss.storeApplication.enums.MemberType;
@@ -277,7 +279,29 @@ public class BillingView extends JPanel {
 	}
 
 	protected void generateBill() {
-		//update member loyality point
+		
+		//save all product
+				Integer transactionId=Controller.getMaxTransactionId();
+				transactionId++;
+				
+				List<Transaction> transactions=billingTableModel.getListtransactions();
+				for(Transaction t:transactions)
+				{
+					t.setTransactionId(transactionId);
+					if(customer==null)
+					t.setCustomer(new PublicCustomer());
+					else
+					{
+						t.setCustomer(customer);
+					}
+					t.setDateOfPurchase(new Date());
+					if(!Controller.save(t))
+					{
+						JOptionPane.showMessageDialog(mainView, Utility.getPropertyValue(Constants.failure));
+						return;
+					}
+				}
+		//update member customer loyality point
 		Object selectedItem = memberTypeCmbBox.getSelectedItem();
 		
 		if (MemberType.Member.equals(selectedItem)) {
@@ -292,6 +316,8 @@ public class BillingView extends JPanel {
 				return;
 			}
 		}
+		
+		resetBill();
 
 	}
 
@@ -346,13 +372,13 @@ public class BillingView extends JPanel {
 					Utility.getPropertyValue(Constants.msgEnterMemId));
 			return;
 		}
-		Customer member = Controller.getCustomer(memberId);
-		if (member == null) {
+		Customer customer = Controller.getCustomer(memberId);
+		if (customer == null) {
 			JOptionPane.showMessageDialog(mainView,
 					Utility.getPropertyValue(Constants.msgMemNotFound));
 			return;
 		}
-		if (member.getLoyality() == -1)// first time purchase
+		if (customer.getLoyality() == -1)// first time purchase
 		{
 			loyalityField.setText("0");// 1st time customer
 
@@ -362,14 +388,14 @@ public class BillingView extends JPanel {
 			}
 			setDiscountToTextField(d);
 		} else {
-			loyalityField.setText(member.getLoyality().toString());// 1st
+			loyalityField.setText(customer.getLoyality().toString());// 1st
 																		// time
 																		// customer
 			Discount d = Controller.getMaxMemberDiscount();
 			setDiscountToTextField(d);
 		}
 		calculateMemberBillAmount();
-		this.customer=member;
+		this.customer=customer;
 
 	}
 
@@ -618,6 +644,14 @@ public class BillingView extends JPanel {
 	public void resetBill()
 	{
 		customer=null;
+		barCodeTextField.setText("");
+		billingTableModel.clear();
+		billingTableModel.fireTableDataChanged();
+		totalTextField.setText("0");
+		memberTypeCmbBox.setSelectedIndex(0);
+		billAmtField.setText("0");
+		generateBillBtn.setEnabled(false);
+		
 	}
 
 }
