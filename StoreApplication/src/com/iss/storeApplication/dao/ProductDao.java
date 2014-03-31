@@ -14,13 +14,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.iss.storeApplication.common.Constants;
+import com.iss.storeApplication.common.StringUtility;
 import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.domain.Discount;
 import com.iss.storeApplication.domain.Product;
 import com.iss.storeApplication.domain.StoreKeeper;
 
 public class ProductDao implements CommonDao<Product> {
-	
+
 	private CategoryDao category = new CategoryDao();
 	private String fileName = Constants.PRODUCT_FILE_NAME
 			+ Constants.FILE_EXT_SEPERATOR + Constants.FILE_EXTENSION;
@@ -62,18 +63,21 @@ public class ProductDao implements CommonDao<Product> {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String row;
 			while ((row = br.readLine()) != null) {
-				String[] rowValues = row.split(",");
-				Product t = new Product();
-				t.setProductId(rowValues[0]);
-				t.setProductName(rowValues[1]);
-				t.setDescription(rowValues[2]);
-				t.setQtyAvailable(Integer.parseInt(rowValues[3]));
-				t.setPrice(Double.parseDouble(rowValues[4]));
-				t.setBarCode(Long.parseLong(rowValues[5]));
-				t.setReorderQty(Integer.parseInt(rowValues[6]));
-				t.setOrderQty(Integer.parseInt(rowValues[7]));
-				t.setCategory(category.get(t.getProductId().split("/")[0].trim()));
-				products.add(t);
+				if (!StringUtility.isEmpty(row)) {
+					String[] rowValues = row.split(",");
+					Product t = new Product();
+					t.setProductId(rowValues[0]);
+					t.setProductName(rowValues[1]);
+					t.setDescription(rowValues[2]);
+					t.setQtyAvailable(Integer.parseInt(rowValues[3]));
+					t.setPrice(Double.parseDouble(rowValues[4]));
+					t.setBarCode(Long.parseLong(rowValues[5]));
+					t.setReorderQty(Integer.parseInt(rowValues[6]));
+					t.setOrderQty(Integer.parseInt(rowValues[7]));
+					t.setCategory(category.get(t.getProductId().split("/")[0]
+							.trim()));
+					products.add(t);
+				}
 			}
 			br.close();
 		} catch (FileNotFoundException e) {
@@ -118,14 +122,14 @@ public class ProductDao implements CommonDao<Product> {
 
 	public boolean saveAll(List<Product> listProducts) {
 		File file = new File(Constants.DATA_FILE_DIR, fileName);
-		if(!Utility.clearFile(file))
+		if (!Utility.clearFile(file))
 			return false;
 		for (Product p : listProducts) {
-				if (!save(p, true)) {
-					return false;
-				}
+			if (!save(p, true)) {
+				return false;
 			}
-			return true;
+		}
+		return true;
 	}
 
 }

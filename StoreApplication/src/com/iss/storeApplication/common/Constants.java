@@ -132,5 +132,8 @@ public interface Constants {
 	public static final String msgCannotReedemMoreThanEarned = "msgCannotReedemMoreThanEarned";
 	public static final String FILENAME_TRANSACTION = "Transactions";
 	public static final String PUBLIC = "PUBLIC";
+	public static final String transactionId = "transactionId";
+	public static final String puchaseDate = "puchaseDate";
+	public static final String billTitle = "billTitle";
 	
 }

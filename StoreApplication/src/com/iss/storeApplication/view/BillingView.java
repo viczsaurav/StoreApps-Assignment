@@ -117,6 +117,10 @@ public class BillingView extends JPanel {
 	private final double pointToDollarValue = 0.005;
 	private Customer customer;
 
+	private JTable transactionTable = new JTable();
+	private TransactionTableModel transactionTableModel = new TransactionTableModel();
+	private JScrollPane transactionTablePanel;
+
 	public BillingView(MainView mainView) {
 		super(new BorderLayout());
 		this.mainView = mainView;
@@ -124,6 +128,8 @@ public class BillingView extends JPanel {
 		initFindProductPanel();
 
 		initBillingTableModel();
+
+		initTransactionTable();
 
 		initTotalPanel();
 
@@ -145,6 +151,20 @@ public class BillingView extends JPanel {
 
 		southPanel.remove(memberIdPanel);
 		SwingUtility.refreshJpanel(southPanel);
+
+	}
+
+	private void initTransactionTable() {
+		transactionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+		transactionTable.setModel(transactionTableModel);
+		transactionTable.setPreferredScrollableViewportSize(new Dimension(600,
+				400));
+		transactionTable.setPreferredSize(new Dimension(600, 400));
+		transactionTable.setSize(new Dimension(600, 400));
+		transactionTablePanel = new JScrollPane(transactionTable);
+		transactionTablePanel.setPreferredSize(new Dimension(600, 400));
+		transactionTablePanel.setMaximumSize(new Dimension(600, 400));
 
 	}
 
@@ -279,45 +299,55 @@ public class BillingView extends JPanel {
 	}
 
 	protected void generateBill() {
-		
-		//save all product
-				Integer transactionId=Controller.getMaxTransactionId();
-				transactionId++;
-				
-				List<Transaction> transactions=billingTableModel.getListtransactions();
-				for(Transaction t:transactions)
-				{
-					t.setTransactionId(transactionId);
-					if(customer==null)
-					t.setCustomer(new PublicCustomer());
-					else
-					{
-						t.setCustomer(customer);
-					}
-					t.setDateOfPurchase(new Date());
-					if(!Controller.save(t))
-					{
-						JOptionPane.showMessageDialog(mainView, Utility.getPropertyValue(Constants.failure));
-						return;
-					}
-				}
-		//update member customer loyality point
+
+		// save all product
+		Integer transactionId = Controller.getMaxTransactionId();
+		transactionId++;
+
+		List<Transaction> transactions = billingTableModel
+				.getListtransactions();
+		for (Transaction t : transactions) {
+			t.setTransactionId(transactionId);
+			if (customer == null)
+				t.setCustomer(new PublicCustomer());
+			else {
+				t.setCustomer(customer);
+			}
+			t.setDateOfPurchase(new Date());
+			if (!Controller.save(t)) {
+				JOptionPane.showMessageDialog(mainView,
+						Utility.getPropertyValue(Constants.failure));
+				return;
+			}
+			transactionTableModel.addTranscation(t);
+		}
+		// update member customer loyality point
 		Object selectedItem = memberTypeCmbBox.getSelectedItem();
-		
+
 		if (MemberType.Member.equals(selectedItem)) {
+
+			Integer loyality = customer.getLoyality();
+
+			loyality = loyality - new Integer(reedemField.getText());
 			
-			Integer loyality=customer.getLoyality();
+			Double billAmt=new Double(billAmtField.getText());
+			Long loyalityEarned=Math.round(billAmt*dollarToPointValue);
+			loyality=loyality+loyalityEarned.intValue();
 			
-			loyality=loyality-new Integer(reedemField.getText());
 			customer.setLoyality(loyality);
-			if(!Controller.editCustomer(customer))
-			{
-				JOptionPane.showMessageDialog(mainView, Utility.getPropertyValue(Constants.failure));
+			if (!Controller.editCustomer(customer)) {
+				JOptionPane.showMessageDialog(mainView,
+						Utility.getPropertyValue(Constants.failure));
 				return;
 			}
 		}
-		
+
 		resetBill();
+		
+		
+		JOptionPane.showMessageDialog(mainView, transactionTablePanel, Utility.getPropertyValue(Constants.billTitle), JOptionPane.INFORMATION_MESSAGE);
+		
+		
 
 	}
 
@@ -395,7 +425,7 @@ public class BillingView extends JPanel {
 			setDiscountToTextField(d);
 		}
 		calculateMemberBillAmount();
-		this.customer=customer;
+		this.customer = customer;
 
 	}
 
@@ -597,6 +627,7 @@ public class BillingView extends JPanel {
 
 		}
 		billingTableModel.fireTableDataChanged();
+		calculateTotal();
 
 	}
 
@@ -640,10 +671,9 @@ public class BillingView extends JPanel {
 		}
 		totalTextField.setText(total.toString());
 	}
-	
-	public void resetBill()
-	{
-		customer=null;
+
+	public void resetBill() {
+		customer = null;
 		barCodeTextField.setText("");
 		billingTableModel.clear();
 		billingTableModel.fireTableDataChanged();
@@ -651,7 +681,7 @@ public class BillingView extends JPanel {
 		memberTypeCmbBox.setSelectedIndex(0);
 		billAmtField.setText("0");
 		generateBillBtn.setEnabled(false);
-		
+
 	}
 
 }
