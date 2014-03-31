@@ -87,8 +87,16 @@ public class ProductService {
 		
 		return Constants.SUCCESS;
 	}
-
 	public static List<Product> getProducts() {
 		return productDao.retrieveAll();
+	}
+	
+	public static List<Product> getProductsBelowThreshold(Category c){
+		return productDao.getProductsBelowThreshold(c);
+	}
+
+	public static boolean editProduct(Product p) {
+		
+		return productDao.editProduct(p);
 	}
 }

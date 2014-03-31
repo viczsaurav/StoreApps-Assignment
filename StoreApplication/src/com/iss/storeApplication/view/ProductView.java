@@ -9,41 +9,27 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 
-import com.iss.storeApplication.business.ProductService;
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.StringUtility;
-import com.iss.storeApplication.common.SwingUtility;
 import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.controller.Controller;
 import com.iss.storeApplication.dao.CategoryDao;
 import com.iss.storeApplication.dao.ProductDao;
 import com.iss.storeApplication.domain.Category;
-import com.iss.storeApplication.domain.Discount;
-import com.iss.storeApplication.domain.PermanentDiscount;
 import com.iss.storeApplication.domain.Product;
-import com.iss.storeApplication.domain.SeasonalDiscount;
-import com.iss.storeApplication.enums.DiscountApplicable;
-import com.iss.storeApplication.enums.DiscountType;
 
 /**
  * 

@@ -2,6 +2,7 @@ package com.iss.storeApplication.controller;
 
 import java.util.List;
 
+import com.iss.storeApplication.VendorService;
 import com.iss.storeApplication.business.CategoryService;
 import com.iss.storeApplication.business.DiscountService;
 import com.iss.storeApplication.business.LoginService;
@@ -15,6 +16,7 @@ import com.iss.storeApplication.domain.MemberCustomer;
 import com.iss.storeApplication.domain.Product;
 import com.iss.storeApplication.domain.StoreKeeper;
 import com.iss.storeApplication.domain.Transaction;
+import com.iss.storeApplication.domain.Vendor;
 
 /**
  * 
@@ -156,6 +158,24 @@ public class Controller {
 	{
 		return TransactionService.save(transaction);
 	}
+	
+	public static List<Category> getAllCategory()
+	{
+		return CategoryService.getAllCategory();
+	}
+	
+	public static List<Product> getProductsBelowThreshold(Category c){
+		return ProductService.getProductsBelowThreshold(c);
+	}
+	
+	public static Vendor getFirstVendor(String categoryCode)
+	{
+		return VendorService.getFirstVendor(categoryCode);
+	}
 
+	public static boolean editProduct(Product p) {
+		return ProductService.editProduct(p);
+		
+	}
 	
 }

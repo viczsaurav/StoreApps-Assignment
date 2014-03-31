@@ -8,7 +8,7 @@ public class Product implements java.io.Serializable {
 	private Integer qtyAvailable;
 	private Double price;
 	private Long barCode;
-	private Integer reorderQty;
+	private Integer reorderQty;//threshold
 	private Integer orderQty;
 	private Category category;
 

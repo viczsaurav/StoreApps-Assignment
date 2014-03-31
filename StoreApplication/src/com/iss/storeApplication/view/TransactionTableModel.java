@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import com.iss.storeApplication.common.Constants;
+import com.iss.storeApplication.common.StringUtility;
 import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.domain.Customer;
 import com.iss.storeApplication.domain.MemberCustomer;
@@ -112,7 +113,7 @@ public class TransactionTableModel extends AbstractTableModel {
 			break;
 
 		case COLUMN_DATE_OF_PURCHASE:
-			value = transcation.getDateOfPurchase();
+			value = StringUtility.getStringFromDate(transcation.getDateOfPurchase());
 			break;
 		}
 

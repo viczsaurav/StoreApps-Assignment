@@ -61,6 +61,15 @@ public class CategoryService {
 
 		return categoryDao.save(listCategorys);
 	}
+	
+	/**
+	 * Milan
+	 * @return
+	 */
+	public static List<Category> getAllCategory()
+	{
+		return categoryDao.retrieveAll();
+	}
 
 
 	public static List<Category> getCategories() {

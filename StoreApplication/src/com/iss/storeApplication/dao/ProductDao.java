@@ -9,15 +9,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.StringUtility;
 import com.iss.storeApplication.common.Utility;
+import com.iss.storeApplication.domain.Category;
 import com.iss.storeApplication.domain.Discount;
 import com.iss.storeApplication.domain.Product;
+import com.iss.storeApplication.domain.SeasonalDiscount;
 import com.iss.storeApplication.domain.StoreKeeper;
 
 public class ProductDao implements CommonDao<Product> {
@@ -39,7 +43,7 @@ public class ProductDao implements CommonDao<Product> {
 				file.createNewFile();
 			}
 			PrintWriter out = new PrintWriter(new BufferedWriter(
-					new FileWriter(file, true)));
+					new FileWriter(file, append)));
 			out.println(t.getCommaSeperatedValue());
 			out.close();
 			return true;
@@ -130,6 +134,48 @@ public class ProductDao implements CommonDao<Product> {
 			}
 		}
 		return true;
+	}
+
+	public List<Product> getProductsBelowThreshold(Category c) {
+
+		if (c == null) {
+			return new ArrayList<Product>();
+		}
+		List<Product> products = retrieveAll();
+		for (Iterator<Product> iterator = products.iterator(); iterator
+				.hasNext();) {
+			Product p = iterator.next();
+
+			if (!p.getCategory().getCategoryCode().trim()
+					.equalsIgnoreCase(c.getCategoryCode().trim())) {
+				iterator.remove();
+			}
+			else if(p.getQtyAvailable() > p.getReorderQty()) //above threshold
+			{
+				iterator.remove();
+			}
+		}
+		return products;
+
+	}
+
+	public boolean editProduct(Product p) {
+		Map<String, Product> map=getMap();
+		if(map.containsKey(p.getProductId()))
+		{
+			map.put(p.getProductId(), p);
+			List<Product> products=new ArrayList<>(map.values());
+			if(!saveAll(products))
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+		return true;
+		
 	}
 
 }

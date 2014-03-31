@@ -137,8 +137,12 @@ public interface Constants {
 	public static final String transactionId = "transactionId";
 	public static final String puchaseDate = "puchaseDate";
 	public static final String billTitle = "billTitle";
+	public static final String generatePurchaseOrder = "generatePurchaseOrder";
+	public static final String FILENAME_VENDORS = "Vendors";
+	public static final String msgNoVendorFound = "msgNoVendorFound";
+	public static final String vendorName = "vendorName";
+	public static final String purchaseOrderDate = "purchaseOrderDate";
 	public static final String endDate = "endDate";
 	public static final String dateIntervalInvalid = "dateIntervalInvalid";
 	
-
 }

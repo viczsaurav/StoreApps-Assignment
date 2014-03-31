@@ -91,7 +91,7 @@ public class MainView extends JFrame {
 		contentPanel.add(Utility.getPropertyValue(Constants.members), new MemberView());
 		contentPanel.add(Utility.getPropertyValue(Constants.products), new ProductView(this));
 		contentPanel.add(Utility.getPropertyValue(Constants.purchaseOrder),
-				new PurchaseOrderView());
+				new PurchaseOrderView(this));
 		contentPanel.add(Utility.getPropertyValue(Constants.reports), new ReportView(this));
 		contentPanel.add(Utility.getPropertyValue(Constants.logout), new LogoutView());
 		add(contentPanel);

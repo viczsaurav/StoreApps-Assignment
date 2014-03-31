@@ -42,6 +42,27 @@ public class VendorDao implements CommonDao<Vendor> {
 			return false;
 		}
 	}
+	
+	public boolean save(Vendor v,String categoryCode,boolean append)
+	{
+		fileName=Constants.FILENAME_VENDORS+categoryCode+Constants.FILE_EXTENSION;
+		return save(v, append);
+	}
+	
+	public List<Vendor> retrieveAll(String categoryCode)
+	{
+		fileName=Constants.FILENAME_VENDORS+categoryCode+Constants.FILE_EXTENSION;
+		return retrieveAll();
+	}
+	
+	public Vendor getFirstVendor(String categoryCode)
+	{
+		List<Vendor> vendors=retrieveAll(categoryCode);
+		if(vendors.size()>0)
+			return vendors.get(0);
+		else
+			return null;
+	}
 
 	/**
 	 * Retrieve All Storekeepers
