@@ -21,42 +21,42 @@ public class ProductService {
 	static ProductDao productDao = new ProductDao();
 
 	/**
-	 * It validates category against null and duplicates.
+	 * It validates category against null and duplicates. Saves the new Product
 	 * 
-	 * @param c
+	 * @param producr
 	 * @return
 	 */
 
 	public static String validateAndSaveProduct(Product p) {
-		
-		boolean isEmpty = false;
-		if (p.getCategory() != null) {
-			generateProductID(p.getCategory());
+		String msg = validateProduct(p);
+		if (msg.equals(Constants.SUCCESS)) {
+			p.setProductId(generateProductID(p.getCategory()));
+			if (productDao.save(p, true))
+				return Constants.SUCCESS;
+			else
+				return Utility.getPropertyValue(Constants.failure);
+		} else {
+			return msg;
 		}
-		
-		if( p.getProductId() == null 	||
-			p.getProductName() == null 	||
-			p.getDescription() == null	||
-			p.getPrice() == null 		||
-			p.getOrderQty() == null 	||
-			p.getReorderQty() == null)  	{
-			isEmpty = true;
-		}
-		if (isEmpty){
-			return Constants.ALL_FIELDS_REQUIRED;
-		}
-		return Constants.SUCCESS;
-	}
-
-	private static void generateProductID(Category category) {
-		// TODO Auto-generated method stub
-		
 	}
 	
-	public static Product getProduct(Long barcode)
-	{
-		Map<Long,Product> barcodeProductMap=productDao.getBarCodeProductMap();
-		if(barcodeProductMap.containsKey(barcode))
+	//Generate New Product ID
+	private static String generateProductID(Category category) {
+		int catProdCnt = 0;
+		List<Product> products = productDao.retrieveAll();
+		for (Product p : products) {
+			if (p.getCategory().getCategoryCode()
+					.equals(category.getCategoryCode())) {
+				catProdCnt++;
+			}
+		}
+		return category.getCategoryCode() + "/" + (catProdCnt + 1);
+	}
+
+	public static Product getProduct(Long barcode) {
+		Map<Long, Product> barcodeProductMap = productDao
+				.getBarCodeProductMap();
+		if (barcodeProductMap.containsKey(barcode))
 			return barcodeProductMap.get(barcode);
 		else
 			return null;
@@ -70,33 +70,30 @@ public class ProductService {
 		return productDao.saveAll(listProducts);
 	}
 
-	public static String validateProduct(Product product) {
-		if (product == null) {
+	public static String validateProduct(Product p) {
+		if (p == null) {
 			return Utility.getPropertyValue(Constants.validateEmptyMessage);
 		}
-		if (StringUtility.isEmpty(product.getDescription())
-				| StringUtility.isEmpty(product.getProductName())
-				| StringUtility.isEmpty(product.getDescription())
-				| product.getBarCode() == null) {
-			return Utility.getPropertyValue(Constants.validateEmptyMessage);
+		if (p.getCategory() == null || p.getProductName() == null
+				|| p.getDescription() == null || p.getOrderQty() == null
+				|| p.getPrice() == null || p.getOrderQty() == null
+				|| p.getReorderQty() == null) {
+			return Constants.ALL_FIELDS_REQUIRED;
 		}
-		if(product.getPrice()==null)
-		{
-			return Utility.getPropertyValue(Constants.validateEmptyMessage);
-		}
-		
+
 		return Constants.SUCCESS;
 	}
+
 	public static List<Product> getProducts() {
 		return productDao.retrieveAll();
 	}
-	
-	public static List<Product> getProductsBelowThreshold(Category c){
+
+	public static List<Product> getProductsBelowThreshold(Category c) {
 		return productDao.getProductsBelowThreshold(c);
 	}
 
 	public static boolean editProduct(Product p) {
-		
+
 		return productDao.editProduct(p);
 	}
 }

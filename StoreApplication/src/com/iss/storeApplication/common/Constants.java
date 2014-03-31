@@ -15,6 +15,7 @@ public interface Constants {
 	public static final String FILE_EXT_SEPERATOR = ".";
 	public static final String CATEGORY_NAME = "CategoryName";
 	public static final String ALL_FIELDS_REQUIRED = "All fields are mandatory !";
+	public static final int DEFAULT_TEXTFIELD_SIZE = 20;
     
 	
 	/**
@@ -67,6 +68,8 @@ public interface Constants {
 	public static final String productReorderThreshold = "productReorderThreshold";
 	public static final String productOrderQty = "productOrderQty";
 	public static final String addProductBtn = "addProductBtn";
+	public static final String editProductBtn = "editProductBtn";
+	public static final String deleteProductBtn = "deleteProductBtn";
 	public static final String productNameCodeEmpty = "productNameCodeEmpty";
 	public static final String productNameEmpty = "productNameEmpty";
 	public static final String productCodeEmpty = "productCodeEmpty";

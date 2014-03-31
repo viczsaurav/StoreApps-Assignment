@@ -9,13 +9,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -27,24 +21,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-
-import com.iss.storeApplication.business.ProductService;
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.StringUtility;
-import com.iss.storeApplication.common.SwingUtility;
 import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.controller.Controller;
 import com.iss.storeApplication.dao.CategoryDao;
 import com.iss.storeApplication.dao.ProductDao;
 import com.iss.storeApplication.domain.Category;
-import com.iss.storeApplication.domain.Discount;
-import com.iss.storeApplication.domain.PermanentDiscount;
 import com.iss.storeApplication.domain.Product;
-import com.iss.storeApplication.domain.SeasonalDiscount;
-import com.iss.storeApplication.enums.DiscountApplicable;
-import com.iss.storeApplication.enums.DiscountType;
 
 /**
  * 
@@ -53,9 +37,12 @@ import com.iss.storeApplication.enums.DiscountType;
  */
 public class ProductView extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private MainView mainView;
 	private List<Category> category;
-	private List<Product> allProduct;
 	private String[] allCategoryName;
 	private String selectedCategory;
 
@@ -67,11 +54,9 @@ public class ProductView extends JPanel {
 	 * GUI
 	 * 
 	 */
-	// Add / Edit Product
+	// Panel + Text Field
 	private final JPanel productPanel = new JPanel();
 	private final JTextField prodName = new JTextField();
-	private final JLabel productCategoryLabel = new JLabel(
-			Utility.getPropertyValue(Constants.productCategory));
 	private final JTextField prodDesc = new JTextField();
 	private final JFormattedTextField prodQuant = new JFormattedTextField(
 			Utility.getProductNumberFormat());
@@ -84,18 +69,38 @@ public class ProductView extends JPanel {
 	private final JFormattedTextField prodOrderQuant = new JFormattedTextField(
 			Utility.getProductNumberFormat());
 
+	// Textfield Labels
+	private final JLabel productCategoryLabel = new JLabel(
+			Utility.getPropertyValue(Constants.productCategory));
+	private final JLabel productNameLabel = new JLabel(
+			Utility.getPropertyValue(Constants.productName));
+	private final JLabel productDescriptionLabel = new JLabel(
+			Utility.getPropertyValue(Constants.productDescription));
+	private final JLabel productQtyLabel = new JLabel(
+			Utility.getPropertyValue(Constants.productQty));
+	private final JLabel productPriceLabel = new JLabel(
+			Utility.getPropertyValue(Constants.productPrice));
+	private final JLabel barcodeLabel = new JLabel(
+			Utility.getPropertyValue(Constants.barcode));
+	private final JLabel productReorderThresholdLabel = new JLabel(
+			Utility.getPropertyValue(Constants.productReorderThreshold));
+	private final JLabel productOrderQtyLabel = new JLabel(
+			Utility.getPropertyValue(Constants.productOrderQty));
+
 	// Table
 	private JTable productTable = new JTable();
 	private ProductTableModel productTableModel = new ProductTableModel();
 
 	// Buttons
-	private JButton addNewProduct = new JButton(Constants.addProductBtn);
-	private JButton editProduct = new JButton("Edit Product");
-	private JButton deleteProduct = new JButton("Delete Product");
+	private JButton addNewProduct = new JButton(
+			Utility.getPropertyValue(Constants.addProductBtn));
+	private JButton editProduct = new JButton(
+			Utility.getPropertyValue(Constants.editProductBtn));
+	private JButton deleteProduct = new JButton(
+			Utility.getPropertyValue(Constants.deleteProductBtn));
 
 	// ComboBox
 	private JComboBox<String> productCategoryCmbBox = new JComboBox<String>();
-
 
 	// Constructor
 	public ProductView(MainView mainView) {
@@ -171,7 +176,7 @@ public class ProductView extends JPanel {
 		add(panelButton, BorderLayout.NORTH);
 
 		productTable.setModel(productTableModel);
-		add(new JScrollPane(productTable), BorderLayout.CENTER);
+		add(new JScrollPane(productTable), BorderLayout.SOUTH);
 
 		// Delete Button Action
 		deleteProduct.addActionListener(new ActionListener() {
@@ -263,16 +268,23 @@ public class ProductView extends JPanel {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					String result = (String) productCategoryCmbBox
 							.getSelectedItem();
-					selectedCategory = result.split("-")[0].trim();  // Extracting Category Code
+					selectedCategory = result.split("-")[0].trim(); // Extracting
+																	// Category
+																	// Code
 				}
 			}
 		});
 
 		// Setting default length and values of Text fields
-		prodQuant.setColumns(10);
-		prodBarCode.setColumns(10);
-		prodReorderQuant.setColumns(10);
-		prodOrderQuant.setColumns(10);
+		productCategoryCmbBox.setSize(Constants.DEFAULT_TEXTFIELD_SIZE,1);
+		prodName.setColumns(Constants.DEFAULT_TEXTFIELD_SIZE);
+		prodDesc.setColumns(Constants.DEFAULT_TEXTFIELD_SIZE);
+		prodQuant.setColumns(Constants.DEFAULT_TEXTFIELD_SIZE);
+		prodPrice.setColumns(Constants.DEFAULT_TEXTFIELD_SIZE);
+		prodBarCode.setColumns(Constants.DEFAULT_TEXTFIELD_SIZE);
+		prodReorderQuant.setColumns(Constants.DEFAULT_TEXTFIELD_SIZE);
+		prodOrderQuant.setColumns(Constants.DEFAULT_TEXTFIELD_SIZE);
+		prodPrice.setText("0.00");
 		prodReorderQuant.setText(Utility
 				.getPropertyValue(Constants.prodReorderQuantDef));
 		prodOrderQuant.setText(Utility
@@ -310,35 +322,64 @@ public class ProductView extends JPanel {
 				// TODO Auto-generated method stub
 			}
 		});
-
+		// Category Field
 		c.gridx = 0;
 		c.gridy = 0;
+		productPanel.add(productCategoryLabel, c);
+		c.gridx = 1;
+		c.gridy = 0;
 		productPanel.add(productCategoryCmbBox, c);
+		// Product Name Field
 		c.gridx = 0;
 		c.gridy = 1;
+		productPanel.add(productNameLabel, c);
+		c.gridx = 1;
+		c.gridy = 1;
 		productPanel.add(prodName, c);
+		// Product Description Field
 		c.gridx = 0;
 		c.gridy = 2;
-		c.gridwidth = 2;
+		productPanel.add(productDescriptionLabel, c);
+		c.gridx = 1;
+		c.gridy = 2;
 		productPanel.add(prodDesc, c);
-		c.gridwidth = 1;
-		c.gridx = 0;
-		c.gridy = 2;
-		productPanel.add(prodQuant, c);
-		c.gridx = 0;
-		c.gridy = 2;
-		productPanel.add(prodPrice, c);
+		// Product Quantity Field
 		c.gridx = 0;
 		c.gridy = 3;
-		productPanel.add(prodBarCode, c);
+		productPanel.add(productQtyLabel, c);
 		c.gridx = 1;
 		c.gridy = 3;
-		productPanel.add(prodReorderQuant, c);
+		productPanel.add(prodQuant, c);
+		// Product Price Field
 		c.gridx = 0;
 		c.gridy = 4;
+		productPanel.add(productPriceLabel, c);
+		c.gridx = 1;
+		c.gridy = 4;
+		productPanel.add(prodPrice, c);
+		// Product Barcode Field
+		c.gridx = 0;
+		c.gridy = 5;
+		productPanel.add(barcodeLabel, c);
+		c.gridx = 1;
+		c.gridy = 5;
+		productPanel.add(prodBarCode, c);
+		// Product Reorder Threshold Qty Field
+		c.gridx = 0;
+		c.gridy = 6;
+		productPanel.add(productReorderThresholdLabel, c);
+		c.gridx = 1;
+		c.gridy = 6;
+		productPanel.add(prodReorderQuant, c);
+		// Product Order Quantity Field
+		c.gridx = 0;
+		c.gridy = 7;
+		productPanel.add(productOrderQtyLabel, c);
+		c.gridx = 1;
+		c.gridy = 7;
 		productPanel.add(prodOrderQuant, c);
 	}
-	
+
 	/**
 	 * set product object property to Add / Edit Discount Panel
 	 * 
@@ -346,8 +387,11 @@ public class ProductView extends JPanel {
 	 */
 	private void setProductToProductDialogView(Product p) {
 		if (p != null) {
-			String categoryCmbBoxVal = fetchCategory.get(p.getCategory().getCategoryCode()).getCategoryCode()
-					+ " - " + fetchCategory.get(p.getCategory().getCategoryCode()).getCategoryName();
+			String categoryCmbBoxVal = fetchCategory.get(
+					p.getCategory().getCategoryCode()).getCategoryCode()
+					+ " - "
+					+ fetchCategory.get(p.getCategory().getCategoryCode())
+							.getCategoryName();
 			productCategoryCmbBox.setSelectedItem(categoryCmbBoxVal);
 			prodName.setText(p.getProductName());
 			prodDesc.setText(p.getDescription());
@@ -356,8 +400,7 @@ public class ProductView extends JPanel {
 			prodBarCode.setText(Long.toString(p.getBarCode()));
 			prodReorderQuant.setText(Integer.toString(p.getReorderQty()));
 			prodOrderQuant.setText(Integer.toString(p.getOrderQty()));
-		}
-		else // reset to default value
+		} else // reset to default value
 		{
 			prodName.setText("");
 			prodDesc.setText("");
@@ -375,21 +418,26 @@ public class ProductView extends JPanel {
 	 * @param
 	 */
 	private void showAddProductDialog() {
+		
+		//Reset Product panel to default value
+		setProductToProductDialogView(null);
 
 		int result = JOptionPane.showConfirmDialog(mainView, productPanel,
 				Utility.getPropertyValue(Constants.addProductBtn),
 				JOptionPane.OK_CANCEL_OPTION);
 
 		if (result == JOptionPane.OK_OPTION) {
-			
+
 			String message = "";
-			if (prodBarCode.getText() == null){
-				message = Utility.getPropertyValue(Constants.ALL_FIELDS_REQUIRED);
+
+			if (prodBarCode.getText().isEmpty()) {
+				message = Constants.ALL_FIELDS_REQUIRED;
 			}
-			else if (fetchProduct.getBarCodeProductMap().containsKey(prodBarCode)){
+			// Checking if Barcode exists
+			else if (fetchProduct.getBarCodeProductMap().containsKey(
+					prodBarCode)) {
 				message = Utility.getPropertyValue(Constants.barcodeExists);
-			}
-			else {
+			} else {
 				Product newProduct = createProductFromView();
 				message = Controller.validateAndSaveProduct(newProduct);
 			}
@@ -403,14 +451,15 @@ public class ProductView extends JPanel {
 			}
 		}
 	}
-	
+
 	/**
 	 * It shows edit Discount Popup.
 	 * 
-	 * @param d
+	 * @param p
 	 */
 	private void showEditProductDialog(Product p) {
 
+		//Fetch Product Values
 		setProductToProductDialogView(p);
 
 		int result = JOptionPane.showConfirmDialog(mainView, productPanel,
@@ -431,7 +480,7 @@ public class ProductView extends JPanel {
 			}
 		}
 	}
-	
+
 	/**
 	 * Create new Product Object from Add / Edit Discount Panel
 	 * 
@@ -449,7 +498,7 @@ public class ProductView extends JPanel {
 		newProduct.setCategory(fetchCategory.get(selectedCategory));
 		return newProduct;
 	}
-	
+
 	/**
 	 * refreshes Jtable
 	 */

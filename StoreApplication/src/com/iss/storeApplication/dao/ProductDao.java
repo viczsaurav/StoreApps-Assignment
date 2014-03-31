@@ -33,10 +33,8 @@ public class ProductDao implements CommonDao<Product> {
 	/**
 	 * Save the product to file
 	 */
-	@Override
-	public boolean save(Product t, boolean append) {
-		// TODO Auto-generated method stub
 
+	public boolean save(Product t, boolean append) {
 		try {
 			File file = new File(Constants.DATA_FILE_DIR, fileName);
 			if (!file.exists()) {
@@ -149,8 +147,8 @@ public class ProductDao implements CommonDao<Product> {
 			if (!p.getCategory().getCategoryCode().trim()
 					.equalsIgnoreCase(c.getCategoryCode().trim())) {
 				iterator.remove();
-			}
-			else if(p.getQtyAvailable() > p.getReorderQty()) //above threshold
+			} else if (p.getQtyAvailable() > p.getReorderQty()) // above
+																// threshold
 			{
 				iterator.remove();
 			}
@@ -160,22 +158,18 @@ public class ProductDao implements CommonDao<Product> {
 	}
 
 	public boolean editProduct(Product p) {
-		Map<String, Product> map=getMap();
-		if(map.containsKey(p.getProductId()))
-		{
+		Map<String, Product> map = getMap();
+		if (map.containsKey(p.getProductId())) {
 			map.put(p.getProductId(), p);
-			List<Product> products=new ArrayList<>(map.values());
-			if(!saveAll(products))
-			{
+			List<Product> products = new ArrayList<>(map.values());
+			if (!saveAll(products)) {
 				return false;
 			}
-		}
-		else
-		{
+		} else {
 			return false;
 		}
 		return true;
-		
+
 	}
 
 }
