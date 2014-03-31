@@ -361,6 +361,7 @@ public class ProductView extends JPanel {
 		 * Getting Combobox Ready
 		 */
 		// Getting Category Name - Code
+		selectedCategory = null;
 		category = fetchCategory.retrieveAll();
 		allCategoryName = new String[category.size()];
 		for (int i = 0; i < category.size(); i++) {
@@ -395,11 +396,11 @@ public class ProductView extends JPanel {
 	 * @param d
 	 */
 	private void setProductToProductDialogView(Product p) {
+		initializeProductComboBox();
 		if (p != null) {
-			initializeProductComboBox();
 			String categoryCmbBoxVal = p.getCategory().getCategoryCode()
 					+ " - " + p.getCategory().getCategoryName();
-			System.out.println("Box :"+categoryCmbBoxVal);
+			System.out.println("Box :" + categoryCmbBoxVal);
 			productCategoryCmbBox.setSelectedItem(categoryCmbBoxVal);
 			prodName.setText(p.getProductName());
 			prodDesc.setText(p.getDescription());
@@ -413,6 +414,7 @@ public class ProductView extends JPanel {
 			prodName.setText("");
 			prodDesc.setText("");
 			prodQuant.setText("");
+			prodBarCode.setText("");
 			prodReorderQuant.setText(Utility
 					.getPropertyValue(Constants.prodReorderQuantDef));
 			prodOrderQuant.setText(Utility
@@ -443,7 +445,7 @@ public class ProductView extends JPanel {
 			}
 			// Checking if Barcode exists
 			else if (fetchProduct.getBarCodeProductMap().containsKey(
-					prodBarCode)) {
+					Long.valueOf(prodBarCode.getText()))) {
 				message = Utility.getPropertyValue(Constants.barcodeExists);
 			} else {
 				Product newProduct = createProductFromView(null);
@@ -469,8 +471,11 @@ public class ProductView extends JPanel {
 
 		// Fetch Product Values
 		setProductToProductDialogView(p);
-		// Setting selected category since its not instantiated without change event 
+		// Setting selected category since its not instantiated without change
+		// event
 		selectedCategory = p.getCategory().getCategoryCode();
+		System.out.println("selected :" + selectedCategory);
+
 		int result = JOptionPane.showConfirmDialog(mainView, productPanel,
 				Utility.getPropertyValue(Constants.editProduct),
 				JOptionPane.OK_CANCEL_OPTION);
@@ -499,7 +504,6 @@ public class ProductView extends JPanel {
 		if (newProduct == null) {
 			newProduct = new Product();
 		}
-		System.out.println("PID :"+newProduct.getProductId());
 		newProduct.setProductName(prodName.getText());
 		newProduct.setDescription(prodDesc.getText());
 		newProduct.setQtyAvailable(Integer.parseInt(prodOrderQuant.getText()));
