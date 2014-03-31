@@ -10,6 +10,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.List;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,6 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.StringUtility;
 import com.iss.storeApplication.common.Utility;
@@ -102,8 +104,11 @@ public class ProductView extends JPanel {
 	// ComboBox
 	private JComboBox<String> productCategoryCmbBox = new JComboBox<String>();
 
+	JPanel northPanel = new JPanel();
+
 	// Constructor
 	public ProductView(MainView mainView) {
+		setLayout(new BorderLayout());
 		this.mainView = mainView;
 
 		// Add New Product
@@ -169,14 +174,14 @@ public class ProductView extends JPanel {
 	private void initProductTable() {
 
 		productTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		JPanel panelButton = new JPanel();
-		panelButton.add(addNewProduct, BorderLayout.NORTH);
-		panelButton.add(editProduct, BorderLayout.NORTH);
-		panelButton.add(deleteProduct, BorderLayout.NORTH);
-		add(panelButton, BorderLayout.NORTH);
+
+		northPanel.add(addNewProduct);
+		northPanel.add(editProduct);
+		northPanel.add(deleteProduct);
+		add(northPanel, BorderLayout.NORTH);
 
 		productTable.setModel(productTableModel);
-		add(new JScrollPane(productTable), BorderLayout.SOUTH);
+		add(new JScrollPane(productTable), BorderLayout.CENTER);
 
 		// Delete Button Action
 		deleteProduct.addActionListener(new ActionListener() {
@@ -276,7 +281,7 @@ public class ProductView extends JPanel {
 		});
 
 		// Setting default length and values of Text fields
-		productCategoryCmbBox.setSize(Constants.DEFAULT_TEXTFIELD_SIZE,1);
+		productCategoryCmbBox.setSize(Constants.DEFAULT_TEXTFIELD_SIZE, 1);
 		prodName.setColumns(Constants.DEFAULT_TEXTFIELD_SIZE);
 		prodDesc.setColumns(Constants.DEFAULT_TEXTFIELD_SIZE);
 		prodQuant.setColumns(Constants.DEFAULT_TEXTFIELD_SIZE);
@@ -418,8 +423,8 @@ public class ProductView extends JPanel {
 	 * @param
 	 */
 	private void showAddProductDialog() {
-		
-		//Reset Product panel to default value
+
+		// Reset Product panel to default value
 		setProductToProductDialogView(null);
 
 		int result = JOptionPane.showConfirmDialog(mainView, productPanel,
@@ -459,7 +464,7 @@ public class ProductView extends JPanel {
 	 */
 	private void showEditProductDialog(Product p) {
 
-		//Fetch Product Values
+		// Fetch Product Values
 		setProductToProductDialogView(p);
 
 		int result = JOptionPane.showConfirmDialog(mainView, productPanel,
