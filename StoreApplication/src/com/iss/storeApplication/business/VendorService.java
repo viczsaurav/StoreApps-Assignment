@@ -1,4 +1,4 @@
-package com.iss.storeApplication;
+package com.iss.storeApplication.business;
 
 import com.iss.storeApplication.dao.VendorDao;
 import com.iss.storeApplication.domain.Vendor;
