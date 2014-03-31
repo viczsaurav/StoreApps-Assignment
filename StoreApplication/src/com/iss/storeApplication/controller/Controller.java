@@ -16,16 +16,22 @@ import com.iss.storeApplication.domain.Product;
 import com.iss.storeApplication.domain.StoreKeeper;
 import com.iss.storeApplication.domain.Transaction;
 
+/**
+ * 
+ * @author Saurav
+ * @author milan
+ * @author siva
+ * @author sakthi
+ */
+
 public class Controller {
 
-	public static String registerMember(MemberCustomer memberCustomer) {
-		return MemberRegistrationService.registerMember(memberCustomer);
-	}
-
 	/**
+	 * Login Controllers
 	 * 
-	 * @author Saurav
+	 * @return
 	 */
+	
 	public static String validateUser(StoreKeeper storeKeeper) {
 		return LoginService.validateUser(storeKeeper);
 	}
@@ -57,6 +63,19 @@ public class Controller {
 		return DiscountService.validateDiscount(d);
 	}
 
+
+	public static Discount getMaxPublicDiscount() {
+		return DiscountService.getMaxPublicDiscount();
+	}
+
+	public static Discount getMaxMemberDiscount() {
+		return DiscountService.getMaxMemberDiscount();
+	}
+
+	public static Discount getMemberFirstDiscount() {
+		return DiscountService.getMemberFirstDiscount();
+	}
+	
 	/**
 	 * Category Controllers
 	 * 
@@ -92,18 +111,23 @@ public class Controller {
 	public static String validateProduct(Product p) {
 		return ProductService.validateProduct(p);
 	}
+	
 
-	public static Discount getMaxPublicDiscount() {
-		return DiscountService.getMaxPublicDiscount();
+	public static List<Product> getProducts() {
+		return ProductService.getProducts();
 	}
 
-	public static Discount getMaxMemberDiscount() {
-		return DiscountService.getMaxMemberDiscount();
+
+	/**
+	 * Customer Controllers
+	 * 
+	 * @return
+	 */
+	
+	public static String registerMember(MemberCustomer memberCustomer) {
+		return MemberRegistrationService.registerMember(memberCustomer);
 	}
 
-	public static Discount getMemberFirstDiscount() {
-		return DiscountService.getMemberFirstDiscount();
-	}
 	
 	public static Customer getCustomer(String memberId) {
 		return MemberRegistrationService.getCustomer(memberId);
@@ -119,6 +143,11 @@ public class Controller {
 		return TransactionService.getMaxTransactionId();
 	}
 	
+	/**
+	 * Transaction Controllers
+	 * 
+	 * @return
+	 */
 	public static boolean save(Transaction transaction)
 	{
 		return TransactionService.save(transaction);

@@ -93,9 +93,6 @@ public class ProductView extends JPanel {
 	// ComboBox
 	private JComboBox<String> productCategoryCmbBox = new JComboBox<String>();
 
-	/**
- * 
- */
 
 	// Constructor
 	public ProductView(MainView mainView) {
@@ -243,7 +240,7 @@ public class ProductView extends JPanel {
 		/*
 		 * Getting Combobox Ready
 		 */
-		// Getting Category Name- Code
+		// Getting Category Name - Code
 		category = fetchCategory.retrieveAll();
 		allCategoryName = new String[category.size()];
 		for (int i = 0; i < category.size(); i++) {
@@ -381,11 +378,6 @@ public class ProductView extends JPanel {
 	 */
 	private void showEditProductDialog(Product p) {
 
-		/*
-		 * Object[] message = { Constants.CATEGORYID_LABEL, discountTypeCmbBox,
-		 * Constants.CATEGORYNAME_LABEL, namefield };
-		 */
-
 		//setProductToProductDialogView(p);
 
 		int result = JOptionPane.showConfirmDialog(mainView, productPanel,
@@ -433,9 +425,9 @@ public class ProductView extends JPanel {
 	 */
 	public void refreshProductTable() {
 		productTableModel.clear();
-		/*List<Product> products = Controller.getProducts();
+		List<Product> products = Controller.getProducts();
 		for (Product p : products) {
 			addProduct(p);
-		}*/
+		}
 	}
 }

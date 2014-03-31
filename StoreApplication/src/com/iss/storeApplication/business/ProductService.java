@@ -87,4 +87,8 @@ public class ProductService {
 		
 		return Constants.SUCCESS;
 	}
+
+	public static List<Product> getProducts() {
+		return productDao.retrieveAll();
+	}
 }
