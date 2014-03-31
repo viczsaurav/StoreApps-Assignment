@@ -74,10 +74,13 @@ public class ProductService {
 		if (p == null) {
 			return Utility.getPropertyValue(Constants.validateEmptyMessage);
 		}
-		if (p.getCategory() == null || p.getProductName() == null
-				|| p.getDescription() == null || p.getOrderQty() == null
-				|| p.getPrice() == null || p.getOrderQty() == null
-				|| p.getReorderQty() == null) {
+		if (	p.getCategory() == null 	|| 
+				p.getProductName() == null	|| 
+				p.getDescription() == null 	|| 
+				p.getOrderQty() == null		|| 
+				p.getPrice() == null 		|| 
+				p.getOrderQty() == null		|| 
+				p.getReorderQty() == null) 	{
 			return Constants.ALL_FIELDS_REQUIRED;
 		}
 

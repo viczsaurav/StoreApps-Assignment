@@ -250,36 +250,7 @@ public class ProductView extends JPanel {
 	private void initAddProductDialog() {
 		productPanel.setLayout(new GridBagLayout());
 		final GridBagConstraints c = new GridBagConstraints();
-		/*
-		 * Getting Combobox Ready
-		 */
-		// Getting Category Name - Code
-		category = fetchCategory.retrieveAll();
-		allCategoryName = new String[category.size()];
-		for (int i = 0; i < category.size(); i++) {
-			allCategoryName[i] = category.get(i).getCategoryCode() + " - "
-					+ category.get(i).getCategoryName();
-		}
-
-		// Binding Category Values to ComboBox
-		productCategoryCmbBox.setModel(new DefaultComboBoxModel<>(
-				allCategoryName));
-
-		// Adding Listener to get Values
-		productCategoryCmbBox.addItemListener(new ItemListener() {
-
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				if (e.getStateChange() == ItemEvent.SELECTED) {
-					String result = (String) productCategoryCmbBox
-							.getSelectedItem();
-					selectedCategory = result.split("-")[0].trim(); // Extracting
-																	// Category
-																	// Code
-				}
-			}
-		});
-
+		initializeProductComboBox();
 		// Setting default length and values of Text fields
 		productCategoryCmbBox.setSize(Constants.DEFAULT_TEXTFIELD_SIZE, 1);
 		prodName.setColumns(Constants.DEFAULT_TEXTFIELD_SIZE);
@@ -385,6 +356,39 @@ public class ProductView extends JPanel {
 		productPanel.add(prodOrderQuant, c);
 	}
 
+	private void initializeProductComboBox() {
+		/*
+		 * Getting Combobox Ready
+		 */
+		// Getting Category Name - Code
+		category = fetchCategory.retrieveAll();
+		allCategoryName = new String[category.size()];
+		for (int i = 0; i < category.size(); i++) {
+			allCategoryName[i] = category.get(i).getCategoryCode() + " - "
+					+ category.get(i).getCategoryName();
+		}
+
+		// Binding Category Values to ComboBox
+		productCategoryCmbBox.setModel(new DefaultComboBoxModel<>(
+				allCategoryName));
+
+		// Adding Listener to get Values
+		productCategoryCmbBox.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					String result = (String) productCategoryCmbBox
+							.getSelectedItem();
+					selectedCategory = result.split("-")[0].trim(); // Extracting
+																	// Category
+																	// Code
+				}
+			}
+		});
+
+	}
+
 	/**
 	 * set product object property to Add / Edit Discount Panel
 	 * 
@@ -392,11 +396,10 @@ public class ProductView extends JPanel {
 	 */
 	private void setProductToProductDialogView(Product p) {
 		if (p != null) {
-			String categoryCmbBoxVal = fetchCategory.get(
-					p.getCategory().getCategoryCode()).getCategoryCode()
-					+ " - "
-					+ fetchCategory.get(p.getCategory().getCategoryCode())
-							.getCategoryName();
+			initializeProductComboBox();
+			String categoryCmbBoxVal = p.getCategory().getCategoryCode()
+					+ " - " + p.getCategory().getCategoryName();
+			System.out.println("Box :"+categoryCmbBoxVal);
 			productCategoryCmbBox.setSelectedItem(categoryCmbBoxVal);
 			prodName.setText(p.getProductName());
 			prodDesc.setText(p.getDescription());
@@ -443,7 +446,7 @@ public class ProductView extends JPanel {
 					prodBarCode)) {
 				message = Utility.getPropertyValue(Constants.barcodeExists);
 			} else {
-				Product newProduct = createProductFromView();
+				Product newProduct = createProductFromView(null);
 				message = Controller.validateAndSaveProduct(newProduct);
 			}
 			if (message.equals(Constants.SUCCESS)) {
@@ -466,15 +469,15 @@ public class ProductView extends JPanel {
 
 		// Fetch Product Values
 		setProductToProductDialogView(p);
-
+		// Setting selected category since its not instantiated without change event 
+		selectedCategory = p.getCategory().getCategoryCode();
 		int result = JOptionPane.showConfirmDialog(mainView, productPanel,
 				Utility.getPropertyValue(Constants.editProduct),
 				JOptionPane.OK_CANCEL_OPTION);
 
 		if (result == JOptionPane.OK_OPTION) {
-
 			Product product = null;
-			product = createProductFromView();
+			product = createProductFromView(p);
 			String msg = Controller.validateProduct(product);
 			if (msg.equals(Constants.SUCCESS))
 				editProduct(product);
@@ -491,8 +494,12 @@ public class ProductView extends JPanel {
 	 * 
 	 * @return
 	 */
-	private Product createProductFromView() {
-		Product newProduct = new Product();
+	private Product createProductFromView(Product newProduct) {
+
+		if (newProduct == null) {
+			newProduct = new Product();
+		}
+		System.out.println("PID :"+newProduct.getProductId());
 		newProduct.setProductName(prodName.getText());
 		newProduct.setDescription(prodDesc.getText());
 		newProduct.setQtyAvailable(Integer.parseInt(prodOrderQuant.getText()));
