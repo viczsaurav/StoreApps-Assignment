@@ -62,4 +62,10 @@ public class CategoryService {
 		return categoryDao.save(listCategorys);
 	}
 
+
+	public static List<Category> getCategories() {
+		// TODO Auto-generated method stub
+		return categoryDao.retrieveAll();
+	}
+
 }

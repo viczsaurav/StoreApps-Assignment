@@ -106,7 +106,7 @@ public class CategoryTableModel extends AbstractTableModel {
 
 	/**
 	 * this method allows the program removes a selected row in the table, the
-	 * corresponding discount object in the discount list is removed also.
+	 * corresponding category object in the category list is removed also.
 	 */
 	public void removeCategory(int rowIndex) {
 		this.listCategories.remove(rowIndex);

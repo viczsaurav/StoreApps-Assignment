@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -27,10 +29,30 @@ public class DatePicker extends JPanel {
 	JButton[] button = new JButton[49];
 
 	DatePicker datePicker;
-	JButton showBtn;
-	JLabel label = new JLabel("Selected Date:");
+	JLabel label = new JLabel("Selected Date: ");
 	final JTextField text = new JTextField(10);
+	JButton calenderPopbtn = new JButton("Calender");
+	
+	public boolean isPastEnabled() {
+		return pastEnabled;
+	}
 
+	public void setPastEnabled(boolean pastEnabled) {
+		this.pastEnabled = pastEnabled;
+	}
+
+	public boolean isFutureEnabled() {
+		return futureEnabled;
+	}
+
+	public void setFutureEnabled(boolean futureEnabled) {
+		this.futureEnabled = futureEnabled;
+	}
+
+	boolean pastEnabled = false;
+	boolean futureEnabled = true;
+	
+	
 	public void setLabel(String label) {
 		this.label.setText(label);
 	}
@@ -39,33 +61,35 @@ public class DatePicker extends JPanel {
 		this.datePicker = this;
 
 		text.setEditable(false);
-
-		JButton b = new JButton("Choose date");
-		showBtn = b;
-		JPanel p = new JPanel();
-		p.add(label);
-		p.add(text);
-		p.add(b);
-		// final JPanel f = new JPanel();
-		add(p);
-		/*
-		 * f.getContentPane().add(p); f.pack(); f.setVisible(true);
-		 */
-		b.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				datePicker.show();
-				text.setText(StringUtility.getStringFromDate(datePicker
-						.getPickedDate()));
+		
+		calenderPopbtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				show();
 			}
 		});
-		this.hide();
-		text.setText(StringUtility.getStringFromDate(new Date()));
+		JPanel p = new JPanel(new GridLayout(1,2));
+		p.add(label);
+		p.add(text,BorderLayout.CENTER);
+		p.add(calenderPopbtn,BorderLayout.WEST);
+		add(p);
 
 	}
-
+	
 	public DatePicker(String label) {
 		this();
 		this.setLabel(label);
+		
+	}
+
+	public DatePicker(String label,boolean pastEnabled,boolean futureEnabled) {
+		this();
+		this.setLabel(label);
+		this.setPastEnabled(pastEnabled);
+		this.setFutureEnabled(futureEnabled);
+		
 	}
 
 	public void hide() {
@@ -89,6 +113,7 @@ public class DatePicker extends JPanel {
 				button[x].addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent ae) {
 						day = button[selection].getActionCommand();
+						text.setText(StringUtility.getStringFromDate(datePicker.getPickedDate()));
 						d.dispose();
 					}
 				});
@@ -119,7 +144,7 @@ public class DatePicker extends JPanel {
 		d.add(p1, BorderLayout.CENTER);
 		d.add(p2, BorderLayout.SOUTH);
 		d.pack();
-		d.setLocationRelativeTo(showBtn);
+		d.setLocationRelativeTo(calenderPopbtn);
 		displayDate();
 		d.setVisible(true);
 	}
@@ -142,14 +167,15 @@ public class DatePicker extends JPanel {
 		for (int x = 6 + dayOfWeek, day = 1; day <= daysInMonth; x++, day++) {
 			button[x].setText("" + day);
 			if (year <= currentyear && month == currentmonth) {
-				if (day < currentday) {
+				if (day < currentday && !this.isPastEnabled()) {
 					button[x].setEnabled(false);
 
 				}
-			} else if (year <= currentyear && month < currentmonth) {
+			} else if (year <= currentyear && month < currentmonth && !this.isPastEnabled()) {
 				button[x].setEnabled(false);
-			} else
+			} else{
 				button[x].setEnabled(true);
+			}
 		}
 		l.setText(sdf.format(cal.getTime()));
 		d.setTitle("Date Picker");
@@ -164,18 +190,6 @@ public class DatePicker extends JPanel {
 		java.util.Calendar cal = java.util.Calendar.getInstance();
 		cal.set(year, month, Integer.parseInt(day));
 		return cal.getTime();
-	}
-
-	public static void main(String[] args) {
-		JFrame f = new JFrame();
-		JPanel jp = new JPanel();
-		DatePicker d = new DatePicker();
-		jp.add(d);
-		f.add(jp);
-		f.setVisible(true);
-		f.pack();
-		f.setExtendedState(f.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-
 	}
 
 	public void setDate(Date startDate) {

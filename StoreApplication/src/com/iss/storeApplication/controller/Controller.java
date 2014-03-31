@@ -89,6 +89,10 @@ public class Controller {
 	public static String validateAndSaveCategory(Category c) {
 		return CategoryService.validateAndSaveCategory(c);
 	}
+	
+	public static List<Category> getCategories() {
+		return CategoryService.getCategories();
+	}
 
 	/**
 	 * Product Controllers
