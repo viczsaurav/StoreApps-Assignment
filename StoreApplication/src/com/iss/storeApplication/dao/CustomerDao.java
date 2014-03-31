@@ -55,7 +55,7 @@ public class CustomerDao implements CommonDao<Customer> {
 	@Override
 	public List<Customer> retrieveAll() {
 		// TODO Auto-generated method stub
-		List<Customer> Members = new ArrayList<Customer>();
+		List<Customer> customers = new ArrayList<Customer>();
 
 		try {
 
@@ -72,7 +72,7 @@ public class CustomerDao implements CommonDao<Customer> {
 					m.setMemberName(rowValues[0]);
 					m.setMemberId(rowValues[1]);
 					m.setLoyality(Integer.parseInt(rowValues[2]));
-					Members.add(m);
+					customers.add(m);
 				}
 			}
 			br.close();
@@ -84,7 +84,7 @@ public class CustomerDao implements CommonDao<Customer> {
 					+ e.getMessage());
 
 		}
-		return Members;
+		return customers;
 	}
 
 	@Override
