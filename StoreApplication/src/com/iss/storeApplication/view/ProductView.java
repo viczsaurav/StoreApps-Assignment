@@ -386,7 +386,7 @@ public class ProductView extends JPanel {
 		 * Constants.CATEGORYNAME_LABEL, namefield };
 		 */
 
-		setProductToProductDialogView(p);
+		//setProductToProductDialogView(p);
 
 		int result = JOptionPane.showConfirmDialog(mainView, productPanel,
 				Utility.getPropertyValue(Constants.editProduct),
@@ -433,9 +433,9 @@ public class ProductView extends JPanel {
 	 */
 	public void refreshProductTable() {
 		productTableModel.clear();
-		List<Product> products = Controller.getProducts();
+		/*List<Product> products = Controller.getProducts();
 		for (Product p : products) {
 			addProduct(p);
-		}
+		}*/
 	}
 }
