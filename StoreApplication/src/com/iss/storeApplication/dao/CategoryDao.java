@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.iss.storeApplication.common.Constants;
+import com.iss.storeApplication.common.StringUtility;
 import com.iss.storeApplication.domain.Category;
 
 public class CategoryDao implements CommonDao<Category> {
@@ -25,7 +26,7 @@ public class CategoryDao implements CommonDao<Category> {
 	 * Save category to file
 	 */
 	@Override
-	public boolean save(Category c,boolean append) {
+	public boolean save(Category c, boolean append) {
 		// TODO Auto-generated method stub
 
 		try {
@@ -44,9 +45,7 @@ public class CategoryDao implements CommonDao<Category> {
 		}
 
 	}
-	
-	
-	
+
 	/**
 	 * List of all categories
 	 */
@@ -65,11 +64,13 @@ public class CategoryDao implements CommonDao<Category> {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String row;
 			while ((row = br.readLine()) != null) {
-				String[] rowValues = row.split(",");
-				Category c = new Category();
-				c.setCategoryCode(rowValues[0]);
-				c.setCategoryName(rowValues[1]);
-				Categories.add(c);
+				if (!StringUtility.isEmpty(row)) {
+					String[] rowValues = row.split(",");
+					Category c = new Category();
+					c.setCategoryCode(rowValues[0]);
+					c.setCategoryName(rowValues[1]);
+					Categories.add(c);
+				}
 			}
 			br.close();
 		} catch (FileNotFoundException e) {
@@ -82,7 +83,6 @@ public class CategoryDao implements CommonDao<Category> {
 		}
 		return Categories;
 	}
-	
 
 	/**
 	 * Used to search for a category in map of categories
@@ -94,28 +94,29 @@ public class CategoryDao implements CommonDao<Category> {
 		return categoriesMap.get(searchKey);
 
 	}
-	
+
 	/**
-	 * Used to return a Map of categories with category name as key and category object as value
+	 * Used to return a Map of categories with category name as key and category
+	 * object as value
 	 */
 
 	@Override
 	public Map<String, Category> getMap() {
 		// TODO Auto-generated method stub
 
-			List<Category> categories = retrieveAll();
-			HashMap<String, Category> categoriesMap = new HashMap<String, Category>();
+		List<Category> categories = retrieveAll();
+		HashMap<String, Category> categoriesMap = new HashMap<String, Category>();
 
-			for (Category c : categories) {
-				categoriesMap.put(c.getCategoryCode(),c);
-			}
-
-			return categoriesMap;
+		for (Category c : categories) {
+			categoriesMap.put(c.getCategoryCode(), c);
 		}
-	
-	//added by luke for save array of categories in one time
+
+		return categoriesMap;
+	}
+
+	// added by luke for save array of categories in one time
 	public boolean save(List<Category> listCategorys) {
-		
+
 		try {
 			File file = new File(Constants.DATA_FILE_DIR, fileName);
 			if (!file.exists()) {
@@ -124,14 +125,15 @@ public class CategoryDao implements CommonDao<Category> {
 			PrintWriter out = new PrintWriter(new BufferedWriter(
 					new FileWriter(file, false)));
 			out.close();
-			out = new PrintWriter(new BufferedWriter(
-					new FileWriter(file, true)));
-			for(Category c : listCategorys) out.println(c.getCommaSeperatedValue());
+			out = new PrintWriter(
+					new BufferedWriter(new FileWriter(file, true)));
+			for (Category c : listCategorys)
+				out.println(c.getCommaSeperatedValue());
 			out.close();
 			return true;
 		} catch (IOException e) {
 			System.out.println("IOException :" + e.getMessage());
 			return false;
-		}	
+		}
 	}
 }

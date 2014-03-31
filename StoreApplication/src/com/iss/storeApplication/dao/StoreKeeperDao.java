@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.iss.storeApplication.common.Constants;
+import com.iss.storeApplication.common.StringUtility;
 import com.iss.storeApplication.domain.StoreKeeper;
 
 /**
@@ -25,14 +27,11 @@ public class StoreKeeperDao implements CommonDao<StoreKeeper> {
 	private String fileName = Constants.FILENAME_STOREKEEPER
 			+ Constants.FILE_EXT_SEPERATOR + Constants.FILE_EXTENSION;
 
-
-
 	/**
 	 * Save Storekeeper to file
 	 */
 	@Override
-	public boolean save(StoreKeeper s,boolean append) 
-	{
+	public boolean save(StoreKeeper s, boolean append) {
 
 		try {
 			File file = new File(Constants.DATA_FILE_DIR, fileName);
@@ -66,11 +65,13 @@ public class StoreKeeperDao implements CommonDao<StoreKeeper> {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String row;
 			while ((row = br.readLine()) != null) {
-				String[] rowValues = row.split(",");
-				StoreKeeper s = new StoreKeeper();
-				s.setUserName(rowValues[0]);
-				s.setPassword(rowValues[1]);
-				storeKeepers.add(s);
+				if (!StringUtility.isEmpty(row)) {
+					String[] rowValues = row.split(",");
+					StoreKeeper s = new StoreKeeper();
+					s.setUserName(rowValues[0]);
+					s.setPassword(rowValues[1]);
+					storeKeepers.add(s);
+				}
 			}
 			br.close();
 
@@ -86,7 +87,6 @@ public class StoreKeeperDao implements CommonDao<StoreKeeper> {
 		return storeKeepers;
 	}
 
-	
 	/**
 	 * get Storekeeper Map used to search storekeeper from list of record.
 	 * 
@@ -104,6 +104,5 @@ public class StoreKeeperDao implements CommonDao<StoreKeeper> {
 
 		return userNamestoreKeeperMap;
 	}
-
 
 }

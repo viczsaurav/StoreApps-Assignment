@@ -14,18 +14,17 @@ import java.util.List;
 import java.util.Map;
 
 import com.iss.storeApplication.common.Constants;
+import com.iss.storeApplication.common.StringUtility;
 import com.iss.storeApplication.domain.Vendor;
 
-public class VendorDao implements CommonDao<Vendor>{
+public class VendorDao implements CommonDao<Vendor> {
 
 	private String fileName = null;
-
-
 
 	/**
 	 * Save Vendor to file
 	 */
-	public boolean save(Vendor v,boolean append) {
+	public boolean save(Vendor v, boolean append) {
 
 		try {
 			File file = new File(Constants.DATA_FILE_DIR, fileName);
@@ -59,12 +58,14 @@ public class VendorDao implements CommonDao<Vendor>{
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String row;
 			while ((row = br.readLine()) != null) {
-				String[] rowValues = row.split(",");
-				Vendor v = new Vendor();
-				v.setName(rowValues[0]);
-				v.setDescription(rowValues[1]);
-				
-				Vendors.add(v);
+				if (!StringUtility.isEmpty(row)) {
+					String[] rowValues = row.split(",");
+					Vendor v = new Vendor();
+					v.setName(rowValues[0]);
+					v.setDescription(rowValues[1]);
+
+					Vendors.add(v);
+				}
 			}
 			br.close();
 
@@ -80,7 +81,6 @@ public class VendorDao implements CommonDao<Vendor>{
 		return Vendors;
 	}
 
-	
 	/**
 	 * get Storekeeper Map used to search storekeeper from list of record.
 	 * 
