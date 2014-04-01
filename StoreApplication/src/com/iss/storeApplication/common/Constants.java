@@ -152,7 +152,7 @@ public interface Constants {
 //Member
 	public static final String memberName = "memberName";
 	public static final String loyality = "loyality";
-	
-	
+	public static final String addMemberBtn = "addMemberBtn";
+	public static final String editMemberBtn = "editMemberBtn";
 
 }
