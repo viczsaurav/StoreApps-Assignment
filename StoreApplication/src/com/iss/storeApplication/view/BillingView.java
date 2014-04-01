@@ -173,65 +173,10 @@ public class BillingView extends JPanel {
 		reedemField.setText("0");
 		reedemPanel.add(reedemLbl);
 		reedemPanel.add(reedemField);
-		/*
-		 * reedemField.getDocument().addDocumentListener(new DocumentListener()
-		 * {
-		 * 
-		 * public void insertUpdate(DocumentEvent e) { reedemPoints(); }
-		 * 
-		 * @Override public void changedUpdate(DocumentEvent e) { // TODO
-		 * Auto-generated method stub
-		 * 
-		 * }
-		 * 
-		 * @Override public void removeUpdate(DocumentEvent e) { // TODO
-		 * Auto-generated method stub
-		 * 
-		 * }
-		 * 
-		 * });
-		 */
-		reedemField.addKeyListener(new KeyListener() {
-
-			@Override
-			public void keyTyped(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-				if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
-					reedemPoints();
-				}
-
-			}
-		});
-
-		reedemField.addFocusListener(new FocusListener() {
-
-			@Override
-			public void focusLost(FocusEvent arg0) {
-				reedemPoints();
-
-			}
-
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-		});
 
 	}
 
-	protected void reedemPoints() {
+	protected boolean reedemPoints() {
 
 		Integer loyalityEarned = 0;
 		Integer reedemPoint = 0;
@@ -241,7 +186,7 @@ public class BillingView extends JPanel {
 		} catch (NumberFormatException e) {
 			loyalityField.setText("0");
 
-			return;
+			return false;
 		}
 		try {
 			reedemPoint = new Integer(reedemField.getText());
@@ -249,7 +194,7 @@ public class BillingView extends JPanel {
 
 			reedemField.setText("0");
 
-			return;
+			return false;
 		}
 		try {
 			billAmt = new Double(billAmtField.getText());
@@ -257,18 +202,19 @@ public class BillingView extends JPanel {
 
 			billAmtField.setText("0");
 
-			return;
+			return false;
 		}
 
 		if (reedemPoint > loyalityEarned) {
 
 			reedemField.setText("0");
-			JOptionPane.showMessageDialog(mainView, Utility
-					.getPropertyValue(Constants.msgCannotReedemMoreThanEarned));
-			return;
+
+			return false;
 		} else {
+
 			billAmt = billAmt - (pointToDollarValue * reedemPoint);
 			billAmtField.setText(billAmt.toString());
+			return true;
 		}
 
 	}
@@ -300,54 +246,61 @@ public class BillingView extends JPanel {
 
 	protected void generateBill() {
 
-		// save all product
-		Integer transactionId = Controller.getMaxTransactionId();
-		transactionId++;
+		if (!reedemPoints()) {
+			JOptionPane.showMessageDialog(mainView, Utility
+					.getPropertyValue(Constants.msgCannotReedemMoreThanEarned));
+			return;
+		} else {
+			// save all product
+			Integer transactionId = Controller.getMaxTransactionId();
+			transactionId++;
 
-		List<Transaction> transactions = billingTableModel
-				.getListtransactions();
-		for (Transaction t : transactions) {
-			t.setTransactionId(transactionId);
-			if (customer == null)
-				t.setCustomer(new PublicCustomer());
-			else {
-				t.setCustomer(customer);
+			List<Transaction> transactions = billingTableModel
+					.getListtransactions();
+			for (Transaction t : transactions) {
+				t.setTransactionId(transactionId);
+				if (customer == null)
+					t.setCustomer(new PublicCustomer());
+				else {
+					t.setCustomer(customer);
+				}
+				t.setDateOfPurchase(new Date());
+				if (!Controller.save(t)) {
+					JOptionPane.showMessageDialog(mainView,
+							Utility.getPropertyValue(Constants.failure));
+					return;
+				}
+				transactionTableModel.addTranscation(t);
 			}
-			t.setDateOfPurchase(new Date());
-			if (!Controller.save(t)) {
-				JOptionPane.showMessageDialog(mainView,
-						Utility.getPropertyValue(Constants.failure));
-				return;
+			// update member customer loyality point
+			Object selectedItem = memberTypeCmbBox.getSelectedItem();
+
+			if (MemberType.Member.equals(selectedItem)) {
+
+				Integer loyality = customer.getLoyality();
+
+				loyality = loyality - new Integer(reedemField.getText());
+
+				Double billAmt = new Double(billAmtField.getText());
+				Long loyalityEarned = Math.round(billAmt * dollarToPointValue);
+				loyality = loyality + loyalityEarned.intValue();
+
+				customer.setLoyality(loyality);
+				if (!Controller.editCustomer(customer)) {
+					JOptionPane.showMessageDialog(mainView,
+							Utility.getPropertyValue(Constants.failure));
+					return;
+				}
 			}
-			transactionTableModel.addTranscation(t);
+
+			resetBill();
+
+			JOptionPane.showMessageDialog(mainView, transactionTablePanel,
+					Utility.getPropertyValue(Constants.billTitle),
+					JOptionPane.INFORMATION_MESSAGE);
+
+			barCodeTransaction.clear();
 		}
-		// update member customer loyality point
-		Object selectedItem = memberTypeCmbBox.getSelectedItem();
-
-		if (MemberType.Member.equals(selectedItem)) {
-
-			Integer loyality = customer.getLoyality();
-
-			loyality = loyality - new Integer(reedemField.getText());
-			
-			Double billAmt=new Double(billAmtField.getText());
-			Long loyalityEarned=Math.round(billAmt*dollarToPointValue);
-			loyality=loyality+loyalityEarned.intValue();
-			
-			customer.setLoyality(loyality);
-			if (!Controller.editCustomer(customer)) {
-				JOptionPane.showMessageDialog(mainView,
-						Utility.getPropertyValue(Constants.failure));
-				return;
-			}
-		}
-
-		resetBill();
-		
-		
-		JOptionPane.showMessageDialog(mainView, transactionTablePanel, Utility.getPropertyValue(Constants.billTitle), JOptionPane.INFORMATION_MESSAGE);
-		
-		
 
 	}
 
