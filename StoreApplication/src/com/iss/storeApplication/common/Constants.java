@@ -149,4 +149,10 @@ public interface Constants {
 	public static final String dateIntervalInvalid = "dateIntervalInvalid";
 	public static final String selectDateFromBelow = "selectDateFromBelow";
 	
+//Member
+	public static final String memberName = "memberName";
+	public static final String loyality = "loyality";
+	
+	
+
 }
