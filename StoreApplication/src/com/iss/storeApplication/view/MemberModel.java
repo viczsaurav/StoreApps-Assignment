@@ -1,18 +1,13 @@
 package com.iss.storeApplication.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.table.AbstractTableModel;
 
 import com.iss.storeApplication.common.Constants;
-import com.iss.storeApplication.common.StringUtility;
 import com.iss.storeApplication.common.Utility;
-import com.iss.storeApplication.domain.Discount;
 import com.iss.storeApplication.domain.MemberCustomer;
-import com.iss.storeApplication.domain.PurchaseOrder;
-import com.iss.storeApplication.domain.SeasonalDiscount;
-import com.iss.storeApplication.enums.DiscountApplicable;
-
-import java.util.ArrayList;
-import java.util.List;
 public class MemberModel extends AbstractTableModel{
 
 	/*
