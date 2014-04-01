@@ -51,7 +51,6 @@ public class DiscountService {
 		if (StringUtility.isEmpty(discount.getDescription())
 				| StringUtility.isEmpty(discount.getDescription())
 				| StringUtility.isEmpty(discount.getDiscountCode())
-
 				| discount.getDiscount() == null) {
 			return Utility.getPropertyValue(Constants.validateEmptyMessage);
 		}

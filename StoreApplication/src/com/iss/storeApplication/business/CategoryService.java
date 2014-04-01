@@ -57,7 +57,7 @@ public class CategoryService {
 	public static boolean saveAll(List<Category> listCategorys) {
 		// TODO Auto-generated method stub
 
-		File file = new File(Constants.DATA_FILE_DIR, fileName);
+		//File file = new File(Constants.DATA_FILE_DIR, fileName);
 
 		return categoryDao.save(listCategorys);
 	}
