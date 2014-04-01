@@ -26,6 +26,7 @@ import com.iss.storeApplication.component.DatePicker;
 import com.iss.storeApplication.controller.Controller;
 import com.iss.storeApplication.domain.Category;
 import com.iss.storeApplication.domain.Discount;
+import com.iss.storeApplication.domain.Transaction;
 
 /**
  * 
@@ -42,16 +43,16 @@ public class ReportView extends JPanel{
 	
 	
 	private final JButton getTransRptbtn = new JButton(Utility.getPropertyValue(Constants.GENERATE_TRANSACTIONS_BUTTON));
-//	private final JLabel lblDateRangeto = new JLabel(Utility.getPropertyValue(Constants.startDate));
-//	private final JLabel lblDateRangefrom = new JLabel(Utility.getPropertyValue(Constants.endDate));
-	private final DatePicker startDate = new DatePicker("startDate",false,false);
-	private final DatePicker endDate = new DatePicker("endDate",true,true);
+	private final DatePicker startDate = new DatePicker("startDate",false);
+	private final DatePicker endDate = new DatePicker("endDate",false);
 
 	private final JTable commonTable = new JTable();
 	
 	
 	private MainView mainView;
 	private CategoryTableModel categoryModel = new CategoryTableModel();
+	private TransactionReportTableModel transactionReportModel = new TransactionReportTableModel();
+	private ProductTableModel productModel = new ProductTableModel();
 
 	private JPanel panelTransDatepicker = new JPanel();
 
@@ -86,15 +87,14 @@ public class ReportView extends JPanel{
 			}
 			else
 			{
-				
+				getTransactionBetweenDates();
 			}
 		}
 	});
 	
 	categoryRptBtn.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent event) {
-			refreshCategoryReport();
-			
+			refreshCategoryReport();		
 		}
 	});
 	transactionRptBtn.addActionListener(new ActionListener() {
@@ -102,23 +102,36 @@ public class ReportView extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			refreshTransactionReport();
+			intTransactionReport();
 		}
 	});
 	
 	}
 	
-	protected void refreshTransactionReport() {
+	
+	
+	protected void intTransactionReport() {
 		// TODO Auto-generated method stub
-		commonTable.setModel(categoryModel);		
-		categoryModel.clear();
-		List<Category> Categories = Controller.getCategories();
-		for (Category c : Categories) {
-			categoryModel.addCategory(c);
-		categoryModel.fireTableDataChanged();
-		remove(panelTransDatepicker);	
-		SwingUtility.refreshJpanel(this);
+		
+		commonTable.setModel(transactionReportModel);		
+		transactionReportModel.clear();
+		JOptionPane.showMessageDialog(mainView,Utility.getPropertyValue(Constants.selectDateFromBelow));
 	}
+	
+	protected void getTransactionBetweenDates()
+	{
+		commonTable.setModel(transactionReportModel);		
+		transactionReportModel.clear();
+		List<Transaction> Transactions = Controller.getTransactions();
+		for (Transaction t : Transactions) {
+			if(t.getDateOfPurchase().compareTo(startDate.getPickedDate())>=0 && t.getDateOfPurchase().compareTo(endDate.getPickedDate())<=0 )
+			{
+			transactionReportModel.addTranscation(t);
+			transactionReportModel.fireTableDataChanged();
+			}
+	}
+		add(panelTransDatepicker,BorderLayout.SOUTH);
+		SwingUtility.refreshJpanel(this);
 	}
 
 	protected boolean validateTimePeriod() {
@@ -150,7 +163,7 @@ public class ReportView extends JPanel{
 		for (Category c : Categories) {
 			categoryModel.addCategory(c);
 		categoryModel.fireTableDataChanged();
-		remove(panelTransDatepicker);	
+		remove(panelTransDatepicker);
 		SwingUtility.refreshJpanel(this);
 	}
 }

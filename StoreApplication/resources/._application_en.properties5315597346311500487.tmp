@@ -104,4 +104,3 @@ purchaseOrderDate=Purchase Order Date
 #Reports
 endDate=End Date
 dateIntervalInvalid= Enter valid date Interval.
-selectDateFromBelow= Please select date interval from the below fields.

@@ -1,5 +1,7 @@
 package com.iss.storeApplication.business;
 
+import java.util.List;
+
 import com.iss.storeApplication.dao.TransactionDao;
 import com.iss.storeApplication.domain.Transaction;
 
@@ -20,5 +22,10 @@ public class TransactionService {
 	public static boolean save(Transaction transaction)
 	{
 		return transactionDao.save(transaction, true);
+	}
+
+	public static List<Transaction> getTransactions() {
+		// TODO Auto-generated method stub
+		return transactionDao.retrieveAll();
 	}
 }

@@ -144,5 +144,6 @@ public interface Constants {
 	public static final String purchaseOrderDate = "purchaseOrderDate";
 	public static final String endDate = "endDate";
 	public static final String dateIntervalInvalid = "dateIntervalInvalid";
+	public static final String selectDateFromBelow = "selectDateFromBelow";
 	
 }

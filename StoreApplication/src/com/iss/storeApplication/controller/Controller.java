@@ -177,5 +177,10 @@ public class Controller {
 		return ProductService.editProduct(p);
 		
 	}
+
+	public static List<Transaction> getTransactions()
+	{
+		return TransactionService.getTransactions();
+	}
 	
 }

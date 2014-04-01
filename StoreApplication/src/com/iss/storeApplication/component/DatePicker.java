@@ -33,13 +33,6 @@ public class DatePicker extends JPanel {
 	final JTextField text = new JTextField(10);
 	JButton calenderPopbtn = new JButton("Calender");
 	
-	public boolean isPastEnabled() {
-		return pastEnabled;
-	}
-
-	public void setPastEnabled(boolean pastEnabled) {
-		this.pastEnabled = pastEnabled;
-	}
 
 	public boolean isFutureEnabled() {
 		return futureEnabled;
@@ -49,7 +42,6 @@ public class DatePicker extends JPanel {
 		this.futureEnabled = futureEnabled;
 	}
 
-	boolean pastEnabled = false;
 	boolean futureEnabled = true;
 	
 	
@@ -84,10 +76,9 @@ public class DatePicker extends JPanel {
 		
 	}
 
-	public DatePicker(String label,boolean pastEnabled,boolean futureEnabled) {
+	public DatePicker(String label,boolean futureEnabled) {
 		this();
 		this.setLabel(label);
-		this.setPastEnabled(pastEnabled);
 		this.setFutureEnabled(futureEnabled);
 		
 	}
@@ -164,7 +155,8 @@ public class DatePicker extends JPanel {
 		int currentday = now.get(Calendar.DAY_OF_MONTH);
 
 		int daysInMonth = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
-		if(pastEnabled)
+		if(futureEnabled)
+		{
 		for (int x = 6 + dayOfWeek, day = 1; day <= daysInMonth; x++, day++) {
 			button[x].setText("" + day);
 			if (year <= currentyear && month == currentmonth) {
@@ -177,14 +169,14 @@ public class DatePicker extends JPanel {
 			} else
 				button[x].setEnabled(true);
 		}
-		if(futureEnabled)
+		}
+		if(!futureEnabled)
 		{
 		for (int x = 6 + dayOfWeek, day = 1; day <= daysInMonth; x++, day++) {
 			button[x].setText("" + day);
 			if (year >= currentyear && month == currentmonth) {
 				if (day > currentday) {
 					button[x].setEnabled(false);
-
 				}
 				else
 				{
