@@ -33,6 +33,10 @@ public class DatePicker extends JPanel {
 	final JTextField text = new JTextField(10);
 	JButton calenderPopbtn = new JButton("Calender");
 	
+	public String getText()
+	{
+		return this.text.getText();
+	}
 
 	public boolean isFutureEnabled() {
 		return futureEnabled;
@@ -205,6 +209,10 @@ public class DatePicker extends JPanel {
 
 	public void setDate(Date startDate) {
 		this.text.setText(StringUtility.getStringFromDate(startDate));
+		
+	}
+	public Date getDate() {
+		return StringUtility.getDateFromString(text.getText());
 		
 	}
 	
