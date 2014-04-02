@@ -12,8 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.event.CaretEvent;
-import javax.swing.event.CaretListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -76,8 +74,8 @@ public class CategoryView extends JPanel {
 		scrollPane.setBounds(33, 41, 494, 90);
 		// some setting on panel
 		JButton btnAdd = new JButton(Constants.addCategoryBtn);
-		JButton btnDelete = new JButton("Delete Category");
-		JButton btnEdit = new JButton("Edit Category");
+		JButton btnDelete = new JButton(Constants.categoryDeleteCategory);
+		JButton btnEdit = new JButton(Constants.categoryEditCategory);
 		// Table
 		categoryPanel.add(btnAdd, BorderLayout.CENTER);
 		categoryPanel.add(btnEdit, BorderLayout.CENTER);
@@ -105,9 +103,9 @@ public class CategoryView extends JPanel {
 								Utility.getPropertyValue(Constants.failure));
 					}
 				}else{
-					String hint = "please select one row!";
+					String hint = Constants.categoryNoLineSelected;
 					if(model.getRowCount() == 0){
-						hint ="There is no row to delete";
+						hint =Constants.categoryHintForEmptyInDelete;
 					}
 					JOptionPane.showMessageDialog(null,hint);				}
 				
@@ -136,15 +134,6 @@ private void addElement(){
 	JTextField codeField = new JTextField();
 	JTextField namefield = new JTextField();
 
-	codeField.addCaretListener(new CaretListener() {
-
-		@Override
-		public void caretUpdate(CaretEvent arg0) {
-			System.out.println(arg0.toString());
-
-		}
-	});
-
 	Object[] message = { Constants.categoryCode, codeField,
 			Constants.categoryName, namefield };
 	boolean isdone = true;
@@ -156,8 +145,6 @@ private void addElement(){
 		if (option == JOptionPane.OK_OPTION) {
 			String categoryCode = codeField.getText();
 			String categoryName = namefield.getText();
-			System.out.println("categoryCode:" + categoryCode);
-			System.out.println("categoryName:" + categoryName);
 			Category cat = new Category();
 			cat.setCategoryCode(categoryCode);
 			cat.setCategoryName(categoryName);
@@ -200,8 +187,6 @@ private void addElement(){
 				String categoryCode = codeField.getText();
 				String categoryName = namefield.getText();
 				if (option == JOptionPane.OK_OPTION) {
-					System.out.println("categoryCode:" + categoryCode);
-					System.out.println("categoryName:" + categoryName);
 					cat.setCategoryCode(categoryCode);
 					cat.setCategoryName(categoryName);
 					String result = Controller.validateAndSaveCategory(cat);
@@ -235,9 +220,9 @@ private void addElement(){
 						Utility.getPropertyValue(Constants.failure));
 			}
 		}else{
-			String hint = "please select one row!";
+			String hint = Constants.categoryNoLineSelected;
 			if(model.getRowCount() == 0){
-				hint ="There is no row to edit";
+				hint =Constants.categoryHintForEmptyInEdit;
 			}
 			JOptionPane.showMessageDialog(null,hint);
 		}

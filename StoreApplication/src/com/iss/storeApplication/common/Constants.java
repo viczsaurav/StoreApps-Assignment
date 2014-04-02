@@ -56,7 +56,11 @@ public interface Constants {
 	public static final String categoryCodeEmpty = "categoryCodeEmpty";
 	public static final String categoryExists = "categoryExists";
 	public static final String categoryCorrect = "categoryCorrect";
-	
+	public static final String categoryDeleteCategory = "Delete Category";
+	public static final String categoryEditCategory = "Edit Category";
+	public static final String categoryNoLineSelected = "please select one row!";
+	public static final String categoryHintForEmptyInDelete = "There is no row to delete!";
+	public static final String categoryHintForEmptyInEdit = "There is no row to edit!";
 	// Product View Labels
 	public static final String productCategory = "productCategory";
 	public static final String productId = "productId";
