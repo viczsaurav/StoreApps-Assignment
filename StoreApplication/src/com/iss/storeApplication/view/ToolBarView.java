@@ -143,7 +143,7 @@ public class ToolBarView extends JToolBar implements ActionListener {
 	public static void setToolbarShortcut(String buttonName) {
 
 		if (buttonName.equals(Utility.getPropertyValue(Constants.billing))) {
-			button.setMnemonic(java.awt.event.KeyEvent.VK_T);
+			button.setMnemonic(java.awt.event.KeyEvent.VK_B);
 		}
 		if (buttonName.equals(Utility.getPropertyValue(Constants.category))) {
 			button.setMnemonic(java.awt.event.KeyEvent.VK_C);

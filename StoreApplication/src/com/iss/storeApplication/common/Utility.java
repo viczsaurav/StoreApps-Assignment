@@ -41,6 +41,7 @@ public class Utility {
 	}
 
 	public static String getPropertyValue(String key) {
+		String a =prop.get(key).toString();
 		return prop.get(key).toString();
 	}
 

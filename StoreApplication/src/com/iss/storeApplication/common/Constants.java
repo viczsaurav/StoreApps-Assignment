@@ -51,11 +51,12 @@ public interface Constants {
 	public static final String categoryCode = "categoryCode";
 	public static final String categoryName = "categoryName";
 	public static final String addCategoryBtn = "addCategoryBtn";
-	public static final String categoryNameCodeEmpty = "categoryNameCodeEmpty";
-	public static final String categoryNameEmpty = "categoryNameEmpty";
-	public static final String categoryCodeEmpty = "categoryCodeEmpty";
-	public static final String categoryExists = "categoryExists";
+	public static final String categoryNameCodeEmpty = "Category Name and Code are empty";
+	public static final String categoryNameEmpty = "Category Name is empty";
+	public static final String categoryCodeEmpty = "Category Code is empty";
+	public static final String categoryExists = "Category already exists";
 	public static final String categoryCorrect = "categoryCorrect";
+	public static final String categoryAddCategory = "Add Category";
 	public static final String categoryDeleteCategory = "Delete Category";
 	public static final String categoryEditCategory = "Edit Category";
 	public static final String categoryNoLineSelected = "please select one row!";
