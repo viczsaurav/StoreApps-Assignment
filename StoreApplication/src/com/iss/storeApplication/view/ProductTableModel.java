@@ -107,7 +107,7 @@ public class ProductTableModel extends AbstractTableModel {
 			value = product.getProductId();
 			break;
 		case COLUMN_PRODUCT_NAME:
-			value = product.getDescription();
+			value = product.getProductName();
 			break;
 		case COLUMN_PRODUCT_DESC:
 			value = product.getDescription();
