@@ -136,15 +136,15 @@ public class ProductView extends JPanel {
 		// init add / edit Product panel
 		initAddProductDialog();
 
-		// init discount table
+		// init product table
 		initProductTable();
 
-		// populate discounts in jtable
+		// populate products in jtable
 		refreshProductTable();
 	}
 
 	/**
-	 * Add Discount Button Clicked. Add Product Popup will appear.
+	 * Add product Button Clicked. Add Product Popup will appear.
 	 * 
 	 * @param event
 	 */
@@ -171,7 +171,7 @@ public class ProductView extends JPanel {
 	}
 
 	/*
-	 * Initialize Discount Jtable
+	 * Initialize product Jtable
 	 */
 	private void initProductTable() {
 
@@ -196,7 +196,7 @@ public class ProductView extends JPanel {
 	/**
 	 * Add Product Object To JTable
 	 * 
-	 * @param discount
+	 * @param product
 	 */
 	private void addProduct(Product product) {
 		productTableModel.addProduct(product);
@@ -204,7 +204,7 @@ public class ProductView extends JPanel {
 	}
 
 	/**
-	 * Save Edited discount to file and reflect edited changes to Jtable
+	 * Save Edited product to file and reflect edited changes to Jtable
 	 * 
 	 * @param p
 	 */
@@ -247,7 +247,7 @@ public class ProductView extends JPanel {
 	}
 
 	/**
-	 * Initialize Add/Edit Discount Panel
+	 * Initialize Add/Edit product Panel
 	 */
 	private void initAddProductDialog() {
 		productPanel.setLayout(new GridBagLayout());
@@ -396,7 +396,7 @@ public class ProductView extends JPanel {
 	}
 
 	/**
-	 * set product object property to Add / Edit Discount Panel
+	 * set product object property to Add / Edit product Panel
 	 * 
 	 * @param d
 	 */
@@ -468,7 +468,7 @@ public class ProductView extends JPanel {
 	}
 
 	/**
-	 * It shows edit Discount Popup.
+	 * It shows edit product Popup.
 	 * 
 	 * @param p
 	 */
@@ -501,7 +501,7 @@ public class ProductView extends JPanel {
 	}
 
 	/**
-	 * Create new Product Object from Add / Edit Discount Panel
+	 * Create new Product Object from Add / Edit product Panel
 	 * 
 	 * @return
 	 */

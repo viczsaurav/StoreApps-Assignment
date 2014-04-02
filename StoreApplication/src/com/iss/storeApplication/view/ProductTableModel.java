@@ -36,7 +36,7 @@ public class ProductTableModel extends AbstractTableModel {
 	private static final int COLUMN_ORDER_QUANT_LABEL = 7;
 	
 	/**
-	 * the list contains discounts objects
+	 * the list contains products objects
 	 */
 	private List<Product> listProducts;
 
@@ -49,7 +49,7 @@ public class ProductTableModel extends AbstractTableModel {
 	 * Creates new instance of the model
 	 */
 	public ProductTableModel() {
-		// initializes discount list
+		// initializes product list
 		this.listProducts = new ArrayList<Product>();
 		// define column names
 		columnNames = new String[] {
@@ -177,7 +177,7 @@ public class ProductTableModel extends AbstractTableModel {
 	}
 	
 	/**
-	 * this method allows the program adds a empty discount, a new row will be
+	 * this method allows the program adds a empty product, a new row will be
 	 * appended to the table.
 	 */
 	public void addProduct(Product product) {
@@ -186,7 +186,7 @@ public class ProductTableModel extends AbstractTableModel {
 
 	/**
 	 * this method allows the program to remove a selected row in the table, the
-	 * corresponding discount object in the product list is removed also.
+	 * corresponding product object in the product list is removed also.
 	 */
 	public void removeProduct(int rowIndex) {
 		this.listProducts.remove(rowIndex);
