@@ -73,6 +73,7 @@ public class CustomerDao implements CommonDao<Customer> {
 					m.setMemberId(rowValues[1]);
 					m.setLoyality(Integer.parseInt(rowValues[2]));
 					customers.add(m);
+					
 				}
 			}
 			br.close();

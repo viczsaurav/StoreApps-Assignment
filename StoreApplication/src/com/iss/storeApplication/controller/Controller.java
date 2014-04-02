@@ -182,5 +182,10 @@ public class Controller {
 	{
 		return TransactionService.getTransactions();
 	}
+//Member conrollers
+	public static List<Customer> getMemberCustomers() {
+		return MemberRegistrationService.getMemberCustomers();
+		
+	}
 	
 }

@@ -63,6 +63,8 @@ public class MemberView extends JPanel{
 		initTopPanel();
 		//init center panel
 		initCenterPanel();	
+		//Refresh Table
+		refreshMemberTable();
 	}
 	//Top and center panels
 	private JPanel topPanel = new JPanel();
@@ -98,7 +100,8 @@ public class MemberView extends JPanel{
 	private void initCenterPanel() {
 
 		memberTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+       String[] columnNames={Constants.memberName,Constants.memberId,Constants.loyality};
+//		memberModel.addColumn();
 		memberTable.setModel(memberModel);
 		memberTable.setPreferredScrollableViewportSize(new Dimension(600, 400));
 		memberTable.setPreferredSize(new Dimension(600, 400));
@@ -185,14 +188,14 @@ public class MemberView extends JPanel{
 
 	/**
 	 * refreshes Jtable
-	 */
+*/
 	public void refreshMemberTable() {
 	     memberModel.clear();
-		List<MemberCustomer> memberCustomers = Controller.getMemberCustomers();
-		for (MemberCustomer p : memberCustomers) {
-			addMember(p);
+		List<Customer> memberCustomers = Controller.getMemberCustomers();
+		for (Customer p : memberCustomers) {
+			addMember((MemberCustomer)p);
 		}
-	}
+	}	 
 	
 	/**
 	 * Add Customer Object To JTable

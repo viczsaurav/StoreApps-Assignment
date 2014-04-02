@@ -1,5 +1,7 @@
 package com.iss.storeApplication.business;
 
+import java.util.List;
+
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.dao.CustomerDao;
 import com.iss.storeApplication.domain.Customer;
@@ -24,6 +26,11 @@ public class MemberRegistrationService {
 	public static boolean editCustomer(Customer member)
 	{
 		return memberDao.edit(member);
+	}
+
+	public static List<Customer> getMemberCustomers() {
+		return memberDao.retrieveAll();
+		
 	}
 
 }
