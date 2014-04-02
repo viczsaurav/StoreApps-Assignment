@@ -2,9 +2,11 @@ package com.iss.storeApplication.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,6 +19,10 @@ import javax.swing.ListSelectionModel;
 
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.Utility;
+import com.iss.storeApplication.controller.Controller;
+import com.iss.storeApplication.domain.Customer;
+import com.iss.storeApplication.domain.MemberCustomer;
+import com.iss.storeApplication.domain.Product;
 
 
 
@@ -36,14 +42,14 @@ public class MemberView extends JPanel{
 	public MemberView(MainView mainView) {
 		super(new BorderLayout());
 		this.mainView = mainView;
-		/*addMemberBtn.addActionListener(new ActionListener() {
+		addMemberBtn.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				addBtnClicked(event);
+				//addBtnClicked(event);
 
 			}
-		});*/
+		});
 		editMemberBtn.addActionListener(new ActionListener() {
 
 			@Override
@@ -84,7 +90,7 @@ public class MemberView extends JPanel{
 	
 	//Table
 	private JTable memberTable = new JTable();
-	private MemberModel MemberModel=new MemberModel();
+	private MemberModel memberModel=new MemberModel();
 	
 
 	
@@ -93,7 +99,7 @@ public class MemberView extends JPanel{
 
 		memberTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		memberTable.setModel(MemberModel);
+		memberTable.setModel(memberModel);
 		memberTable.setPreferredScrollableViewportSize(new Dimension(600, 400));
 		memberTable.setPreferredSize(new Dimension(600, 400));
 		memberTable.setSize(new Dimension(600, 400));
@@ -123,23 +129,45 @@ public class MemberView extends JPanel{
 	
 	private void initAddMemberDialog() {
 		addMemberPanel.setLayout(new GridBagLayout());
-		//final GridBagConstraints c = new GridBagConstraints();
-
-		
-
-		memberNameField.setColumns(20);
+		final GridBagConstraints c = new GridBagConstraints();
+        
+		memberNameField.setColumns(Constants.DEFAULT_TEXTFIELD_SIZE);
 		memberNameField.setText("");
-		memberIdField.setColumns(20);
+		memberIdField.setColumns(Constants.DEFAULT_TEXTFIELD_SIZE);
 		memberIdField.setText("");
-		loyalityField.setColumns(20);
+		loyalityField.setColumns(Constants.DEFAULT_TEXTFIELD_SIZE);
 		loyalityField.setText("");
-	}
 	
+		// Member Name Field
+				c.gridx = 0;
+				c.gridy = 1;
+				addMemberPanel.add(memberNameLabel, c);
+				c.gridx = 1;
+				c.gridy = 1;
+				addMemberPanel.add(memberNameField, c);
+		// Member Id Field
+				c.gridx = 0;
+				c.gridy = 1;
+				addMemberPanel.add(memberIdLabel, c);
+				c.gridx = 1;
+				c.gridy = 1;
+				addMemberPanel.add(memberIdField, c);
+		// Member Name Field
+				c.gridx = 0;
+				c.gridy = 1;
+				addMemberPanel.add(loyalityLabel, c);
+				c.gridx = 1;
+				c.gridy = 1;
+				addMemberPanel.add(loyalityField, c);
+	
+	}
 	
 	protected void addBtnClicked(ActionEvent event) {
 
 		showAddMemberDialog();
 	}
+	
+	
 
 	private void showAddMemberDialog() {
 		addMemberPanel.setLayout(new GridBagLayout());                
@@ -155,7 +183,26 @@ public class MemberView extends JPanel{
 	}
 
 
-
+	/**
+	 * refreshes Jtable
+	 */
+	public void refreshMemberTable() {
+	     memberModel.clear();
+		List<MemberCustomer> memberCustomers = Controller.getMemberCustomers();
+		for (MemberCustomer p : memberCustomers) {
+			addMember(p);
+		}
+	}
+	
+	/**
+	 * Add Customer Object To JTable
+	 * 
+	 * @param discount
+	 */
+	private void addMember(MemberCustomer memberCustomer) {
+		memberModel.addMember(memberCustomer);
+		memberModel.fireTableDataChanged();
+	}
 	private void initGUI() {
 		try {
 			{
