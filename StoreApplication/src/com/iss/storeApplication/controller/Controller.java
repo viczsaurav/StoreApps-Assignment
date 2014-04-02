@@ -33,7 +33,7 @@ public class Controller {
 	 * 
 	 * @return
 	 */
-	
+
 	public static String validateUser(StoreKeeper storeKeeper) {
 		return LoginService.validateUser(storeKeeper);
 	}
@@ -65,7 +65,6 @@ public class Controller {
 		return DiscountService.validateDiscount(d);
 	}
 
-
 	public static Discount getMaxPublicDiscount() {
 		return DiscountService.getMaxPublicDiscount();
 	}
@@ -77,7 +76,7 @@ public class Controller {
 	public static Discount getMemberFirstDiscount() {
 		return DiscountService.getMemberFirstDiscount();
 	}
-	
+
 	/**
 	 * Category Controllers
 	 * 
@@ -91,7 +90,7 @@ public class Controller {
 	public static String validateAndSaveCategory(Category c) {
 		return CategoryService.validateAndSaveCategory(c);
 	}
-	
+
 	public static List<Category> getCategories() {
 		return CategoryService.getCategories();
 	}
@@ -109,83 +108,75 @@ public class Controller {
 	public static Product getProduct(Long barcode) {
 		return ProductService.getProduct(barcode);
 	}
-	
+
 	public static String validateAndSaveProduct(Product p) {
 		return ProductService.validateAndSaveProduct(p);
 	}
-	
+
 	public static String validateProduct(Product p) {
 		return ProductService.validateProduct(p);
 	}
-	
 
 	public static List<Product> getProducts() {
 		return ProductService.getProducts();
 	}
-
 
 	/**
 	 * Customer Controllers
 	 * 
 	 * @return
 	 */
-	
+
 	public static String registerMember(MemberCustomer memberCustomer) {
 		return MemberRegistrationService.registerMember(memberCustomer);
 	}
 
-	
 	public static Customer getCustomer(String memberId) {
 		return MemberRegistrationService.getCustomer(memberId);
 	}
-	
-	public static boolean editCustomer(Customer member)
-	{
+
+	public static boolean editCustomer(Customer member) {
 		return MemberRegistrationService.editCustomer(member);
 	}
-	
-	public static Integer getMaxTransactionId()
-	{
+
+	public static Integer getMaxTransactionId() {
 		return TransactionService.getMaxTransactionId();
 	}
-	
+
 	/**
 	 * Transaction Controllers
 	 * 
 	 * @return
 	 */
-	public static boolean save(Transaction transaction)
-	{
+	public static boolean save(Transaction transaction) {
 		return TransactionService.save(transaction);
 	}
-	
-	public static List<Category> getAllCategory()
-	{
+
+	public static List<Category> getAllCategory() {
 		return CategoryService.getAllCategory();
 	}
-	
-	public static List<Product> getProductsBelowThreshold(Category c){
+
+	public static List<Product> getProductsBelowThreshold(Category c) {
 		return ProductService.getProductsBelowThreshold(c);
 	}
-	
-	public static Vendor getFirstVendor(String categoryCode)
-	{
+
+	public static Vendor getFirstVendor(String categoryCode) {
 		return VendorService.getFirstVendor(categoryCode);
 	}
 
 	public static boolean editProduct(Product p) {
 		return ProductService.editProduct(p);
-		
+
 	}
 
-	public static List<Transaction> getTransactions()
-	{
+	public static List<Transaction> getTransactions() {
 		return TransactionService.getTransactions();
 	}
-//Member conrollers
+
+	// Member conrollers
 	public static List<Customer> getMemberCustomers() {
 		return MemberRegistrationService.getMemberCustomers();
-		
+
 	}
-	
+
 }

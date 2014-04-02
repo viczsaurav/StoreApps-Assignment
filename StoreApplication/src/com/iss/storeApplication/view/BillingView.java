@@ -6,12 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -127,7 +123,7 @@ public class BillingView extends JPanel {
 
 		initFindProductPanel();
 
-		initBillingTableModel();
+		initBillingTable();
 
 		initTransactionTable();
 
@@ -141,7 +137,7 @@ public class BillingView extends JPanel {
 
 		initBillAmtPanel();
 
-		initGeneratePanel();
+		initGenerateBillPanel();
 
 		initLoyalityPanel();
 
@@ -154,6 +150,9 @@ public class BillingView extends JPanel {
 
 	}
 
+	/**
+	 * Init Transation table which displays list of product customer is buying
+	 */
 	private void initTransactionTable() {
 		transactionTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -168,6 +167,9 @@ public class BillingView extends JPanel {
 
 	}
 
+	/*
+	 * Init Reedem point Panel
+	 */
 	private void initReedemPanel() {
 		reedemField.setColumns(10);
 		reedemField.setText("0");
@@ -176,7 +178,12 @@ public class BillingView extends JPanel {
 
 	}
 
-	protected boolean reedemPoints() {
+	/**
+	 * Validate Reedem Point against Earned loyality for member
+	 * 
+	 * @return
+	 */
+	protected boolean validateReedemPoints() {
 
 		Integer loyalityEarned = 0;
 		Integer reedemPoint = 0;
@@ -219,6 +226,9 @@ public class BillingView extends JPanel {
 
 	}
 
+	/**
+	 * Init loyality earned point
+	 */
 	private void initLoyalityPanel() {
 		loyalityField.setColumns(10);
 		loyalityField.setText("0");
@@ -229,7 +239,10 @@ public class BillingView extends JPanel {
 
 	}
 
-	private void initGeneratePanel() {
+	/**
+	 * Init Generate Bill Panel
+	 */
+	private void initGenerateBillPanel() {
 		generateBillBtn.setEnabled(false);
 		generateBillPanel.add(generateBillBtn);
 		generateBillPanel.add(resetBtn);
@@ -244,14 +257,18 @@ public class BillingView extends JPanel {
 		});
 	}
 
+	/**
+	 * Generate bill when user clicks generate bill. It saves bill and updates
+	 * loyality earned of member customer
+	 */
 	protected void generateBill() {
 
-		if (!reedemPoints()) {
+		if (!validateReedemPoints()) {
 			JOptionPane.showMessageDialog(mainView, Utility
 					.getPropertyValue(Constants.msgCannotReedemMoreThanEarned));
 			return;
 		} else {
-			// save all product
+			// save Transactions
 			Integer transactionId = Controller.getMaxTransactionId();
 			transactionId++;
 
@@ -272,7 +289,8 @@ public class BillingView extends JPanel {
 				}
 				transactionTableModel.addTranscation(t);
 			}
-			// update member customer loyality point
+
+			// add loyality earned from this transaction to member and save it.
 			Object selectedItem = memberTypeCmbBox.getSelectedItem();
 
 			if (MemberType.Member.equals(selectedItem)) {
@@ -293,17 +311,23 @@ public class BillingView extends JPanel {
 				}
 			}
 
+			// reset Form
 			resetBill();
 
+			// show transaction list
 			JOptionPane.showMessageDialog(mainView, transactionTablePanel,
 					Utility.getPropertyValue(Constants.billTitle),
 					JOptionPane.INFORMATION_MESSAGE);
 
+			// clear map
 			barCodeTransaction.clear();
 		}
 
 	}
 
+	/**
+	 * init Bill Amt Panel
+	 */
 	private void initBillAmtPanel() {
 
 		billAmtField.setColumns(10);
@@ -314,6 +338,9 @@ public class BillingView extends JPanel {
 		southPanel.add(billAmtPanel);
 	}
 
+	/**
+	 * Init Discount Panel
+	 */
 	private void initDiscountPanel() {
 		discountField.setColumns(10);
 		discountField.setEditable(false);
@@ -323,6 +350,9 @@ public class BillingView extends JPanel {
 		southPanel.add(discountPanel);
 	}
 
+	/**
+	 * Init Member Panel
+	 */
 	private void initMemberIdPanel() {
 		memberIdTxtField.setColumns(15);
 		memberIdPanel.add(memberIdLbl);
@@ -348,6 +378,9 @@ public class BillingView extends JPanel {
 		});
 	}
 
+	/**
+	 * Apply Discount to customer.
+	 */
 	protected void applyMemberDiscount() {
 		String memberId = memberIdTxtField.getText();
 		if (StringUtility.isEmpty(memberId)) {
@@ -382,6 +415,11 @@ public class BillingView extends JPanel {
 
 	}
 
+	/**
+	 * set discount to discount Field
+	 * 
+	 * @param d
+	 */
 	private void setDiscountToTextField(Discount d) {
 		if (d == null)// not discount means 0%
 		{
@@ -392,6 +430,9 @@ public class BillingView extends JPanel {
 
 	}
 
+	/**
+	 * Init Member Type Panel
+	 */
 	private void initMemberTypePanel() {
 		memberTypeCmbBox.setModel(new DefaultComboBoxModel<>(MemberType
 				.values()));
@@ -429,6 +470,9 @@ public class BillingView extends JPanel {
 
 	}
 
+	/**
+	 * Calculate bill for non member customer
+	 */
 	protected void calculatePublicBillAmount() {
 		Discount d = Controller.getMaxPublicDiscount();
 		Double discount = 0.0;
@@ -447,6 +491,9 @@ public class BillingView extends JPanel {
 
 	}
 
+	/**
+	 * Init Total Panel
+	 */
 	private void initTotalPanel() {
 		totalTextField.setEditable(false);
 		totalTextField.setEnabled(false);
@@ -478,7 +525,7 @@ public class BillingView extends JPanel {
 	}
 
 	/**
-	 * Recalculate when total has changed
+	 * calculate bill Amt
 	 */
 	public void calculate() {
 		if (billingTable.getRowCount() > 0)
@@ -491,6 +538,9 @@ public class BillingView extends JPanel {
 		}
 	}
 
+	/**
+	 * Calculate Bill Amt for member customer
+	 */
 	protected void calculateMemberBillAmount() {
 
 		Double discount = 0.0;
@@ -508,6 +558,9 @@ public class BillingView extends JPanel {
 
 	}
 
+	/**
+	 * Find product from barcod and display to table
+	 */
 	private void initFindProductPanel() {
 		barCodeTextField.setColumns(4);
 
@@ -537,7 +590,7 @@ public class BillingView extends JPanel {
 
 		removeProductBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				removeProductFromTable();
+				removeProductFromBillingTable();
 			}
 		});
 
@@ -545,7 +598,10 @@ public class BillingView extends JPanel {
 
 	}
 
-	private void initBillingTableModel() {
+	/**
+	 * Init billing table
+	 */
+	private void initBillingTable() {
 		billingTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		billingTable.setModel(billingTableModel);
@@ -561,7 +617,10 @@ public class BillingView extends JPanel {
 
 	}
 
-	protected void removeProductFromTable() {
+	/**
+	 * Remove product from Billing table
+	 */
+	protected void removeProductFromBillingTable() {
 		int rowIndex = billingTable.getSelectedRow();
 		if (rowIndex == -1) {
 			JOptionPane.showMessageDialog(mainView,
@@ -584,6 +643,11 @@ public class BillingView extends JPanel {
 
 	}
 
+	/**
+	 * Find product from barcode
+	 * 
+	 * @param barcode
+	 */
 	protected void findProduct(String barcode) {
 		if (StringUtility.isEmpty(barcode)) {
 			JOptionPane.showMessageDialog(mainView,
@@ -605,16 +669,24 @@ public class BillingView extends JPanel {
 		Transaction t = new Transaction();
 		t.setProduct(p);
 		t.setQtyPurchase(1);
-		addTransactionToTable(t);
+		addProductToBillingTable(t);
 		barCodeTransaction.put(new Long(barcode), t);
 		calculateTotal();
 	}
 
-	private void addTransactionToTable(Transaction t) {
+	/**
+	 * add product to billing table
+	 * 
+	 * @param t
+	 */
+	private void addProductToBillingTable(Transaction t) {
 		billingTableModel.addTranscation(t);
 		billingTableModel.fireTableDataChanged();
 	}
 
+	/**
+	 * Calculate Total Amt
+	 */
 	public void calculateTotal() {
 		List<Transaction> transactions = billingTableModel
 				.getListtransactions();
@@ -625,6 +697,9 @@ public class BillingView extends JPanel {
 		totalTextField.setText(total.toString());
 	}
 
+	/**
+	 * Reset Bill
+	 */
 	public void resetBill() {
 		customer = null;
 		barCodeTextField.setText("");

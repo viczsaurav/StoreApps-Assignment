@@ -11,21 +11,35 @@ import com.iss.storeApplication.domain.Transaction;
  *
  */
 public class TransactionService {
-	
-	private static TransactionDao transactionDao=new TransactionDao();
 
-	public static Integer getMaxTransactionId()
-	{
+	private static TransactionDao transactionDao = new TransactionDao();
+
+	/**
+	 * Gets max transaction id from file
+	 * @return
+	 */
+	public static Integer getMaxTransactionId() {
 		return transactionDao.getMaxTransactionId();
 	}
-	
-	public static boolean save(Transaction transaction)
-	{
+
+	/**
+	 * Insert transaction to file
+	 * @param transaction
+	 * @return
+	 */
+	public static boolean save(Transaction transaction) {
 		return transactionDao.save(transaction, true);
 	}
 
+	/**
+	 * get List of transation from file
+	 * @return
+	 */
 	public static List<Transaction> getTransactions() {
-		// TODO Auto-generated method stub
+
 		return transactionDao.retrieveAll();
 	}
+
+	
+
 }
