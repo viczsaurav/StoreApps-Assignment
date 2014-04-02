@@ -7,6 +7,7 @@ import javax.swing.table.AbstractTableModel;
 
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.Utility;
+import com.iss.storeApplication.domain.Customer;
 import com.iss.storeApplication.domain.MemberCustomer;
 
 public class MemberModel extends AbstractTableModel {
@@ -24,17 +25,17 @@ public class MemberModel extends AbstractTableModel {
 	/**
 	 * the list contains PurchaseOrder objects
 	 */
-	private List<MemberCustomer> members;
+	private List<Customer> members;
 	/**
 	 * names for column header in table
 	 */
 	private String[] columnNames;
 
-	public List<MemberCustomer> getMembers() {
+	public List<Customer> getMembers() {
 		return members;
 	}
 
-	public void setMembers(List<MemberCustomer> members) {
+	public void setMembers(List<Customer> members) {
 		this.members = members;
 	}
 
@@ -58,7 +59,7 @@ public class MemberModel extends AbstractTableModel {
 	 */
 	public MemberModel() {
 		// initializes discount list
-		this.members = new ArrayList<MemberCustomer>();
+		this.members = new ArrayList<Customer>();
 		// define column names
 		columnNames = new String[] {
 				Utility.getPropertyValue(Constants.memberName),
@@ -86,14 +87,15 @@ public class MemberModel extends AbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Object value = null;
 
-		MemberCustomer member = members.get(rowIndex);
+		Customer member = members.get(rowIndex);
 
 		switch (columnIndex) {
 		case COLUMN_MEMBER_NAME:
 			value = member.getMemberName();
 			break;
 		case COLUMN_MEMBER_ID:
-			value = member.getMemberId();
+			if(member instanceof MemberCustomer)
+			value = ((MemberCustomer) member).getMemberId();
 			break;
 		case COLUMN_LOYALITY:
 			value = member.getLoyality();

@@ -156,5 +156,5 @@ public interface Constants {
 	public static final String editMemberBtn = "editMemberBtn";
 	public static final String deleteMember = "deleteMember";
 	public static final String defaultLoyality= "defaultLoyality";
-
+	public static final String editMember= "editMember";
 }

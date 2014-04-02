@@ -48,7 +48,7 @@ public class MemberRegistrationService {
 		}
 	}
 
-	private static String validateMember(MemberCustomer newMember) {
+	public static String validateMember(MemberCustomer newMember) {
 		if (newMember == null) {
 			return Utility.getPropertyValue(Constants.validateEmptyMessage);
 		}
@@ -60,6 +60,13 @@ public class MemberRegistrationService {
 
 		return Constants.SUCCESS;
 	}
+
+	public static boolean saveAll(List<Customer> members) {
+		// TODO Auto-generated method stub
+		return memberDao.saveAll(members);
+	}
+
+	
 
 	
 

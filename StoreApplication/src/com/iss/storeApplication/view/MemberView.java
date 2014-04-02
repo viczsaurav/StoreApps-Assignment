@@ -23,6 +23,7 @@ import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.controller.Controller;
 import com.iss.storeApplication.domain.Customer;
 import com.iss.storeApplication.domain.MemberCustomer;
+import com.iss.storeApplication.domain.Product;
 
 
 
@@ -34,7 +35,7 @@ import com.iss.storeApplication.domain.MemberCustomer;
 public class MemberView extends JPanel{
 	
 	private MainView mainView;
-	
+	private String selectedMember;
 	public MemberView(MainView mainView) {
 		super(new BorderLayout());
 		this.mainView = mainView;
@@ -125,9 +126,104 @@ public class MemberView extends JPanel{
 	   add(topPanel, BorderLayout.NORTH);
 	   
 	   initAddMemberDialog();
+	   editMemberBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent event) {
+			editBtnClicked(event);
+
+			}
+		});
+	
 	}
 
+	/**
+	 * Edit Button Clicked. Edit Popup  will show.
+	 * 
+	 * @param event
+	 */
+	protected void editBtnClicked(ActionEvent event) {
+		int row = memberTable.getSelectedRow();
+		if (row == -1) {
+			JOptionPane.showMessageDialog(mainView,
+					Utility.getPropertyValue(Constants.selectRow));
+			return;
+		}
+
+		MemberCustomer m = (MemberCustomer) memberModel.getMembers().get(row);
+		showEditMemberDialog(m);
+	}
 	
+	private void showEditMemberDialog(MemberCustomer m) {
+		// Fetch Product Values
+				setMemberToMemberDialogView(m);
+				
+				// Setting selected category since its not instantiated without change
+				// event
+				selectedMember = m.getMemberId();
+				System.out.println("selected :" + selectedMember);
+
+				int result = JOptionPane.showConfirmDialog(mainView, addMemberPanel,
+						Utility.getPropertyValue(Constants.editMember),
+						JOptionPane.OK_CANCEL_OPTION);
+
+				if (result == JOptionPane.OK_OPTION) {
+					MemberCustomer member = null;
+					member = createMemberFromView(m);
+					String msg = Controller.validateMember(m);
+					if (msg.equals(Constants.SUCCESS))
+						editMember(member);
+					else {
+						JOptionPane.showMessageDialog(mainView, msg, "Message",
+								JOptionPane.ERROR_MESSAGE);
+						showEditMemberDialog(member);
+					}
+				}
+		
+	}
+
+
+	/**
+	 * Save Edited discount to file and reflect edited changes to Jtable
+	 * 
+	 * @param p
+	 */
+	private void editMember(MemberCustomer m) {
+
+		int rowIndex = memberTable.getSelectedRow();
+
+		memberModel.getMembers().set(rowIndex, m);
+
+		if (Controller.saveAllMembers(memberModel.getMembers())) {
+			memberModel.fireTableDataChanged();
+		} else {
+			JOptionPane.showMessageDialog(mainView,
+					Utility.getPropertyValue(Constants.failure));
+		}
+	}
+	private void setMemberToMemberDialogView(MemberCustomer m) {
+		if (m != null) {
+			
+			memberNameField.setText(m.getMemberName());
+			memberIdField.setText(m.getMemberId());
+			loyalityField.setText((m.getLoyality().toString()));
+		} else // reset to default value
+		{
+			memberNameField.setText("");
+			memberIdField.setText("");
+			loyalityField.setText(Utility
+					.getPropertyValue(Constants.defaultLoyality));
+			
+			
+		}
+		
+	}
+
+
+
+	/**
+	 * Initialize Add/Edit Member Panel
+	 */
 	private void initAddMemberDialog() {
 		addMemberPanel.setLayout(new GridLayout(3,2));
 
@@ -172,6 +268,7 @@ public class MemberView extends JPanel{
 		                if (result == JOptionPane.OK_OPTION) {
 		                	String message = "";
 		                }*/
+		setMemberToMemberDialogView(null);
 		int result = JOptionPane.showConfirmDialog(mainView, addMemberPanel, Utility.getPropertyValue(Constants.addMemberBtn), JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION) {
 			String message = "";

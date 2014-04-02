@@ -18,6 +18,7 @@ import com.iss.storeApplication.common.StringUtility;
 import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.domain.Customer;
 import com.iss.storeApplication.domain.MemberCustomer;
+import com.iss.storeApplication.domain.Product;
 
 public class CustomerDao implements CommonDao<Customer> {
 
@@ -147,4 +148,6 @@ public class CustomerDao implements CommonDao<Customer> {
 		}
 		
 	}
+
+	
 }

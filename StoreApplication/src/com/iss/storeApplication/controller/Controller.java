@@ -173,7 +173,11 @@ public class Controller {
 		return TransactionService.getTransactions();
 	}
 
-	// Member conrollers
+	/**
+	 * Member Controllers
+	 * 
+	 * 
+	 */
 	public static List<Customer> getMemberCustomers() {
 		return MemberRegistrationService.getMemberCustomers();
 
@@ -181,6 +185,14 @@ public class Controller {
 	
 	public static String validateAndSaveMember(MemberCustomer newMember) {
 		return MemberRegistrationService.validateAndSaveMember(newMember);
+	}
+
+	public static String validateMember(MemberCustomer m){
+		return MemberRegistrationService.validateMember(m);
+	}
+
+	public static boolean saveAllMembers(List<Customer> members) {
+		return MemberRegistrationService.saveAll(members);
 	}
 
 }
