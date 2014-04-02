@@ -1,3 +1,5 @@
+call setenv.bat
+echo %PATH%
 set drive=%~d0
 set baseDir= %~dp0
 cd %drive%
