@@ -1,6 +1,7 @@
 package com.iss.storeApplication.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -13,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -501,6 +503,7 @@ public class BillingView extends JPanel {
 		totalPanel.add(totalLbl);
 		totalPanel.add(totalTextField);
 		southPanel.add(totalPanel, BorderLayout.SOUTH);
+		 
 
 		totalTextField.getDocument().addDocumentListener(
 				new DocumentListener() {
@@ -606,12 +609,12 @@ public class BillingView extends JPanel {
 
 		billingTable.setModel(billingTableModel);
 		billingTable
-				.setPreferredScrollableViewportSize(new Dimension(600, 400));
-		billingTable.setPreferredSize(new Dimension(600, 400));
-		billingTable.setSize(new Dimension(600, 400));
+				.setPreferredScrollableViewportSize(new Dimension(600, 250));
+		billingTable.setPreferredSize(new Dimension(600, 250));
+		billingTable.setSize(new Dimension(600, 250));
 		JScrollPane sp = new JScrollPane(billingTable);
-		sp.setPreferredSize(new Dimension(600, 400));
-		sp.setMaximumSize(new Dimension(600, 400));
+		sp.setPreferredSize(new Dimension(600, 250));
+		sp.setMaximumSize(new Dimension(600, 250));		
 		centerPanel.add(sp);
 		add(centerPanel, BorderLayout.CENTER);
 

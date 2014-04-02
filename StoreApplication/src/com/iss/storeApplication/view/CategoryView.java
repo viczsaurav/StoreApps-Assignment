@@ -67,13 +67,13 @@ public class CategoryView extends JPanel {
 			}
 		};
 		
-		model.addColumn(Constants.categoryCode);
-		model.addColumn(Constants.categoryName);
+		model.addColumn(Utility.getPropertyValue(Constants.categoryCode));
+		model.addColumn(Utility.getPropertyValue(Constants.categoryName));
 
 		// ScrollPane for Table
 		scrollPane.setBounds(33, 41, 494, 90);
 		// some setting on panel
-		JButton btnAdd = new JButton(Constants.addCategoryBtn);
+		JButton btnAdd = new JButton(Constants.categoryAddCategory);
 		JButton btnDelete = new JButton(Constants.categoryDeleteCategory);
 		JButton btnEdit = new JButton(Constants.categoryEditCategory);
 		// Table
@@ -134,13 +134,13 @@ private void addElement(){
 	JTextField codeField = new JTextField();
 	JTextField namefield = new JTextField();
 
-	Object[] message = { Constants.categoryCode, codeField,
-			Constants.categoryName, namefield };
+	Object[] message = { Utility.getPropertyValue(Constants.categoryCode), codeField,
+			Utility.getPropertyValue(Constants.categoryName), namefield };
 	boolean isdone = true;
 	int option;
 	while (isdone) {
 		option = JOptionPane.showConfirmDialog(null, message,
-				Constants.addCategoryBtn,
+				Constants.categoryAddCategory,
 				JOptionPane.OK_CANCEL_OPTION);
 		if (option == JOptionPane.OK_OPTION) {
 			String categoryCode = codeField.getText();
@@ -181,7 +181,7 @@ private void addElement(){
 			int option;
 			while (isdone) {
 				option = JOptionPane.showConfirmDialog(null, message,
-						Constants.addCategoryBtn,
+						Constants.categoryAddCategory,
 						JOptionPane.OK_CANCEL_OPTION);
 				
 				String categoryCode = codeField.getText();
