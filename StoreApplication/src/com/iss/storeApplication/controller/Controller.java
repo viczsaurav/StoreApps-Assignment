@@ -178,5 +178,9 @@ public class Controller {
 		return MemberRegistrationService.getMemberCustomers();
 
 	}
+	
+	public static String validateAndSaveMember(MemberCustomer newMember) {
+		return MemberRegistrationService.validateAndSaveMember(newMember);
+	}
 
 }

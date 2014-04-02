@@ -154,5 +154,7 @@ public interface Constants {
 	public static final String loyality = "loyality";
 	public static final String addMemberBtn = "addMemberBtn";
 	public static final String editMemberBtn = "editMemberBtn";
+	public static final String deleteMember = "deleteMember";
+	public static final String defaultLoyality= "defaultLoyality";
 
 }

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -31,11 +32,7 @@ import com.iss.storeApplication.domain.MemberCustomer;
  *
  */
 public class MemberView extends JPanel{
-	/*
-	public MemberView() {
-		add(new Button("MemberView"));
-	}
-	*/
+	
 	private MainView mainView;
 	
 	public MemberView(MainView mainView) {
@@ -70,7 +67,7 @@ public class MemberView extends JPanel{
 	private JPanel centerPanel = new JPanel();
 	private final JPanel addMemberPanel = new JPanel();	
 	// add Edit Delete
-			private JButton deleteMemberBtn = new JButton("Delete Member");
+			private JButton deleteMemberBtn = new JButton(Utility.getPropertyValue(Constants.deleteMember));
 			private JButton addMemberBtn = new JButton(
 					Utility.getPropertyValue(Constants.addMemberBtn));
 			private JButton editMemberBtn = new JButton(
@@ -99,8 +96,7 @@ public class MemberView extends JPanel{
 	private void initCenterPanel() {
 
 		memberTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-       String[] columnNames={Constants.memberName,Constants.memberId,Constants.loyality};
-//		memberModel.addColumn();
+     
 		memberTable.setModel(memberModel);
 		memberTable.setPreferredScrollableViewportSize(new Dimension(600, 400));
 		memberTable.setPreferredSize(new Dimension(600, 400));
@@ -115,9 +111,9 @@ public class MemberView extends JPanel{
 
 
 	private void initTopPanel() {
-	   topPanel.add(addMemberBtn, BorderLayout.NORTH);
-	   topPanel.add(editMemberBtn, BorderLayout.NORTH);
-	   topPanel.add(deleteMemberBtn, BorderLayout.NORTH);
+	   topPanel.add(addMemberBtn);
+	   topPanel.add(editMemberBtn);
+	   topPanel.add(deleteMemberBtn);
 	   addMemberBtn.addActionListener(new ActionListener() {
 
 			@Override
@@ -126,42 +122,38 @@ public class MemberView extends JPanel{
 
 			}
 		});
+	   add(topPanel, BorderLayout.NORTH);
+	   
+	   initAddMemberDialog();
 	}
 
 	
 	private void initAddMemberDialog() {
-		addMemberPanel.setLayout(new GridBagLayout());
-		final GridBagConstraints c = new GridBagConstraints();
-        
+		addMemberPanel.setLayout(new GridLayout(3,2));
+
 		memberNameField.setColumns(Constants.DEFAULT_TEXTFIELD_SIZE);
-		memberNameField.setText("");
+		
 		memberIdField.setColumns(Constants.DEFAULT_TEXTFIELD_SIZE);
-		memberIdField.setText("");
+		
 		loyalityField.setColumns(Constants.DEFAULT_TEXTFIELD_SIZE);
-		loyalityField.setText("");
+		loyalityField.setText(Utility.getPropertyValue(Constants.defaultLoyality));
+		loyalityField.setEnabled(false);
 	
-		// Member Name Field
-				c.gridx = 0;
-				c.gridy = 1;
-				addMemberPanel.add(memberNameLabel, c);
-				c.gridx = 1;
-				c.gridy = 1;
-				addMemberPanel.add(memberNameField, c);
+				addMemberPanel.add(memberNameLabel);
+			
+				addMemberPanel.add(memberNameField);
 		// Member Id Field
-				c.gridx = 0;
-				c.gridy = 1;
-				addMemberPanel.add(memberIdLabel, c);
-				c.gridx = 1;
-				c.gridy = 1;
-				addMemberPanel.add(memberIdField, c);
+			
+				addMemberPanel.add(memberIdLabel);
+			
+				addMemberPanel.add(memberIdField);
 		// Member Name Field
-				c.gridx = 0;
-				c.gridy = 1;
-				addMemberPanel.add(loyalityLabel, c);
-				c.gridx = 1;
-				c.gridy = 1;
-				addMemberPanel.add(loyalityField, c);
 	
+				addMemberPanel.add(loyalityLabel);
+
+				addMemberPanel.add(loyalityField);
+				
+				
 	}
 	
 	protected void addBtnClicked(ActionEvent event) {
@@ -172,17 +164,49 @@ public class MemberView extends JPanel{
 	
 
 	private void showAddMemberDialog() {
-		addMemberPanel.setLayout(new GridBagLayout());                
-		int result = JOptionPane.showConfirmDialog(mainView, addMemberPanel,
+              
+	/*	int result = JOptionPane.showConfirmDialog(mainView, addMemberPanel,
 						Utility.getPropertyValue(Constants.addMemberBtn),
 						JOptionPane.OK_CANCEL_OPTION);
 		
 		                if (result == JOptionPane.OK_OPTION) {
-		                	
-		                }
-	
+		                	String message = "";
+		                }*/
+		int result = JOptionPane.showConfirmDialog(mainView, addMemberPanel, Utility.getPropertyValue(Constants.addMemberBtn), JOptionPane.OK_CANCEL_OPTION);
+		if (result == JOptionPane.OK_OPTION) {
+			String message = "";
+			
+			if ((memberNameField.getText().isEmpty())|| (memberIdField.getText().isEmpty())){
+				message=Constants.ALL_FIELDS_REQUIRED;
+			}else {
+				MemberCustomer newMember = createMemberFromView(null);
+				message = Controller.validateAndSaveMember(newMember);
+			}
+			if (message.equals(Constants.SUCCESS)) {
+				JOptionPane.showMessageDialog(null, message);
+				refreshMemberTable();
+			} else {
+				JOptionPane.showMessageDialog(null, message, "Message",
+						JOptionPane.ERROR_MESSAGE);
+				showAddMemberDialog();
+			}
+		}
 	
 	}
+
+
+	private MemberCustomer createMemberFromView(MemberCustomer newMember) {
+		if (newMember==null){
+			newMember=new MemberCustomer();
+		}
+			newMember.setMemberName(memberNameField.getText());
+			newMember.setMemberId(memberIdField.getText());
+			newMember.setLoyality(-1);
+			
+		
+		return newMember;
+	}
+
 
 
 	/**
