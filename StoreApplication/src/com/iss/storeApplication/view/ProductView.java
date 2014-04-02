@@ -513,8 +513,8 @@ public class ProductView extends JPanel {
 		newProduct.setProductName(prodName.getText());
 		newProduct.setDescription(prodDesc.getText());
 		newProduct.setQtyAvailable(Integer.parseInt(prodOrderQuant.getText()));
-		newProduct.setPrice(new Double(prodPrice.getText()));
-		newProduct.setBarCode(new Long(prodBarCode.getText()));
+		newProduct.setPrice(Double.parseDouble(prodPrice.getText()));
+		newProduct.setBarCode(Long.parseLong(prodBarCode.getText()));
 		newProduct.setReorderQty(Integer.parseInt(prodReorderQuant.getText()));
 		newProduct.setOrderQty(Integer.parseInt(prodOrderQuant.getText()));
 		newProduct.setCategory(fetchCategory.get(selectedCategory));

@@ -83,6 +83,7 @@ public interface Constants {
 	public static final String prodOrderQuantDef = "prodOrderQuantDef";
 	public static final String barcodeExists = "barcodeExists";
 	public static final String editProduct = "editProduct";
+	public static final String pricemorethanzero = "pricemorethanzero";
 	
 
 	// File Names

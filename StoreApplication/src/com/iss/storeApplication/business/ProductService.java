@@ -78,9 +78,19 @@ public class ProductService {
 				p.getOrderQty() == null		|| 
 				p.getPrice() == null 		|| 
 				p.getOrderQty() == null		|| 
-				p.getReorderQty() == null) 	{
+				p.getReorderQty() == null
+				) 	{
 			return Constants.ALL_FIELDS_REQUIRED;
 		}
+		if (	p.getOrderQty() < 0		||
+				p.getOrderQty() < 0		|| 
+				p.getReorderQty() < 0
+				)	{
+			return Utility.getPropertyValue(Constants.msgnotNegative);
+		}
+		if (!(p.getPrice() > 0)){
+			return Utility.getPropertyValue(Constants.pricemorethanzero);
+		}			
 
 		return Constants.SUCCESS;
 	}
