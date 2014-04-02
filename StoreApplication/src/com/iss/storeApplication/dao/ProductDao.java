@@ -9,7 +9,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -19,10 +18,7 @@ import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.StringUtility;
 import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.domain.Category;
-import com.iss.storeApplication.domain.Discount;
 import com.iss.storeApplication.domain.Product;
-import com.iss.storeApplication.domain.SeasonalDiscount;
-import com.iss.storeApplication.domain.StoreKeeper;
 
 public class ProductDao implements CommonDao<Product> {
 

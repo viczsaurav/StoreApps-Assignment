@@ -6,13 +6,8 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import com.iss.storeApplication.common.Constants;
-import com.iss.storeApplication.common.StringUtility;
 import com.iss.storeApplication.common.Utility;
-import com.iss.storeApplication.domain.Discount;
-import com.iss.storeApplication.domain.PermanentDiscount;
 import com.iss.storeApplication.domain.Product;
-import com.iss.storeApplication.domain.SeasonalDiscount;
-import com.iss.storeApplication.enums.DiscountApplicable;
 
 
 /**

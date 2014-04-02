@@ -5,12 +5,9 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import sun.swing.MenuItemLayoutHelper.ColumnAlignment;
-
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.domain.Category;
-import com.iss.storeApplication.domain.Discount;
 
 /**
  * Category table Model used by Jtable.

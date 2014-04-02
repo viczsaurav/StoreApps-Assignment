@@ -9,12 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.iss.storeApplication.common.Constants;
-import com.iss.storeApplication.common.StringUtility;
 import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.dao.ProductDao;
 import com.iss.storeApplication.domain.Category;
 import com.iss.storeApplication.domain.Product;
-import com.iss.storeApplication.domain.SeasonalDiscount;
 
 public class ProductService {
 

@@ -1,6 +1,7 @@
 package com.iss.storeApplication.view;
 
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
@@ -11,21 +12,16 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import java.awt.GridLayout;
-
+import com.iss.storeApplication.controller.Controller;
+import com.iss.storeApplication.domain.StoreKeeper;
 /*import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import javax.swing.JComponent;*/
-
-
-
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.RequestFocusListener;
 import com.iss.storeApplication.common.Utility;
-import com.iss.storeApplication.controller.Controller;
-import com.iss.storeApplication.domain.StoreKeeper;
 
 /**
  * 

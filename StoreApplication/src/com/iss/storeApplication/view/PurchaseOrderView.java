@@ -59,6 +59,9 @@ public class PurchaseOrderView extends JPanel {
 		initCenterPanel();
 	}
 
+	/**
+	 * Init Center Panel
+	 */
 	private void initCenterPanel() {
 
 		productTabl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -74,6 +77,9 @@ public class PurchaseOrderView extends JPanel {
 		add(centerPanel, BorderLayout.CENTER);
 	}
 
+	/**
+	 * Init Top Panel
+	 */
 	private void initTopPanel() {
 		topPanel.add(categoryCmbBox);
 		topPanel.add(generatePurchaseOrderBtn);
@@ -107,6 +113,9 @@ public class PurchaseOrderView extends JPanel {
 
 	}
 
+	/**
+	 * Generate Purchase Order and update available qty of product
+	 */
 	protected void generatePurchaseOrder() {
 
 		// find vendor
@@ -147,6 +156,9 @@ public class PurchaseOrderView extends JPanel {
 
 	}
 
+	/**
+	 * Refresh Product Table
+	 */
 	protected void refreshProductTable() {
 		// get list of product belong to category
 
@@ -163,6 +175,9 @@ public class PurchaseOrderView extends JPanel {
 		purchaseOrderProductTableModel.fireTableDataChanged();
 	}
 
+	/**
+	 * Reset TAble after  generating purchase order
+	 */
 	public void resetTable() {
 		purchaseOrderModel.setPurchaseOrders(new ArrayList<PurchaseOrder>());
 		

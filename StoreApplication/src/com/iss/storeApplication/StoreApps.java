@@ -1,23 +1,15 @@
 package com.iss.storeApplication;
 
-import java.awt.Color;
-import java.awt.Container;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import javax.swing.BoxLayout;
-import javax.swing.border.TitledBorder;
-
-import sun.tools.jar.Main;
 
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.Utility;
-import com.iss.storeApplication.view.LoginPopupView;
-import com.iss.storeApplication.view.LogoutView;
 import com.iss.storeApplication.view.MainView;
 import com.iss.storeApplication.view.ToolBarView;
 

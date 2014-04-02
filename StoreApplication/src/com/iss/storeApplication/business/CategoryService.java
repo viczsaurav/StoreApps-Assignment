@@ -1,11 +1,9 @@
 package com.iss.storeApplication.business;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
 
 import com.iss.storeApplication.common.Constants;
-import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.dao.CategoryDao;
 import com.iss.storeApplication.domain.Category;
 

@@ -14,12 +14,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import com.iss.storeApplication.business.CategoryService;
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.controller.Controller;
