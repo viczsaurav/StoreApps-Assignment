@@ -57,6 +57,7 @@ public class PurchaseOrderView extends JPanel {
 		initTopPanel();
 
 		initCenterPanel();
+
 	}
 
 	/**
@@ -83,6 +84,7 @@ public class PurchaseOrderView extends JPanel {
 	private void initTopPanel() {
 		topPanel.add(categoryCmbBox);
 		topPanel.add(generatePurchaseOrderBtn);
+
 		add(topPanel, BorderLayout.NORTH);
 
 		// retrieve all category
@@ -176,11 +178,11 @@ public class PurchaseOrderView extends JPanel {
 	}
 
 	/**
-	 * Reset TAble after  generating purchase order
+	 * Reset TAble after generating purchase order
 	 */
 	public void resetTable() {
 		purchaseOrderModel.setPurchaseOrders(new ArrayList<PurchaseOrder>());
-		
+
 		purchaseOrderModel.fireTableDataChanged();
 		refreshProductTable();
 

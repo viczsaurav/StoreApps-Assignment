@@ -25,8 +25,7 @@ import com.iss.storeApplication.enums.DiscountApplicable;
  */
 public class DiscountServiceTest {
 
-	private static String fileName = Constants.FILENAME_DISCOUNT
-			+ Constants.FILE_EXT_SEPERATOR + Constants.FILE_EXTENSION;
+	
 	private static List<Discount> discounts = new ArrayList<Discount>();
 
 	@BeforeClass

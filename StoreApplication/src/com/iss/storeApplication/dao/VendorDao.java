@@ -15,17 +15,21 @@ import java.util.Map;
 
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.StringUtility;
+import com.iss.storeApplication.common.Utility;
+import com.iss.storeApplication.domain.Category;
 import com.iss.storeApplication.domain.Vendor;
 
 public class VendorDao implements CommonDao<Vendor> {
 
 	private String fileName = null;
+	private CategoryDao categoryDao = new CategoryDao();
 
 	/**
 	 * Save Vendor to file
 	 */
-	public boolean save(Vendor v, boolean append) {
-
+	public boolean save(Vendor v,Category c, boolean append) {
+		
+		fileName = getFileName(c.getCategoryCode());
 		try {
 			File file = new File(Constants.DATA_FILE_DIR, fileName);
 			if (!file.exists()) {
@@ -42,35 +46,45 @@ public class VendorDao implements CommonDao<Vendor> {
 			return false;
 		}
 	}
+
 	
-	public boolean save(Vendor v,String categoryCode,boolean append)
-	{
-		fileName=Constants.FILENAME_VENDORS+categoryCode+Constants.FILE_EXTENSION;
-		return save(v, append);
-	}
-	
-	public List<Vendor> retrieveAll(String categoryCode)
-	{
-		fileName=Constants.FILENAME_VENDORS+categoryCode+Constants.FILE_EXTENSION;
-		return retrieveAll();
-	}
-	
-	public Vendor getFirstVendor(String categoryCode)
-	{
-		List<Vendor> vendors=retrieveAll(categoryCode);
-		if(vendors.size()>0)
+
+	public Vendor getFirstVendor(String categoryCode) {
+		List<Vendor> vendors = retriveVendors(categoryCode);
+		if (vendors.size() > 0)
 			return vendors.get(0);
 		else
 			return null;
 	}
 
 	/**
-	 * Retrieve All Storekeepers
+	 * Retrieve All Vendors
 	 */
-	@Override
-	public List<Vendor> retrieveAll() {
-		List<Vendor> Vendors = new ArrayList<Vendor>();
 
+	public List<Vendor> retrieveAll() {
+		List<Vendor> vendors = new ArrayList<Vendor>();
+
+		for (Category c : categoryDao.retrieveAll()) {
+			List<Vendor> vendorCategory = retriveVendors(c.getCategoryCode());
+			for (Vendor v : vendorCategory) {
+				if (vendors.contains(v))// same vendor already added so dont add
+										// vendor. add category
+				{
+					Vendor v1 = vendors.get(vendors.indexOf(v));
+					v1.getCategories().add(c);
+				} else {
+					vendors.add(v);
+				}
+			}
+		}
+
+		return vendors;
+	}
+
+	public List<Vendor> retriveVendors(String categoryCode) {
+		fileName = getFileName(categoryCode);
+		List<Vendor> vendors = new ArrayList<Vendor>();
+		Category c = categoryDao.get(categoryCode);
 		try {
 			File file = new File(Constants.DATA_FILE_DIR, fileName);
 			if (!file.exists()) {
@@ -84,8 +98,10 @@ public class VendorDao implements CommonDao<Vendor> {
 					Vendor v = new Vendor();
 					v.setName(rowValues[0]);
 					v.setDescription(rowValues[1]);
-
-					Vendors.add(v);
+					List<Category> categories = new ArrayList<Category>();
+					categories.add(c);
+					v.setCategories(categories);
+					vendors.add(v);
 				}
 			}
 			br.close();
@@ -99,7 +115,12 @@ public class VendorDao implements CommonDao<Vendor> {
 
 		}
 
-		return Vendors;
+		return vendors;
+	}
+
+	private String getFileName(String categoryCode) {
+		return Constants.FILENAME_VENDORS + categoryCode
+				+ Constants.FILE_EXT_SEPERATOR + Constants.FILE_EXTENSION;
 	}
 
 	/**
@@ -119,4 +140,53 @@ public class VendorDao implements CommonDao<Vendor> {
 
 		return vendorsMap;
 	}
+
+	public boolean save(Vendor v, boolean append) {
+		List<Category> categories=v.getCategories();
+		for (Category c : categories) {
+			if (!save(v, c, true))
+				return false;
+		}
+		return true;
+	}
+	
+	public boolean delete(Vendor vendor)
+	{
+		List<Vendor> vendors=retrieveAll();
+		if(vendors.contains(vendor))
+		{
+			vendors.remove(vendor);
+		}
+		
+		return saveAll(vendors);
+		
+	}
+	
+	/*
+	 * Clears file and saves list of discount object to file.
+	 */
+	public boolean saveAll(List<Vendor> vendors) {
+		// if (discounts.size() == 0) {
+		
+		
+		List<Category> categories=categoryDao.retrieveAll();
+		for(Category c:categories)
+		{
+			fileName = getFileName(c.getCategoryCode());
+			File file = new File(Constants.DATA_FILE_DIR, fileName);
+			if (!Utility.clearFile(file))
+				return false;
+		}
+		
+
+		// }
+		for (Vendor v : vendors) {
+			
+			if (!save(v, true)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 }

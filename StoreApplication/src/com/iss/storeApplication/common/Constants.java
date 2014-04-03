@@ -163,4 +163,10 @@ public interface Constants {
 	public static final String deleteMember = "deleteMember";
 	public static final String defaultLoyality= "defaultLoyality";
 	public static final String editMember= "editMember";
+	public static final String addVendor = "addVendor";
+	public static final String vendorDesc = "vendorDesc";
+	public static final String msgVendorAddedSuccess = "msgVendorAddedSuccess";
+	public static final String vendor = "vendor";
+	public static final String deleteVendor = "deleteVendor";
+	public static final String msgVendorAlreadyExist = "msgVendorAlreadyExist";
 }

@@ -6,4 +6,4 @@ cd %drive%
 %drive%
 cd %baseDir%
 javac -version
-java -cp .;bin com.iss.storeApplication.StoreApps
+java -cp .;classes com.iss.storeApplication.StoreApps

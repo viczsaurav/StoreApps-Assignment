@@ -38,6 +38,7 @@ public class ToolBarView extends JToolBar implements ActionListener {
 			add(addButton(Utility.getPropertyValue(Constants.category)));
 			add(addButton(Utility.getPropertyValue(Constants.members)));
 			add(addButton(Utility.getPropertyValue(Constants.discount)));
+			add(addButton(Utility.getPropertyValue(Constants.vendor)));
 			add(addButton(Utility.getPropertyValue(Constants.purchaseOrder)));
 			add(addButton(Utility.getPropertyValue(Constants.products)));
 			add(addButton(Utility.getPropertyValue(Constants.reports)));
@@ -153,6 +154,11 @@ public class ToolBarView extends JToolBar implements ActionListener {
 			button.setMnemonic(java.awt.event.KeyEvent.VK_M);
 
 		}
+		if (buttonName.equals(Utility.getPropertyValue(Constants.vendor))) {
+			button.setMnemonic(java.awt.event.KeyEvent.VK_I);
+
+		}
+		
 		if (buttonName.equals(Utility.getPropertyValue(Constants.discount))) {
 			button.setMnemonic(java.awt.event.KeyEvent.VK_D);
 

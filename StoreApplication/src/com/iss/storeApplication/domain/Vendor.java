@@ -34,6 +34,28 @@ public class Vendor {
 
 	public String getCommaSeperatedValue() {
 		// TODO Auto-generated method stub
-		return name+","+description;
+		return name + "," + description;
 	}
+
+	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Vendor other = (Vendor) obj;
+
+		if (other.getName().trim().equalsIgnoreCase(this.getName().trim())
+				&& other.getDescription().equalsIgnoreCase(
+						this.getDescription().trim())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

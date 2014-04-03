@@ -195,4 +195,23 @@ public class Controller {
 		return MemberRegistrationService.saveAll(members);
 	}
 
+	public static String validateVendor(Vendor v) {
+		
+		return VendorService.validateVendor(v);
+	}
+
+	public static boolean saveVendor(Vendor v) {
+		return VendorService.saveVendor(v);
+		
+	}
+
+	public static List<Vendor> retrieveAllVendor() {
+		return VendorService.retrieveAllVendor();
+	}
+
+	public static boolean deleteVendor(Vendor vendor) {
+		
+		return VendorService.deleteVendor(vendor);
+	}
+
 }
