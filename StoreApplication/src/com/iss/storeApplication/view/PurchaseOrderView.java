@@ -148,8 +148,13 @@ public class PurchaseOrderView extends JPanel {
 
 		}
 		purchaseOrderTable.setModel(purchaseOrderModel);
+		purchaseOrderTable.setPreferredScrollableViewportSize(new Dimension(600, 400));
+		purchaseOrderTable.setPreferredSize(new Dimension(600, 400));
+		purchaseOrderTable.setSize(new Dimension(600, 400));
 		purchaseOrderModel.setPurchaseOrders(purchaseOrders);
 		JScrollPane sp = new JScrollPane(purchaseOrderTable);
+		sp.setPreferredSize(new Dimension(600, 400));
+		sp.setMaximumSize(new Dimension(600, 400));
 		JOptionPane.showMessageDialog(mainView, sp,
 				Utility.getPropertyValue(Constants.purchaseOrder),
 				JOptionPane.OK_OPTION);
