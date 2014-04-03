@@ -1,10 +1,12 @@
 package com.iss.storeApplication.business;
 
 import java.util.List;
+import java.util.Map;
 
 import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.dao.CustomerDao;
+import com.iss.storeApplication.domain.Category;
 import com.iss.storeApplication.domain.Customer;
 import com.iss.storeApplication.domain.MemberCustomer;
 import com.iss.storeApplication.domain.Product;
@@ -56,6 +58,12 @@ public class MemberRegistrationService {
 				newMember.getMemberId() == null	|| 
 				newMember.getLoyality() == null 	) 	{
 			return Constants.ALL_FIELDS_REQUIRED;
+		}else {
+			// check whether member already exists
+			Map<String, Customer> members= memberDao.getMap();
+			if (members.containsKey(newMember.getMemberId())) {
+				return Constants.memberExists;
+			}
 		}
 
 		return Constants.SUCCESS;

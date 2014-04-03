@@ -2,8 +2,6 @@ package com.iss.storeApplication.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,7 +21,6 @@ import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.controller.Controller;
 import com.iss.storeApplication.domain.Customer;
 import com.iss.storeApplication.domain.MemberCustomer;
-import com.iss.storeApplication.domain.Product;
 
 
 
@@ -270,7 +267,7 @@ public class MemberView extends JPanel{
 		
 		loyalityField.setColumns(Constants.DEFAULT_TEXTFIELD_SIZE);
 		loyalityField.setText(Utility.getPropertyValue(Constants.defaultLoyality));
-		
+		loyalityField.setEnabled(false);
 	
 				addMemberPanel.add(memberNameLabel);
 			
@@ -305,7 +302,7 @@ public class MemberView extends JPanel{
 		                if (result == JOptionPane.OK_OPTION) {
 		                	String message = "";
 		                }*/
-		loyalityField.setEnabled(false);
+		
 		setMemberToMemberDialogView(null);
 		int result = JOptionPane.showConfirmDialog(mainView, addMemberPanel, Utility.getPropertyValue(Constants.addMemberBtn), JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION) {

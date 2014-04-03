@@ -169,4 +169,5 @@ public interface Constants {
 	public static final String vendor = "vendor";
 	public static final String deleteVendor = "deleteVendor";
 	public static final String msgVendorAlreadyExist = "msgVendorAlreadyExist";
+	public static final String memberExists = "Member already exists";;
 }
