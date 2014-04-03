@@ -134,9 +134,46 @@ public class MemberView extends JPanel{
 
 			}
 		});
-	
+	   deleteMemberBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent event) {
+			deleteMember();
+
+			}
+		});
 	}
 
+	
+	/**
+	 * Delete MemberCustomer from file and Jtable
+	 */
+	private void deleteMember() {
+
+		int rowIndex = memberTable.getSelectedRow();
+		if (rowIndex == -1) {
+			JOptionPane.showMessageDialog(mainView,
+					Utility.getPropertyValue(Constants.selectRow));
+			return;
+		}
+
+		if (rowIndex >= 0) {
+			memberModel.removeMember(rowIndex);
+
+		}
+		if (Controller.saveAllMembers(memberModel.getMembers())) {
+			memberModel.fireTableDataChanged();
+		} else {
+			JOptionPane.showMessageDialog(mainView,
+					Utility.getPropertyValue(Constants.failure));
+		}
+	}
+
+
+
+	
+	
+	
 	/**
 	 * Edit Button Clicked. Edit Popup  will show.
 	 * 
@@ -233,7 +270,7 @@ public class MemberView extends JPanel{
 		
 		loyalityField.setColumns(Constants.DEFAULT_TEXTFIELD_SIZE);
 		loyalityField.setText(Utility.getPropertyValue(Constants.defaultLoyality));
-		loyalityField.setEnabled(false);
+		
 	
 				addMemberPanel.add(memberNameLabel);
 			
@@ -268,6 +305,7 @@ public class MemberView extends JPanel{
 		                if (result == JOptionPane.OK_OPTION) {
 		                	String message = "";
 		                }*/
+		loyalityField.setEnabled(false);
 		setMemberToMemberDialogView(null);
 		int result = JOptionPane.showConfirmDialog(mainView, addMemberPanel, Utility.getPropertyValue(Constants.addMemberBtn), JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION) {
