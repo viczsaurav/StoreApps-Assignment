@@ -112,6 +112,7 @@ public class ProductView extends JPanel {
 	public ProductView(MainView mainView) {
 		setLayout(new BorderLayout());
 		this.mainView = mainView;
+		deleteProduct.setVisible(false);
 
 		// Add New Product
 		addNewProduct.addActionListener(new ActionListener() {
@@ -175,12 +176,14 @@ public class ProductView extends JPanel {
 	 */
 	private void initProductTable() {
 
+		
 		productTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		northPanel.add(addNewProduct);
 		northPanel.add(editProduct);
 		northPanel.add(deleteProduct);
 		add(northPanel, BorderLayout.NORTH);
+		
 
 		productTable.setModel(productTableModel);
 		add(new JScrollPane(productTable), BorderLayout.CENTER);
@@ -476,6 +479,7 @@ public class ProductView extends JPanel {
 
 		// Fetch Product Values
 		setProductToProductDialogView(p);
+		
 		productCategoryCmbBox.setEnabled(false);
 		// Setting selected category since its not instantiated without change
 		// event
