@@ -132,9 +132,16 @@ import com.iss.storeApplication.domain.Transaction;
 	
 		protected void intTransactionReport() {
 			// TODO Auto-generated method stub
-	
+			
 			commonTable.setModel(transactionReportModel);
 			transactionReportModel.clear();
+			List<Transaction> Transactions = Controller.getTransactions();
+			for(Transaction t: Transactions)
+			{
+				transactionReportModel.addTranscation(t);
+				transactionReportModel.fireTableDataChanged();
+			}
+			
 			panelTransDatepicker.setVisible(true);
 			JOptionPane.showMessageDialog(mainView,
 					Utility.getPropertyValue(Constants.selectDateFromBelow));
