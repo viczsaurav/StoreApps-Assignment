@@ -173,4 +173,5 @@ public interface Constants {
 	public static final String purchasedQtyNotGreaterThanAvailable = "purchasedQtyNotGreaterThanAvailable";
 	public static final String msgdiscountNumeric = "msgdiscountNumeric";
 	public static final String msgdurationNumeric = "msgdurationNumeric";
+	public static final String msgProductNotFound = "msgProductNotFound";
 }

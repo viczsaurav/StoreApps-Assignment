@@ -264,6 +264,7 @@ public class BillingView extends JPanel {
 	protected void generateBill() {
 		
 		
+		
 		if (!validateReedemPoints()) {
 			JOptionPane.showMessageDialog(mainView, Utility
 					.getPropertyValue(Constants.msgCannotReedemMoreThanEarned));
@@ -334,6 +335,8 @@ public class BillingView extends JPanel {
 
 			// clear map
 			barCodeTransaction.clear();
+			
+			transactionTableModel.clear();
 		}
 
 	}
@@ -377,6 +380,13 @@ public class BillingView extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				if(billingTableModel.getListtransactions().size()==0)
+				{
+					JOptionPane.showMessageDialog(mainView, Utility.getPropertyValue(Constants.msgProductNotFound));
+					return;
+				}
+				
 				applyDiscountBtn.setEnabled(false);
 				generateBillBtn.setEnabled(true);
 				applyMemberDiscount();
@@ -676,6 +686,15 @@ public class BillingView extends JPanel {
 		}
 		billingTableModel.fireTableDataChanged();
 		calculateTotal();
+		
+		if(billingTableModel.getListtransactions().size()==0)
+		{
+			generateBillBtn.setEnabled(false);
+		}
+		else
+		{
+			generateBillBtn.setEnabled(true);
+		}
 
 	}
 
