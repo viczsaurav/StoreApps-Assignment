@@ -120,6 +120,11 @@ public class PurchaseOrderView extends JPanel {
 	 */
 	protected void generatePurchaseOrder() {
 
+		if(purchaseOrderProductTableModel.getPurchaseOrders().size()==0)
+		{
+			JOptionPane.showMessageDialog(mainView, Utility.getPropertyValue(Constants.productNotFound));
+			return ;
+		}
 		// find vendor
 		Category c = categoryComboboxModel.getSelectedCategory();
 		Vendor v = Controller.getFirstVendor(c.getCategoryCode());
