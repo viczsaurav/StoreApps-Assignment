@@ -359,6 +359,12 @@ public class BillingView extends JPanel {
 			}
 		}
 		
+		if(StringUtility.isEmpty(amtReceivedField.getText()))
+		{
+			JOptionPane.showMessageDialog(mainView, "Please enter Amt Received");
+			return;
+		}
+		
 		if (new Double(changeReturnField.getText()) < 0) {
 			JOptionPane.showMessageDialog(mainView,
 					"Amount Received should not be less than bill amt");
