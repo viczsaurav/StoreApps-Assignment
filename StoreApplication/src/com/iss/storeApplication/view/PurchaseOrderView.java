@@ -162,7 +162,8 @@ public class PurchaseOrderView extends JPanel {
 		sp.setMaximumSize(new Dimension(600, 400));
 		JOptionPane.showMessageDialog(mainView, sp,
 				Utility.getPropertyValue(Constants.purchaseOrder),
-				JOptionPane.OK_OPTION);
+				JOptionPane.INFORMATION_MESSAGE);
+		
 
 		resetTable();
 
