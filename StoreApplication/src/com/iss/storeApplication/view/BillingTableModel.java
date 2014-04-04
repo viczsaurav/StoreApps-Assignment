@@ -25,10 +25,11 @@ public class BillingTableModel extends AbstractTableModel {
 	 * setValue() method
 	 */
 	private static final int COLUMN_PRODUCT_ID = 0;
-	private static final int COLUMN_PRODUCT_DESCRIPTION = 1;
-	private static final int COLUMN_AVAILABLE_QTY = 2;
-	private static final int COLUMN_PRICE = 3;
-	private static final int COLUMN_PURCHASED_QTY = 4;
+	private static final int COLUMN_PRODUCT_Name = 1;
+	private static final int COLUMN_PRODUCT_DESCRIPTION = 2;
+	private static final int COLUMN_AVAILABLE_QTY = 3;
+	private static final int COLUMN_PRICE = 4;
+	private static final int COLUMN_PURCHASED_QTY = 5;
 	
 	private BillingView billingView;
 
@@ -96,6 +97,9 @@ public class BillingTableModel extends AbstractTableModel {
 		switch (columnIndex) {
 		case COLUMN_PRODUCT_ID:
 			value = Transcation.getProduct().getProductId();
+			break;
+		case COLUMN_PRODUCT_Name:
+			value = Transcation.getProduct().getProductName();
 			break;
 		case COLUMN_PRODUCT_DESCRIPTION:
 			value = Transcation.getProduct().getDescription();

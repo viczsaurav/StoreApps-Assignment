@@ -123,5 +123,9 @@ public class Utility {
 		}
 
 	}
-
+	
+	public static double roundDoubleToTwoFraction(double a)
+	{
+		return (double) Math.round(a * 100) / 100;
+	}
 }

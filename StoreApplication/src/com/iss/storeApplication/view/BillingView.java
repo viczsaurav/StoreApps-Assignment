@@ -103,11 +103,10 @@ public class BillingView extends JPanel {
 	private JPanel reedemPanel = new JPanel();
 	private JLabel reedemLbl = new JLabel(
 			Utility.getPropertyValue(Constants.reedemPoint));
-	private JFormattedTextField reedemField = new JFormattedTextField(
-			Utility.getIntegerFormat());
+	private JTextField reedemField = new JTextField();
 
 	private JPanel centerPanel = new JPanel();
-	private JPanel southPanel = new JPanel(new GridLayout(9, 3));
+	private JPanel southPanel = new JPanel(new GridLayout(11, 3));
 
 	private final double dollarToPointValue = 0.1;
 	private final double pointToDollarValue = 0.005;
@@ -116,6 +115,24 @@ public class BillingView extends JPanel {
 	private JTable transactionTable = new JTable();
 	private TransactionTableModel transactionTableModel = new TransactionTableModel();
 	private JScrollPane transactionTablePanel;
+	private JPanel transactionPanel = new JPanel(new BorderLayout());
+
+	private JLabel amtReceivedLbl = new JLabel(
+			Utility.getPropertyValue(Constants.amtReceived));
+	private JTextField amtReceivedField = new JTextField();
+	private JPanel amtReceivedPanel = new JPanel();
+
+	private JLabel changeReturnLbl = new JLabel(
+			Utility.getPropertyValue(Constants.changeReturn));
+	private JTextField changeReturnField = new JTextField();
+	private JPanel changeReturnPanel = new JPanel();
+	
+	JPanel amtRecePnl=new JPanel();
+	JLabel amtReclbl=new JLabel(Utility.getPropertyValue(Constants.amtReceived));
+	JTextField amtRecFld=new JTextField(amtReceivedField.getText());
+	JPanel chngPnl=new JPanel();
+	JLabel chngLbl=new JLabel(Utility.getPropertyValue(Constants.changeReturn));
+	JTextField chngFld=new JTextField(changeReturnField.getText());
 
 	public BillingView(MainView mainView) {
 		super(new BorderLayout());
@@ -137,6 +154,10 @@ public class BillingView extends JPanel {
 
 		initBillAmtPanel();
 
+		initAmtRecievedPanel();
+
+		initChangeReturnPanel();
+
 		initGenerateBillPanel();
 
 		initLoyalityPanel();
@@ -147,6 +168,15 @@ public class BillingView extends JPanel {
 
 		southPanel.remove(memberIdPanel);
 		SwingUtility.refreshJpanel(southPanel);
+
+	}
+
+	private void initChangeReturnPanel() {
+		changeReturnField.setColumns(10);
+		changeReturnField.setEnabled(false);
+		changeReturnPanel.add(changeReturnLbl);
+		changeReturnPanel.add(changeReturnField);
+		southPanel.add(changeReturnPanel);
 
 	}
 
@@ -165,6 +195,27 @@ public class BillingView extends JPanel {
 		transactionTablePanel.setPreferredSize(new Dimension(600, 400));
 		transactionTablePanel.setMaximumSize(new Dimension(600, 400));
 
+		transactionPanel.add(transactionTablePanel,BorderLayout.CENTER);
+		
+		amtRecePnl.setPreferredSize(new Dimension(100,50));
+		chngPnl.setPreferredSize(new Dimension(100,50));
+		amtRecePnl.setMaximumSize(new Dimension(600, 400));
+		chngPnl.setMaximumSize(new Dimension(600, 400));
+		amtRecePnl.add(amtReclbl);
+		amtRecePnl.add(amtRecFld);
+		
+		
+		chngPnl.add(chngLbl);
+		chngPnl.add(chngFld);
+		amtRecFld.setEnabled(false);
+		chngFld.setEnabled(false);
+		JPanel p=new JPanel(new GridLayout(2, 1));
+		
+		p.add(amtRecePnl);
+		p.add(chngPnl);
+		
+		transactionPanel.add(p,BorderLayout.SOUTH);
+
 	}
 
 	/*
@@ -176,6 +227,26 @@ public class BillingView extends JPanel {
 		reedemPanel.add(reedemLbl);
 		reedemPanel.add(reedemField);
 
+		reedemField.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				validateReedemPoints();
+
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				validateReedemPoints();
+
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				validateReedemPoints();
+			}
+		});
+
 	}
 
 	/**
@@ -185,6 +256,14 @@ public class BillingView extends JPanel {
 	 */
 	protected boolean validateReedemPoints() {
 
+		if (!StringUtility.isNumeric(reedemField.getText())) {
+			JOptionPane.showMessageDialog(mainView,
+					"Reedem Field should be numeric");
+			// reedemField.setText("0");
+			calculate();
+			return false;
+		}
+
 		Integer loyalityEarned = 0;
 		Integer reedemPoint = 0;
 		Double billAmt = 0.0;
@@ -192,34 +271,33 @@ public class BillingView extends JPanel {
 			loyalityEarned = new Integer(loyalityField.getText());
 		} catch (NumberFormatException e) {
 			loyalityField.setText("0");
-
+			calculate();
 			return false;
 		}
-		try {
+		if (!StringUtility.isEmpty(reedemField.getText()))
 			reedemPoint = new Integer(reedemField.getText());
-		} catch (NumberFormatException e) {
 
-			reedemField.setText("0");
-
-			return false;
-		}
 		try {
 			billAmt = new Double(billAmtField.getText());
 		} catch (NumberFormatException e) {
 
 			billAmtField.setText("0");
-
+			calculate();
 			return false;
 		}
 
 		if (reedemPoint > loyalityEarned) {
 
-			reedemField.setText("0");
+			calculate();
 
 			return false;
+		} else if (reedemPoint == 0) {
+			calculate();
+			return true;
 		} else {
 
 			billAmt = billAmt - (pointToDollarValue * reedemPoint);
+			billAmt = Utility.roundDoubleToTwoFraction(billAmt);
 			billAmtField.setText(billAmt.toString());
 			return true;
 		}
@@ -255,6 +333,15 @@ public class BillingView extends JPanel {
 
 			}
 		});
+
+		resetBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				resetBill();
+
+			}
+		});
 	}
 
 	/**
@@ -262,9 +349,13 @@ public class BillingView extends JPanel {
 	 * loyality earned of member customer
 	 */
 	protected void generateBill() {
-		
-		
-		
+
+		if (new Double(changeReturnField.getText()) < 0) {
+			JOptionPane.showMessageDialog(mainView,
+					"Amount Received should not be less than bill amt");
+			return;
+		}
+
 		if (!validateReedemPoints()) {
 			JOptionPane.showMessageDialog(mainView, Utility
 					.getPropertyValue(Constants.msgCannotReedemMoreThanEarned));
@@ -324,18 +415,21 @@ public class BillingView extends JPanel {
 					return;
 				}
 			}
+			
+			
+			amtRecFld.setText(amtReceivedField.getText());
+			chngFld.setText(changeReturnField.getText());
+			// show transaction list
+			JOptionPane.showMessageDialog(mainView, transactionPanel,
+					Utility.getPropertyValue(Constants.billTitle),
+					JOptionPane.INFORMATION_MESSAGE);
 
 			// reset Form
 			resetBill();
 
-			// show transaction list
-			JOptionPane.showMessageDialog(mainView, transactionTablePanel,
-					Utility.getPropertyValue(Constants.billTitle),
-					JOptionPane.INFORMATION_MESSAGE);
-
 			// clear map
 			barCodeTransaction.clear();
-			
+
 			transactionTableModel.clear();
 		}
 
@@ -352,6 +446,56 @@ public class BillingView extends JPanel {
 		billAmtPanel.add(billAmtLbl);
 		billAmtPanel.add(billAmtField);
 		southPanel.add(billAmtPanel);
+	}
+
+	public void initAmtRecievedPanel() {
+
+		amtReceivedField.setColumns(10);
+
+		amtReceivedPanel.add(amtReceivedLbl);
+		amtReceivedPanel.add(amtReceivedField);
+		southPanel.add(amtReceivedPanel);
+
+		amtReceivedField.getDocument().addDocumentListener(
+				new DocumentListener() {
+
+					@Override
+					public void removeUpdate(DocumentEvent arg0) {
+						updateChangeField();
+
+					}
+
+					@Override
+					public void insertUpdate(DocumentEvent arg0) {
+						updateChangeField();
+					}
+
+					@Override
+					public void changedUpdate(DocumentEvent arg0) {
+
+					}
+				});
+	}
+
+	protected void updateChangeField() {
+		if (!StringUtility.isNumeric(amtReceivedField.getText())) {
+			JOptionPane.showMessageDialog(mainView,
+					"Amount Received should be numeric");
+			// amtReceivedField.setText("0");
+			changeReturnField.setText("-" + billAmtField.getText());
+			return;
+		}
+		if (StringUtility.isEmpty(amtReceivedField.getText())) {
+			changeReturnField.setText("-" + billAmtField.getText());
+			return;
+		}
+
+		Double amtRec = new Double(amtReceivedField.getText());
+
+		Double change = amtRec - new Double(billAmtField.getText());
+		change = Utility.roundDoubleToTwoFraction(change);
+		changeReturnField.setText(change.toString());
+
 	}
 
 	/**
@@ -380,43 +524,58 @@ public class BillingView extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				if(billingTableModel.getListtransactions().size()==0)
-				{
-					JOptionPane.showMessageDialog(mainView, Utility.getPropertyValue(Constants.msgProductNotFound));
-					return;
-				}
-				
-				applyDiscountBtn.setEnabled(false);
-				generateBillBtn.setEnabled(true);
-				applyMemberDiscount();
+
+				applyDiscountClicked();
 
 			}
 		});
-		
-		memberIdTxtField.getDocument().addDocumentListener(new DocumentListener() {
-			
+
+		memberIdTxtField.getDocument().addDocumentListener(
+				new DocumentListener() {
+
+					@Override
+					public void removeUpdate(DocumentEvent arg0) {
+						applyDiscountBtn.setEnabled(true);
+						generateBillBtn.setEnabled(false);
+
+					}
+
+					@Override
+					public void insertUpdate(DocumentEvent arg0) {
+						applyDiscountBtn.setEnabled(true);
+						generateBillBtn.setEnabled(false);
+
+					}
+
+					@Override
+					public void changedUpdate(DocumentEvent arg0) {
+						applyDiscountBtn.setEnabled(true);
+						generateBillBtn.setEnabled(false);
+
+					}
+				});
+
+		memberIdTxtField.addActionListener(new ActionListener() {
+
 			@Override
-			public void removeUpdate(DocumentEvent arg0) {
-				applyDiscountBtn.setEnabled(true);
-				generateBillBtn.setEnabled(false);
-				
-			}
-			
-			@Override
-			public void insertUpdate(DocumentEvent arg0) {
-				applyDiscountBtn.setEnabled(true);
-				generateBillBtn.setEnabled(false);
-				
-			}
-			
-			@Override
-			public void changedUpdate(DocumentEvent arg0) {
-				applyDiscountBtn.setEnabled(true);
-				generateBillBtn.setEnabled(false);
-				
+			public void actionPerformed(ActionEvent arg0) {
+				applyDiscountClicked();
+
 			}
 		});
+
+	}
+
+	protected void applyDiscountClicked() {
+		if (billingTableModel.getListtransactions().size() == 0) {
+			JOptionPane.showMessageDialog(mainView,
+					Utility.getPropertyValue(Constants.msgProductNotFound));
+			return;
+		}
+
+		applyDiscountBtn.setEnabled(false);
+		generateBillBtn.setEnabled(true);
+		applyMemberDiscount();
 
 	}
 
@@ -496,7 +655,7 @@ public class BillingView extends JPanel {
 						southPanel.remove(loyalityPanel);
 						southPanel.remove(reedemPanel);
 						generateBillBtn.setEnabled(true);
-						
+
 						calculatePublicBillAmount();
 
 					} else {
@@ -686,13 +845,10 @@ public class BillingView extends JPanel {
 		}
 		billingTableModel.fireTableDataChanged();
 		calculateTotal();
-		
-		if(billingTableModel.getListtransactions().size()==0)
-		{
+
+		if (billingTableModel.getListtransactions().size() == 0) {
 			generateBillBtn.setEnabled(false);
-		}
-		else
-		{
+		} else {
 			generateBillBtn.setEnabled(true);
 		}
 
@@ -766,6 +922,9 @@ public class BillingView extends JPanel {
 		generateBillBtn.setEnabled(false);
 		memberIdTxtField.setText("");
 		loyalityField.setText("0");
+		amtReceivedField.setText("0");
+		barCodeTransaction.clear();
+		reedemField.setText("0");
 
 	}
 

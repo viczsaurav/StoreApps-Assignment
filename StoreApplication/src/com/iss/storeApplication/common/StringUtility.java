@@ -32,6 +32,11 @@ public class StringUtility {
 	
 	public static boolean isNumeric(String str)  
 	{  
+		
+		if(isEmpty(str))
+		{
+			return true;
+		}
 	  try  
 	  {  
 	    double d = Double.parseDouble(str);  

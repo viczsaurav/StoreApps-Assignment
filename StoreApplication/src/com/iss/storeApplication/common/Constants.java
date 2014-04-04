@@ -174,4 +174,6 @@ public interface Constants {
 	public static final String msgdiscountNumeric = "msgdiscountNumeric";
 	public static final String msgdurationNumeric = "msgdurationNumeric";
 	public static final String msgProductNotFound = "msgProductNotFound";
+	public static final String amtReceived = "amtReceived";
+	public static final String changeReturn = "changeReturn";
 }
