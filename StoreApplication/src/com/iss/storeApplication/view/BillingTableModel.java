@@ -53,6 +53,7 @@ public class BillingTableModel extends AbstractTableModel {
 		// define column names
 		columnNames = new String[] {
 				Utility.getPropertyValue(Constants.productId),
+				Utility.getPropertyValue(Constants.productName),
 				Utility.getPropertyValue(Constants.productDescription),
 				Utility.getPropertyValue(Constants.productQty),
 				Utility.getPropertyValue(Constants.productPrice),
