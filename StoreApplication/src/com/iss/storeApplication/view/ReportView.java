@@ -22,6 +22,8 @@ import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.component.DatePicker;
 import com.iss.storeApplication.controller.Controller;
 import com.iss.storeApplication.domain.Category;
+import com.iss.storeApplication.domain.Customer;
+import com.iss.storeApplication.domain.MemberCustomer;
 import com.iss.storeApplication.domain.Product;
 import com.iss.storeApplication.domain.Transaction;
 	
@@ -52,6 +54,7 @@ import com.iss.storeApplication.domain.Transaction;
 		private CategoryTableModel categoryModel = new CategoryTableModel();
 		private TransactionReportTableModel transactionReportModel = new TransactionReportTableModel();
 		private ProductTableModel productModel = new ProductTableModel();
+		private MemberModel memberModel = new MemberModel();
 	
 		private JPanel panelTransDatepicker = new JPanel();
 	
@@ -93,9 +96,30 @@ import com.iss.storeApplication.domain.Transaction;
 					intTransactionReport();
 				}
 			});
+			memberRptBtn.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					refreshMemberReport();
+					
+				}
+			});
 	
 		}
 	
+		protected void refreshMemberReport() {
+			// TODO Auto-generated method stub
+			commonTable.setModel(memberModel);
+			memberModel.clear();
+			List<Customer> memberCustomers = Controller.getMemberCustomers();
+			for(Customer mc:memberCustomers)
+			{
+				memberModel.addMember((MemberCustomer) mc);
+				memberModel.fireTableDataChanged();
+			}
+		}
+
 		protected void refreshProductReport() {
 			// TODO Auto-generated method stub
 			commonTable.setModel(productModel);
