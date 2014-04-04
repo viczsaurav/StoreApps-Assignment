@@ -349,7 +349,16 @@ public class BillingView extends JPanel {
 	 * loyality earned of member customer
 	 */
 	protected void generateBill() {
-
+		
+		if(((MemberType)memberTypeCmbBox.getSelectedItem()).equals(MemberType.Member))
+		{
+			if(customer==null)
+			{
+				JOptionPane.showMessageDialog(mainView, Utility.getPropertyValue(Constants.msgMemNotFound));
+				return;
+			}
+		}
+		
 		if (new Double(changeReturnField.getText()) < 0) {
 			JOptionPane.showMessageDialog(mainView,
 					"Amount Received should not be less than bill amt");
@@ -593,6 +602,7 @@ public class BillingView extends JPanel {
 		if (customer == null) {
 			JOptionPane.showMessageDialog(mainView,
 					Utility.getPropertyValue(Constants.msgMemNotFound));
+			generateBillBtn.setEnabled(false);
 			return false;
 		}
 		if (customer.getLoyality() == -1)// first time purchase
