@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -102,6 +103,7 @@ import com.iss.storeApplication.domain.Transaction;
 			});
 			memberRptBtn.addActionListener(new ActionListener() {
 				
+				
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
@@ -123,6 +125,7 @@ import com.iss.storeApplication.domain.Transaction;
 			// TODO Auto-generated method stub
 			commonTable.setModel(memberModel);
 			memberModel.clear();
+			panelTransDatepicker.setVisible(false);
 			List<Customer> memberCustomers = Controller.getMemberCustomers();
 			for(Customer mc:memberCustomers)
 			{
