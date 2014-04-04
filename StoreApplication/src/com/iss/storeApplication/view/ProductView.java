@@ -250,6 +250,7 @@ public class ProductView extends JPanel {
 	private void initAddProductDialog() {
 		productPanel.setLayout(new GridBagLayout());
 		final GridBagConstraints c = new GridBagConstraints();
+		
 		initializeProductComboBox();
 		// Setting default length and values of Text fields
 		productCategoryCmbBox.setSize(Constants.DEFAULT_TEXTFIELD_SIZE, 1);
@@ -361,7 +362,6 @@ public class ProductView extends JPanel {
 		 * Getting Combobox Ready
 		 */
 		// Getting Category Name - Code
-		selectedCategory = null;
 		category = Controller.getAllCategory();
 		allCategoryName = new String[category.size()];
 		for (int i = 0; i < category.size(); i++) {
@@ -372,10 +372,12 @@ public class ProductView extends JPanel {
 		// Binding Category Values to ComboBox
 		productCategoryCmbBox.setModel(new DefaultComboBoxModel<>(
 				allCategoryName));
-
+		// Initialize selectedCategory
+		String result = (String) productCategoryCmbBox.getSelectedItem();
+		selectedCategory = result.split("-")[0].trim();
 		// Adding Listener to get Values
 		productCategoryCmbBox.addItemListener(new ItemListener() {
-
+			
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -387,10 +389,9 @@ public class ProductView extends JPanel {
 				}
 			}
 		});
-
 		UIManager.put("ComboBox.disabledBackground", new Color(212, 212, 210));
 		UIManager.put("ComboBox.disabledForeground", Color.BLACK);
-
+		
 	}
 
 	/**
@@ -417,6 +418,7 @@ public class ProductView extends JPanel {
 			prodName.setText("");
 			prodDesc.setText("");
 			prodQuant.setText("");
+			prodPrice.setText("0.00");
 			prodBarCode.setText("");
 			prodReorderQuant.setText(Utility
 					.getPropertyValue(Constants.prodReorderQuantDef));

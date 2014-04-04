@@ -81,6 +81,9 @@ public class ProductService {
 				p.getOrderQty() == null		|| 
 				p.getReorderQty() == null
 				) 	{
+			System.out.println("NUll "+ p.getCategory() +p.getProductName()
+					+ p.getDescription() + p.getOrderQty() + p.getPrice() + p.getBarCode()
+					+ p.getOrderQty() + p.getReorderQty());
 			return Constants.ALL_FIELDS_REQUIRED;
 		}
 		if (	p.getOrderQty() < 0		||
