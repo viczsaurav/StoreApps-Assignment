@@ -326,4 +326,15 @@ private void addElement(){
 		model.setValueAt(anCategory.getCategoryName(), row, 1);
 	}
 
+
+
+	public void refreshCategoryTable() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	
+
 }

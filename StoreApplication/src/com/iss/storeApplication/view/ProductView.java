@@ -140,7 +140,7 @@ public class ProductView extends JPanel {
 		initProductTable();
 
 		// populate products in jtable
-		refreshProductTable();
+		//refreshProductTable();
 	}
 
 	/**

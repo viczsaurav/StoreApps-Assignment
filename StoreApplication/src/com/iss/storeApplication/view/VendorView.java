@@ -121,7 +121,7 @@ public class VendorView extends JPanel {
 					JOptionPane.showMessageDialog(mainView,
 							Utility.getPropertyValue(Constants.failure));
 				}
-				refreshTable();
+				refreshVendorTable();
 			} else {
 				JOptionPane.showMessageDialog(mainView,
 						Utility.getPropertyValue(msg));
@@ -154,7 +154,7 @@ public class VendorView extends JPanel {
 		});
 		
 		add(topPanel, BorderLayout.NORTH);
-		refreshTable();
+		//refreshVendorTable();
 		
 
 	}
@@ -266,7 +266,7 @@ public class VendorView extends JPanel {
 
 	}
 
-	public void refreshTable() {
+	public void refreshVendorTable() {
 		List<Vendor> vendors=Controller.retrieveAllVendor();
 		vendorTableModel.setVendors(vendors);
 		vendorTableModel.fireTableDataChanged();

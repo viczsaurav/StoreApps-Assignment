@@ -111,7 +111,7 @@ public class DiscountView extends JPanel {
 		initDiscountTable();
 		
 		//populate discounts in jtable
-		refreshDiscountTable();
+		//refreshDiscountTable();
 	}
 
 	/**

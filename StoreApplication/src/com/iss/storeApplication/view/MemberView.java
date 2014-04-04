@@ -58,7 +58,7 @@ public class MemberView extends JPanel{
 		//init center panel
 		initCenterPanel();	
 		//Refresh Table
-		refreshMemberTable();
+		//refreshMemberTable();
 	}
 	//Top and center panels
 	private JPanel topPanel = new JPanel();

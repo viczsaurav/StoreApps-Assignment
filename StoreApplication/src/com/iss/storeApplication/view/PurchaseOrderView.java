@@ -97,7 +97,7 @@ public class PurchaseOrderView extends JPanel {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
-					refreshProductTable();
+					refreshPurchaseOrderTable();
 				}
 
 			}
@@ -166,7 +166,7 @@ public class PurchaseOrderView extends JPanel {
 	/**
 	 * Refresh Product Table
 	 */
-	protected void refreshProductTable() {
+	protected void refreshPurchaseOrderTable() {
 		// get list of product belong to category
 
 		List<Product> products = Controller
@@ -189,7 +189,9 @@ public class PurchaseOrderView extends JPanel {
 		purchaseOrderModel.setPurchaseOrders(new ArrayList<PurchaseOrder>());
 
 		purchaseOrderModel.fireTableDataChanged();
-		refreshProductTable();
+		refreshPurchaseOrderTable();
 
 	}
+
+	
 }

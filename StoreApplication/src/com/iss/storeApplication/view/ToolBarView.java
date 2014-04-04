@@ -101,6 +101,32 @@ public class ToolBarView extends JToolBar implements ActionListener {
 				card = (JPanel) comp;
 				card.repaint();
 			}
+			
+			if(comp instanceof CategoryView)
+			{
+				((CategoryView)comp).refreshCategoryTable();
+			}
+			if(comp instanceof MemberView)
+			{
+				((MemberView)comp).refreshMemberTable();
+			}
+			if(comp instanceof ProductView)
+			{
+				((ProductView)comp).refreshProductTable();
+			}
+			if(comp instanceof DiscountView)
+			{
+				((DiscountView)comp).refreshDiscountTable();
+			}
+			if(comp instanceof VendorView)
+			{
+				((VendorView)comp).refreshVendorTable();
+			}
+			if(comp instanceof PurchaseOrderView)
+			{
+				((PurchaseOrderView)comp).refreshPurchaseOrderTable();
+			}
+			
 
 		}
 
