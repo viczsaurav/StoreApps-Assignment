@@ -39,11 +39,15 @@ public class MemberRegistrationService {
 
 	public static String validateAndSaveMember(MemberCustomer newMember) {
 		String msg = validateMember(newMember);
+		Map<String, Customer> members= memberDao.getMap();
 		if (msg.equals(Constants.SUCCESS)) {
 			
-			if (memberDao.save(newMember, true))
-				return Constants.SUCCESS;
-			else
+			
+			 if (members.containsKey(newMember.getMemberId()))
+				return Constants.memberExists;
+			 else if (memberDao.save(newMember, true))
+					return Constants.SUCCESS;
+			 else
 				return Utility.getPropertyValue(Constants.failure);
 		} else {
 			return msg;
@@ -58,22 +62,29 @@ public class MemberRegistrationService {
 				newMember.getMemberId() == null	|| 
 				newMember.getLoyality() == null 	) 	{
 			return Constants.ALL_FIELDS_REQUIRED;
-		}else {
-			// check whether member already exists
-			Map<String, Customer> members= memberDao.getMap();
-			if (members.containsKey(newMember.getMemberId())) {
-				return Constants.memberExists;
-			}
 		}
-
-		return Constants.SUCCESS;
+		
+	
+		   
+			return Constants.SUCCESS;
 	}
 
+	public static boolean  memberExists(MemberCustomer newMember){
+		Map<String, Customer> members= memberDao.getMap();
+		if (members.containsKey(newMember.getMemberId()))
+			return false;
+		else 
+			return true;
+	}
+	
+	
+	
 	public static boolean saveAll(List<Customer> members) {
 		// TODO Auto-generated method stub
 		return memberDao.saveAll(members);
 	}
 
+	
 	
 
 	

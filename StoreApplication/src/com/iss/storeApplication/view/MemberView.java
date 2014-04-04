@@ -123,6 +123,7 @@ public class MemberView extends JPanel{
 	   add(topPanel, BorderLayout.NORTH);
 	   
 	   initAddMemberDialog();
+	   setMemberToMemberDialogView(null);
 	   editMemberBtn.addActionListener(new ActionListener() {
 
 			@Override
@@ -195,8 +196,8 @@ public class MemberView extends JPanel{
 				// Setting selected category since its not instantiated without change
 				// event
 				selectedMember = m.getMemberId();
-				System.out.println("selected :" + selectedMember);
-
+				
+			
 				int result = JOptionPane.showConfirmDialog(mainView, addMemberPanel,
 						Utility.getPropertyValue(Constants.editMember),
 						JOptionPane.OK_CANCEL_OPTION);
@@ -205,15 +206,33 @@ public class MemberView extends JPanel{
 					MemberCustomer member = null;
 					member = createMemberFromView(m);
 					String msg = Controller.validateMember(m);
-					if (msg.equals(Constants.SUCCESS))
+					if (msg.equals(Constants.SUCCESS)&& Controller.memberExists(m)==true){
+						
 						editMember(member);
+					setMemberToMemberDialogView(null);
+					}
+					
+					else if (msg.equals(Constants.SUCCESS)&& Controller.memberExists(m)==false){
+						
+						msg=Constants.memberExists;
+						JOptionPane.showMessageDialog(mainView, msg, "Message",
+								JOptionPane.ERROR_MESSAGE);
+						setMemberToMemberDialogView(m);
+						showEditMemberDialog(member);
+					   refreshMemberTable();
+					}
 					else {
 						JOptionPane.showMessageDialog(mainView, msg, "Message",
 								JOptionPane.ERROR_MESSAGE);
 						showEditMemberDialog(member);
 					}
 				}
-		
+				else{
+					setMemberToMemberDialogView(null);
+				}
+				
+				
+			
 	}
 
 
@@ -303,7 +322,7 @@ public class MemberView extends JPanel{
 		                	String message = "";
 		                }*/
 		
-		setMemberToMemberDialogView(null);
+		
 		int result = JOptionPane.showConfirmDialog(mainView, addMemberPanel, Utility.getPropertyValue(Constants.addMemberBtn), JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION) {
 			String message = "";
@@ -317,11 +336,14 @@ public class MemberView extends JPanel{
 			if (message.equals(Constants.SUCCESS)) {
 				JOptionPane.showMessageDialog(null, message);
 				refreshMemberTable();
+				setMemberToMemberDialogView(null);
 			} else {
 				JOptionPane.showMessageDialog(null, message, "Message",
 						JOptionPane.ERROR_MESSAGE);
 				showAddMemberDialog();
 			}
+		}else{
+			setMemberToMemberDialogView(null);
 		}
 	
 	}

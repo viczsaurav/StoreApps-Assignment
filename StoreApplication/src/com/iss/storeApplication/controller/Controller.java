@@ -201,6 +201,16 @@ public class Controller {
 		return MemberRegistrationService.saveAll(members);
 	}
 
+	public static boolean  memberExists(MemberCustomer newMember){
+		return MemberRegistrationService.memberExists(newMember);
+	}
+	
+	/**
+	 * Vendor Controllers
+	 * 
+	 * 
+	 */
+	
 	public static String validateVendor(Vendor v) {
 		
 		return VendorService.validateVendor(v);
