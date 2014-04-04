@@ -126,13 +126,15 @@ public class BillingView extends JPanel {
 			Utility.getPropertyValue(Constants.changeReturn));
 	private JTextField changeReturnField = new JTextField();
 	private JPanel changeReturnPanel = new JPanel();
-	
-	JPanel amtRecePnl=new JPanel();
-	JLabel amtReclbl=new JLabel(Utility.getPropertyValue(Constants.amtReceived));
-	JTextField amtRecFld=new JTextField(amtReceivedField.getText());
-	JPanel chngPnl=new JPanel();
-	JLabel chngLbl=new JLabel(Utility.getPropertyValue(Constants.changeReturn));
-	JTextField chngFld=new JTextField(changeReturnField.getText());
+
+	JPanel amtRecePnl = new JPanel();
+	JLabel amtReclbl = new JLabel(
+			Utility.getPropertyValue(Constants.amtReceived));
+	JTextField amtRecFld = new JTextField(amtReceivedField.getText());
+	JPanel chngPnl = new JPanel();
+	JLabel chngLbl = new JLabel(
+			Utility.getPropertyValue(Constants.changeReturn));
+	JTextField chngFld = new JTextField(changeReturnField.getText());
 
 	public BillingView(MainView mainView) {
 		super(new BorderLayout());
@@ -195,26 +197,25 @@ public class BillingView extends JPanel {
 		transactionTablePanel.setPreferredSize(new Dimension(600, 400));
 		transactionTablePanel.setMaximumSize(new Dimension(600, 400));
 
-		transactionPanel.add(transactionTablePanel,BorderLayout.CENTER);
-		
-		amtRecePnl.setPreferredSize(new Dimension(100,50));
-		chngPnl.setPreferredSize(new Dimension(100,50));
+		transactionPanel.add(transactionTablePanel, BorderLayout.CENTER);
+
+		amtRecePnl.setPreferredSize(new Dimension(100, 50));
+		chngPnl.setPreferredSize(new Dimension(100, 50));
 		amtRecePnl.setMaximumSize(new Dimension(600, 400));
 		chngPnl.setMaximumSize(new Dimension(600, 400));
 		amtRecePnl.add(amtReclbl);
 		amtRecePnl.add(amtRecFld);
-		
-		
+
 		chngPnl.add(chngLbl);
 		chngPnl.add(chngFld);
 		amtRecFld.setEnabled(false);
 		chngFld.setEnabled(false);
-		JPanel p=new JPanel(new GridLayout(2, 1));
-		
+		JPanel p = new JPanel(new GridLayout(2, 1));
+
 		p.add(amtRecePnl);
 		p.add(chngPnl);
-		
-		transactionPanel.add(p,BorderLayout.SOUTH);
+
+		transactionPanel.add(p, BorderLayout.SOUTH);
 
 	}
 
@@ -349,22 +350,28 @@ public class BillingView extends JPanel {
 	 * loyality earned of member customer
 	 */
 	protected void generateBill() {
-		
-		if(((MemberType)memberTypeCmbBox.getSelectedItem()).equals(MemberType.Member))
-		{
-			if(customer==null)
-			{
-				JOptionPane.showMessageDialog(mainView, Utility.getPropertyValue(Constants.msgMemNotFound));
+
+		if (amtReceivedField.getText().equals("0")) {
+			JOptionPane.showMessageDialog(mainView,
+					"Amount Received should not be less than bill amt");
+			return;
+		}
+
+		if (((MemberType) memberTypeCmbBox.getSelectedItem())
+				.equals(MemberType.Member)) {
+			if (customer == null) {
+				JOptionPane.showMessageDialog(mainView,
+						Utility.getPropertyValue(Constants.msgMemNotFound));
 				return;
 			}
 		}
-		
-		if(StringUtility.isEmpty(amtReceivedField.getText()))
-		{
-			JOptionPane.showMessageDialog(mainView, "Please enter Amt Received");
+
+		if (StringUtility.isEmpty(amtReceivedField.getText())) {
+			JOptionPane
+					.showMessageDialog(mainView, "Please enter Amt Received");
 			return;
 		}
-		
+
 		if (new Double(changeReturnField.getText()) < 0) {
 			JOptionPane.showMessageDialog(mainView,
 					"Amount Received should not be less than bill amt");
@@ -430,8 +437,7 @@ public class BillingView extends JPanel {
 					return;
 				}
 			}
-			
-			
+
 			amtRecFld.setText(amtReceivedField.getText());
 			chngFld.setText(changeReturnField.getText());
 			// show transaction list
