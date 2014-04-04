@@ -234,7 +234,7 @@ private void addElement(){
 	/**
 	 * fresh Category table: may be use in future
 	 */
-	private void freshCategory(DefaultTableModel model) {
+	public void refreshCategoryTable() {
 		// define Model for Table
 	
 		table.setModel(model);
@@ -328,11 +328,7 @@ private void addElement(){
 
 
 
-	public void refreshCategoryTable() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 
 
 	
