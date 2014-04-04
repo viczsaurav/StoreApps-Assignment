@@ -6,8 +6,6 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Date;
@@ -265,10 +263,7 @@ public class BillingView extends JPanel {
 	 */
 	protected void generateBill() {
 		
-		if(!applyMemberDiscount())
-		{
-			return;
-		}
+		
 		if (!validateReedemPoints()) {
 			JOptionPane.showMessageDialog(mainView, Utility
 					.getPropertyValue(Constants.msgCannotReedemMoreThanEarned));
@@ -382,8 +377,34 @@ public class BillingView extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				applyDiscountBtn.setEnabled(false);
+				generateBillBtn.setEnabled(true);
 				applyMemberDiscount();
 
+			}
+		});
+		
+		memberIdTxtField.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+				applyDiscountBtn.setEnabled(true);
+				generateBillBtn.setEnabled(false);
+				
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				applyDiscountBtn.setEnabled(true);
+				generateBillBtn.setEnabled(false);
+				
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				applyDiscountBtn.setEnabled(true);
+				generateBillBtn.setEnabled(false);
+				
 			}
 		});
 
@@ -464,13 +485,16 @@ public class BillingView extends JPanel {
 						southPanel.remove(memberIdPanel);
 						southPanel.remove(loyalityPanel);
 						southPanel.remove(reedemPanel);
-
+						generateBillBtn.setEnabled(true);
+						
 						calculatePublicBillAmount();
 
 					} else {
 						southPanel.add(memberIdPanel, 2);
 						southPanel.add(loyalityPanel, 3);
 						southPanel.add(reedemPanel, 5);
+						applyDiscountBtn.setEnabled(true);
+						generateBillBtn.setEnabled(false);
 
 					}
 					SwingUtility.refreshJpanel(southPanel);
