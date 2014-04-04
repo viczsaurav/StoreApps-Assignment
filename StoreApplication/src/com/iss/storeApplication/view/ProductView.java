@@ -50,9 +50,6 @@ public class ProductView extends JPanel {
 	private String[] allCategoryName;
 	private String selectedCategory;
 
-	private CategoryDao fetchCategory = new CategoryDao();
-	private ProductDao fetchProduct = new ProductDao();
-
 	/**
 	 * 
 	 * GUI
@@ -141,7 +138,7 @@ public class ProductView extends JPanel {
 		initProductTable();
 
 		// populate products in jtable
-		//refreshProductTable();
+		// refreshProductTable();
 	}
 
 	/**
@@ -367,7 +364,7 @@ public class ProductView extends JPanel {
 		 */
 		// Getting Category Name - Code
 		selectedCategory = null;
-		category = fetchCategory.retrieveAll();
+		category = Controller.getAllCategory();
 		allCategoryName = new String[category.size()];
 		for (int i = 0; i < category.size(); i++) {
 			allCategoryName[i] = category.get(i).getCategoryCode() + " - "
@@ -392,9 +389,9 @@ public class ProductView extends JPanel {
 				}
 			}
 		});
-		
-		UIManager.put( "ComboBox.disabledBackground", new Color(212,212,210) );
-		UIManager.put( "ComboBox.disabledForeground", Color.BLACK );
+
+		UIManager.put("ComboBox.disabledBackground", new Color(212, 212, 210));
+		UIManager.put("ComboBox.disabledForeground", Color.BLACK);
 
 	}
 
@@ -448,13 +445,8 @@ public class ProductView extends JPanel {
 
 			String message = "";
 
-			if (prodBarCode.getText().isEmpty()) {
-				message = Constants.ALL_FIELDS_REQUIRED;
-			}
-			// Checking if Barcode exists
-			else if (fetchProduct.getBarCodeProductMap().containsKey(
-					Long.valueOf(prodBarCode.getText()))) {
-				message = Utility.getPropertyValue(Constants.barcodeExists);
+			if (!(checkTextfieldFormat() == null)) {
+				message = checkTextfieldFormat();
 			} else {
 				Product newProduct = createProductFromView(null);
 				message = Controller.validateAndSaveProduct(newProduct);
@@ -492,12 +484,19 @@ public class ProductView extends JPanel {
 
 		if (result == JOptionPane.OK_OPTION) {
 			Product product = null;
+			
+			String message = "";
+
+			if (!(checkTextfieldFormat() == null)) {
+				message = checkTextfieldFormat();
+			} else {
 			product = createProductFromView(p);
-			String msg = Controller.validateProduct(product);
-			if (msg.equals(Constants.SUCCESS))
+			message = Controller.validateProduct(product);
+			}
+			if (message.equals(Constants.SUCCESS))
 				editProduct(product);
 			else {
-				JOptionPane.showMessageDialog(mainView, msg, "Message",
+				JOptionPane.showMessageDialog(mainView, message, "Message",
 						JOptionPane.ERROR_MESSAGE);
 				showEditProductDialog(product);
 			}
@@ -516,13 +515,48 @@ public class ProductView extends JPanel {
 		}
 		newProduct.setProductName(prodName.getText());
 		newProduct.setDescription(prodDesc.getText());
-		newProduct.setQtyAvailable(Integer.parseInt(prodOrderQuant.getText()));
+		newProduct.setQtyAvailable(Integer.parseInt(prodQuant.getText()));
 		newProduct.setPrice(Double.parseDouble(prodPrice.getText()));
 		newProduct.setBarCode(Long.parseLong(prodBarCode.getText()));
 		newProduct.setReorderQty(Integer.parseInt(prodReorderQuant.getText()));
 		newProduct.setOrderQty(Integer.parseInt(prodOrderQuant.getText()));
-		newProduct.setCategory(fetchCategory.get(selectedCategory));
+		newProduct.setCategory(Controller.getCategory(selectedCategory));
 		return newProduct;
+	}
+
+	private String checkTextfieldFormat() {
+		String message = null;
+		try {
+			Integer.parseInt(prodQuant.getText());
+		} catch (Exception e) {
+			message = message + "\n "
+					+ Utility.getPropertyValue(Constants.entervalidQty);
+		}
+		try {
+			Double.parseDouble(prodPrice.getText());
+		} catch (Exception e) {
+			message = message + "\n "
+					+ Utility.getPropertyValue(Constants.entervalidprice);
+		}
+		try {
+			Long.parseLong(prodBarCode.getText());
+		} catch (Exception e) {
+			message = message + "\n "
+					+ Utility.getPropertyValue(Constants.entervalidbarcode);
+		}
+		try {
+			Integer.parseInt(prodReorderQuant.getText());
+		} catch (Exception e) {
+			message = message + "\n "
+					+ Utility.getPropertyValue(Constants.entervalidreorderQty);
+		}
+		try {
+			Integer.parseInt(prodOrderQuant.getText());
+		} catch (Exception e) {
+			message = message + "\n "
+					+ Utility.getPropertyValue(Constants.entervalidorderQty);
+		}
+		return message;
 	}
 
 	/**

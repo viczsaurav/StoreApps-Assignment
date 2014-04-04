@@ -68,11 +68,10 @@ public class CategoryService {
 	{
 		return categoryDao.retrieveAll();
 	}
-
-
-	public static List<Category> getCategories() {
-		// TODO Auto-generated method stub
-		return categoryDao.retrieveAll();
+	
+	public static Category getCategory(String categoryCode)
+	{
+		return categoryDao.get(categoryCode);
 	}
 
 }

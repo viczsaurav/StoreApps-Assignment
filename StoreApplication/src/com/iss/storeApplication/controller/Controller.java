@@ -92,16 +92,18 @@ public class Controller {
 	 * @return
 	 */
 	public static boolean saveAllCategory(List<Category> listCategorys) {
-
 		return CategoryService.saveAll(listCategorys);
 	}
 
 	public static String validateAndSaveCategory(Category c) {
 		return CategoryService.validateAndSaveCategory(c);
 	}
-
-	public static List<Category> getCategories() {
-		return CategoryService.getCategories();
+	// Used in Category and Transaction and Products
+	public static List<Category> getAllCategory() {
+		return CategoryService.getAllCategory();
+	}
+	public static Category getCategory(String categoryCode) {
+		return CategoryService.getCategory(categoryCode);
 	}
 
 	/**
@@ -110,7 +112,6 @@ public class Controller {
 	 * @return
 	 */
 	public static boolean saveAllProducts(List<Product> listProducts) {
-
 		return ProductService.saveAll(listProducts);
 	}
 
@@ -159,10 +160,6 @@ public class Controller {
 	 */
 	public static boolean save(Transaction transaction) {
 		return TransactionService.save(transaction);
-	}
-
-	public static List<Category> getAllCategory() {
-		return CategoryService.getAllCategory();
 	}
 
 	public static List<Product> getProductsBelowThreshold(Category c) {

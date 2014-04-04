@@ -85,6 +85,11 @@ public interface Constants {
 	public static final String barcodeExists = "barcodeExists";
 	public static final String editProduct = "editProduct";
 	public static final String pricemorethanzero = "pricemorethanzero";
+	public static final String entervalidQty = "entervalidQty";
+	public static final String entervalidprice = "entervalidprice";
+	public static final String entervalidbarcode = "entervalidbarcode";
+	public static final String entervalidreorderQty = "entervalidreorderQty";
+	public static final String entervalidorderQty = "entervalidorderQty";
 	
 
 	// File Names
@@ -157,7 +162,7 @@ public interface Constants {
 	
 //Member
 	public static final String memberName = "memberName";
-	public static final String loyality = "loyality";
+	public static final String loyality = "loyalty";
 	public static final String addMemberBtn = "addMemberBtn";
 	public static final String editMemberBtn = "editMemberBtn";
 	public static final String deleteMember = "deleteMember";

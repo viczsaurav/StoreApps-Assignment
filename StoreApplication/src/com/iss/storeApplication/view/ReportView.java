@@ -198,7 +198,7 @@ import com.iss.storeApplication.domain.Transaction;
 		public void refreshCategoryReport() {
 			commonTable.setModel(categoryModel);
 			categoryModel.clear();
-			List<Category> Categories = Controller.getCategories();
+			List<Category> Categories = Controller.getAllCategory();
 			for (Category c : Categories) {
 				categoryModel.addCategory(c);
 				categoryModel.fireTableDataChanged();

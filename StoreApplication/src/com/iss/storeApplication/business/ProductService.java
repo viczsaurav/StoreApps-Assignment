@@ -76,7 +76,8 @@ public class ProductService {
 				p.getProductName() == null	|| 
 				p.getDescription() == null 	|| 
 				p.getOrderQty() == null		|| 
-				p.getPrice() == null 		|| 
+				p.getPrice() == null 		||  
+				p.getBarCode() == null		|| 
 				p.getOrderQty() == null		|| 
 				p.getReorderQty() == null
 				) 	{
@@ -90,7 +91,10 @@ public class ProductService {
 		}
 		if (!(p.getPrice() > 0)){
 			return Utility.getPropertyValue(Constants.pricemorethanzero);
-		}			
+		}
+		if(productDao.getBarCodeProductMap().containsKey(p.getBarCode())){
+			return Utility.getPropertyValue(Constants.barcodeExists);
+		}
 
 		return Constants.SUCCESS;
 	}

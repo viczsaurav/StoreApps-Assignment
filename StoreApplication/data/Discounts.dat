@@ -1,3 +1,6 @@
-
-MEMBER_FIRST,First purchase discount,Always,Always,20.0,M
-sa,sd,2014-12-29,1,1.0,M
+MEMBER_FIRST,First purchase by member,ALWAYS,ALWAYS,20.0,M
+MEMBER_SUBSEQ,Subsequent purchase by member,ALWAYS,ALWAYS,10.0,M
+CENTENARY,Centenary Celebration in 2014,2014-01-01,365,15.0,A
+PRESIDENT_BDAY,University President's birthday in 2014,2014-02-01,7,20.0,A
+ORIENTATION_DAY,Orientation Day,2014-02-02,3,50.0,A
+OPEN_HOUSE,Open House in 2014,2014-01-01,14,20.0,A
