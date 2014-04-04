@@ -87,7 +87,7 @@ public class Utility {
 	
 	public static NumberFormat getProductNumberFormat() {
 		NumberFormat pnf = NumberFormat.getNumberInstance();
-		pnf.setMaximumIntegerDigits(4);
+		pnf.setMaximumIntegerDigits(10);
 		pnf.setMinimumIntegerDigits(1);
 		pnf.setMaximumFractionDigits(0);
 		pnf.setMinimumFractionDigits(0);
