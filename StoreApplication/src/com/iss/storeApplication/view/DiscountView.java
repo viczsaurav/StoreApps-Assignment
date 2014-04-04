@@ -474,7 +474,8 @@ public class DiscountView extends JPanel {
 		 * Object[] message = { Constants.CATEGORYID_LABEL, discountTypeCmbBox,
 		 * Constants.CATEGORYNAME_LABEL, namefield };
 		 */
-
+		
+		discountCodeField.setEnabled(false);
 		setDiscountToDiscountDialogView(d);
 
 		int result = JOptionPane.showConfirmDialog(mainView, addDiscountPanel,
