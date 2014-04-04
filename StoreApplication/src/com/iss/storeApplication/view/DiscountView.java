@@ -413,6 +413,7 @@ public class DiscountView extends JPanel {
 	 */
 	private void showAddDiscountDialog() {
 
+		discountCodeField.setEnabled(true);
 		// reset discount panel to default value
 		setDiscountToDiscountDialogView(null);
 
