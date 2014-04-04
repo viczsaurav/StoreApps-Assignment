@@ -67,8 +67,12 @@ import com.iss.storeApplication.domain.Transaction;
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
-					if (validateTimePeriod()) {
+					if (Controller.validateTimePeriod(startDate,endDate)) {
 						getTransactionBetweenDates();
+					}
+					else
+					{
+						resetDateRange();
 					}
 				}
 			});
@@ -108,6 +112,13 @@ import com.iss.storeApplication.domain.Transaction;
 	
 		}
 	
+		protected void resetDateRange() {
+			// TODO Auto-generated method stub
+			JOptionPane.showMessageDialog(mainView,Utility.getPropertyValue(Constants.dateIntervalInvalid));
+			endDate.setDate(startDate.getPickedDate());
+			
+		}
+
 		protected void refreshMemberReport() {
 			// TODO Auto-generated method stub
 			commonTable.setModel(memberModel);
@@ -159,7 +170,7 @@ import com.iss.storeApplication.domain.Transaction;
 			
 			commonTable.setModel(transactionReportModel);
 			transactionReportModel.clear();
-			List<Transaction> Transactions = Controller.getTransactions();
+			List<Transaction> Transactions = Controller.getTodayTransactions();
 			for(Transaction t: Transactions)
 			{
 				transactionReportModel.addTranscation(t);
@@ -174,23 +185,7 @@ import com.iss.storeApplication.domain.Transaction;
 		protected void getTransactionBetweenDates() {
 			commonTable.setModel(transactionReportModel);
 			transactionReportModel.clear();
-			List<Transaction> Transactions = Controller.getTransactions();
-			List<Transaction> sortedTransactions = new ArrayList<Transaction>();
-	
-			for (Transaction t : Transactions) {
-				if (t.getDateOfPurchase().compareTo(startDate.getDate()) >= 0
-						&& t.getDateOfPurchase().compareTo(endDate.getDate()) <= 0) {
-					sortedTransactions.add(t);
-					
-				}
-			}
-			Collections.sort(sortedTransactions,new Comparator<Transaction>() {
-				@Override
-				public int compare(Transaction o1, Transaction o2) {
-					// TODO Auto-generated method stub
-					return o1.getProduct().getProductId().compareToIgnoreCase(o2.getProduct().getProductId());
-				}
-			});
+			List<Transaction> sortedTransactions = Controller.sortTransactions(startDate,endDate);
 			for (Transaction t : sortedTransactions) {
 				transactionReportModel.addTranscation(t);
 				transactionReportModel.fireTableDataChanged();
@@ -198,17 +193,6 @@ import com.iss.storeApplication.domain.Transaction;
 			SwingUtility.refreshJpanel(this);
 		}
 	
-		protected boolean validateTimePeriod() {
-			// TODO Auto-generated method stub
-			if (startDate.getDate().after(endDate.getDate())) {
-				JOptionPane.showMessageDialog(mainView,
-						Utility.getPropertyValue(Constants.dateIntervalInvalid));
-				endDate.setDate(startDate.getPickedDate());
-				return false;
-			} else {
-				return true;
-			}
-		}
 	
 		public void refreshCategoryReport() {
 			commonTable.setModel(categoryModel);

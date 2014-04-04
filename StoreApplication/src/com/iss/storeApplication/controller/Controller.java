@@ -1,14 +1,23 @@
 package com.iss.storeApplication.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import com.iss.storeApplication.business.CategoryService;
 import com.iss.storeApplication.business.DiscountService;
 import com.iss.storeApplication.business.LoginService;
 import com.iss.storeApplication.business.MemberRegistrationService;
 import com.iss.storeApplication.business.ProductService;
+import com.iss.storeApplication.business.ReportService;
 import com.iss.storeApplication.business.TransactionService;
 import com.iss.storeApplication.business.VendorService;
+import com.iss.storeApplication.common.Constants;
+import com.iss.storeApplication.common.Utility;
+import com.iss.storeApplication.component.DatePicker;
 import com.iss.storeApplication.domain.Category;
 import com.iss.storeApplication.domain.Customer;
 import com.iss.storeApplication.domain.Discount;
@@ -212,6 +221,25 @@ public class Controller {
 	public static boolean deleteVendor(Vendor vendor) {
 		
 		return VendorService.deleteVendor(vendor);
+	}
+
+	public static boolean validateTimePeriod(DatePicker startDate,
+			DatePicker endDate) {
+		// TODO Auto-generated method stub
+		return ReportService.validateTimePeriod(startDate, endDate);
+		
+	}
+	
+	public static List<Transaction> sortTransactions(DatePicker startDate, DatePicker endDate)
+	{
+		
+		return ReportService.sortTransactions(startDate,endDate);
+		
+	}
+
+	public static List<Transaction> getTodayTransactions() {
+		// TODO Auto-generated method stub
+		return ReportService.getTodayTransactions();
 	}
 
 }

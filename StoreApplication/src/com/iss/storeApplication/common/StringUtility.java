@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class StringUtility {
 
-	private static SimpleDateFormat dateFormat=new SimpleDateFormat("YYYY-MM-dd");
+	private static SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
 	
 	public static boolean isEmpty(String s) {
 		if (s == null)
