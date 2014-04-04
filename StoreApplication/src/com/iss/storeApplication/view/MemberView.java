@@ -192,6 +192,7 @@ public class MemberView extends JPanel{
 	private void showEditMemberDialog(MemberCustomer m) {
 		// Fetch Product Values
 				setMemberToMemberDialogView(m);
+				memberIdField.setEnabled(false);
 				
 				// Setting selected category since its not instantiated without change
 				// event
@@ -206,13 +207,13 @@ public class MemberView extends JPanel{
 					MemberCustomer member = null;
 					member = createMemberFromView(m);
 					String msg = Controller.validateMember(m);
-					if (msg.equals(Constants.SUCCESS)&& Controller.memberExists(m)==true){
+					if (msg.equals(Constants.SUCCESS)){
 						
 						editMember(member);
 					setMemberToMemberDialogView(null);
 					}
 					
-					else if (msg.equals(Constants.SUCCESS)&& Controller.memberExists(m)==false){
+					/*else if (msg.equals(Constants.SUCCESS)&& Controller.memberExists(m)==false){
 						
 						msg=Constants.memberExists;
 						JOptionPane.showMessageDialog(mainView, msg, "Message",
@@ -220,7 +221,7 @@ public class MemberView extends JPanel{
 						setMemberToMemberDialogView(m);
 						showEditMemberDialog(member);
 					   refreshMemberTable();
-					}
+					}*/
 					else {
 						JOptionPane.showMessageDialog(mainView, msg, "Message",
 								JOptionPane.ERROR_MESSAGE);
@@ -313,7 +314,7 @@ public class MemberView extends JPanel{
 	
 
 	private void showAddMemberDialog() {
-              
+		memberIdField.setEnabled(true);
 	/*	int result = JOptionPane.showConfirmDialog(mainView, addMemberPanel,
 						Utility.getPropertyValue(Constants.addMemberBtn),
 						JOptionPane.OK_CANCEL_OPTION);
