@@ -92,15 +92,16 @@ public class ProductService {
 		if (!(p.getPrice() > 0)){
 			return Utility.getPropertyValue(Constants.pricemorethanzero);
 		}
-		if(productDao.getBarCodeProductMap().containsKey(p.getBarCode())){
-			return Utility.getPropertyValue(Constants.barcodeExists);
-		}
 
 		return Constants.SUCCESS;
 	}
 
 	public static List<Product> getProducts() {
 		return productDao.retrieveAll();
+	}
+	
+	public static Map<Long, Product> getProductMap() {
+		return productDao.getBarCodeProductMap();
 	}
 
 	public static List<Product> getProductsBelowThreshold(Category c) {

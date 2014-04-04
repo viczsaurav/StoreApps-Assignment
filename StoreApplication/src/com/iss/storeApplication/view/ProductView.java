@@ -173,14 +173,12 @@ public class ProductView extends JPanel {
 	 */
 	private void initProductTable() {
 
-		
 		productTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		northPanel.add(addNewProduct);
 		northPanel.add(editProduct);
 		northPanel.add(deleteProduct);
 		add(northPanel, BorderLayout.NORTH);
-		
 
 		productTable.setModel(productTableModel);
 		add(new JScrollPane(productTable), BorderLayout.CENTER);
@@ -435,8 +433,9 @@ public class ProductView extends JPanel {
 	private void showAddProductDialog() {
 
 		// Reset Product panel to default value
-		setProductToProductDialogView(null);
-
+		// setProductToProductDialogView(null);
+		productCategoryCmbBox.setEnabled(true);
+		prodBarCode.setEnabled(true);
 		int result = JOptionPane.showConfirmDialog(mainView, productPanel,
 				Utility.getPropertyValue(Constants.addProductBtn),
 				JOptionPane.OK_CANCEL_OPTION);
@@ -447,6 +446,9 @@ public class ProductView extends JPanel {
 
 			if (!(checkTextfieldFormat() == null)) {
 				message = checkTextfieldFormat();
+			} else if (Controller.getProductMap().containsKey(
+					Long.parseLong(prodBarCode.getText()))) {
+				message = Utility.getPropertyValue(Constants.barcodeExists);
 			} else {
 				Product newProduct = createProductFromView(null);
 				message = Controller.validateAndSaveProduct(newProduct);
@@ -454,11 +456,17 @@ public class ProductView extends JPanel {
 			if (message.equals(Constants.SUCCESS)) {
 				JOptionPane.showMessageDialog(null, message);
 				refreshProductTable();
+
+				// Reset Product panel to default value
+				setProductToProductDialogView(null);
 			} else {
 				JOptionPane.showMessageDialog(null, message, "Message",
 						JOptionPane.ERROR_MESSAGE);
 				showAddProductDialog();
 			}
+		} else {
+			// Reset Product panel to default value
+			setProductToProductDialogView(null);
 		}
 	}
 
@@ -471,8 +479,10 @@ public class ProductView extends JPanel {
 
 		// Fetch Product Values
 		setProductToProductDialogView(p);
-		
+
 		productCategoryCmbBox.setEnabled(false);
+		prodBarCode.setEnabled(false);
+		
 		// Setting selected category since its not instantiated without change
 		// event
 		selectedCategory = p.getCategory().getCategoryCode();
@@ -484,22 +494,28 @@ public class ProductView extends JPanel {
 
 		if (result == JOptionPane.OK_OPTION) {
 			Product product = null;
-			
+
 			String message = "";
 
 			if (!(checkTextfieldFormat() == null)) {
 				message = checkTextfieldFormat();
 			} else {
-			product = createProductFromView(p);
-			message = Controller.validateProduct(product);
+				product = createProductFromView(p);
+				message = Controller.validateProduct(product);
 			}
-			if (message.equals(Constants.SUCCESS))
+			if (message.equals(Constants.SUCCESS)) {
 				editProduct(product);
-			else {
+
+				// Reset Product panel to default value
+				setProductToProductDialogView(null);
+			} else {
 				JOptionPane.showMessageDialog(mainView, message, "Message",
 						JOptionPane.ERROR_MESSAGE);
 				showEditProductDialog(product);
 			}
+		} else {
+			// Reset Product panel to default value
+			setProductToProductDialogView(null);
 		}
 	}
 

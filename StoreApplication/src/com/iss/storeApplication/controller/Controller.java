@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
 
@@ -130,6 +131,9 @@ public class Controller {
 	public static List<Product> getProducts() {
 		return ProductService.getProducts();
 	}
+	public static Map<Long, Product> getProductMap() {
+		return ProductService.getProductMap();
+	}
 
 	/**
 	 * Customer Controllers
@@ -200,7 +204,7 @@ public class Controller {
 	public static boolean saveAllMembers(List<Customer> members) {
 		return MemberRegistrationService.saveAll(members);
 	}
-
+	
 	public static boolean  memberExists(MemberCustomer newMember){
 		return MemberRegistrationService.memberExists(newMember);
 	}
@@ -211,6 +215,7 @@ public class Controller {
 	 * 
 	 */
 	
+
 	public static String validateVendor(Vendor v) {
 		
 		return VendorService.validateVendor(v);
