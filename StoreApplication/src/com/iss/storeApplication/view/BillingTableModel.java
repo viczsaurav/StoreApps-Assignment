@@ -142,9 +142,19 @@ public class BillingTableModel extends AbstractTableModel {
 				JOptionPane.showMessageDialog(null, Utility
 						.getPropertyValue(Constants.purchasedQtyNotNegative));
 				setValueAt("0", rowIndex, columnIndex);
+				transcation.setQtyPurchase(0);
 				return;
 			}
-			transcation.setQtyPurchase(new Integer(value.toString()));
+			int qty=new Integer(value.toString());
+			if(transcation.getProduct().getQtyAvailable() < new Integer(value.toString()))
+			{
+				JOptionPane.showMessageDialog(null, Utility
+						.getPropertyValue(Constants.purchasedQtyNotGreaterThanAvailable));
+				setValueAt("0", rowIndex, columnIndex);
+				transcation.setQtyPurchase(0);
+				return;
+			}
+			transcation.setQtyPurchase(qty);
 			billingView.calculateTotal();
 			break;
 		}
