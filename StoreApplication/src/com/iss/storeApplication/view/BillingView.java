@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Date;
@@ -262,7 +264,11 @@ public class BillingView extends JPanel {
 	 * loyality earned of member customer
 	 */
 	protected void generateBill() {
-
+		
+		if(!applyMemberDiscount())
+		{
+			return;
+		}
 		if (!validateReedemPoints()) {
 			JOptionPane.showMessageDialog(mainView, Utility
 					.getPropertyValue(Constants.msgCannotReedemMoreThanEarned));
@@ -380,31 +386,24 @@ public class BillingView extends JPanel {
 
 			}
 		});
-		memberIdTxtField.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				applyMemberDiscount();
-
-			}
-		});
 	}
 
 	/**
 	 * Apply Discount to customer.
 	 */
-	protected void applyMemberDiscount() {
+	protected boolean applyMemberDiscount() {
 		String memberId = memberIdTxtField.getText();
 		if (StringUtility.isEmpty(memberId)) {
 			JOptionPane.showMessageDialog(mainView,
 					Utility.getPropertyValue(Constants.msgEnterMemId));
-			return;
+			return false;
 		}
 		Customer customer = Controller.getCustomer(memberId);
 		if (customer == null) {
 			JOptionPane.showMessageDialog(mainView,
 					Utility.getPropertyValue(Constants.msgMemNotFound));
-			return;
+			return false;
 		}
 		if (customer.getLoyality() == -1)// first time purchase
 		{
@@ -424,6 +423,7 @@ public class BillingView extends JPanel {
 		}
 		calculateMemberBillAmount();
 		this.customer = customer;
+		return true;
 
 	}
 
@@ -721,6 +721,8 @@ public class BillingView extends JPanel {
 		memberTypeCmbBox.setSelectedIndex(0);
 		billAmtField.setText("0");
 		generateBillBtn.setEnabled(false);
+		memberIdTxtField.setText("");
+		loyalityField.setText("0");
 
 	}
 
