@@ -1,4 +1,4 @@
-call setenv.bat
+CALL setenv.bat
 echo %PATH%
 set drive=%~d0
 set baseDir= %~dp0
@@ -15,6 +15,5 @@ javac  -d classes -cp .;classes;src src\com\iss\storeApplication\controller\*.ja
 javac  -d classes -cp .;classes;src src\com\iss\storeApplication\view\*.java
 javac  -d classes -cp .;classes;src src\com\iss\storeApplication\business\*.java
 javac  -d classes -cp .;classes;src src\com\iss\storeApplication\*.java
-javac  -d classes -cp .;classes;test test\com\iss\storeApplication\test\*.java
 
 pause
