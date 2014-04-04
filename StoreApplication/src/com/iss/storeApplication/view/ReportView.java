@@ -178,8 +178,6 @@ import com.iss.storeApplication.domain.Transaction;
 			}
 			
 			panelTransDatepicker.setVisible(true);
-			JOptionPane.showMessageDialog(mainView,
-					Utility.getPropertyValue(Constants.selectDateFromBelow));
 		}
 	
 		protected void getTransactionBetweenDates() {
