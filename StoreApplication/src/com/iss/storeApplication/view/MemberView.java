@@ -33,6 +33,35 @@ public class MemberView extends JPanel{
 	
 	private MainView mainView;
 	private String selectedMember;
+	
+	//Top and center panels
+		private JPanel topPanel = new JPanel();
+		private JPanel centerPanel = new JPanel();
+		private final JPanel addMemberPanel = new JPanel();	
+		// add Edit Delete
+				private JButton deleteMemberBtn = new JButton(Utility.getPropertyValue(Constants.deleteMember));
+				private JButton addMemberBtn = new JButton(
+						Utility.getPropertyValue(Constants.addMemberBtn));
+				private JButton editMemberBtn = new JButton(
+						Utility.getPropertyValue(Constants.editMemberBtn));
+		
+		//Member Labels
+		private final JLabel memberNameLabel = new JLabel(
+				Utility.getPropertyValue(Constants.memberName));
+		
+		private final JLabel memberIdLabel = new JLabel(
+				Utility.getPropertyValue(Constants.memberId));
+		private final JLabel loyalityLabel = new JLabel(
+				Utility.getPropertyValue(Constants.loyality));
+		//Member Text Fields
+		private final JTextField memberNameField = new JTextField(20);
+		private final JTextField memberIdField = new JTextField(20);
+		private final JTextField loyalityField = new JTextField(20);
+		
+		//Table
+		private JTable memberTable = new JTable();
+		private MemberModel memberModel=new MemberModel();
+
 	public MemberView(MainView mainView) {
 		super(new BorderLayout());
 		this.mainView = mainView;
@@ -61,33 +90,7 @@ public class MemberView extends JPanel{
 		//Refresh Table
 		//refreshMemberTable();
 	}
-	//Top and center panels
-	private JPanel topPanel = new JPanel();
-	private JPanel centerPanel = new JPanel();
-	private final JPanel addMemberPanel = new JPanel();	
-	// add Edit Delete
-			private JButton deleteMemberBtn = new JButton(Utility.getPropertyValue(Constants.deleteMember));
-			private JButton addMemberBtn = new JButton(
-					Utility.getPropertyValue(Constants.addMemberBtn));
-			private JButton editMemberBtn = new JButton(
-					Utility.getPropertyValue(Constants.editMemberBtn));
 	
-	//Member Labels
-	private final JLabel memberNameLabel = new JLabel(
-			Utility.getPropertyValue(Constants.memberName));
-	
-	private final JLabel memberIdLabel = new JLabel(
-			Utility.getPropertyValue(Constants.memberId));
-	private final JLabel loyalityLabel = new JLabel(
-			Utility.getPropertyValue(Constants.loyality));
-	//Member Text Fields
-	private final JTextField memberNameField = new JTextField(20);
-	private final JTextField memberIdField = new JTextField(20);
-	private final JTextField loyalityField = new JTextField(20);
-	
-	//Table
-	private JTable memberTable = new JTable();
-	private MemberModel memberModel=new MemberModel();
 	
 
 	
