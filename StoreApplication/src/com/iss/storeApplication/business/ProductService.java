@@ -86,7 +86,7 @@ public class ProductService {
 					+ p.getOrderQty() + p.getReorderQty());
 			return Constants.ALL_FIELDS_REQUIRED;
 		}
-		if (	p.getOrderQty() < 0		||
+		if (	p.getQtyAvailable() < 0		||
 				p.getOrderQty() < 0		|| 
 				p.getReorderQty() < 0
 				)	{

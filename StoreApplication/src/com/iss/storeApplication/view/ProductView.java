@@ -29,8 +29,6 @@ import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.common.StringUtility;
 import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.controller.Controller;
-import com.iss.storeApplication.dao.CategoryDao;
-import com.iss.storeApplication.dao.ProductDao;
 import com.iss.storeApplication.domain.Category;
 import com.iss.storeApplication.domain.Product;
 
@@ -372,6 +370,7 @@ public class ProductView extends JPanel {
 		// Binding Category Values to ComboBox
 		productCategoryCmbBox.setModel(new DefaultComboBoxModel<>(
 				allCategoryName));
+		
 		// Initialize selectedCategory
 		String result = (String) productCategoryCmbBox.getSelectedItem();
 		selectedCategory = result.split("-")[0].trim();
@@ -404,7 +403,6 @@ public class ProductView extends JPanel {
 		if (p != null) {
 			String categoryCmbBoxVal = p.getCategory().getCategoryCode()
 					+ " - " + p.getCategory().getCategoryName();
-			System.out.println("Box :" + categoryCmbBoxVal);
 			productCategoryCmbBox.setSelectedItem(categoryCmbBoxVal);
 			prodName.setText(p.getProductName());
 			prodDesc.setText(p.getDescription());
@@ -418,7 +416,7 @@ public class ProductView extends JPanel {
 			prodName.setText("");
 			prodDesc.setText("");
 			prodQuant.setText("");
-			prodPrice.setText("0.00");
+			prodPrice.setText("0,00");
 			prodBarCode.setText("");
 			prodReorderQuant.setText(Utility
 					.getPropertyValue(Constants.prodReorderQuantDef));
@@ -438,6 +436,7 @@ public class ProductView extends JPanel {
 		// setProductToProductDialogView(null);
 		productCategoryCmbBox.setEnabled(true);
 		prodBarCode.setEnabled(true);
+
 		int result = JOptionPane.showConfirmDialog(mainView, productPanel,
 				Utility.getPropertyValue(Constants.addProductBtn),
 				JOptionPane.OK_CANCEL_OPTION);
@@ -446,14 +445,13 @@ public class ProductView extends JPanel {
 
 			String message = "";
 
-			if (!(checkTextfieldFormat() == null)) {
+			if (!(checkTextfieldFormat() == "")) {
 				message = checkTextfieldFormat();
 			} else if (Controller.getProductMap().containsKey(
 					Long.parseLong(prodBarCode.getText()))) {
 				message = Utility.getPropertyValue(Constants.barcodeExists);
 			} else {
-				Product newProduct = createProductFromView(null);
-				message = Controller.validateAndSaveProduct(newProduct);
+				message = Controller.validateAndSaveProduct(createProductFromView(null));
 			}
 			if (message.equals(Constants.SUCCESS)) {
 				JOptionPane.showMessageDialog(null, message);
@@ -481,39 +479,41 @@ public class ProductView extends JPanel {
 
 		// Fetch Product Values
 		setProductToProductDialogView(p);
-
+		
+		// Category and Barcode cannot be changed
 		productCategoryCmbBox.setEnabled(false);
 		prodBarCode.setEnabled(false);
-		
-		// Setting selected category since its not instantiated without change
-		// event
-		selectedCategory = p.getCategory().getCategoryCode();
-		System.out.println("selected :" + selectedCategory);
 
+		// Setting selected category as it will not change
+		selectedCategory = p.getCategory().getCategoryCode();
+		
+		// Edit popup
 		int result = JOptionPane.showConfirmDialog(mainView, productPanel,
 				Utility.getPropertyValue(Constants.editProduct),
 				JOptionPane.OK_CANCEL_OPTION);
 
 		if (result == JOptionPane.OK_OPTION) {
-			Product product = null;
-
+			Product product = new Product();
 			String message = "";
 
-			if (!(checkTextfieldFormat() == null)) {
+			// Validate 
+			if (!(checkTextfieldFormat() == "")) {
 				message = checkTextfieldFormat();
 			} else {
-				product = createProductFromView(p);
-				message = Controller.validateProduct(product);
+				//product = createProductFromView(p);
+				message = Controller.validateProduct(createProductFromView(product));
 			}
+			
 			if (message.equals(Constants.SUCCESS)) {
+				// Setting current ProductID to new product
+				product.setProductId(p.getProductId());
 				editProduct(product);
-
 				// Reset Product panel to default value
 				setProductToProductDialogView(null);
 			} else {
 				JOptionPane.showMessageDialog(mainView, message, "Message",
 						JOptionPane.ERROR_MESSAGE);
-				showEditProductDialog(product);
+				showEditProductDialog(p);
 			}
 		} else {
 			// Reset Product panel to default value
@@ -527,7 +527,6 @@ public class ProductView extends JPanel {
 	 * @return
 	 */
 	private Product createProductFromView(Product newProduct) {
-
 		if (newProduct == null) {
 			newProduct = new Product();
 		}
@@ -543,7 +542,7 @@ public class ProductView extends JPanel {
 	}
 
 	private String checkTextfieldFormat() {
-		String message = null;
+		String message = "";
 		try {
 			Integer.parseInt(prodQuant.getText());
 		} catch (Exception e) {

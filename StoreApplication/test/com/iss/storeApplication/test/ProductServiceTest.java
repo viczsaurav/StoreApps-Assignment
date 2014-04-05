@@ -26,38 +26,10 @@ public class ProductServiceTest {
 	}
 
 	@Test
-	public void testValidateAndSaveProduct() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetProduct() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSaveAll() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testValidateProduct() {
 		fail("Not yet implemented");
 	}
 
-	@Test
-	public void testGetProducts() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetProductsBelowThreshold() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testEditProduct() {
-		fail("Not yet implemented");
-	}
+	
 
 }
