@@ -36,6 +36,7 @@ public class MemberView extends JPanel{
 	public MemberView(MainView mainView) {
 		super(new BorderLayout());
 		this.mainView = mainView;
+		deleteMemberBtn.setVisible(false);
 		addMemberBtn.addActionListener(new ActionListener() {
 
 			@Override
