@@ -264,6 +264,7 @@ public class BillingView extends JPanel {
 			calculate();
 			return false;
 		}
+		
 
 		Integer loyalityEarned = 0;
 		Integer reedemPoint = 0;
@@ -286,10 +287,16 @@ public class BillingView extends JPanel {
 			calculate();
 			return false;
 		}
-
-		if (reedemPoint > loyalityEarned) {
-
+		if(reedemPoint<0)
+		{
+			
+			JOptionPane.showMessageDialog(mainView, "Bill Amount Cannot be negative");
 			calculate();
+			return false;
+		}
+		if (reedemPoint > loyalityEarned) {
+			
+			
 
 			return false;
 		} else if (reedemPoint == 0) {
@@ -364,8 +371,15 @@ public class BillingView extends JPanel {
 						Utility.getPropertyValue(Constants.msgMemNotFound));
 				return;
 			}
+			
+			if (StringUtility.isEmpty(reedemField.getText())) {
+				JOptionPane
+						.showMessageDialog(mainView, "Please enter Reedem Point");
+				return;
+			}
 		}
-
+		
+		
 		if (StringUtility.isEmpty(amtReceivedField.getText())) {
 			JOptionPane
 					.showMessageDialog(mainView, "Please enter Amt Received");
@@ -604,6 +618,13 @@ public class BillingView extends JPanel {
 	 * Apply Discount to customer.
 	 */
 	protected boolean applyMemberDiscount() {
+		if(billingTableModel.getListtransactions().size() ==0)
+		{
+			JOptionPane.showMessageDialog(mainView, "Please Scan Product");
+			return false;
+		}
+		
+		
 		String memberId = memberIdTxtField.getText();
 		if (StringUtility.isEmpty(memberId)) {
 			JOptionPane.showMessageDialog(mainView,
