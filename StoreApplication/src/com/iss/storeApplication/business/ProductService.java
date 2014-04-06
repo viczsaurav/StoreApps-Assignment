@@ -9,10 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.iss.storeApplication.common.Constants;
+import com.iss.storeApplication.common.StringUtility;
 import com.iss.storeApplication.common.Utility;
 import com.iss.storeApplication.dao.ProductDao;
 import com.iss.storeApplication.domain.Category;
 import com.iss.storeApplication.domain.Product;
+import com.sun.xml.internal.bind.v2.runtime.RuntimeUtil.ToStringAdapter;
 
 public class ProductService {
 
@@ -37,9 +39,9 @@ public class ProductService {
 			return msg;
 		}
 	}
-	
-	//Generate New Product ID
-	private static String generateProductID(Category category) {
+
+	// Generate New Product ID
+	public static String generateProductID(Category category) {
 		int catProdCnt = 0;
 		List<Product> products = productDao.retrieveAll();
 		for (Product p : products) {
@@ -72,27 +74,21 @@ public class ProductService {
 		if (p == null) {
 			return Utility.getPropertyValue(Constants.validateEmptyMessage);
 		}
-		if (	p.getCategory() == null 	|| 
-				p.getProductName() == null	|| 
-				p.getDescription() == null 	|| 
-				p.getOrderQty() == null		|| 
-				p.getPrice() == null 		||  
-				p.getBarCode() == null		|| 
-				p.getOrderQty() == null		|| 
-				p.getReorderQty() == null
-				) 	{
-			System.out.println("NUll "+ p.getCategory() +p.getProductName()
-					+ p.getDescription() + p.getOrderQty() + p.getPrice() + p.getBarCode()
-					+ p.getOrderQty() + p.getReorderQty());
+		if (p.getCategory() == null
+				|| StringUtility.isEmpty(p.getProductName())
+				|| StringUtility.isEmpty(p.getDescription())
+				|| StringUtility.isEmpty(Integer.toString(p.getOrderQty()))
+				|| StringUtility.isEmpty(Double.toString(p.getPrice()))
+				|| StringUtility.isEmpty(Long.toString(p.getBarCode()))
+				|| StringUtility.isEmpty(Integer.toString(p.getOrderQty()))
+				|| StringUtility.isEmpty(Integer.toString(p.getReorderQty()))) {
 			return Constants.ALL_FIELDS_REQUIRED;
 		}
-		if (	p.getQtyAvailable() < 0		||
-				p.getOrderQty() < 0		|| 
-				p.getReorderQty() < 0
-				)	{
+		if (p.getQtyAvailable() < 0 || p.getOrderQty() < 0
+				|| p.getReorderQty() < 0) {
 			return Utility.getPropertyValue(Constants.msgnotNegative);
 		}
-		if (!(p.getPrice() > 0)){
+		if (!(p.getPrice() > 0)) {
 			return Utility.getPropertyValue(Constants.pricemorethanzero);
 		}
 
@@ -102,7 +98,7 @@ public class ProductService {
 	public static List<Product> getProducts() {
 		return productDao.retrieveAll();
 	}
-	
+
 	public static Map<Long, Product> getProductMap() {
 		return productDao.getBarCodeProductMap();
 	}
@@ -112,7 +108,6 @@ public class ProductService {
 	}
 
 	public static boolean editProduct(Product p) {
-
 		return productDao.editProduct(p);
 	}
 }
