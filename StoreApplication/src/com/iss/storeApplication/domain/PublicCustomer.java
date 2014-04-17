@@ -1,16 +1,18 @@
 package com.iss.storeApplication.domain;
 
-public class PublicCustomer extends Customer{
+import com.iss.storeApplication.common.Constants;
 
-		// not null and unique
-		private String memberId="PUBLIC";
+public class PublicCustomer extends Customer {
 
-		public String getMemberId() {
-			return memberId;
-		}
+	// not null and unique
+	private String memberId = Constants.PUBLIC;
 
-		public void setMemberId(String memberId) {
-			this.memberId = memberId;
-		}
-		
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
 }

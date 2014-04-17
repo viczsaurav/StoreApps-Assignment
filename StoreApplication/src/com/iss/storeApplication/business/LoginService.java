@@ -2,12 +2,9 @@ package com.iss.storeApplication.business;
 
 import java.util.Map;
 
-import javax.swing.JOptionPane;
-
-import com.iss.storeApplication.common.Constansts;
+import com.iss.storeApplication.common.Constants;
 import com.iss.storeApplication.dao.StoreKeeperDao;
 import com.iss.storeApplication.domain.StoreKeeper;
-import com.iss.storeApplication.view.MainView;
 
 /**
  * 
@@ -15,6 +12,8 @@ import com.iss.storeApplication.view.MainView;
  * 
  */
 public class LoginService {
+
+	private static StoreKeeperDao storekeeperDao = new StoreKeeperDao();
 
 	/**
 	 * 
@@ -27,31 +26,23 @@ public class LoginService {
 
 		if (storekeeper.getUserName().equals("")
 				&& storekeeper.getPassword().equals("")) {
-			return Constansts.MSG_USR_PWD_NULL;
+			return Constants.MSG_USR_PWD_NULL;
 		} else if (storekeeper.getUserName().equals("")) {
-			return Constansts.MSG_USR_NULL;
+			return Constants.MSG_USR_NULL;
 		} else if (storekeeper.getPassword().equals("")) {
-			return Constansts.MSG_PWD_NULL;
+			return Constants.MSG_PWD_NULL;
 		} else {
-			// Map<String, StoreKeeper>
-			// storeKeeperMap=StoreKeeperDao.getStoreKeeperMap();
-			Map<String, String> storeKeeperMap = StoreKeeperDao
-					.getStoreKeeperMap();
-			if (storeKeeperMap.containsValue(storekeeper.getUserName())
-					&& storeKeeperMap.containsValue(storekeeper.getPassword())) {
 
-				return Constansts.LOGIN_SUCCESS_MESSAGE;
-			}
-			else if(storeKeeperMap.containsValue(storekeeper.getUserName()))
-			{
-				return Constansts.LOGIN_CORRECT_PASSWORD;
-			}
-			else if(storeKeeperMap.containsValue(storekeeper.getPassword()))
-			{				
-				return Constansts.LOGIN_CORRECT_USERNAME;
-			}
-			else {
-				return Constansts.MSG_INVALID_USR_PWD;
+			Map<String, StoreKeeper> storeKeeperMap = storekeeperDao.getMap();
+			
+			if (storeKeeperMap.containsKey(storekeeper.getUserName().trim())) {
+				StoreKeeper sk = storeKeeperMap.get(storekeeper.getUserName());
+				if (sk.equals(storekeeper))
+					return Constants.LOGIN_SUCCESS_MESSAGE;
+				else
+					return Constants.LOGIN_INVALID_PASSWORD;
+			} else {
+				return Constants.MSG_INVALID_USR;
 			}
 
 		}

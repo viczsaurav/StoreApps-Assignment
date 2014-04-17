@@ -2,6 +2,8 @@ package com.iss.storeApplication.domain;
 
 import java.util.Date;
 
+import com.iss.storeApplication.common.StringUtility;
+
 public class SeasonalDiscount extends Discount {
 
 	private Date startDate;
@@ -21,6 +23,12 @@ public class SeasonalDiscount extends Discount {
 
 	public void setDuration(Integer duration) {
 		this.duration = duration;
+	}
+
+	public String getCommaSeperatedValue() {
+		return getDiscountCode() + "," + getDescription() + ","
+				+ StringUtility.getStringFromDate(startDate) + "," + duration
+				+ "," + getDiscount() + "," + getMemberApplicable();
 	}
 
 }

@@ -1,0 +1,109 @@
+ProductName=Product Name
+SUCCESS=SUCCESS
+Always=Always
+CategoryName=Category Name
+login=Login
+cancel=Cancel
+
+#Discount
+addDiscountBtn=Add Discount
+discountCode=Discount Code
+Description=Description
+discount=Discount (%)
+memberApplicable=Member Applicable
+startDate=Start Date
+duration=Duration
+discountType=Discount Type
+discountApplicable=Discount Applicable
+seasonalDiscount=Seasonal Discount
+permanentDiscount=Permanent Discount
+validateEmptyMessage=All Fields are mandatory
+failure=Error Occurred in Persisting Changes to File. Please contact Administrator.
+dcAlreadyExist=Discount Code Already Exist.
+editDiscount=Edit Discount
+selectRow=Please Select Row
+msgnotGrtThan100=Discount Code should not be greater than 100.
+msgnotNegative=Discount Code / Duration Cannot be negative.
+find=Find
+barcodeNotNull=Bar Code show not be Empty.
+barcode=Barcode
+productNotFound=Product not Found.
+
+#Toolbar
+billing=Billing
+category=Category
+members=Members
+purchaseOrder=Purchase Order
+products=Products
+reports=Reports
+logout=Logout
+login=Login
+cancel=Cancel
+
+#Product
+productCategory=Product Category
+productId=Product Id
+productName=Product Name
+productDescription=Product Description
+productQty=Product Quantity
+productPrice=Product Price
+productReorderThreshold=Product Reorder Threshold
+productOrderQty=Product Order Quantity
+addProductBtn=Add Product
+editProductBtn=Edit Product
+deleteProductBtn=Delete Product
+productNameCodeEmpty=Product Name and Code are empty
+productNameEmpty=Product Name is empty
+productCodeEmpty=Product code is empty
+productExists=Product Already Exist
+productCorrect=Correct Product
+prodReorderQuantDef=10
+prodOrderQuantDef=100
+barcodeExists=Barcode Already exists
+editProduct= Edit Product
+
+#Billing
+purchaseQty=Purchase Qty
+purchasedQtyNotNegative=Purchased Quantity Cannot be Negative.
+remove=Remove
+msgChgQty=Product already exist in table. Please update quantity in from table.
+total=total
+memberType=Member Type
+memberId=Member Id
+applyDiscount=Apply Discount
+billAmt=Bill Amount
+generateBill=Generate Bill
+reset=Reset
+loyalityEarned=Loyalty Earned
+reedemPoint=Redeem Point
+
+#Category
+categoryCode=Category Code
+categoryName=Category Name
+addCategoryBtn=Add Category
+categoryNameCodeEmpty=Category Name and Code are empty
+categoryNameEmpty=Category Name is empty
+categoryCodeEmpty=Category code is empty
+categoryExists=Category exists
+categoryCorrect=Correct Category
+
+#BillReport
+categoryReportButton=Category Report
+productReportButton=Product Report
+transactionReportButton= Transaction Report
+memeberReportButton=Member Report
+generateTransactions=Generate Transactions
+msgEnterMemId=Please Enter Member Id
+msgMemNotFound=Member Not Found.
+msgCannotReedemMoreThanEarned=Redeem Point is greater than Earned Point.
+transactionId=Transaction Id
+puchaseDate=Purchase Date
+billTitle=Generated Bill
+generatePurchaseOrder=Generate Purchase Order
+msgNoVendorFound=No Vendor Found For this category.
+vendorName=Vendor Name
+purchaseOrderDate=Purchase Order Date
+#Reports
+endDate=End Date
+dateIntervalInvalid= Enter valid date Interval.
+selectDateFromBelow= Please select date interval from the below fields.

@@ -1,23 +1,33 @@
 package com.iss.storeApplication.domain;
 
-import com.iss.storeApplication.common.Constansts;
+import com.iss.storeApplication.common.Constants;
 
-public class PermanentDiscount extends Discount{
+public class PermanentDiscount extends Discount {
 
-	String startDate=Constansts.ALWAYS;
-	String duration=Constansts.ALWAYS;
+	String startDate = Constants.ALWAYS;
+	String duration = Constants.ALWAYS;
+
 	public String getStartDate() {
 		return startDate;
 	}
+
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
+
 	public String getDuration() {
 		return duration;
 	}
+
 	public void setDuration(String duration) {
 		this.duration = duration;
 	}
-	
-	
+
+
+	public String getCommaSeperatedValue() {
+		return getDiscountCode() + "," + getDescription() + "," + startDate
+				+ "," + duration + "," + getDiscount() + ","
+				+ getMemberApplicable();
+	}
+
 }

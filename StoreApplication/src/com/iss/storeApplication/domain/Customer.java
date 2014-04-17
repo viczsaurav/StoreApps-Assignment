@@ -1,7 +1,8 @@
 package com.iss.storeApplication.domain;
 
-public abstract class Customer {
+import com.iss.storeApplication.common.Constants;
 
+public abstract class Customer {
 
 	public String getMemberName() {
 		return memberName;
@@ -18,8 +19,8 @@ public abstract class Customer {
 	public void setLoyality(Integer loyality) {
 		this.loyality = loyality;
 	}
-	
-	private String memberName;
-	
-	private Integer loyality;
+
+	private String memberName=Constants.PUBLIC;
+
+	private Integer loyality=0;
 }
